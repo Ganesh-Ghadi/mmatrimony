@@ -19,12 +19,18 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">               
                     <x-text-input name="name" value="{{ old('name', $package->name) }}" :label="__('Package Name')" :require="true" :messages="$errors->get('name')"/>              
                 </div>
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
+                    <x-text-input name="description" value="{{ old('description',$package->description) }}" :label="__('package description')" :require="true" :messages="$errors->get('description')"/>                       
+                </div>
+                <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
+                    <x-text-input name="price" value="{{ old('price',$package->price) }}" :label="__('package price')" :require="true" :messages="$errors->get('price')"/>                       
+                </div>
                 <div class="flex justify-end mt-4">
                     <x-success-button>
                         {{ __('Submit') }}
                     </x-success-button>
                     &nbsp;&nbsp;
-                    <x-cancel-button :link="route('castes.index')">
+                    <x-cancel-button :link="route('packages.index')">
                         {{ __('Cancel') }}
                     </x-cancel-button>
                 </div>

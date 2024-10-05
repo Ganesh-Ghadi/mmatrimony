@@ -29,6 +29,8 @@
                             <tr>                    
                                 <td>{{ $package->id }}</td>
                                 <td style="text-align:right;"> {{ $package->name }}</td>
+                                <td style="text-align:right;"> {{ $package->description }}</td>
+                                <td style="text-align:right;"> {{ $package->price }}</td>
                                 <td class="float-right">
                                     <ul class="flex items-center gap-2" >
                                         <li style="display: inline-block;vertical-align:top;">
