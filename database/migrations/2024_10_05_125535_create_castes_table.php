@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('grant_Approvals', function (Blueprint $table) {
-            $table->tinyInteger('approved_by_area',1)->default(0);
+        Schema::create('castes',function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('grant_Approvals', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('castes');
     }
 };

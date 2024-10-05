@@ -1,10 +1,11 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CastesController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CastesController;
 use App\Http\Controllers\DoctorsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChemistsController;
+use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeesController;
@@ -33,9 +34,9 @@ use App\Http\Controllers\DoctorBusinessMonitoringsController;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
-    // Route::get('/', function () {
-    //     return view('welcome');
-    // });
+    Route::get('/', function () {
+        return view('auth.register');
+    });
 
     // Route::get('/dashboard', function () {
     //     return view('dashboard');
@@ -44,7 +45,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::resource('dashboards', DashboardController::class)->middleware(['auth', 'verified']);
 
     Route::group(['middleware' => ['guest']], function() {
-        Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
+        // Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
         Route::get('/test', [DashboardController::class, 'test'])->name('test');
     });
     Route::resource('roles', RolesController::class);
@@ -161,6 +162,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::resource('products', ProductsController::class);
         Route::resource('castes', CastesController::class);
+        Route::resource('packages', PackagesController::class);
 
         Route::resource('territories', TerritoriesController::class);
         Route::resource('qualifications', QualificationsController::class);

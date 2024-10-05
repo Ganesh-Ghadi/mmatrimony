@@ -13,7 +13,7 @@ class CreateRoutePermissionsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'permission:create-permission-routes';
+    protected $signature = 'permissions:generate';
 
     /**
      * The console command description.

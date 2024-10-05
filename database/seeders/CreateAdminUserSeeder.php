@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
-
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use Illuminate\Support\Facades\Hash;
 
 class CreateAdminUserSeeder extends Seeder
 {
@@ -16,18 +15,23 @@ class CreateAdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::create([
-            'name' => 'Admin', 
-            'email' => 'admin@gmail.com',
-            'password' => 'admin123'
-        ]);
-    
-        $role = Role::create(['name' => 'admin']);
-     
-        $permissions = Permission::pluck('id','id')->all();
-   
+        // Create or retrieve the admin user
+        $user = User::updateOrCreate(
+            ['email' => 'sanjeev@sanmisha.com'], // Search for user by email
+            [
+                'name' => 'Sanjeev',
+                'password' => Hash::make('abcd123') // Hash the password
+            ]
+        );
+
+        // Create or retrieve the admin role
+        $role = Role::firstOrCreate(['name' => 'admin']);
+        
+        // Retrieve all permissions and sync them to the admin role
+        $permissions = Permission::pluck('id', 'id')->all();
         $role->syncPermissions($permissions);
-     
-        $user->assignRole([$role->id]);
+
+        // Assign the role to the user
+        $user->syncRoles([$role->id]); // Use syncRoles to avoid duplication
     }
 }
