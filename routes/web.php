@@ -38,9 +38,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         return view('auth.register');
     });
 
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::resource('dashboards', DashboardController::class)->middleware(['auth', 'verified']);
 
