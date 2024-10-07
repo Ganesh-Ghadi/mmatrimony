@@ -2,8 +2,8 @@
     <div
         class="flex justify-center items-center min-h-screen bg-[url('/assets/images/map.svg')] dark:bg-[url('/assets/images/map-dark.svg')] bg-cover bg-center">
         <div class="panel sm:w-[480px] m-6 max-w-lg w-full">
-            <h2 class="font-bold text-2xl mb-3">Sign In</h2>
-            <p class="mb-7">Enter your email and password to login</p>
+            <h2 class="font-bold text-2xl mb-3">Sign Up</h2>
+            <p class="mb-7">Enter your email and password to register</p>
             <x-auth-session-status class="mb-4" :status="session('status')" />
             <form class="space-y-5" method="POST" action="{{ route('register') }}">
                 @csrf
@@ -27,7 +27,7 @@
                     <input id="password_confirmation" name="password_confirmation" type="password" class="form-input" placeholder="Confirm Password" required autocomplete="current-password" />
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
-                <button type="submit" class="btn btn-primary w-full">SIGN IN</button>
+                <button type="submit" class="btn btn-primary w-full">SIGN UP</button>
             </form>
             <div
                 class="relative my-7 h-5 text-center before:w-full before:h-[1px] before:absolute before:inset-0 before:m-auto before:bg-[#ebedf2] dark:before:bg-[#253b5c]">

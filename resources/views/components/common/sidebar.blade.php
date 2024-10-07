@@ -82,6 +82,7 @@
                     <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/products">Products</a></li>
                         <li><a href="/castes">Casts</a></li>
+                        <li><a href="/sub_castes">SubCasts</a></li>
                         <li><a href="/packages">Packages</a></li>
                         <li><a href="/territories">Territories</a></li>
                         <li><a href="/qualifications">Qualifications</a></li>
