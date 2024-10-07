@@ -96,10 +96,10 @@
                 </li>
                 @endrole
 
-                @role(['user, admin'])
+                @role(['admin','member'])
                 <li class="menu nav-item">
-                    <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'master' }"
-                        @click="activeDropdown === 'master' ? activeDropdown = null : activeDropdown = 'master'">
+                    <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'profile' }"
+                        @click="activeDropdown === 'profile' ? activeDropdown = null : activeDropdown = 'profile'">
                         <div class="flex items-center">
                         <svg class="group-hover:!text-primary shrink-0" width="20" height="20"
                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,9 +114,9 @@
                                     fill="currentColor" />
                             </svg>
                             <span
-                                class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Master  </span>
+                                class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">profile Details  </span>
                         </div>
-                        <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'master' }">
+                        <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'profile' }">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5"
@@ -124,7 +124,7 @@
                             </svg>
                         </div>
                     </button>
-                    <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500">
+                    <ul x-cloak x-show="activeDropdown === 'profile'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/products">View Profile</a></li>
                         <li><a href="/castes">Basic Details</a></li>
                         <li><a href="/packages">Religious Details</a></li>
