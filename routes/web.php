@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\StockistsController;
+use App\Http\Controllers\subCastesController;
 use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\FreeSchemesController;
@@ -162,6 +163,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::resource('products', ProductsController::class);
         Route::resource('castes', CastesController::class);
+        Route::resource('sub_castes', subCastesController::class);
         Route::resource('packages', PackagesController::class);
 
         Route::resource('territories', TerritoriesController::class);
