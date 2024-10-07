@@ -3,10 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class CreateAdminUserSeeder extends Seeder
 {
@@ -19,10 +20,21 @@ class CreateAdminUserSeeder extends Seeder
         $user = User::updateOrCreate(
             ['email' => 'sanjeev@sanmisha.com'], // Search for user by email
             [
-                'name' => 'Sanjeev',
+                'name' => 'Sanjeev MiddleName Divekar',
                 'password' => Hash::make('abcd123') // Hash the password
             ]
         );
+
+        $profile = Profile::updateOrCreate(
+            ['user_id' => $user->id], // Search for user by email
+            [
+                'first_name' => 'Sanjeev',
+                'middle_name' => 'MiddleName',
+                'last_name' => 'Divekar',
+                'email' => 'sanjeev@sanmisha.com'
+            ]
+        );
+
 
         // Create or retrieve the admin role
         $role = Role::firstOrCreate(['name' => 'admin']);

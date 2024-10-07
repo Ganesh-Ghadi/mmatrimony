@@ -1,0 +1,121 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('profiles', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('first_name', 100)->nullable();
+            $table->string('middle_name', 100)->nullable();
+            $table->string('last_name', 100)->nullable();
+            $table->string('mother_tongue', 100)->nullable();
+            $table->string('native_place', 100)->nullable();
+            $table->string('gender', 50)->nullable();
+            $table->string('marital_status', 50)->nullable();
+            $table->string('living_with', 100)->nullable();
+            // health info
+            $table->string('blood_group', 10)->nullable();
+            $table->string('height', 10)->nullable();
+            $table->string('weight', 10)->nullable();
+            $table->string('body_type', 50)->nullable();
+            $table->string('complexion', 50)->nullable();
+            $table->string('physical_abnormality', 100)->nullable();
+            $table->string('spectacles', 50)->nullable();
+            $table->string('lens', 50)->nullable();
+            // food habits
+            $table->string('eating_habits', 100)->nullable();
+            $table->string('drinking_habits', 100)->nullable();
+            $table->string('smoking_habits', 100)->nullable();
+            // about self
+            $table->text('about_self')->nullable();
+            $table->string('img_1', 255)->nullable();
+            $table->string('img_2', 255)->nullable();
+            $table->string('img_3', 255)->nullable();
+            // Religious Information
+            $table->string('religion', 100)->nullable();
+            $table->integer('cast')->nullable();
+            $table->integer('sub_cast')->nullable();
+            $table->string('gotra', 100)->nullable();
+            // family details
+            $table->string('father_is_alive', 10)->nullable();
+            $table->string('father_name', 100)->nullable();
+            $table->string('father_occupation', 100)->nullable();
+            $table->string('father_organization', 100)->nullable();
+            $table->string('father_job_type', 100)->nullable();
+            $table->string('mother_is_alive', 10)->nullable();
+            $table->string('mother_name', 100)->nullable();
+            $table->string('mother_occupation', 100)->nullable();
+            $table->string('number_of_brothers_married', 40)->nullable();
+            $table->string('number_of_brothers_unmarried', 40)->nullable();
+            $table->string('brother_resident_place', 100)->nullable();
+            $table->string('number_of_sisters_married', 40)->nullable();
+            $table->string('number_of_sisters_unmarried', 40)->nullable();
+            $table->string('sister_resident_place', 100)->nullable();
+            $table->text('about_parents')->nullable();
+            // birth Information
+            $table->date('date_of_birth')->nullable();
+            $table->string('birth_time', 50)->nullable();
+            $table->string('birth_place', 100)->nullable();
+            // educational Information
+            $table->string('highest_education', 100)->nullable();
+            $table->text('education_in_detail')->nullable();
+            $table->string('additional_degree', 100)->nullable();
+            // occupational Information
+            $table->string('occupation', 100)->nullable();
+            $table->string('organization', 100)->nullable();
+            $table->string('designation', 100)->nullable();
+            $table->string('job_location', 100)->nullable();
+            // experience/income Information
+            $table->string('job_experience', 100)->nullable();
+            $table->decimal('income', 10,2)->nullable();
+            $table->string('currency', 50)->nullable();
+            // contact details
+            $table->string('country', 100)->nullable();
+            $table->string('state', 100)->nullable();
+            $table->string('city', 100)->nullable();
+            // address information
+            $table->text('address_line_1')->nullable();
+            $table->text('address_line_2')->nullable();
+            $table->string('landmark', 100)->nullable();
+            $table->string('pincode', 20)->nullable();
+            $table->string('mobile', 20)->nullable();
+            $table->string('landline', 15)->nullable();
+            $table->string('email', 100)->nullable();
+            // about life partner
+            $table->integer('partner_min_age')->nullable();
+            $table->integer('partner_max_age')->nullable();
+            $table->string('partner_min_height', 50)->nullable();
+            $table->string('partner_max_height', 50)->nullable();
+            // expected information about partners
+            $table->decimal('partner_income', 10, 2)->nullable();
+            $table->string('partner_currency', 50)->nullable();
+            $table->string('want_to_see_patrika', 100)->nullable();
+            $table->string('partner_sub_cast', 100)->nullable();
+            $table->string('partner_eating_habbit', 100)->nullable();
+            $table->string('partner_city_preference', 100)->nullable();
+            $table->string('partner_education', 100)->nullable();
+            $table->string('partner_education_specialization', 100)->nullable();
+            $table->string('partner_job', 100)->nullable();
+            $table->string('partner_business', 100)->nullable();
+            $table->string('partner_foreign_resident', 100)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('profiles');
+    }
+};
