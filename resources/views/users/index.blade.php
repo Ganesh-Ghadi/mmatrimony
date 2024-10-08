@@ -1,6 +1,6 @@
 <x-layout.default>
     <x-add-button :link="route('users.create')" />
-    <x-excel-button :link="route('users.import')" />
+    {{-- <x-excel-button :link="route('users.import')" /> --}}
     <br><br>
     <div x-data="form">      
         <div class="panel">

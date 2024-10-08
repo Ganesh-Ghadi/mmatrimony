@@ -80,18 +80,9 @@
                         </div>
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500">
-                        <li><a href="/products">Products</a></li>
                         <li><a href="/castes">Casts</a></li>
                         <li><a href="/sub_castes">SubCasts</a></li>
                         <li><a href="/packages">Packages</a></li>
-                        <li><a href="/territories">Territories</a></li>
-                        <li><a href="/qualifications">Qualifications</a></li>
-                        <li><a href="/categories">Categories</a></li>
-                        <li><a href="/activities">Activities</a></li>
-                        <li><a href="/employees">Employees</a></li>
-                        <li><a href="/stockists">Stockists</a></li>
-                        <li><a href="/doctors">Doctors</a></li>
-                        <li><a href="/chemists">Chemists</a></li>
                     </ul>
                 </li>
                 @endrole
@@ -126,7 +117,7 @@
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'profile'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/products">View Profile</a></li>
-                        <li><a href="/castes">Basic Details</a></li>
+                        <li><a href="/basic_details">Basic Details</a></li>
                         <li><a href="/packages">Religious Details</a></li>
                         <li><a href="/territories">Family Background</a></li>
                         <li><a href="/qualifications">Astronomy Details</a></li>

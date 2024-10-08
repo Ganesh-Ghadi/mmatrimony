@@ -3,15 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Profile;
+use App\Traits\CreatedUpdatedBy;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use App\Traits\CreatedUpdatedBy;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
-use App\Models\Employee;
 
 
 class User extends Authenticatable
@@ -31,9 +31,9 @@ class User extends Authenticatable
     ];
 
       //hasOne relationship
-      public function Employee()
+      public function profile()
       {
-          return $this->hasOne(Employee::class, 'id');
+          return $this->hasOne(Profile::class, 'user_id');
       }
 
     /**
