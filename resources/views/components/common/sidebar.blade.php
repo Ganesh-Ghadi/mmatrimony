@@ -83,6 +83,9 @@
                         <li><a href="/castes">Casts</a></li>
                         <li><a href="/sub_castes">SubCasts</a></li>
                         <li><a href="/packages">Packages</a></li>
+                        <li><a href="/states">States</a></li>
+                        <li><a href="/cities">Cities</a></li>
+
                     </ul>
                 </li>
                 @endrole

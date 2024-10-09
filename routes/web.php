@@ -1,13 +1,15 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\admin\CastesController;
+use App\Http\Controllers\admin\CitiesController;
+use App\Http\Controllers\admin\StatesController;
 use App\Http\Controllers\admin\PackagesController;
 use App\Http\Controllers\admin\ProfilesController;
-use App\Http\Controllers\admin\PermissionsController;
-use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\admin\subCastesController;
-use App\Http\Controllers\admin\CastesController;
+use App\Http\Controllers\admin\PermissionsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -65,6 +67,8 @@ Route::group(['middleware' => ['guest']], function() {
         Route::resource('sub_castes', subCastesController::class);
         Route::resource('packages', PackagesController::class);
         Route::resource('employees', EmployeesController::class);
+        Route::resource('states', StatesController::class);
+        Route::resource('cities', CitiesController::class);
 
         Route::resource('roles', RolesController::class);
         Route::resource('permissions', PermissionsController::class);
