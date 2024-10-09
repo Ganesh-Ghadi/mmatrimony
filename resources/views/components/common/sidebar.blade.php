@@ -119,17 +119,7 @@
                         </div>
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'profile'" x-collapse class="sub-menu text-gray-500">
-                        <li><a href="/products">View Profile</a></li>
-                        <li><a href="/basic_details">Basic Details</a></li>
-                        <li><a href="/packages">Religious Details</a></li>
-                        <li><a href="/territories">Family Background</a></li>
-                        <li><a href="/qualifications">Astronomy Details</a></li>
-                        <li><a href="/categories">Educational Details</a></li>
-                        <li><a href="/activities">Occupational Details</a></li>
-                        <li><a href="/employees">Contact Details</a></li>
-                        <li><a href="/stockists">Physical Health Details</a></li>
-                        <li><a href="/doctors">About Life Partner</a></li>
-                        <li><a href="/chemists">Pay Now</a></li>
+                        <li><a href="/user_profiles">View Profile</a></li>
                     </ul>
                 </li>
                 @endrole

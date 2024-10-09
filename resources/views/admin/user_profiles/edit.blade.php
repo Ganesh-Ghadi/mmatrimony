@@ -2,7 +2,7 @@
     <div>
         <ul class="flex space-x-2 rtl:space-x-reverse">
             <li>
-                <a href="{{ route('basic_details.create') }}" class="text-primary hover:underline">Basic Details</a>
+                <a href="{{ route('user_profiles.index') }}" class="text-primary hover:underline">Profile Details</a>
             </li>
             <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
                 <span>Add</span>
@@ -16,9 +16,9 @@
                         <h5 class="font-semibold text-lg dark:text-white-light">Personal Information</h5>
                     </div>               
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
-                        <x-text-input name="first_name" class="bg-gray-200" value="{{ $user->first_name }}" :label="__('first Name')" :require="true" :disabled="true" :messages="$errors->get('first_name')"/>   
-                        <x-text-input name="middle_name" class="bg-gray-200" value="{{ $user->middle_name }}" :label="__('middle Name')" :require="true" :disabled="true" :messages="$errors->get('middle_name')"/>                       
-                        <x-text-input name="last_name" class="bg-gray-200" value="{{ $user->last_name }}" :label="__('last Name')" :require="true" :disabled="true" :messages="$errors->get('last_name')"/>                                           
+                        <x-text-input name="first_name" class="bg-gray-200" value="{{ $profile->first_name }}" :label="__('first Name')" :require="true" :disabled="true" :messages="$errors->get('first_name')"/>   
+                        <x-text-input name="middle_name" class="bg-gray-200" value="{{ $profile->middle_name }}" :label="__('middle Name')" :require="true" :disabled="true" :messages="$errors->get('middle_name')"/>                       
+                        <x-text-input name="last_name" class="bg-gray-200" value="{{ $profile->last_name }}" :label="__('last Name')" :require="true" :disabled="true" :messages="$errors->get('last_name')"/>                                           
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
                             <div>
@@ -35,7 +35,7 @@
                                 <x-input-error :messages="$errors->get('mother_tongue')" class="mt-2" /> 
                             </div> 
                         <x-text-input name="native_place" value="{{ old('native_place') }}" :label="__('Native Place')" :require="false" :messages="$errors->get('native_place')"/>                       
-                        <x-text-input name="gender" class="bg-gray-200" value="{{$user->gender}}" :label="__('Gender')" :require="true" :messages="$errors->get('gender')" :disabled="true"/>                                           
+                        <x-text-input name="gender" class="bg-gray-200" value="{{$profile->gender}}" :label="__('Gender')" :require="true" :messages="$errors->get('gender')" :disabled="true"/>                                           
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
                         <div>

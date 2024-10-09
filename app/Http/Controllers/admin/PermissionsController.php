@@ -19,7 +19,7 @@ class PermissionsController extends Controller
 
     public function create() 
     { 
-        Artisan::call("permission:create-permission-routes");
+        Artisan::call("permissions:generate");
         return redirect()->route('permissions.index');
     }
 
