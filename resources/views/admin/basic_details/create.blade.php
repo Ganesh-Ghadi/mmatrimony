@@ -206,17 +206,42 @@
                 <div class="pt-5">        
                     <div class="panel">
                         <div class="flex items-center justify-between mb-5">
-                            <h5 class="font-semibold text-lg dark:text-white-light">About Self</h5>
+                            <h5 class="font-semibold text-lg dark:text-white-light">Upload Photo</h5>
                         </div>               
                         <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
                             <div>
-                                <label for="about_self">About Myself:</label>
-                                <textarea 
-                                    id="description" 
-                                    class="mt-1 block w-full h-32 p-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                                ></textarea>
-                                <x-input-error :messages="$errors->get('about_self')" class="mt-2" /> 
-                            </div> 
+                                <label for="file-upload" class="block text-sm font-medium text-gray-700">
+                                    Upload File:
+                                </label>
+                            
+                                <input 
+                                    type="file" 
+                                    id="file-upload" 
+                                    class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" 
+                                >
+                            </div>
+                            <div>
+                                <label for="file-upload" class="block text-sm font-medium text-gray-700">
+                                    Upload File:
+                                </label>
+                            
+                                <input 
+                                    type="file" 
+                                    id="file-upload" 
+                                    class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" 
+                                >
+                            </div>
+                            <div>
+                                <label for="file-upload" class="block text-sm font-medium text-gray-700">
+                                    Upload File:
+                                </label>
+                            
+                                <input 
+                                    type="file" 
+                                    id="file-upload" 
+                                    class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" 
+                                >
+                            </div>
                         </div>    
                      </div>
                         <div class="flex justify-end mt-4">

@@ -24,7 +24,7 @@ class PackageRequest extends FormRequest
         return [
             'name' => 'required|unique:castes,name,'. ($this->package ? $this->package->id : ''),
             'description' => 'required',
-            'price' => 'required|integer',
+            'price' => 'required|numeric',
 
         ];
         

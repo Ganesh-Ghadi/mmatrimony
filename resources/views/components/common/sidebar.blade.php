@@ -24,7 +24,7 @@
             <ul class="perfect-scrollbar relative font-semibold space-y-0.5 h-[calc(100vh-80px)] overflow-y-auto overflow-x-hidden  p-4 py-0"
                 x-data="{ activeDropdown: null }">
                 <li>   {{-- class="menu nav-item" --}}
-                    <a href="{{ url('/dashboards') }}" class="menu nav-item">
+                    <a href="{{ url('/admin/dashboard') }}" class="menu nav-item">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'dashboard' }"
                         @click="activeDropdown === 'dashboard' ? activeDropdown = null : activeDropdown = 'dashboard'">
                         <div class="flex items-center">

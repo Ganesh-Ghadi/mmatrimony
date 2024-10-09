@@ -2,7 +2,7 @@
 <div class="panel">
     <div class="grid grid-cols-1 ">
 
-        <div class="flex items-center p-3.5 rounded text-white bg-{{ $success ? 'success' : 'danger' }}"  x-data="{ open: true }"  x-show="open">
+        <div class="flex items-center p-3.5 rounded text-white bg-{{ $success ? 'green-500' : 'red-500' }}"  x-data="{ open: true }"  x-show="open">
             <span class="ltr:pr-2 rtl:pl-2">
                 <strong class="ltr:mr-1 rtl:ml-1">{{ $slot }}</strong>
             </span>

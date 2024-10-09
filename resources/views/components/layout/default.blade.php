@@ -110,7 +110,7 @@
         <div class="main-content">
             <x-common.header />
             @if(Session::has('success'))
-                <x-common.alert :success='true'> {{ session('success') }} </x-common.alert> 
+                <x-common.alert :success='true'> {{ session('success') }}</x-common.alert> 
             @elseif(Session::has('error'))
                 <x-common.alert > {{ session('error') }} </x-common.alert > 
             @endif

@@ -1,27 +1,14 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\CastesController;
-use App\Http\Controllers\DoctorsController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProfilesController;
-use App\Http\Controllers\ChemistsController;
-use App\Http\Controllers\PackagesController;
-use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EmployeesController;
-use App\Http\Controllers\StockistsController;
-use App\Http\Controllers\subCastesController;
-use App\Http\Controllers\ActivitiesController;
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\FreeSchemesController;
-use App\Http\Controllers\TerritoriesController;
-use App\Http\Controllers\GrantApprovalsController;
-use App\Http\Controllers\QualificationsController;
-use App\Http\Controllers\CustomerTrackingsController;
-use App\Http\Controllers\RoiAccountabilityReportsController;
+use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\admin\PackagesController;
+use App\Http\Controllers\admin\ProfilesController;
+use App\Http\Controllers\admin\PermissionsController;
+use App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\admin\subCastesController;
+use App\Http\Controllers\admin\CastesController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\DoctorBusinessMonitoringsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,27 +23,29 @@ use App\Http\Controllers\DoctorBusinessMonitoringsController;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
-   
 
-    Route::get('/dashboard', function () {
+    Route::get('/', function () {
         return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    })->name('dashboard');
 
-    Route::resource('dashboards', DashboardController::class)->middleware(['auth', 'verified']);
-
-    Route::group(['middleware' => ['guest']], function() {
-        Route::get('/test', [DashboardController::class, 'test'])->name('test');
-        Route::get('/', function () {
-            return view('auth.register');
-        });
-    });
    
+   
+//  start
+ 
+Route::group(['middleware' => ['guest']], function() {
+    Route::get('/admin', function () {
+        return view('admin.auth.login');
+    });
+});
+
+// end
+
 
     Route::group(['middleware' => ['auth', 'permission']], function() {
         /**
          * User Routes
          */
-        Route::group(['prefix' => 'users'], function() {
+        Route::group(['prefix' => 'users', 'namespace' => 'admin'], function() {
             Route::get('/', 'UsersController@index')->name('users.index');
             Route::get('/create', 'UsersController@create')->name('users.create');
             Route::post('/users/store', 'UsersController@store')->name('users.store');
@@ -81,6 +70,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('permissions', PermissionsController::class);
 
 
+        Route::get('/admin/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
       
        
               

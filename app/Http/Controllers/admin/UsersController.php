@@ -1,6 +1,7 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 use Excel;
+use App\Http\Controllers\Controller;
 use App\Imports\ImportUsers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -9,18 +10,19 @@ use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\DB;
 
+
 class UsersController extends Controller
 {
     public function index()
     {
         $users = User::orderBy('id', 'desc')->paginate(12);
-        return view('users.index', ['users' => $users]);
+        return view('admin.users.index', ['users' => $users]);
     }
 
     public function create()
     {
         $roles = Role::all();
-        return view('users.create')->with(['roles' => $roles]);
+        return view('admin.users.create')->with(['roles' => $roles]);
     }
 
     public function store(User $user, Request $request) 
@@ -47,7 +49,7 @@ class UsersController extends Controller
   
     public function edit(User $user)
     {
-        return view('users.edit')->with([
+        return view('admin.users.edit')->with([
             'user'  => $user,
             'userRole' => $user->roles->pluck('name')->toArray(),
             'roles' => Role::latest()->get()

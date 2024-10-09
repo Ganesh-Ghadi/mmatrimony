@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 use DB;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Permission;
 
@@ -14,14 +14,14 @@ class RolesController extends Controller
     {          
         $roles = Role::paginate(12);
         $permissions = Permission::all();
-        return view('roles.index',compact('roles','permissions'));
+        return view('admin.roles.index',compact('roles','permissions'));
     }
     
     public function create()
     {
         $permissions = Permission::get();
         // dd($permissions);
-        return view('roles.create', compact('permissions'));
+        return view('admin.roles.create', compact('permissions'));
     }
       
     public function store(Request $request)
@@ -44,7 +44,7 @@ class RolesController extends Controller
 
     public function edit(Role $role)
     {    
-        return view('roles.edit', [
+        return view('admin.roles.edit', [
             'role' => $role,
             'rolePermissions' => $role->permissions->pluck('name')->toArray(),
             'permissions' => Permission::get(),

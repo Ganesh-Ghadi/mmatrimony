@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Package;
 use App\Http\Requests\PackageRequest;
 
@@ -11,12 +12,12 @@ class PackagesController extends Controller
     public function index()
     {
         $packages = Package::orderBy('id', 'desc')->paginate(12);
-        return view('packages.index', ['packages' => $packages]);
+        return view('admin.packages.index', ['packages' => $packages]);
     }
 
     public function create()
     {
-        return view('packages.create');
+        return view('admin.packages.create');
     }
 
     public function store(PackageRequest $request) 
@@ -34,7 +35,7 @@ class PackagesController extends Controller
 
     public function edit(Package $package)
     {
-        return view('packages.edit', ['package' => $package]);
+        return view('admin.packages.edit', ['package' => $package]);
     }
 
     public function update(Package $package, PackageRequest $request) 
@@ -56,7 +57,7 @@ class PackagesController extends Controller
         $package = Package::where('name', 'like', "%$data%")->paginate(12);
         // $employees = Employee::with(['users'])->orderBy('id', 'desc')->paginate(12);
 
-        return view('packages.index', ['packages'=>$packages]);
+        return view('admin.packages.index', ['packages'=>$packages]);
     }
 
 }

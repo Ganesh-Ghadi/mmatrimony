@@ -19,12 +19,20 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return view('profile.change');
+        if(auth()->user()->roles->pluck('name')->first() === 'member'){
+            
+            
+        }
+        return view('admin.profile.change');
     }
 
     public function edit(User $user)
     {
-        return view('profile.edit')->with([
+        if(auth()->user()->roles->pluck('name')->first() === 'member'){
+            
+        }
+
+        return view('admin.profile.edit')->with([
             'user'  => $user
         ]);
     }
@@ -47,8 +55,12 @@ class ProfileController extends Controller
             #Commit Transaction
             DB::commit();
 
+            if(auth()->user()->roles->pluck('name')->first() === 'member'){
+               
+            }
+
             #Return To Profile page with success
-            return Redirect::route('dashboard')->with('succedd', 'Password has been changed');
+            return Redirect::route('admin.dashboard')->with('success', 'Password has been changed');
             
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -70,7 +82,11 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('dashboard')->with('status', 'profile-updated');
+        if(auth()->user()->roles->pluck('name')->first() === 'member'){
+         
+        }
+
+        return Redirect::route('admin.dashboard')->with('status', 'profile-updated');
     }
 
     /**

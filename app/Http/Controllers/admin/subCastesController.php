@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 use Excel;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\SubCaste;
 use App\Http\Requests\subCasteRequest;
 use App\Http\Requests\ProductRequest;
@@ -14,12 +15,12 @@ class subCastesController extends Controller
     public function index()
     {
         $sub_castes = SubCaste::orderBy('id', 'desc')->paginate(12);
-        return view('sub_castes.index', ['sub_castes' => $sub_castes]);
+        return view('admin.sub_castes.index', ['sub_castes' => $sub_castes]);
     }
 
     public function create()
     {
-        return view('sub_castes.create');
+        return view('admin.sub_castes.create');
     }
 
     public function store(subCasteRequest $request) 
@@ -37,7 +38,7 @@ class subCastesController extends Controller
 
     public function edit(SubCaste $sub_caste)
     {
-        return view('sub_castes.edit', ['sub_caste' => $sub_caste]);
+        return view('admin.sub_castes.edit', ['sub_caste' => $sub_caste]);
     }
 
     public function update(SubCaste $sub_caste, subCasteRequest $request) 

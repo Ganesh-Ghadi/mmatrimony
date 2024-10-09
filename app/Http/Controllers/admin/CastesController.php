@@ -1,6 +1,7 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 use Excel;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Caste;
 use App\Http\Requests\ProductRequest;
@@ -12,12 +13,12 @@ class CastesController extends Controller
     public function index()
     {
         $castes = Caste::orderBy('id', 'desc')->paginate(12);
-        return view('castes.index', ['castes' => $castes]);
+        return view('admin.castes.index', ['castes' => $castes]);
     }
 
     public function create()
     {
-        return view('castes.create');
+        return view('admin.castes.create');
     }
 
     public function store(CasteRequest $request) 
@@ -35,7 +36,7 @@ class CastesController extends Controller
 
     public function edit(Caste $caste)
     {
-        return view('castes.edit', ['caste' => $caste]);
+        return view('admin.castes.edit', ['caste' => $caste]);
     }
 
     public function update(Caste $caste, CasteRequest $request) 
@@ -57,7 +58,7 @@ class CastesController extends Controller
         $products = Product::where('name', 'like', "%$data%")->paginate(12);
         // $employees = Employee::with(['users'])->orderBy('id', 'desc')->paginate(12);
 
-        return view('products.index', ['products'=>$products]);
+        return view('admin.products.index', ['products'=>$products]);
     }
 
 }
