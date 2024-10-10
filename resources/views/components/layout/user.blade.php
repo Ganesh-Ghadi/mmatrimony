@@ -58,10 +58,17 @@
                                 <a href="#" class="nav-item nav-link">Success Stories</a>
                                 <a href="#" class="nav-item nav-link">Contact Us</a>
                             </div>
+                            @auth
                             <div class="d-flex align-items-center flex-nowrap pt-xl-0">
-                                <a href="#" class="btn btn-primary btn-primary-outline-0 py-2 px-4 ms-4">Register</a>
-                                <a href="#" class="btn btn-primary btn-primary-outline-0 py-2 px-4 ms-4">Login</a>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                            <button type="submit" class="btn btn-primary btn-primary-outline-0 py-2 px-4 ms-4">Logout</button>
+                        </form>
+                            @else
+                                <a href="{{route('register')}}" class="btn btn-primary btn-primary-outline-0 py-2 px-4 ms-4">Register</a>
+                                <a href="{{route('login')}}" class="btn btn-primary btn-primary-outline-0 py-2 px-4 ms-4">Login</a>
                             </div>
+                            @endauth
                         </div>
                     </nav>
                 </div>
@@ -148,10 +155,14 @@
                             <h4 class="mb-4 text-white">Marath Vivah Mandal, Dombivli</h4>
                             <p class="text-white">Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here 
                             </p>
+                            @auth
                             <div class="btn-link d-flex justify-content-center">
-                                <a href="#" class="btn  btn-light btn-light-outline-0 me-2">  Register</a>
-                                <a href="#" class="btn  btn-light btn-light-outline-0 me-2">  Login</a>
+                                <a href="{{route('logout')}}" class="btn  btn-light btn-light-outline-0 me-2">Logout</a>
+                            @else
+                                <a href="{{route('register')}}" class="btn  btn-light btn-light-outline-0 me-2">  Register</a>
+                                <a href="{{route('login')}}" class="btn  btn-light btn-light-outline-0 me-2">  Login</a>
                             </div>
+                            @endauth
                         </div>
                     </div>
                     <div class="col-lg-3 text-end">
