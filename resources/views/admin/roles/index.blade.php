@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
     <style>
         .dt-head-right {float: right;}
     </style>   
@@ -64,4 +64,4 @@
             }));
         });
     </script>
-</x-layout.default>
+</x-layout.admin>

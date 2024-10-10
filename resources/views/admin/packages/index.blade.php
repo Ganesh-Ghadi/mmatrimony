@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
     <x-add-button :link="route('packages.create')" />
     <br><br>
     <div x-data="form"> 
@@ -71,4 +71,4 @@
             }));
         });
     </script>
-</x-layout.default>
+</x-layout.admin>

@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
     <div>
         <ul class="flex space-x-2 rtl:space-x-reverse">
             <li>
@@ -74,4 +74,4 @@
         }));
     });
     </script>   -->
-</x-layout.default>
+</x-layout.admin>

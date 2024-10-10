@@ -1,4 +1,4 @@
-<x-layout.default>  
+<x-layout.admin>  
     <ul class="flex space-x-2 rtl:space-x-reverse">
         <li>
             <a href="{{ route('users.index') }}" class="text-primary hover:underline">Users</a>
@@ -42,4 +42,4 @@
             </div>
         </form>
     </div>    
-</x-layout.default>
+</x-layout.admin>

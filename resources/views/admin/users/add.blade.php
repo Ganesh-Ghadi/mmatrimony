@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
 
     <div x-data="contacts">
         <div class="flex items-center justify-between flex-wrap gap-4">
@@ -167,4 +167,4 @@
             }));
         });
     </script>
-</x-layout.default>
+</x-layout.admin>

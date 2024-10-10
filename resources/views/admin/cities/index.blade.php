@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
     <x-add-button :link="route('cities.create')" />
     @role(['admin'])
         {{-- <x-excel-button :link="route('cities.import')" /> --}}
@@ -70,4 +70,4 @@
             }));
         });
     </script>
-</x-layout.default>
+</x-layout.admin>

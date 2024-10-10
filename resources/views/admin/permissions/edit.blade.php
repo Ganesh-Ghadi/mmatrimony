@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
 
     <div>
         <ul class="flex space-x-2 rtl:space-x-reverse">
@@ -45,6 +45,6 @@
         </div>
     </div>
 
-</x-layout.default>
+</x-layout.admin>
 
 

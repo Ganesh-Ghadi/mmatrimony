@@ -1,4 +1,4 @@
-<x-layout.default>
+<x-layout.admin>
     <x-add-button :link="route('users.create')" />
     {{-- <x-excel-button :link="route('users.import')" /> --}}
     <br><br>
@@ -76,4 +76,4 @@
         }));
     });
 </script>
-</x-layout.default>
+</x-layout.admin>
