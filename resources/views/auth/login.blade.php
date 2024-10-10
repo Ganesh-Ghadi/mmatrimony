@@ -10,12 +10,12 @@
                     <div class="mb-3">
                         <label for="email" class="form-label" style="color: black;">Email</label>
                         <input id="email" name="email" type="email" class="form-control" value="{{ old('email') }}" placeholder="Enter Email" required autofocus autocomplete="username" />
-                        <x-input-error :messages="$errors->get('email')" class="mt-2" style="color: black;" />
+                        <x-input-error :messages="$errors->get('email')" class="mt-2 small text-danger " />
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label" style="color: black;">Password</label>
                         <input id="password" name="password" type="password" class="form-control" placeholder="Enter Password" required autocomplete="current-password" />
-                        <x-input-error :messages="$errors->get('password')" class="mt-2" style="color: black;" />
+                        <x-input-error :messages="$errors->get('password')" class="mt-2 small text-danger" />
                     </div>
                     <div class="mb-3 form-check">
                         <input id="remember_me" name="remember" type="checkbox" class="form-check-input" />

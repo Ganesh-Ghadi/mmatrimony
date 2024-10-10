@@ -34,7 +34,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     
     Route::group(['middleware' => ['guest']], function() {
         Route::get('/admin', function () {
-            return view('auth.login');
+            return view('auth.admin_login');
         });
    
 });
