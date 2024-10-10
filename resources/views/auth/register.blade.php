@@ -9,7 +9,7 @@
                     @csrf
                     <div class="row mb-3">
                         <div class="col">
-                            <label for="first_name" class="form-label" style="color: black;">First Name</label>
+                            <label for="first_name" class="form-label" style="color: black; margin: 10px 0">First Name</label>
                             <input id="first_name" name="first_name" type="text" class="form-control" value="{{ old('first_name') }}" placeholder="First Name" required autofocus autocomplete="" />
                             <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
                         </div>
