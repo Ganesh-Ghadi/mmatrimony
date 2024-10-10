@@ -1,43 +1,36 @@
-<x-layout.auth>
-    <div
-        class="flex justify-center items-center min-h-screen bg-[url('/assets/images/map.svg')] dark:bg-[url('/assets/images/map-dark.svg')] bg-cover bg-center">
-        <div class="panel sm:w-[480px] m-6 max-w-lg w-full">
-            <h2 class="font-bold text-2xl mb-3">Sign In</h2>
-            <p class="mb-7">Enter your email and password to login</p>
-            <x-auth-session-status class="mb-4" :status="session('status')" />
-            <form class="space-y-5" method="POST" action="{{ route('login') }}">
-                @csrf
-                <div>
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="email" class="form-input" value="{{ old('email') }}" placeholder="Enter Email" required autofocus autocomplete="username" />
-                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input id="password" name="password" type="password" class="form-input" placeholder="Enter Password" required autocomplete="current-password" />
-                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                </div>
-                <div>
-                    <label for="remember_me" class="cursor-pointer">
-                        <input id="remember_me" name="remember" type="checkbox" class="form-checkbox" />
-                        <span class="text-white-dark">{{ __('Remember me') }}</span>
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary w-full">SIGN IN</button>
-            </form>
-            <div
-                class="relative my-7 h-5 text-center before:w-full before:h-[1px] before:absolute before:inset-0 before:m-auto before:bg-[#ebedf2] dark:before:bg-[#253b5c]">
-                <div class="font-bold text-white-dark bg-white dark:bg-[#0e1726] px-2 relative z-[1] inline-block">
-                    <span>OR</span></div>
+<x-layout.user>
+    <div class="d-flex justify-content-center align-items-center min-vh-100 bg-light" style="background-image: url('/assets/images/map.svg'); background-size: cover; background-position: center;">
+        <div class="card" style="width: 480px;">
+            <div class="card-body">
+                <h2 class="font-weight-bold mb-3">Sign In</h2>
+                <p class="mb-4">Enter your email and password to login</p>
+                <x-auth-session-status class="mb-4" :status="session('status')" />
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="email" class="form-label" style="color: black;">Email</label>
+                        <input id="email" name="email" type="email" class="form-control" value="{{ old('email') }}" placeholder="Enter Email" required autofocus autocomplete="username" />
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" style="color: black;" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label" style="color: black;">Password</label>
+                        <input id="password" name="password" type="password" class="form-control" placeholder="Enter Password" required autocomplete="current-password" />
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" style="color: black;" />
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input id="remember_me" name="remember" type="checkbox" class="form-check-input" />
+                        <label for="remember_me" class="form-check-label" style="color: black;">{{ __('Remember me') }}</label>
+                    </div>
+                    <button type="submit" class="btn text-white btn-primary w-100">SIGN IN</button>
+                </form>
+                @if (Route::has('password.request'))
+                    <p class="text-center my-4">
+                        <a class="text-primary font-weight-bold" href="{{ route('password.request') }}">
+                            {{ __('Forgot your password?') }}
+                        </a>
+                    </p>
+                @endif
             </div>
-            @if (Route::has('password.request'))
-                <p class="text-center">
-                    <a class="text-primary font-bold hover:underline" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                </p>
-            @endif
         </div>
     </div>
-
-</x-layout.auth>
+</x-layout.user>

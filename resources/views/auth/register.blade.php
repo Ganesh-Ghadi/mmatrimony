@@ -1,6 +1,6 @@
 <x-layout.user>
-    <div class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
-        <div class="card" style="width: 50%;">
+    <div class="d-flex justify-content-center align-items-center min-vh-100 bg-light" style="background-image: url('/assets/images/map.svg'); background-size: cover; background-position: center;">
+        <div class="card" style="width: 480px;">
             <div class="card-body">
                 <h2 class="font-weight-bold mb-3">Register</h2>
                 <p class="mb-4">Enter the following details to register</p>
@@ -41,16 +41,16 @@
                         <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" placeholder="Confirm Password" required autocomplete="current-password" />
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                    <button type="submit" class="btn text-white btn-primary w-100">Register</button>
                 </form>
-                <div class="text-center my-4">
+                {{-- <div class="text-center my-4">
                     <div class="position-relative">
                         <hr class="my-2" />
                         <span class="bg-light px-2">OR</span>
                     </div>
-                </div>
+                </div> --}}
                 @if (Route::has('password.request'))
-                    <p class="text-center">
+                    <p class="text-right my-4 small">
                         <a class="text-primary font-weight-bold" href="{{ route('login') }}">
                             {{ __('Already have an Account?') }}
                         </a>
