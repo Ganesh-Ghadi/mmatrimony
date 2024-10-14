@@ -1,13 +1,14 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\admin\CastesController;
 use App\Http\Controllers\admin\CitiesController;
 use App\Http\Controllers\admin\StatesController;
+use App\Http\Controllers\UserProfilesController;
 use App\Http\Controllers\admin\PackagesController;
 use App\Http\Controllers\admin\ProfilesController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\admin\subCastesController;
 use App\Http\Controllers\admin\PermissionsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -60,7 +61,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         });
 
 
-       
+
+        Route::get('basic_details', [UserProfilesController::class, 'basic_details'])->name('basic_details.index');
         Route::resource('castes', CastesController::class);
         Route::resource('sub_castes', subCastesController::class);
         Route::resource('packages', PackagesController::class);
