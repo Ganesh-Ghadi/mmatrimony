@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Spatie\Permission\Models\Role;
 
 class CreateMemberUserSeeder extends Seeder
 {
@@ -23,17 +23,18 @@ class CreateMemberUserSeeder extends Seeder
         //         'password' => Hash::make('abcd123') // Hash the password
         //     ]
         // );
-    
-         // Create or retrieve the admin role
-        $role = Role::firstOrCreate(['name' => 'member']);     
 
-        $permissions = [
-           
-        ];
+        // Create or retrieve the admin role
+        $role = Role::firstOrCreate(['name' => 'member']);
+
+        // $permissions = [
+
+        // ];
+        $permissions = Permission::pluck('id', 'id')->all();
         // $adminRole->givePermissionTo($permissions);
 
         $role->syncPermissions($permissions);
-     
+
         // $user->assignRole([$role->id]);
     }
 }

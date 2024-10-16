@@ -1,6 +1,6 @@
-<x-layout.user>
+<x-layout.default>
    
-
+`
          {{-- start --}}
         <!-- Hello! Start -->
         <div class="container-fluid position-relative py-5" id="weddingAbout">
@@ -499,4 +499,4 @@
 
 
    
-   </x-layout.user>
+   </x-layout.default>

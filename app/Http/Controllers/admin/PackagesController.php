@@ -55,8 +55,7 @@ class PackagesController extends Controller
     public function search(Request $request){
         $data = $request->input('search');
         $package = Package::where('name', 'like', "%$data%")->paginate(12);
-        // $employees = Employee::with(['users'])->orderBy('id', 'desc')->paginate(12);
-
+ 
         return view('admin.packages.index', ['packages'=>$packages]);
     }
 

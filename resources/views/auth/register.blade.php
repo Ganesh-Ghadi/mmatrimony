@@ -32,6 +32,25 @@
                         <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger small" />
                     </div>
                     <div class="mb-2">
+                        <label for="mobile" class="form-label" style="color: black; margin: 10px 0;">Mobile</label>
+                        <input id="mobile" name="mobile" type="tel" class="form-control @error('mobile') is-invalid @enderror"
+                               value="{{ old('mobile') }}" placeholder="+91 1234567890" required autofocus autocomplete="off"
+                               pattern="^\+?[0-9]{1,15}$" title="Please enter a valid mobile number with country code (e.g., +1 1234567890)" />
+                        
+                        <x-input-error :messages="$errors->get('mobile')" class="mt-2 text-danger small" />
+                    </div>
+                    <div class="mb-2">
+                        <label for="date_of_birth" class="form-label" style="color: black; margin: 10px 0;">Date of Birth</label>
+                        <input id="date_of_birth" name="date_of_birth" type="date" class="form-control @error('date_of_birth') is-invalid @enderror"
+                               value="{{ old('date_of_birth') }}" placeholder="Enter Date of Birth" required autofocus
+                               max="{{ now()->subYears(18)->format('Y-m-d') }}" title="You must be at least 18 years old" />
+                        
+                        <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2 text-danger small" />
+                    </div>
+                    
+                    
+                    
+                    <div class="mb-2">
                         <label for="password" class="form-label" style="color: black; margin: 10px 0;">Password</label>
                         <input id="password" name="password" type="password" class="form-control" placeholder="Enter Password" required autocomplete="current-password" />
                         <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger small" />

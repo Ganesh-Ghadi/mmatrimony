@@ -29,9 +29,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if(auth()->user()->roles->pluck('name')->first() === 'member'){
+        if (auth()->user()->roles->pluck('name')->first() === 'member') {
             // dd('working');
-            return redirect()->route('dashboard');
+            return redirect()->route('basic_details.index');
         }
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
-      
+
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();

@@ -128,14 +128,19 @@
                 </button>
             </div>
         </div>
+        <!-- Carousel End -->
 
-        <div class="container">
-           <div class="d-flex justify-content-evenly">
-            {{ $slot }}
-           </div>
+          {{-- here --}}
+          {{-- {{ $slot }} --}}
+          <div class="container">
+            <!-- Yield the sidebar here -->
+            @yield('sidebar')
+    
+            <!-- Yield the main content here -->
+            @yield('content')
         </div>
-             
-  
+
+       
 
         <!-- Footer Start -->
         <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s">

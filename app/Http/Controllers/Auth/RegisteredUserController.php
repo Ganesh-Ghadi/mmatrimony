@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use App\Models\Profile;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rules;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
+use App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Auth\Events\Registered;
-use App\Providers\RouteServiceProvider;
+use Illuminate\Validation\Rules;
+use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -22,7 +23,6 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-       
         return view('auth.register');
     }
 
@@ -37,17 +37,21 @@ class RegisteredUserController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'digits:10'],
+            'date_of_birth' => ['required', 'date'],    
+             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+        // dd($request);
 
-        $fullName = trim($request->first_name.' '.$request->middle_name. ' '.$request->last_name);
-
+        $fullName = trim($request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name);
 
         $user = User::create([
             'name' => $fullName,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'mobile' => $request->mobile,
+             'date_of_birth' => $request->date_of_birth,
+             'password' => Hash::make($request->password),
         ]);
         // dd($user->id);
         $profile = Profile::create([
@@ -56,13 +60,14 @@ class RegisteredUserController extends Controller
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
+            'date_of_birth' => $request->date_of_birth,
+             'mobile' => $request->mobile,
         ]);
 
         event(new Registered($user));
-        $memberRole = Role::where("name", 'member')->first();
+        $memberRole = Role::where('name', 'member')->first();
         $user->assignRole($memberRole);
         // Auth::login($user);
-
 
         return redirect(route('login', absolute: false));
         // return redirect(RouteServiceProvider::HOME);
