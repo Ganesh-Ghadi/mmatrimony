@@ -23,43 +23,35 @@
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
                             <div>
                                 <label>Mother Tongue</label>
-                                <select class="form-input" name="mother_tongue" x-model="mother_tongue" id="mother_tongue">
-                                   <option value="" selected>select an option</option>
-                                    {{-- @foreach ($gaf_code as $id => $code)
-                                        <option value="{{$id}}">{{ $code }}</option>
-                                    @endforeach --}}
-                                    <option value="marathi">marathi</option>
-                                    <option value="hindi">hindi</option>
-                                    <option value="english">english</option>
+                                <select class="form-input" name="mother_tongue"   id="mother_tongue">
+                                    <option value="" selected>select an option</option>
+                                    @foreach(config('data.mother_tongues') as $value => $name)
+                                    <option value="{{ $value }}" {{($profile->mother_tongue === $value) ? 'selected': ''}} >{{ $name }}</option>
+                                @endforeach
                                 </select> 
                                 <x-input-error :messages="$errors->get('mother_tongue')" class="mt-2" /> 
                             </div> 
-                        <x-text-input name="native_place" value="{{ old('native_place') }}" :label="__('Native Place')" :require="false" :messages="$errors->get('native_place')"/>                       
+                        <x-text-input name="native_place" value="{{ $profile->native_place }}" :label="__('Native Place')" :require="false" :messages="$errors->get('native_place')"/>                       
                         <x-text-input name="gender" class="bg-gray-200" value="{{$profile->gender}}" :label="__('Gender')" :require="true" :messages="$errors->get('gender')" :disabled="true"/>                                           
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
                         <div>
                             <label>Marital Status <span class="text-red-500">*</span></label>
-                            <select class="form-input" name="marital_status" x-model="marital_status" id="marital_status">
+                            <select class="form-input" name="marital_status" id="marital_status">
                                <option value="" selected>select an option</option>
-                                {{-- @foreach ($gaf_code as $id => $code)
-                                    <option value="{{$id}}">{{ $code }}</option>
-                                @endforeach --}}
-                                <option value="divorced">Divorced</option>
-                                <option value="never married">Never Married</option>
-                                <option value="seperated">Seperated</option>
+                                @foreach (config('data.marital_status') as $value => $name)
+                                    <option value="{{$value}}" {{ ($profile->marital_status === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                @endforeach
                             </select> 
-                            <x-input-error :messages="$errors->get('mother_tongue')" class="mt-2" /> 
+                            <x-input-error :messages="$errors->get('marital_status')" class="mt-2" /> 
                         </div>                         
                             <div>
                                 <label>Living With <span class="text-red-500">*</span></label>
-                                <select class="form-input" name="living_with" x-model="living_with" id="living_with">
-                                   <option value="" selected>select an option</option>
-                                    {{-- @foreach ($gaf_code as $id => $code)
-                                        <option value="{{$id}}">{{ $code }}</option>
-                                    @endforeach --}}
-                                    <option value="family">Family</option>
-                                    <option value="individual">Individual</option>
+                                <select class="form-input" name="living_with" id="living_with">
+                                    <option value="" selected>select an option</option>
+                                    @foreach (config('data.living_status') as $value => $name)
+                                        <option value="{{$value}}" {{ ($profile->living_with === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
                                 </select> 
                                 <x-input-error :messages="$errors->get('mother_tongue')" class="mt-2" /> 
                             </div>  
@@ -77,70 +69,64 @@
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
                         <div>
                             <label>Blood Group <span class="text-red-500">*</span></label>
-                            <select class="form-input" name="blood_group" x-model="blood_group" id="blood_group">
-                               <option value="" selected>select an option</option>
-                                <option value="A+">A+</option>
-                                <option value="B+">B+</option>
-                                <option value="C+">C+</option>
+                            <select class="form-input" name="blood_group" id="blood_group">
+                                <option value="" selected>select an option</option>
+                                @foreach (config('data.blood_group') as $value => $name)
+                                    <option value="{{$value}}" {{ ($profile->blood_group === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                @endforeach
                             </select> 
                             <x-input-error :messages="$errors->get('blood_group')" class="mt-2" /> 
                         </div> 
                         <div>
                             <label>Height <span class="text-red-500">*</span></label>
-                            <select class="form-input" name="height" x-model="height" id="height">
-                               <option value="" selected>select an option</option>
-                                {{-- @foreach ($gaf_code as $id => $code)
-                                    <option value="{{$id}}">{{ $code }}</option>
-                                @endforeach --}}
-                                <option value="6'1">6'1</option>
-                                <option value="4'1">4'1</option>
-                                <option value="5'1">5'1</option>
+                            <select class="form-input" name="height" id="height">
+                                <option value="" selected>select an option</option>
+                                @foreach (config('data.height') as $value => $name)
+                                    <option value="{{$value}}" {{ ($profile->height === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                @endforeach
                             </select> 
                             <x-input-error :messages="$errors->get('height')" class="mt-2" /> 
                         </div>    
-                        <x-text-input name="weight" value="" :label="__('Weight')" :require="false"  :messages="$errors->get('weight')"/>   
+                        <x-text-input name="weight" value="{{ $profile->weight}}kg" :label="__('Weight')" :require="false"  :messages="$errors->get('weight')"/>   
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
                             <div>
                                 <label>Body Type <span class="text-red-500">*</span></label>
-                                <select class="form-input" name="body_type" x-model="body_type" id="body_type">
-                                   <option value="" selected>select an option</option>
-                                    {{-- @foreach ($gaf_code as $id => $code)
-                                        <option value="{{$id}}">{{ $code }}</option>
-                                    @endforeach --}}
-                                    <option value="slim">Slim</option>
-                                    <option value="average">Average</option>
-                                    <option value="heavey">Heavey</option>
+                                <select class="form-input" name="body_type" id="body_type">
+                                    <option value="" selected>select an option</option>
+                                    @foreach (config('data.body_type') as $value => $name)
+                                        <option value="{{$value}}" {{ ($profile->body_type === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
                                 </select> 
                                 <x-input-error :messages="$errors->get('body_type')" class="mt-2" /> 
                             </div> 
                             <div>
                                 <label>Complexion <span class="text-red-500">*</span></label>
-                                <select class="form-input" name="complexion" x-model="complexion" id="complexion">
-                                   <option value="" selected>select an option</option>
-                                    <option value="white">white</option>
-                                    <option value="brown">brown</option>
-                                    <option value="dark">dark</option>
+                                <select class="form-input" name="complexion" id="complexion">
+                                    <option value="" selected>select an option</option>
+                                    @foreach (config('data.complexion') as $value => $name)
+                                        <option value="{{$value}}" {{ ($profile->complexion === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
                                 </select> 
                                 <x-input-error :messages="$errors->get('complexion')" class="mt-2" /> 
                             </div> 
                             <div>
                                 <label>Physical Abnormality <span class="text-red-500">*</span></label>
-                                <select class="form-input" name="physical_abnormality" x-model="physical_abnormality" id="physical_abnormality">
+                                <select class="form-input" name="physical_abnormality" id="physical_abnormality">
                                    <option value="" selected>select an option</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
+                                    <option value="1" {{$profile->physical_abnormality === 1 ? 'selected' : ''}} >Yes</option>
+                                    <option value="0" {{$profile->physical_abnormality === 0 ? 'selected' : ''}}>No</option>
                                 </select> 
                                 <x-input-error :messages="$errors->get('physical_abnormality')" class="mt-2" /> 
                             </div> 
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
                       <div class="flex items-center">
-                        <input type="checkbox" name="spectacles" id="spectacles" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                        <input type="checkbox" {{($profile->spectacles === 1 ? 'checked' : '')}} name="spectacles" id="spectacles" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                         <label for="checkbox" class="ml-2">Spectacles</label>
                       </div>  
                       <div class="flex items-center">
-                        <input type="checkbox" name="lens" id="lens" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
+                        <input type="checkbox" {{($profile->lens === 1 ? 'checked' : '')}} name="lens" id="lens" class="form-checkbox text-primary rounded border-gray-300 focus:ring-primary">
                         <label for="checkbox" class="ml-2">Lens</label>
                       </div>                     
                  </div>
@@ -155,29 +141,31 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
                     <div>
                         <label>Eating Habits</label>
-                        <select class="form-input" name="eating_habits" x-model="eating_habits" id="eating_habits">
-                           <option value="" selected>select an option</option>
-                            <option value="veg">Veg</option>
-                            <option value="non-veg">Non-Veg</option>
-                            <option value="both">Both</option>
+                        <select class="form-input" name="eating_habits" id="eating_habits">
+                            <option value="" selected>select an option</option>
+                                    @foreach (config('data.eating_habits') as $value => $name)
+                                        <option value="{{$value}}" {{ ($profile->eating_habits === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
                         </select> 
                         <x-input-error :messages="$errors->get('eating_habits')" class="mt-2" /> 
                     </div> 
                     <div>
                         <label>Drinking Habits</label>
-                        <select class="form-input" name="drinking_habits" x-model="drinking_habits" id="drinking_habits">
-                           <option value="" selected>select an option</option>
-                            <option value="yes">Yes</option>
-                            <option value="no">no</option>
+                        <select class="form-input" name="drinking_habits" id="drinking_habits">
+                            <option value="" selected>select an option</option>
+                                    @foreach (config('data.drinking_habits') as $value => $name)
+                                        <option value="{{$value}}" {{ ($profile->drinking_habits === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
                         </select> 
                         <x-input-error :messages="$errors->get('drinking_habits')" class="mt-2" /> 
                     </div>    
                     <div>
                         <label>Smoking Habits</label>
-                        <select class="form-input" name="smoking_habits" x-model="smoking_habits" id="smoking_habits">
-                           <option value="" selected>select an option</option>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
+                        <select class="form-input" name="smoking_habits" id="smoking_habits">
+                            <option value="" selected>select an option</option>
+                            @foreach (config('data.smoking_habits') as $value => $name)
+                                <option value="{{$value}}" {{ ($profile->smoking_habits === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                            @endforeach
                         </select> 
                         <x-input-error :messages="$errors->get('smoking_habits')" class="mt-2" /> 
                     </div> 
@@ -196,7 +184,7 @@
                             <textarea 
                                 id="description" 
                                 class="mt-1 block w-full h-32 p-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                            ></textarea>
+                            >{{$profile->about_self}}</textarea>
                             <x-input-error :messages="$errors->get('about_self')" class="mt-2" /> 
                         </div> 
                     </div>    
@@ -254,48 +242,50 @@
                             <div class="grid grid-cols-2 gap-4 mb-4 md:grid-cols-3">  
                                 <div>
                                     <label>Religion</label>
-                                    <select class="form-input" name="religion" x-model="religion" id="religion">
+                                    <select class="form-input" name="religion"  id="religion">
                                         <option value="" selected>select an option</option>
-                                        <option value="hindu">Hindu</option>
+                                        <option value="hindu" {{ ($profile->religion === 'hindu') ? 'selected' : ''}} >Hindu</option>
                                     </select> 
                                     <x-input-error :messages="$errors->get('religion')" class="mt-2" /> 
                                 </div> 
                                 
                                 
-                                <template x-if="religion === 'hindu'">
+                                {{-- <template x-if="religion === 'hindu'"> --}}
                                     <div>
                                         <label>Castes</label>
-                                        <select class="form-input" name="castes" x-model="castes" id="castes">
+                                        <select class="form-input" name="castes" id="castes">
                                             <option value="" selected>select an option</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
+                                            @foreach($castes as $caste)
+                                            <option value="{{$caste->id}}" {{ ($profile->caste === $caste->id ) ? 'selected' : ''}}>{{$caste->name}}</option>
+                                            @endforeach
                                         </select> 
                                         <x-input-error :messages="$errors->get('castes')" class="mt-2" /> 
                                     </div>    
-                                </template>
+                                {{-- </template> --}}
                     
-                                <template x-if="religion === 'hindu'">
+                                {{-- <template x-if="religion === 'hindu'"> --}}
                                     <div>
                                         <label>Subcastes</label>
-                                        <select class="form-input" name="subcastes" x-model="subcastes" id="subcastes">
+                                        <select class="form-input" name="subcastes" id="subcastes">
                                             <option value="" selected>select an option</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
+                                            @foreach($subCastes as $subCaste)
+                                            <option value="{{$subCaste->id}}" {{ ($profile->sub_caste === $subCaste->id ) ? 'selected' : ''}}>{{$subCaste->name}}</option>
+                                            @endforeach
                                         </select> 
                                         <x-input-error :messages="$errors->get('subcastes')" class="mt-2" /> 
                                     </div>
-                                </template>
+                                {{-- </template> --}}
                     
-                                <template x-if="religion === 'hindu'">
-                                    <x-text-input name="gotra" value="{{ old('gotra') }}" :label="__('Gotra')" :require="false" :messages="$errors->get('gotra')"/>                       
-                                </template>
+                                {{-- <template x-if="religion === 'hindu'"> --}}
+                                    <x-text-input name="gotra" value="{{ $profile->gotra }}" :label="__('Gotra')" :require="false" :messages="$errors->get('gotra')"/>                       
+                                {{-- </template> --}}
                             </div>    
                         </div>
                     </div> 
                     {{-- Family Profile --}}
 
                     
-                    <div class="pt-5" x-data="{ isAlive: '', fullName: '', occupation: '', jobType: '', organizationName:'' }">     
+                    <div class="pt-5" x-data="{ father_is_alive: '', fullName: '', occupation: '', jobType: '', organizationName:'' }">     
                         
                         <div class="panel">
                            <h8>Family Details</h8>
@@ -305,47 +295,47 @@
                             <div class="grid grid-cols-2 gap-4 mb-4 md:grid-cols-3">  
                                 <div>
                                     <label>Is Alive</label>
-                                    <select class="form-input" name="isAlive" x-model="isAlive" id="isAlive">
+                                    <select class="form-input" name="father_is_alive"  id="father_is_alive">
                                         <option value="" selected>select an option</option>
-                                        <option value="yes">yes</option>
-                                        <option value="no">no</option>
+                                        <option value="1" {{$profile->father_is_alive === 1 ? 'selected' : ''}} >Yes</option>
+                                        <option value="0" {{$profile->father_is_alive === 0 ? 'selected' : ''}}>No</option>
                                     </select> 
                                     <x-input-error :messages="$errors->get('isAlive')" class="mt-2" /> 
                                 </div> 
-                                <template x-if="isAlive === 'yes'">
-                                    <x-text-input name="fullName" value="{{ old('fullName') }}" :label="__('Full Name')" :require="false" :messages="$errors->get('fullName')"/>                       
-                                </template>
+                                {{-- <template x-if="father_is_alive === 'yes'"> --}}
+                                    <x-text-input name="father_name" value="{{ $profile->father_name }}" :label="__('Full Name')" :require="false" :messages="$errors->get('father_name')"/>                       
+                                {{-- </template> --}}
                                 
                                 
-                                <template x-if="isAlive === 'yes'">
+                                {{-- <template x-if="father_is_alive === 'yes'"> --}}
                                     <div>
                                         <label>Occupation</label>
-                                        <select class="form-input" name="occupation" x-model="occupation" id="occupation">
+                                        <select class="form-input" name="father_occupation" id="occupation">
                                             <option value="" selected>select an option</option>
-                                            <option value="retired">Retired</option>
-                                            <option value="inService">In Service</option>
-                                            <option value="business">Business</option>
+                                    @foreach (config('data.occupation') as $value => $name)
+                                        <option value="{{$value}}" {{ ($profile->father_occupation === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
                                         </select> 
-                                        <x-input-error :messages="$errors->get('occupation')" class="mt-2" /> 
+                                        <x-input-error :messages="$errors->get('father_occupation')" class="mt-2" /> 
                                     </div>    
-                                </template>
+                                {{-- </template> --}}
                     
-                                <template x-if="isAlive === 'yes'">
+                                {{-- <template x-if="father_is_alive === 'yes'"> --}}
                                     <div>
                                         <label>Job Type</label>
-                                        <select class="form-input" name="jobType" x-model="jobType" id="jobType">
+                                        <select class="form-input" name="father_job_type" id="father_job_type">
                                             <option value="" selected>select an option</option>
-                                            <option value="government">Government</option>
-                                            <option value="semiGovernment">Semi Government</option>
-                                            <option value="private">Private</option>
+                                            <option value="government" {{ ($profile->father_job_type === 'government') ? 'selected' : '' }}>Government</option>
+                                            <option value="semiGovernment" {{ ($profile->father_job_type === 'semiGovernment') ? 'selected' : '' }}>Semi Government</option>
+                                            <option value="private" {{ ($profile->father_job_type === 'private') ? 'selected' : '' }}>Private</option>
                                          </select> 
-                                        <x-input-error :messages="$errors->get('jobType')" class="mt-2" /> 
+                                        <x-input-error :messages="$errors->get('father_job_type')" class="mt-2" /> 
                                     </div>
-                                </template>
+                                {{-- </template> --}}
                     
-                                <template x-if="isAlive === 'yes'">
-                                    <x-text-input name="organizationName" value="{{ old('organizationName') }}" :label="__('Organization Name')" :require="false" :messages="$errors->get('organizationName')"/>                       
-                                </template>
+                                {{-- <template x-if="father_is_alive === 'yes'"> --}}
+                                    <x-text-input name="father_organization" value="{{ $profile->father_organization }}" :label="__('Organization Name')" :require="false" :messages="$errors->get('father_organization')"/>                       
+                                {{-- </template> --}}
                             </div>    
                             {{-- mother details --}}
                             <div class="pt-5" x-data="{ isAlive: '', fullName: '', occupation: '', jobType: '', organizationName:'' }"> 
@@ -355,47 +345,47 @@
                             <div class="grid grid-cols-2 gap-4 mb-4 md:grid-cols-3">  
                                 <div>
                                     <label>Is Alive</label>
-                                    <select class="form-input" name="isAlive" x-model="isAlive" id="isAlive">
+                                    <select class="form-input" name="mother_is_alive" id="mother_is_alive">
                                         <option value="" selected>select an option</option>
-                                        <option value="yes">yes</option>
-                                        <option value="no">no</option>
+                                        <option value="1" {{$profile->mother_is_alive === 1 ? 'selected' : ''}} >Yes</option>
+                                        <option value="0" {{$profile->mother_is_alive === 0 ? 'selected' : ''}}>No</option>
                                     </select> 
-                                    <x-input-error :messages="$errors->get('isAlive')" class="mt-2" /> 
+                                    <x-input-error :messages="$errors->get('mother_is_alive')" class="mt-2" /> 
                                 </div> 
-                                <template x-if="isAlive === 'yes'">
-                                    <x-text-input name="fullName" value="{{ old('fullName') }}" :label="__('Full Name')" :require="false" :messages="$errors->get('fullName')"/>                       
-                                </template>
+                                {{-- <template x-if="isAlive === 'yes'"> --}}
+                                    <x-text-input name="mother_name" value="{{ $profile->mother_name }}" :label="__('Full Name')" :require="false" :messages="$errors->get('mother_name')"/>                       
+                                {{-- </template> --}}
                                 
                                 
-                                <template x-if="isAlive === 'yes'">
+                                {{-- <template x-if="isAlive === 'yes'"> --}}
                                     <div>
                                         <label>Occupation</label>
-                                        <select class="form-input" name="occupation" x-model="occupation" id="occupation">
+                                        <select class="form-input" name="mother_occupation" id="mother_occupation">
                                             <option value="" selected>select an option</option>
-                                            <option value="retired">Retired</option>
-                                            <option value="inService">In Service</option>
-                                            <option value="business">Business</option>
+                                            @foreach (config('data.occupation') as $value => $name)
+                                                <option value="{{$value}}" {{ ($profile->mother_occupation === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                            @endforeach
                                         </select> 
-                                        <x-input-error :messages="$errors->get('occupation')" class="mt-2" /> 
+                                        <x-input-error :messages="$errors->get('mother_occupation')" class="mt-2" /> 
                                     </div>    
-                                </template>
+                                {{-- </template> --}}
                     
-                                <template x-if="isAlive === 'yes'">
+                                {{-- <template x-if="isAlive === 'yes'"> --}}
                                     <div>
                                         <label>Job Type</label>
-                                        <select class="form-input" name="jobType" x-model="jobType" id="jobType">
+                                        <select class="form-input" name="mother_job_type" id="mother_job_type">
                                             <option value="" selected>select an option</option>
-                                            <option value="government">Government</option>
-                                            <option value="semiGovernment">Semi Government</option>
-                                            <option value="private">Private</option>
+                                            <option value="government" {{ ($profile->mother_job_type === 'government') ? 'selected' : '' }}>Government</option>
+                                            <option value="semiGovernment" {{ ($profile->mother_job_type === 'semiGovernment') ? 'selected' : '' }}>Semi Government</option>
+                                            <option value="private" {{ ($profile->mother_job_type === 'private') ? 'selected' : '' }}>Private</option>
                                          </select> 
-                                        <x-input-error :messages="$errors->get('jobType')" class="mt-2" /> 
+                                        <x-input-error :messages="$errors->get('mother_job_type')" class="mt-2" /> 
                                     </div>
-                                </template>
+                                {{-- </template> --}}
                     
-                                <template x-if="isAlive === 'yes'">
-                                    <x-text-input name="organizationName" value="{{ old('organizationName') }}" :label="__('Organization Name')" :require="false" :messages="$errors->get('organizationName')"/>                       
-                                </template>
+                                {{-- <template x-if="isAlive === 'yes'"> --}}
+                                    <x-text-input name="mother_organization" value="{{ $profile->mother_organization }}" :label="__('Organization Name')" :require="false" :messages="$errors->get('mother_organization')"/>                       
+                                {{-- </template> --}}
                             </div>  
                             </div>  
                             {{-- brother details --}}

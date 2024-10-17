@@ -28,9 +28,9 @@ return new class extends Migration
             $table->string('weight', 10)->nullable();
             $table->string('body_type', 50)->nullable();
             $table->string('complexion', 50)->nullable();
-            $table->string('physical_abnormality', 100)->nullable();
-            $table->string('spectacles', 50)->nullable();
-            $table->string('lens', 50)->nullable();
+            $table->boolean('physical_abnormality', 100)->default(0);
+            $table->boolean('spectacles')->default(0);
+            $table->boolean('lens')->default(0);
             // food habits
             $table->string('eating_habits', 100)->nullable();
             $table->string('drinking_habits', 100)->nullable();
@@ -42,8 +42,8 @@ return new class extends Migration
             $table->string('img_3', 255)->nullable();
             // Religious Information
             $table->string('religion', 100)->nullable();
-            $table->integer('cast')->nullable();
-            $table->integer('sub_cast')->nullable();
+            $table->integer('caste')->nullable();
+            $table->integer('sub_caste')->nullable();
             $table->string('gotra', 100)->nullable();
             // family details
             $table->string('father_is_alive', 10)->nullable();
@@ -54,6 +54,8 @@ return new class extends Migration
             $table->string('mother_is_alive', 10)->nullable();
             $table->string('mother_name', 100)->nullable();
             $table->string('mother_occupation', 100)->nullable();
+            $table->string('mother_organization', 100)->nullable();
+            $table->string('mother_job_type', 100)->nullable();
             $table->string('number_of_brothers_married', 40)->nullable();
             $table->string('number_of_brothers_unmarried', 40)->nullable();
             $table->string('brother_resident_place', 100)->nullable();
