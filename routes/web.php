@@ -52,7 +52,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::delete('/user_profiles/{id}', 'ProfilesController@edit')->name('user_profiles.destroy');
         });
 
+        Route::get('/view_profile', [UserProfilesController::class, 'view_profile'])->name('view_profile.create');
         Route::get('/basic_details', [UserProfilesController::class, 'basic_details'])->name('basic_details.index');
+        Route::post('/user_profile', [UserProfilesController::class, 'store'])->name('user_profile.store');
         Route::get('/religious_details', [UserProfilesController::class, 'religious_details'])->name('religious_details.create');
         Route::get('/family_details', [UserProfilesController::class, 'family_details'])->name('family_details.create');
         Route::get('/astronomy_details', [UserProfilesController::class, 'astronomy_details'])->name('astronomy_details.create');

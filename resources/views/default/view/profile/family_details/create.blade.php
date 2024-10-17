@@ -62,51 +62,68 @@
         border-radius: 4px;
         background-color: #f7f7f7;
     }
+    .sidebar {
+    width: 300px; /* Fixed width for the sidebar */
+    position: sticky;
+    top: 0; /* Make the sidebar sticky at the top when scrolling */
+    height: 100vh; /* Full height of the viewport */
+    background-color: #f5f5f5; /* Optional background color for sidebar */
+    padding: 15px;
+    border-left: 1px solid #ddd; /* Optional border for separation */
+}
         </style>
     </head>
     <body>
-
+ <div>
     <div class="panel">
         <h2>Father Details</h2>
 
         <div class="form-row">
+            
             <div class="form-group">
-                <label for="is_alive">Is Alive</label>
-                <select id="is_alive">
-                    <option value="">Select Is Alive</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                <label for="father_is_alive">Father is Alive</label>
+                <select class="form-input" name="father_is_alive" id="father_is_alive">
+                    <option value="" selected>Select an option</option>
+                    <option value="yes" {{ $user->father_is_alive === "yes" ? 'selected' : '' }}>Yes</option>
+                    <option value="no" {{ $user->father_is_alive === "no" ? 'selected' : '' }}>No</option>
                 </select>
+                <x-input-error :messages="$errors->get('father_is_alive')" class="mt-2" />
             </div>
         </div>
 
         <!-- Native Place and Gender fields, initially hidden -->
-        <div class="form-row hidden" id="additionalInfo">
+        <div class="form-row {{ $user->father_is_alive === 'yes' ? '' : 'hidden' }}" id="additionalInfo">
+
+        {{-- <div class="form-row hidden" id="additionalInfo"> --}}
             <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" placeholder="Enter Full Name">
+                <label for="father_name">Full Name</label>
+                <input type="text" class="form-input" name="father_name"  value="{{ $user->father_name }}" id="father_name" placeholder="Enter Father Name" required>
+                <x-input-error :messages="$errors->get('father_name')" class="mt-2" />
             </div>
             <div class="form-group">
                 <label for="occupation">Occupation</label>
-                <select id="occupation">
-                    <option value="">Select Occupation</option>
-                    <option value="retired">Retired</option>
-                    <option value="inservice">In Service</option>
-                    <option value="businesses">Businesses</option>
+                <select class="form-input" name="father_occupation" id="father_occupation">
+                    <option value="" selected>Select an option</option>
+                    @foreach (config('data.occupation') as $value => $name)
+                        <option value="{{$value}}" {{ ($user->father_occupation === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                    @endforeach
+                   
                 </select>
             </div>
             <div class="form-group">
-                <label for="jobType">Job Type</label>
-                <select id="jobType">
-                    <option value="">Select Job Type</option>
-                    <option value="retired">Retired</option>
-                    <option value="inservice">In Service</option>
-                    <option value="businesses">Businesses</option>
+                <label for="father_job_type">Job Type</label>
+                <select class="form-input" name="father_job_type" id="father_job_type">
+                    <option value="" selected>Select an option</option>
+                    @foreach (config('data.job_type') as $value => $name)
+                        <option value="{{$value}}" {{ ($user->father_job_type === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                    @endforeach
+                  
                 </select>
             </div>
             <div class="form-group">
                 <label for="organisationName">Organisation Name</label>
-                <input type="text" id="organisationName" placeholder="Enter Organisation Name">
+                <input type="text" class="form-input" name="father_organization"  value="{{ $user->father_organization }}" id="father_organization" placeholder="Enter Organisation Name" required>
+                <x-input-error :messages="$errors->get('father_organization')" class="mt-2" />
             </div>
        
     </div>
@@ -117,36 +134,41 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="mother_is_alive">Is Alive</label>
-                <select id="mother_is_alive">
-                    <option value="">Select Is Alive</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                <select class="form-input" name="mother_is_alive" id="mother_is_alive">
+                    <option value="" selected>Select an option</option>
+                    <option value="yes" {{ $user->mother_is_alive === "yes" ? 'selected' : '' }}>Yes</option>
+                    <option value="no" {{ $user->mother_is_alive === "no" ? 'selected' : '' }}>No</option>
                 </select>
             </div>
         </div>
     
         <!-- Additional fields, initially hidden -->
-        <div class="form-row hidden" id="motherAdditionalInfo">
+        <div class="form-row {{ $user->mother_is_alive === 'yes' ? '' : 'hidden' }}" id="additionalInfo">
+
+        {{-- <div class="form-row hidden" id="motherAdditionalInfo"> --}}
             <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" placeholder="Enter Full Name">
+                <label for="mother_name">Full Name</label>
+                <input class="form-input" name="mother_name"  value="{{ $user->mother_name }}" id="mother_name" placeholder="Enter Mother Name" required>
+                <x-input-error :messages="$errors->get('mother_name')" class="mt-2" />
             </div>
             <div class="form-group">
                 <label for="occupation">Occupation</label>
-                <select id="occupation">
-                    <option value="">Select Occupation</option>
-                    <option value="retired">Retired</option>
-                    <option value="inservice">In Service</option>
-                    <option value="businesses">Businesses</option>
+                <select class="form-input" name="mother_occupation" id="mother_occupation">
+                    <option value="" selected>Select an option</option>
+                    @foreach (config('data.occupation') as $value => $name)
+                        <option value="{{$value}}" {{ ($user->mother_occupation === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                    @endforeach
+                   
                 </select>
             </div>
             <div class="form-group">
-                <label for="jobType">Job Type</label>
-                <select id="jobType">
-                    <option value="">Select Job Type</option>
-                    <option value="retired">Retired</option>
-                    <option value="inservice">In Service</option>
-                    <option value="businesses">Businesses</option>
+                <label for="mother_job_type">Job Type</label>
+                <select class="form-input" name="mother_job_type" id="mother_job_type">
+                    <option value="" selected>Select an option</option>
+                    @foreach (config('data.job_type') as $value => $name)
+                        <option value="{{$value}}" {{ ($user->mother_job_type === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                    @endforeach
+                     
                 </select>
             </div>
             <div class="form-group">
@@ -159,16 +181,23 @@
         <h2>Brother Details</h2>
         <div class="form-row">
             <div class="form-group">
-                <label for="residentPlace">Resident Place</label>
-                <input type="text" id="residentPlace" placeholder="Enter Resident Place">
+                <label for="brother_resident_place">Resident Place</label>
+                <input type="text" class="form-input" name="brother_resident_place"  value="{{ $user->brother_resident_place }}" id="brother_resident_place" placeholder="Enter Resident Place" required>
+                <x-input-error :messages="$errors->get('brother_resident_place')" class="mt-2" />
              </div>
             <div class="form-group">
-                <label for="married">Married</label>
-                <select id="married">
-                    <option value="">Select Married</option>
+                <label for="number_of_brothers_married">Married</label>
+                <select class="form-input" name="married" x-model="married" id="married">
+                    <option value="" selected>select an option</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                 </select> 
+                <x-input-error :messages="$errors->get('married')" class="mt-2" /> 
+                     
+                    
                 </select>
             </div>
             <div class="form-group">
@@ -186,8 +215,9 @@
         <h2>Sister Details</h2>
         <div class="form-row">
             <div class="form-group">
-                <label for="residentPlace">Resident Place</label>
-                <input type="text" id="residentPlace" placeholder="Enter Resident Place">
+                <label for="sister_resident_place">Resident Place</label>
+                <input class="form-input" name="sister_resident_place"  value="{{ $user->sister_resident_place }}" id="sister_resident_place" placeholder="Enter Resident Place" required>
+                <x-input-error :messages="$errors->get('sister_resident_place')" class="mt-2" />
              </div>
             <div class="form-group">
                 <label for="married">Married</label>
@@ -210,22 +240,28 @@
         </div>
     </div>
 
+
     <div class="panel">
         <h2>About Parents</h2>
-        <div class="form-row">
+        <div class="panel">
             <div class="form-group">
-                <label for="aboutParents">About Parents</label>
-                <textarea id="aboutParents" rows="4" placeholder="Describe About Parents"></textarea>
+                <label for="about_parents">About Yourself</label>
+                <textarea name="about_parents" id="about_parents" class="form-input" placeholder="Tell us about yourself..." required>{{ old('about_parents', $user->about_parents) }}</textarea>
+                <x-input-error :messages="$errors->get('about_parents')" class="mt-2" />
             </div>
-        </div>
     </div>
+    </div>
+</div>
+<div class="sidebar">
+    <x-common.usersidebar />
+</div>
 
     
 
 
     <script>
         // Grab the 'Is Alive' dropdown and the additional info row
-        const isAliveSelect = document.getElementById('is_alive');
+        const isAliveSelect = document.getElementById('father_is_alive');
         const additionalInfo = document.getElementById('additionalInfo');
 
         // Listen for changes in the 'Is Alive' dropdown

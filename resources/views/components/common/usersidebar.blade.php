@@ -99,7 +99,7 @@
             <ul class="list-group">
                 
                 
-                <li class="list-group-item"><a href="{{ route('religious_details.create') }}">View Profile</a></li>
+                <li class="list-group-item"><a href="">View Profile</a></li>
                 <li class="list-group-item"><a href="{{ route('basic_details.index') }}">Basic Details</a></li>
                 <li class="list-group-item"><a href="{{ route('religious_details.create') }}">Religious Details</a></li>
                 <li class="list-group-item"><a href="{{ route('family_details.create') }}">Family Background</a></li>

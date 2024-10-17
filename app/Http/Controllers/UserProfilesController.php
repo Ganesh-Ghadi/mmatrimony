@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class UserProfilesController extends Controller
 {
+    public function view_profile()
+    {
+        $user = auth()->user()->profile()->first();
+        return view('default.view.profile.view_profile.create', ['user' => $user]);
+    }
+
     public function basic_details()
     {
         $user = auth()->user()->profile()->first();
@@ -21,7 +27,7 @@ class UserProfilesController extends Controller
     public function family_details()
     {
         $user = auth()->user()->profile()->first();
-        return view('default.view.profile.family_details.index', ['user' => $user]);
+        return view('default.view.profile.family_details.create', ['user' => $user]);
     }
 
     public function astronomy_details()
@@ -53,4 +59,10 @@ class UserProfilesController extends Controller
         $user = auth()->user()->profile()->first();
         return view('default.view.profile.life_partner.create', ['user' => $user]);
     }
+
+    public function store(Request $request)
+    {
+        
+    }
+    
 }

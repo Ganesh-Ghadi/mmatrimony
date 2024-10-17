@@ -44,14 +44,14 @@
         <div class="container-fluid sticky-top px-0">
             <div class="container-fluid">
                 <div class="container px-0">
-                    <nav class="navbar navbar-light navbar-expand-xl" id="navBar">
+                    <nav class="navbar navbar-light navbar-expand-xl py-2" id="navBar">
                         <a href="#" class="navbar-brand">
-                            <img src="{{asset('assets/user/img/logo.png')}}" class="img-fluid" style="height: 90px;">
+                            <img src="{{asset('assets/user/img/logo.png')}}" class="img-fluid" style="height: 60px;">
                         </a>
-                        <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <button class="navbar-toggler py-1 px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                             <span class="fa fa-bars text-primary"></span>
                         </button>
-                        <div class="collapse navbar-collapse py-3" id="navbarCollapse">
+                        <div class="collapse navbar-collapse py-2" id="navbarCollapse">
                             <div class="navbar-nav mx-auto border-top">
                                 <a href="#" class="nav-item nav-link active">Home</a>
                                 <a href="#" class="nav-item nav-link">About Us</a>
@@ -59,14 +59,16 @@
                                 <a href="#" class="nav-item nav-link">Contact Us</a>
                             </div>
                             @auth
-                            <div class="d-flex align-items-center flex-nowrap pt-xl-0">
+                            <div class="d-flex align-items-center flex-nowrap">
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                            <button type="submit" class="btn btn-primary btn-primary-outline-0 py-2 px-4 ms-4">Logout</button>
-                        </form>
+                                    <button type="submit" class="btn btn-sm btn-primary py-1 px-3 ms-3">Logout</button>
+                                </form>
+                            </div>
                             @else
-                                <a href="{{route('register')}}" class="btn btn-primary btn-primary-outline-0 py-2 px-4 ms-4">Register</a>
-                                <a href="{{route('login')}}" class="btn btn-primary btn-primary-outline-0 py-2 px-4 ms-4">Login</a>
+                            <div class="d-flex align-items-center flex-nowrap">
+                                <a href="{{route('register')}}" class="btn btn-sm btn-primary py-1 px-3 ms-3">Register</a>
+                                <a href="{{route('login')}}" class="btn btn-sm btn-primary py-1 px-3 ms-3">Login</a>
                             </div>
                             @endauth
                         </div>
@@ -74,6 +76,7 @@
                 </div>
             </div>
         </div>
+        
         <!-- Navbar End -->
 
 

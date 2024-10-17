@@ -53,9 +53,20 @@
                 width: 100%;
                 margin-top: 20px;
             }
+            
+            .sidebar {
+    width: 300px; /* Fixed width for the sidebar */
+    position: sticky;
+    top: 0; /* Make the sidebar sticky at the top when scrolling */
+    height: 100vh; /* Full height of the viewport */
+    background-color: #f5f5f5; /* Optional background color for sidebar */
+    padding: 15px;
+    border-left: 1px solid #ddd; /* Optional border for separation */
+}
         </style>
     </head>
     <body>
+    <div>
         <div class="panel">
             <h2>Age / Height Information</h2>
             <div class="container mt-3" id="dropdowns">
@@ -217,7 +228,13 @@
         </div>
     </div>  
     <div class="container text-end">
-        <button type="button" class="btn btn-primary btn-sm p-2">Save</button>    
+        <button type="button" class="btn btn-primary btn-sm p-2">Save</button> 
+    </div>
+</div>
+
+<div class="sidebar">
+    <x-common.usersidebar />
+</div>
     </body>
     </html>
 {{-- end --}}

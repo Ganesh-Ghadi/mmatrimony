@@ -48,10 +48,19 @@
             .form-group textarea {
                 height: 100px; /* Adjust height for the textarea */
             }
+            .sidebar {
+    width: 300px; /* Fixed width for the sidebar */
+    position: sticky;
+    top: 0; /* Make the sidebar sticky at the top when scrolling */
+    height: 100vh; /* Full height of the viewport */
+    background-color: #f5f5f5; /* Optional background color for sidebar */
+    padding: 15px;
+    border-left: 1px solid #ddd; /* Optional border for separation */
+}
         </style>
     </head>
     <body>
-    
+        <div class="l">
     <div class="panel">
         <h2>Personal Information</h2>
 
@@ -88,6 +97,7 @@
             </div>
         </div>
     </div>
+   
 
     
 
@@ -233,6 +243,10 @@ document.getElementById('submit').addEventListener('click', function() {
             <textarea id="patrika" class="form-control" rows="4" placeholder="Enter more details..."></textarea>
         </div>
     </div>
+</div>
+ 
+<div class="sidebar">
+    <x-common.usersidebar />
 </div>
 <script>
     document.getElementById('toggleDropdowns').addEventListener('change', function() {

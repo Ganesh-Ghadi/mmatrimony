@@ -80,20 +80,31 @@
             .hidden {
                 display: none;
             }
+            .sidebar {
+    width: 300px; /* Fixed width for the sidebar */
+    position: sticky;
+    top: 0; /* Make the sidebar sticky at the top when scrolling */
+    height: 100vh; /* Full height of the viewport */
+    background-color: #f5f5f5; /* Optional background color for sidebar */
+    padding: 15px;
+    border-left: 1px solid #ddd; /* Optional border for separation */
+}
         </style>
     </head>
     <body>
+        <div class="l">
     <div class="panel">
         <h2>Religious Details</h2>
         <div class="form-row">
             <div class="form-group">
-                <label for="religion">Religion</label>
-                <select id="religion">
-                    <option value="">Select Religion</option>
-                    <option value="hindu">Hindu</option>
-                    <option value="muslim">Muslim</option>
-                    <option value="christian">Christian</option>
-                </select>
+                <label>Religion</label>
+                <select class="form-input" name="religion"  id="religion">
+                    <option value="" selected>select an option</option>
+                    <option value="hindu" {{ ($user->religion === 'hindu') ? 'selected' : ''}} >Hindu</option>
+                </select> 
+                <x-input-error :messages="$errors->get('religion')" class="mt-2" /> 
+                
+
             </div>
         </div>
 
@@ -117,6 +128,10 @@
                 <input type="text" id="gotra" placeholder="Enter Gotra">
             </div>
         </div>
+    </div>
+    </div>
+    <div class="sidebar">
+        <x-common.usersidebar />
     </div>
 
     <script>
