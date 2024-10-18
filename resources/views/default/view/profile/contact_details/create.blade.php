@@ -1,13 +1,7 @@
 <x-layout.user>
    
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Personal Information Panel</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
+    
+         <style>
             .panel {
                 border: 1px solid #ddd;
                 padding: 20px;
@@ -65,6 +59,8 @@
         </style>
     </head>
     <body>
+        <form action="{{ route('profiles.store') }}" method="POST">
+            @csrf
     <div>
         <div class="panel">
             <h2>Location Information</h2>
@@ -72,74 +68,41 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="countryDropdown" class="form-label">Country</label>
-                            <select id="countryDropdown" class="form-select">
-                                <option value="">Select an option</option>
-                                <option value="india">India</option>
-                                <option value="option">Option</option>
+                            <label for="country">Country</label>
+                            <select class="form-input" name="country" id="country">
+                                <option value="" selected>Select an option</option>
+                                @foreach (config('data.country', []) as $value => $name)
+                                    <option value="{{ $value }}" {{ ($user->country === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col" id="stateContainer" style="display: none;">
                         <div class="form-group">
-                            <label for="stateDropdown" class="form-label">State</label>
-                            <select id="stateDropdown" class="form-select">
-                                <option value="">Select an option</option>
-                                <option value="andaman_nicobar">Andaman and Nicobar Islands</option>
-                                <option value="andhra_pradesh">Andhra Pradesh</option>
-                                <option value="arunachal_pradesh">Arunachal Pradesh</option>
-                                <option value="assam">Assam</option>
-                                <option value="bihar">Bihar</option>
-                                <option value="chandigarh">Chandigarh</option>
-                                <option value="chhattisgarh">Chhattisgarh</option>
-                                <option value="dadra_nagar_haveli">Dadra and Nagar Haveli and Daman and Diu</option>
-                                <option value="daman_and_diu">Daman and Diu</option>
-                                <option value="delhi">Delhi</option>
-                                <option value="goa">Goa</option>
-                                <option value="gujarat">Gujarat</option>
-                                <option value="haryana">Haryana</option>
-                                <option value="himachal_pradesh">Himachal Pradesh</option>
-                                <option value="jammu_and_kashmir">Jammu and Kashmir</option>
-                                <option value="jharkhand">Jharkhand</option>
-                                <option value="karnataka">Karnataka</option>
-                                <option value="kerala">Kerala</option>
-                                <option value="lakshadweep">Lakshadweep</option>
-                                <option value="madhya_pradesh">Madhya Pradesh</option>
-                                <option value="maharashtra">Maharashtra</option>
-                                <option value="manipur">Manipur</option>
-                                <option value="meghalaya">Meghalaya</option>
-                                <option value="mizoram">Mizoram</option>
-                                <option value="nagaland">Nagaland</option>
-                                <option value="odisha">Odisha</option>
-                                <option value="punjab">Punjab</option>
-                                <option value="rajasthan">Rajasthan</option>
-                                <option value="sikkim">Sikkim</option>
-                                <option value="tamil_nadu">Tamil Nadu</option>
-                                <option value="telangana">Telangana</option>
-                                <option value="tripura">Tripura</option>
-                                <option value="uttar_pradesh">Uttar Pradesh</option>
-                                <option value="uttarakhand">Uttarakhand</option>
-                                <option value="west_bengal">West Bengal</option>
+                            <label for="state">State</label>
+                            <select class="form-input" name="state" id="state">
+                                <option value="" selected>Select an option</option>
+                                @foreach (config('data.state', []) as $value => $name)
+                                    <option value="{{ $value }}" {{ ($user->state === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
-                    
+        
                     <div class="col" id="cityContainer" style="display: none;">
                         <div class="form-group">
-                            <label for="cityDropdown" class="form-label">City</label>
-                            <select id="cityDropdown" class="form-select">
-                                <option value="">Select an option</option>
-                                 
-                            </select>
+                            <label for="city">City</label>
+                            <input type="text" name="city"  value="{{ $user->city }}" id="city" placeholder="Enter City" required>
+                            <x-input-error :messages="$errors->get('city')" class="mt-2" />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
         
         <script>
-            // Get the country dropdown and state/city containers
-            const countryDropdown = document.getElementById('countryDropdown');
+            // Get the country, state, and city elements
+            const countryDropdown = document.getElementById('country');
             const stateContainer = document.getElementById('stateContainer');
             const cityContainer = document.getElementById('cityContainer');
         
@@ -153,8 +116,8 @@
                     cityContainer.style.display = 'none'; // Hide city dropdown
                 }
             });
-            
         </script>
+        
         
 
     <div class="panel">
@@ -162,29 +125,32 @@
         <div class="container mt-3" id="dropdowns">
             <div class="col mt-3">
                 <div class="form-group">
-                    <label for="dropdown2" class="form-label">Address Line 1</label>
-                    <input type="text" id="dropdown2" class="form-control">
+                    <label for="address_line_1" class="form-label">Address Line 1</label>
+                    <input type="text" name="address_line_1" value="{{$user->address_line_1}}" id="address_line_1" class="form-control" placeholder="Enter Address Line 1">
+                    <x-input-error :messages="$errors->get('address_line_1')" class="mt-2" />
                 </div>
             </div>
             <div class="col mt-3">
                 <div class="form-group">
-                    <label for="dropdown2" class="form-label">Address Line 2
-                    </label>
-                    <input type="text" id="dropdown2" class="form-control">
+                    <label for="address_line_2" class="form-label">Address Line 2</label>
+                    <input type="text" name="address_line_2" value="{{$user->address_line_2}}" id="address_line_2" class="form-control" placeholder="Enter Address Line 2">
+                    <x-input-error :messages="$errors->get('address_line_2')" class="mt-2" />
                 </div>
             </div>
             <div class="row mt-3">
                
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">Landmark</label>
-                        <input type="text" id="dropdown2" class="form-control">
+                        <label for="landmark" class="form-label">Landmark</label>
+                        <input type="text" name="landmark" value="{{$user->landmark}}" id="landmark" class="form-control" placeholder="Enter Landmark">
+                        <x-input-error :messages="$errors->get('landmark')" class="mt-2" />
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">Pin Code</label>
-                        <input type="text" id="dropdown2" class="form-control">
+                        <label for="pincode" class="form-label">pincode</label>
+                        <input type="text" name="pincode" value="{{$user->pincode}}" id="pincode" class="form-control" placeholder="Enter pincode">
+                        <x-input-error :messages="$errors->get('pincode')" class="mt-2" />
                     </div>
                 </div>
                 
@@ -194,27 +160,27 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="mobile" class="form-label">Mobile</label>
-                        <input type="text" id="mobile" class="form-control" required
+                        <input name="mobile" type="text" id="mobile" class="form-control" required
                                placeholder="1234567890"
+                               value="{{ $user->mobile }}" 
                                pattern="^\d{10}$"
                                title="Please enter a valid 10-digit mobile number">
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="landline" class="form-label">Landline</label>
-                        <input type="text" id="landline" class="form-control" required
-                               placeholder="012-3456789"
-                               title="Please enter a valid landline number">
-                        <div id="landlineError" class="text-danger" style="display:none;">Invalid landline format.</div>
+                        <label for="landline">Landline</label>
+                        <input type="text" name="landline"  value="{{ $user->landline }}" id="landline" placeholder="Enter landline" required>
+                        <x-input-error :messages="$errors->get('landline')" class="mt-2" />
                     </div>
                 </div>
             </div>
             <div class="row mt-3">  
                 <div class="form-group">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" class="form-control" required
+                    <input name="email" type="email" id="email" class="form-control" required
                            placeholder="example@example.com"
+                           value="{{ $user->email }}"
                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                            title="Please enter a valid email address">
                 </div>
@@ -222,24 +188,15 @@
         </div>
     </div>  
     <div class="container text-end">
-        <button type="button" class="btn btn-primary btn-sm p-2">Save</button>
+        <button type="submit" class="btn btn-primary btn-sm p-2">Save</button>
     </div>
 </div>
+</form>
 <div class="sidebar">
     <x-common.usersidebar />
 </div>
     <script>
-        const landlineInput = document.getElementById('landline');
-        const landlineError = document.getElementById('landlineError');
-    
-        landlineInput.addEventListener('input', function() {
-            const landlinePattern = /^(?:\d{3}-\d{7}|\d{7}|\d{10})$/;
-            if (landlinePattern.test(landlineInput.value)) {
-                landlineError.style.display = 'none';
-            } else {
-                landlineError.style.display = 'block';
-            }
-        });
+         
     </script>
 
     

@@ -1,13 +1,7 @@
 <x-layout.user>
    
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Personal Information Panel</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
+ 
+         <style>
             .panel {
                 border: 1px solid #ddd;
                 padding: 20px;
@@ -66,61 +60,67 @@
         </style>
     </head>
     <body>
-    <div>
+        <form action="{{ route('profiles.store') }}" method="POST">
+            @csrf
+                <div>
         <div class="panel">
             <h2>Age / Height Information</h2>
             <div class="container mt-3" id="dropdowns">
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="countryDropdown" class="form-label">Min Age</label>
-                            <select id="countryDropdown" class="form-select">
-                                <option value="">Select an option</option>
-                                 <option value="option">Option</option>
-                                <option value="option">Option</option>
+                            <label for="partner_min_age">Min Age</label>
+                            <select name="partner_min_age" id="partner_min_age" class="form-input">
+                                <option value="" selected>select an option</option>
+                                @if (config('data.partner_min_age'))
+                                    @foreach (config('data.partner_min_age') as $value => $name)
+                                        <option value="{{$value}}" {{ ($user->partner_min_age === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="countryDropdown" class="form-label">Max Age</label>
-                            <select id="countryDropdown" class="form-select">
-                                <option value="">Select an option</option>
-                                 <option value="option">Option</option>
-                                <option value="option">Option</option>
+                            <label for="partner_max_age">Max Age</label>
+                            <select name="partner_max_age" id="partner_max_age" class="form-input">
+                                <option value="" selected>select an option</option>
+                                @if (config('data.partner_max_age'))
+                                    @foreach (config('data.partner_max_age') as $value => $name)
+                                        <option value="{{$value}}" {{ ($user->partner_max_age === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="countryDropdown" class="form-label">Min Height</label>
-                            <select id="countryDropdown" class="form-select">
-                                <option value="">Select an option</option>
-                                 <option value="option">Option</option>
-                                <option value="option">Option</option>
+                            <label for="partner_min_height">Min Height</label>
+                            <select name="partner_min_height" id="partner_min_height" class="form-input">
+                                <option value="" selected>select an option</option>
+                                @if (config('data.partner_min_height'))
+                                    @foreach (config('data.partner_min_height') as $value => $name)
+                                        <option value="{{$value}}" {{ ($user->partner_min_height === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="countryDropdown" class="form-label">Max Height</label>
-                            <select id="countryDropdown" class="form-select">
-                                <option value="">Select an option</option>
-                                 <option value="option">Option</option>
-                                <option value="option">Option</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col" id="stateContainer" style="display: none;">
-                        <div class="form-group">
-                            <label for="stateDropdown" class="form-label">State</label>
-                            <select id="stateDropdown" class="form-select">
-                                <option value="">Select an option</option>
-                                 
+                            <label for="partner_max_height">Max Height</label>
+                            <select name="partner_max_height" id="partner_max_height" class="form-input">
+                                <option value="" selected>select an option</option>
+                                @if (config('data.partner_max_height'))
+                                    @foreach (config('data.partner_max_height') as $value => $name)
+                                        <option value="{{$value}}" {{ ($user->partner_max_height === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
+                                @endif
                                 
                             </select>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>  
@@ -129,16 +129,21 @@
         <div class="container mt-3" id="dropdowns">
             <div class="row mt-3">
                 <div class="form-group">
-                    <label for="dropdown2" class="form-label">Income</label>
-                    <input type="text" id="dropdown2" class="form-control" placeholder="Enter Income">
+                    <label for="partner_income">Partner Income</label>
+                    <input type="text" name="partner_income"  value="{{ $user->partner_income }}" id="partner_income" placeholder="Enter Native Place" required>
+                    <x-input-error :messages="$errors->get('partner_income')" class="mt-2" />
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="countryDropdown" class="form-label">Currency</label>
-                        <select id="countryDropdown" class="form-select">
-                            <option value="">Select an option</option>
-                             <option value="option">Option</option>
-                            <option value="option">Option</option>
+                        <label for="partner_currency">Currency</label>
+                        <select name="partner_currency" id="partner_currency" class="form-input">
+                            <option value="" selected>select an option</option>
+                            @if (config('data.partner_currency'))
+                                @foreach (config('data.partner_currency') as $value => $name)
+                                    <option value="{{$value}}" {{ ($user->partner_currency === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                @endforeach
+                            @endif
+                            
                         </select>
                     </div>
                 </div>
@@ -147,90 +152,102 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="form-group">
-                    <label for="countryDropdown" class="form-label">Want To See Patrika</label>
-                    <select id="countryDropdown" class="form-select">
-                        <option value="">Select an option</option>
-                         <option value="yes">Yes</option>
-                        <option value="no">No</option> 
+                    <label for="want_to_see_patrika">Want to see Patrika</label>
+                    <select class="form-input" name="want_to_see_patrika" id="want_to_see_patrika">
+                        <option value="" selected>Select an option</option>
+                        <!-- Correct string comparison for 'yes' and 'no' -->
+                        <option value="yes" {{ $user->want_to_see_patrika === 'yes' ? 'selected' : '' }}>Yes</option>
+                        <option value="no" {{ $user->want_to_see_patrika === 'no' ? 'selected' : '' }}>No</option>
                     </select>
+                    <x-input-error :messages="$errors->get('want_to_see_patrika')" class="mt-2" /> 
                 </div>
+                
             </div>
             <div class="col">
                 <div class="form-group">
-                    <label for="countryDropdown" class="form-label">SubCast</label>
-                    <select id="countryDropdown" class="form-select">
-                        <option value="">Select an option</option>
-                         <option value="yes">Yes</option>
-                        <option value="no">No</option>  
+                    <label for="partner_sub_cast">SubCast</label>
+                    <select class="form-input" name="partner_sub_cast" id="partner_sub_cast">
+                        <option value="" selected>Select an option</option>
+                        <!-- Correct string comparison for 'yes' and 'no' -->
+                        <option value="yes" {{ $user->partner_sub_cast === 'yes' ? 'selected' : '' }}>Yes</option>
+                        <option value="no" {{ $user->partner_sub_cast === 'no' ? 'selected' : '' }}>No</option>
                     </select>
+                    <x-input-error :messages="$errors->get('partner_sub_cast')" class="mt-2" /> 
                 </div>
                 </div> 
             <div class="row mt-3">
                 <div class="col">
                     <div class="form-group">
-                        <label for="countryDropdown" class="form-label">Eating Habbits</label>
-                        <select id="countryDropdown" class="form-select">
-                            <option value="">Select an option</option>
-                             <option value="any">Anything will do</option>
-                            <option value="eggetarian">Eggetarian</option>
-                            <option value="non-veg">Non-Veg</option>
-                            <option value="veg">Veg</option>
-                            <option value="vegan">Vegan</option>
-                            <option value="vegetarian">Vegetarian</option>
+                        <label for="partner_eating_habbit">Eating Habbits</label>
+                        <select class="form-input" name="partner_eating_habbit" id="partner_eating_habbit">
+                            <option value="" selected>Select an option</option>
+                            @foreach (config('data.partner_eating_habbit', []) as $value => $name)
+                                <option value="{{ $value }}" {{ ($user->partner_eating_habbit === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">City Preference</label>
-                        <input type="text" id="dropdown2" class="form-control">
+                        <label for="partner_city_preference">City Preference</label>
+                        <input type="text" name="partner_city_preference"  value="{{ $user->partner_city_preference }}" id="partner_city_preference" placeholder="Enter City Preference" required>
+                        <x-input-error :messages="$errors->get('partner_city_preference')" class="mt-2" />
                     </div>
                 </div>
             </div>  
             <div class="row mt-3">
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">Education Specialisation</label>
-                        <input type="text" id="dropdown2" class="form-control">
+                        <label for="partner_education">Education</label>
+                        <input type="text" name="partner_education"  value="{{ $user->partner_education }}" id="partner_education" placeholder="Enter Education" required>
+                        <x-input-error :messages="$errors->get('partner_education')" class="mt-2" />
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="countryDropdown" class="form-label">Job</label>
-                        <select id="countryDropdown" class="form-select">
-                            <option value="">Select an option</option>
-                             <option value="yes">Yes</option>
-                            <option value="no">No</option>  
+                        <label for="partner_job">Job</label>
+                        <select class="form-input" name="partner_job" id="partner_job">
+                            <option value="" selected>Select an option</option>
+                            <!-- Correct string comparison for 'yes' and 'no' -->
+                            <option value="yes" {{ $user->partner_job === 'yes' ? 'selected' : '' }}>Yes</option>
+                            <option value="no" {{ $user->partner_job === 'no' ? 'selected' : '' }}>No</option>
                         </select>
+                        <x-input-error :messages="$errors->get('partner_job')" class="mt-2" /> 
                     </div>
                     </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="countryDropdown" class="form-label">Business</label>
-                        <select id="countryDropdown" class="form-select">
-                            <option value="">Select an option</option>
-                             <option value="yes">Yes</option>
-                            <option value="no">No</option>  
+                        <label for="partner_business">Business</label>
+                        <select class="form-input" name="partner_business" id="partner_business">
+                            <option value="" selected>Select an option</option>
+                            <!-- Correct string comparison for 'yes' and 'no' -->
+                            <option value="yes" {{ $user->partner_business === 'yes' ? 'selected' : '' }}>Yes</option>
+                            <option value="no" {{ $user->partner_business === 'no' ? 'selected' : '' }}>No</option>
                         </select>
+                        <x-input-error :messages="$errors->get('partner_business')" class="mt-2" /> 
                     </div>
                     </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="countryDropdown" class="form-label">Foreign Residents</label>
-                        <select id="countryDropdown" class="form-select">
-                            <option value="">Select an option</option>
-                             <option value="yes">Yes</option>
-                            <option value="no">No</option>  
+                        <label for="partner_foreign_resident">Foreign resident</label>
+                        <select class="form-input" name="partner_foreign_resident" id="partner_foreign_resident">
+                            <option value="" selected>Select an option</option>
+                            <!-- Correct string comparison for 'yes' and 'no' -->
+                            <option value="yes" {{ $user->partner_foreign_resident === 'yes' ? 'selected' : '' }}>Yes</option>
+                            <option value="no" {{ $user->partner_foreign_resident === 'no' ? 'selected' : '' }}>No</option>
                         </select>
+                        <x-input-error :messages="$errors->get('partner_foreign_resident')" class="mt-2" /> 
                     </div>
                     </div>
             </div>         
         </div>
     </div>  
     <div class="container text-end">
-        <button type="button" class="btn btn-primary btn-sm p-2">Save</button> 
+        <button type="submit" class="btn btn-primary btn-sm p-2">Save</button> 
     </div>
 </div>
+</form>
+
 
 <div class="sidebar">
     <x-common.usersidebar />

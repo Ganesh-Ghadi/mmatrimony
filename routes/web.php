@@ -54,7 +54,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('/view_profile', [UserProfilesController::class, 'view_profile'])->name('view_profile.create');
         Route::get('/basic_details', [UserProfilesController::class, 'basic_details'])->name('basic_details.index');
-        Route::post('/user_profile', [UserProfilesController::class, 'store'])->name('user_profile.store');
         Route::get('/religious_details', [UserProfilesController::class, 'religious_details'])->name('religious_details.create');
         Route::get('/family_details', [UserProfilesController::class, 'family_details'])->name('family_details.create');
         Route::get('/astronomy_details', [UserProfilesController::class, 'astronomy_details'])->name('astronomy_details.create');
@@ -67,6 +66,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('packages', PackagesController::class);
         Route::resource('states', StatesController::class);
         Route::resource('cities', CitiesController::class);
+        Route::post('/save-profile', [UserProfilesController::class, 'store'])->name('profiles.store');
 
         Route::resource('roles', RolesController::class);
         Route::resource('permissions', PermissionsController::class);

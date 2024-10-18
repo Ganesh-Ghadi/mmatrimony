@@ -1,13 +1,7 @@
 <x-layout.user>
    
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Personal Information Panel</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
+   
+         <style>
             .panel {
                 border: 1px solid #ddd;
                 padding: 20px;
@@ -65,6 +59,8 @@
         </style>
     </head>
     <body>
+        <form action="{{ route('profiles.store') }}" method="POST">
+            @csrf
     <div>
     <div class="panel">
         <h2>Organisation Information</h2>
@@ -72,36 +68,36 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown1" class="form-label">Occupation</label>
-                        <select id="dropdown1" class="form-select">
-                            <option value="">Select an option</option>
-                            <option value="government">Government</option>
-                            <option value="semiGovernment">Semi Government</option>
-                            <option value="private">Private</option>
-                            <option value="inSearch">In Search</option>
-                            <option value="business">Business</option>
-                            <option value="businessAndServices">Business and Services</option>
+                        <label for="occupation">Occupation</label>
+                        <select name="occupation" id="occupation"">
+                            <option value="" selected>Select an option</option>
+                            @foreach (config('data.occupation', []) as $value => $name)
+                                <option value="{{$value}}" {{ ($user->occupation === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">Organisation</label>
-                        <input type="text" id="dropdown2" class="form-control">
+                        <label for="organization">Organisation</label>
+                        <input type="text" name="organization" value="{{$user->organization}}" id="organization" class="form-control" placeholder="Enter Organization">
+                        <x-input-error :messages="$errors->get('organization')" class="mt-2" />
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">Designation</label>
-                        <input type="text" id="dropdown2" class="form-control">
+                        <label for="designation">Designation</label>
+                        <input type="text" name="designation" value="{{$user->designation}}" id="designation" class="form-control" placeholder="Enter designation">
+                        <x-input-error :messages="$errors->get('designation')" class="mt-2" />
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">Job Location</label>
-                        <input type="text" id="dropdown2" class="form-control">
+                        <label for="job_location">Job Location</label>
+                        <input type="text" name="job_location" value="{{$user->job_location}}" id="job_location" class="form-control" placeholder="Enter job_location">
+                        <x-input-error :messages="$errors->get('job_location')" class="mt-2" />
                     </div>
                 </div>
             </div>
@@ -114,17 +110,19 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">Income</label>
-                        <input type="text" id="dropdown2" class="form-control">
+                        <label for="income">Income</label>
+                        <input type="text" name="income" value="{{$user->income}}" id="income" class="form-control" placeholder="Enter income">
+                        <x-input-error :messages="$errors->get('income')" class="mt-2" />
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">Job Experience</label>
-                        <input type="text" id="dropdown2" class="form-control">
+                        <label for="job_experience">Job Experience</label>
+                        <input type="text" name="job_experience" value="{{$user->job_experience}}" id="job_experience" class="form-control" placeholder="Enter Job Experience">
+                        <x-input-error :messages="$errors->get('job_experience')" class="mt-2" />
                     </div>
                 </div>
-                <div class="col">
+                {{-- <div class="col">
                     <div class="form-group">
                         <label for="dropdown1" class="form-label">Currency</label>
                         <select id="dropdown1" class="form-select">
@@ -134,12 +132,16 @@
                             <option value="aed">AED</option>    
                         </select>
                     </div>
-                </div>
+                </div> --}}
             </div>  
         </div>
        
     </div>  
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
 </div>
+</form>
   
  
 <div class="sidebar">

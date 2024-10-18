@@ -74,6 +74,8 @@
         </style>
     </head>
     <body>
+        <form action="{{ route('profiles.store') }}" method="POST">
+            @csrf
  <div>
     <div class="panel">
         <h2>Father Details</h2>
@@ -94,12 +96,12 @@
         <!-- Native Place and Gender fields, initially hidden -->
         <div class="form-row {{ $user->father_is_alive === 'yes' ? '' : 'hidden' }}" id="additionalInfo">
 
-        {{-- <div class="form-row hidden" id="additionalInfo"> --}}
-            <div class="form-group">
-                <label for="father_name">Full Name</label>
+              <div class="form-group">
+                <label for="father_name">Father Name</label>
                 <input type="text" class="form-input" name="father_name"  value="{{ $user->father_name }}" id="father_name" placeholder="Enter Father Name" required>
                 <x-input-error :messages="$errors->get('father_name')" class="mt-2" />
             </div>
+            
             <div class="form-group">
                 <label for="occupation">Occupation</label>
                 <select class="form-input" name="father_occupation" id="father_occupation">
@@ -172,8 +174,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="organisationName">Organisation Name</label>
-                <input type="text" id="organisationName" placeholder="Enter Organisation Name">
+                <label for="mother_organization">Organization Name</label>
+                <input type="text" name="mother_organization"  value="{{ $user->mother_organization }}" id="mother_organization" placeholder="Enter Native Place" required>
+                <x-input-error :messages="$errors->get('mother_organization')" class="mt-2" />
             </div>
         </div>
     </div>
@@ -185,28 +188,23 @@
                 <input type="text" class="form-input" name="brother_resident_place"  value="{{ $user->brother_resident_place }}" id="brother_resident_place" placeholder="Enter Resident Place" required>
                 <x-input-error :messages="$errors->get('brother_resident_place')" class="mt-2" />
              </div>
-            <div class="form-group">
-                <label for="number_of_brothers_married">Married</label>
-                <select class="form-input" name="married" x-model="married" id="married">
-                    <option value="" selected>select an option</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                 </select> 
-                <x-input-error :messages="$errors->get('married')" class="mt-2" /> 
-                     
-                    
+             <div class="form-group">
+                <label for="number_of_brothers_married">Brother Married</label>
+                <select name="number_of_brothers_married" id="number_of_brothers_married" class="form-input">
+                    <option value="" selected>Select an option</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}" {{ ($user->number_of_brothers_married == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Brothers' : 'Brother' }}</option>
+                    @endfor
                 </select>
             </div>
+            
             <div class="form-group">
-                <label for="unmarried">Unmarried</label>
-                <select id="unmarried">
-                    <option value="">Select Unmarried</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                <label for="number_of_brothers_unmarried">Brother UnMarried</label>
+                <select name="number_of_brothers_unmarried" id="number_of_brothers_unmarried" class="form-input">
+                    <option value="" selected>Select an option</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}" {{ ($user->number_of_brothers_unmarried == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Brothers' : 'Brother' }}</option>
+                    @endfor
                 </select>
             </div>
         </div>
@@ -219,22 +217,22 @@
                 <input class="form-input" name="sister_resident_place"  value="{{ $user->sister_resident_place }}" id="sister_resident_place" placeholder="Enter Resident Place" required>
                 <x-input-error :messages="$errors->get('sister_resident_place')" class="mt-2" />
              </div>
-            <div class="form-group">
-                <label for="married">Married</label>
-                <select id="married">
-                    <option value="">Select Married</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+             <div class="form-group">
+                <label for="number_of_sisters_married">Sister Married</label>
+                <select name="number_of_sisters_married" id="number_of_sisters_married" class="form-input">
+                    <option value="" selected>Select an option</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}" {{ ($user->number_of_sisters_married == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Sisters' : 'Sister' }}</option>
+                    @endfor
                 </select>
             </div>
             <div class="form-group">
-                <label for="unmarried">Unmarried</label>
-                <select id="unmarried">
-                    <option value="">Select Unmarried</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                <label for="number_of_sisters_unmarried">Sister UnMarried</label>
+                <select name="number_of_sisters_unmarried" id="number_of_sisters_unmarried" class="form-input">
+                    <option value="" selected>Select an option</option>
+                    @for ($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}" {{ ($user->number_of_sisters_unmarried == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Brothers' : 'Brother' }}</option>
+                    @endfor
                 </select>
             </div>
         </div>
@@ -251,7 +249,11 @@
             </div>
     </div>
     </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
 </div>
+</form>
 <div class="sidebar">
     <x-common.usersidebar />
 </div>

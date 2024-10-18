@@ -95,6 +95,12 @@ return [
         'non-vegetarian' => 'Non-Vegetarian',
         'eggeterian' => 'Eggeterian',
     ],
+    'partner_eating_habbit' => [
+        'vegetarian' => 'Vegetarian',
+        'vegan' => 'Vegan',
+        'non-vegetarian' => 'Non-Vegetarian',
+        'eggeterian' => 'Eggeterian',
+    ],
     'drinking_habits' => [
         'non-alcoholic' => 'Non-Alcoholic',
         'alcoholic' => 'Alcoholic',
@@ -125,6 +131,11 @@ return [
     ],
     // Currency
     'currency' => [
+        'USD' => 'USD',
+        'INR' => 'INR',
+        'EUR' => 'EUR',
+    ],
+    'partner_currency' => [
         'USD' => 'USD',
         'INR' => 'INR',
         'EUR' => 'EUR',
@@ -322,7 +333,7 @@ return [
         'zambia' => 'Zambia',
         'zimbabwe' => 'Zimbabwe',
     ],
-    'states' => [
+    'state' => [
         'andhra pradesh' => 'Andhra Pradesh',
         'arunachal pradesh' => 'Arunachal Pradesh',
         'assam' => 'Assam',
@@ -362,7 +373,7 @@ return [
     ],
     // Cities
     // About Life Partner
-    'min_age' => [
+    'partner_min_age' => [
         21 => '21 year',
         22 => '22 year',
         23 => '23 year',
@@ -414,7 +425,7 @@ return [
         69 => '69 year',
         70 => '70 year',
     ],
-    'max_age' => [
+    'partner_max_age' => [
         21 => '21 year',
         22 => '22 year',
         23 => '23 year',
@@ -466,7 +477,7 @@ return [
         69 => '69 year',
         70 => '70 year',
     ],
-    'min_height' => [
+    'partner_min_height' => [
         '4\'5" (134cm)' => '4\'5" (134cm)',
         '4\'6" (137cm)' => '4\'6" (137cm)',
         '4\'7" (140cm)' => '4\'7" (140cm)',
@@ -494,7 +505,7 @@ return [
         '6\'9" (207cm)' => '6\'9" (207cm)',
         '7\'0" (210cm)' => '7\'0" (210cm)',
     ],
-    'max_height' => [
+    'partner_max_height' => [
         '4\'5" (134cm)' => '4\'5" (134cm)',
         '4\'6" (137cm)' => '4\'6" (137cm)',
         '4\'7" (140cm)' => '4\'7" (140cm)',
@@ -522,7 +533,7 @@ return [
         '6\'9" (207cm)' => '6\'9" (207cm)',
         '7\'0" (210cm)' => '7\'0" (210cm)',
     ],
-    'education_levels' => [
+    'highest_education' => [
         'primary_education' => [
             'primary_school' => 'Primary School (Class 1-5)',
             'upper_primary' => 'Upper Primary School (Class 6-8)',
@@ -596,5 +607,5 @@ return [
             'inclusive_education' => 'Inclusive and Special Education Programs',
             'remedial_education' => 'Remedial Education',
         ],
-    ]
+    ],
 ];

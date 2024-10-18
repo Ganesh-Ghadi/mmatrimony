@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Default\UpdateProfileRequest;
+use App\Models\Caste;
+use App\Models\Profile;
+use App\Models\SubCaste;
 use Illuminate\Http\Request;
 
 class UserProfilesController extends Controller
@@ -21,7 +25,9 @@ class UserProfilesController extends Controller
     public function religious_details()
     {
         $user = auth()->user()->profile()->first();
-        return view('default.view.profile.religious_details.create', ['user' => $user]);
+        $castes = Caste::all();
+        $subCastes = SubCaste::all();
+        return view('default.view.profile.religious_details.create', ['user' => $user, 'castes' => $castes, 'subCastes' => $subCastes]);
     }
 
     public function family_details()
@@ -61,8 +67,20 @@ class UserProfilesController extends Controller
     }
 
     public function store(Request $request)
+    // public function store(UpdateProfileRequest $request)
     {
-        
+        $data = $request->all();
+        // dd($data);
+        // Get the logged-in user's profile
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+
+        // If profile exists, update the data
+        if ($profile) {
+            $profile->update($data);  // update() handles mass assignment based on fillable fields
+        } else {
+            return redirect()->back()->with('error', 'Profile not found.');
+        }
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
-    
 }

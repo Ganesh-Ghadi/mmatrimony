@@ -1,14 +1,7 @@
 <x-layout.user>
    
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Personal Information Panel</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <style>
+   
+          <style>
             .panel {
                 border: 1px solid #ddd;
                 padding: 20px;
@@ -61,6 +54,9 @@
         </style>
     </head>
     <body>
+
+        <form action="{{ route('profiles.store') }}" method="POST">
+            @csrf
     
   
         <div class="l">
@@ -70,38 +66,57 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown1" class="form-label">Highest Education</label>
-                        <select id="dropdown1" class="form-select">
-                            <option value="">Select an option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                        <label for="highest_education">Highest Education</label>
+                        <select name="highest_education" class="form-input" id="highest_education">
+                            <option value="" selected>Select an option</option>
+                            @foreach (config('data.highest_education', []) as $category => $options)
+                                <optgroup label="{{ ucwords(str_replace('_', ' ', $category)) }}">
+                                    @foreach ($options as $value => $name)
+                                        @if(is_array($name))
+                                            @foreach ($name as $subValue => $subName)
+                                                <option value="{{ $subValue }}" {{ ($user->highest_education === $subValue) ? 'selected' : '' }}>
+                                                    {{ $subName }}
+                                                </option>
+                                            @endforeach
+                                        @else
+                                            <option value="{{ $value }}" {{ ($user->highest_education === $value) ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">Education in Detail</label>
-                      <input type="text" id="dropdown2" class="form-control">
+                        <label for="education_in_detail">Education in Detail</label> 
+                      <input type="text" name="education_in_detail" value="{{$user->education_in_detail}}" id="education_in_detail" placeholder="Enter education in detail" required>
+                      <x-input-error :messages="$errors->get('education_in_detail')" class="mt-2" />
+
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown3" class="form-label">Additional Degree</label>
-                        <select id="dropdown3" class="form-select">
-                            <option value="">Select an option</option>
-                            <option value="A">Option A</option>
-                            <option value="B">Option B</option>
-                            <option value="C">Option C</option>
-                        </select>
+                        <label for="additional_degree">Additional Degree</label> 
+                      <input type="text" name="additional_degree" value="{{$user->additional_degree}}" id="additional_degree" placeholder="Enter education in detail" required>
+                      <x-input-error :messages="$errors->get('additional_degree')" class="mt-2" />
+
                     </div>
                    
                 </div>
                 
             </div><div class=""></div>
         </div>
+        
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Save</button>
     </div>
     </div>
+</form>
+
     <div class="sidebar">
         <x-common.usersidebar />
     </div>

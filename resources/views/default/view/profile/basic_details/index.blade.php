@@ -77,13 +77,33 @@
     padding: 15px;
     border-left: 1px solid #ddd; /* Optional border for separation */
 }
+/* //checkbox */
+.form-check {
+    display: flex;
+    align-items: center; /* Center aligns the checkbox and label vertically */
+}
+
+.form-check-input {
+    appearance: checkbox; /* Ensures the input is displayed as a checkbox */
+    width: 16px; /* Adjust the width */
+    height: 16px; /* Adjust the height */
+    margin-right: 8px; /* Space between the checkbox and label */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    outline: none; /* Removes the default browser outline */
+}
+
+.form-check-label {
+    font-size: 14px; /* Adjust the font size */
+    color: #333; /* Change label text color */
+}
+
             
 
    
             
         </style>
-      <form action="{{route('user_profile.store')}}" method="POST">
-        @csrf
+   <form action="{{ route('profiles.store') }}" method="POST">
+    @csrf
         <div class="l">
 
                   <div class="panel">
@@ -239,13 +259,35 @@
                 </select>
                 <x-input-error :messages="$errors->get('physical_abnormality')" class="mt-2" /> 
             </div>
+            <div class="form-group">
+                <label for="spectacles">Spectacles</label>
+                <!-- Hidden input to ensure 0 is submitted when unchecked -->
+                <input type="hidden" name="spectacles" value="0">
+                
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="spectacles" id="spectacles" value="1"
+                        {{ $user->spectacles ? 'checked' : '' }}>
+                 </div>
+                <x-input-error :messages="$errors->get('spectacles')" class="mt-2" />
+            </div>
+            <div class="form-group">
+                <label for="lens">lens</label>
+                <!-- Hidden input to ensure 0 is submitted when unchecked -->
+                <input type="hidden" name="lens" value="0">
+                
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="lens" id="lens" value="1"
+                        {{ $user->lens ? 'checked' : '' }}>
+                 </div>
+                <x-input-error :messages="$errors->get('lens')" class="mt-2" />
+            </div>
+            
+            
             
             
  
             
-            <div id="checkbox-container" class="form-row ">
-                
-            </div>
+            
         </div>
     </div>
     <div class="panel">
@@ -262,8 +304,8 @@
             </div>
            
             <div class="form-group">
-                <label for="drinking_habbits">Drinking Habbits</label>
-                <select class="form-input" name="drinking_habbits" id="drinking_habbits">
+                <label for="drinking_habits">Drinking Habbits</label>
+                <select class="form-input" name="drinking_habits" id="drinking_habbits">
                     <option value="" selected>Select an option</option>
                     @foreach (config('data.drinking_habits', []) as $value => $name)
                         <option value="{{ $value }}" {{ ($user->drinking_habits === $value) ? 'selected' : '' }}>{{ $name }}</option>
@@ -272,8 +314,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="smoking_habbits">Smoking Habbits</label>
-                <select class="form-input" name="smoking_habbits" id="smoking_habbits">
+                <label for="smoking_habits">Smoking Habbits</label>
+                <select class="form-input" name="smoking_habits" id="smoking_habbits">
                     <option value="" selected>Select an option</option>
                     @foreach (config('data.smoking_habits', []) as $value => $name)
                         <option value="{{ $value }}" {{ ($user->smoking_habits === $value) ? 'selected' : '' }}>{{ $name }}</option>
@@ -325,26 +367,7 @@
         <x-common.usersidebar />
     </div>
     <script>
-        // Create the checkboxes dynamically
-        const checkboxContainer = document.getElementById('checkbox-container');
-
-        // Spectacles checkbox
-        const spectaclesDiv = document.createElement('div');
-        spectaclesDiv.className = 'form-group';
-        const spectaclesLabel = document.createElement('label');
-        spectaclesLabel.innerHTML = '<input type="checkbox" id="spectacles" name="accessory"> Spectacles';
-        spectaclesDiv.appendChild(spectaclesLabel);
-
-        // Lens checkbox
-        const lensDiv = document.createElement('div');
-        lensDiv.className = 'form-group';
-        const lensLabel = document.createElement('label');
-        lensLabel.innerHTML = '<input type="checkbox" id="lens" name="accessory"> Lens';
-        lensDiv.appendChild(lensLabel);
-
-        // Append both checkboxes to the container
-        checkboxContainer.appendChild(spectaclesDiv);
-        checkboxContainer.appendChild(lensDiv);
+        
 
           // Get the container where the textarea will be inserted
           const textareaContainer = document.getElementById('textarea-container');

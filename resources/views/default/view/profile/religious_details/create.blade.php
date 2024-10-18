@@ -92,6 +92,8 @@
         </style>
     </head>
     <body>
+        <form action="{{ route('profiles.store') }}" method="POST">
+            @csrf
         <div class="l">
     <div class="panel">
         <h2>Religious Details</h2>
@@ -111,25 +113,38 @@
         
         <div class="form-row hidden" id="habitsRow">
             <div class="form-group">
-                <label for="cast">Cast</label>
-                <select id="cast">
-                    <option value="">Select Cast from config</option>
-                </select>
-            </div>
+                <label>Castes</label>
+                <select class="form-input" name="castes" id="castes">
+                    <option value="" selected>select an option</option>
+                    @foreach($castes as $caste)
+                    <option value="{{$caste->id}}" {{ ($user->caste === $caste->id ) ? 'selected' : ''}}>{{$caste->name}}</option>
+                    @endforeach
+                </select> 
+                <x-input-error :messages="$errors->get('castes')" class="mt-2" /> 
+            </div>   
 
             <div class="form-group">
-                <label for="subCast">SubCast</label>
-                <select id="subCast">
-                    <option value="">Select SubCast from config</option>
-                </select>
+                <label>Subcastes</label>
+                <select class="form-input" name="sub_caste" id="sub_caste">
+                    <option value="" selected>select an option</option>
+                    @foreach($subCastes as $subCaste)
+                    <option value="{{$subCaste->id}}" {{ ($user->sub_caste === $subCaste->id ) ? 'selected' : ''}}>{{$subCaste->name}}</option>
+                    @endforeach
+                </select> 
+                <x-input-error :messages="$errors->get('sub_caste')" class="mt-2" /> 
             </div>
             <div class="form-group">
                 <label for="gotra">Gotra</label>
-                <input type="text" id="gotra" placeholder="Enter Gotra">
+                <input type="text" name="gotra"  value="{{ $user->gotra }}" id="gotra" placeholder="Enter first name" required>
+                <x-input-error :messages="$errors->get('gotra')" class="mt-2" />
             </div>
         </div>
     </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Save</button>
     </div>
+    </div>
+    </form>
     <div class="sidebar">
         <x-common.usersidebar />
     </div>

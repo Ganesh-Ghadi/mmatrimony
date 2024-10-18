@@ -55,6 +55,7 @@
                             <div class="navbar-nav mx-auto border-top">
                                 <a href="#" class="nav-item nav-link active">Home</a>
                                 <a href="#" class="nav-item nav-link">About Us</a>
+                                <a href="{{ route('basic_details.index') }}" class="nav-item nav-link">Profile</a>
                                 <a href="#" class="nav-item nav-link">Success Stories</a>
                                 <a href="#" class="nav-item nav-link">Contact Us</a>
                             </div>
