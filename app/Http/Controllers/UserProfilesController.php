@@ -12,8 +12,9 @@ class UserProfilesController extends Controller
 {
     public function view_profile()
     {
+        $profiles = Profile::all();
         $user = auth()->user()->profile()->first();
-        return view('default.view.profile.view_profile.create', ['user' => $user]);
+        return view('default.view.profile.view_profile.create', ['user' => $user,'profiles'=>$profiles]);
     }
 
     public function basic_details()
