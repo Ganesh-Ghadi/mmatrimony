@@ -42,7 +42,7 @@
     border-radius: 8px; /* Optional: adds rounded corners */
     border: 1px solid #ddd; /* Optional: adds a border */
 }
-.sidebar {
+ .sidebar {
     width: 300px; /* Fixed width for the sidebar */
     position: sticky;
     top: 0; /* Make the sidebar sticky at the top when scrolling */
@@ -56,6 +56,19 @@
     </style>
     
     <div class="card-container">
+        <h3>Profile Images</h3>
+        <div class="form-row image-gallery">
+            <div class="form-group">
+                <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
+            </div>
+            <div class="form-group">
+                <img src="{{ asset('storage/images/' . $user->img_2) }}" alt="Uploaded Image" class="profile-image">
+            </div>
+            <div class="form-group">
+                <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" class="profile-image">
+            </div>
+        </div>
+        
         <div class="card">
             <h3>Profile</h3>
             <div class="card-row">
