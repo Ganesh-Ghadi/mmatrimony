@@ -34,6 +34,8 @@
     display: flex; /* Use flexbox for horizontal alignment */
     justify-content: space-around; /* Space images evenly */
     margin-bottom: 20px; /* Optional: add space below the gallery */
+    gap: 15px; /* Space between images */
+    flex-wrap: wrap; /* Allow images to wrap to the next line */
 }
 
 .profile-image {
@@ -41,6 +43,10 @@
     height: auto; /* Maintain aspect ratio */
     border-radius: 8px; /* Optional: adds rounded corners */
     border: 1px solid #ddd; /* Optional: adds a border */
+    object-fit: cover; /* Maintain aspect ratio and cover the height */
+    height: 150px; /* Set desired height */
+
+
 }
  .sidebar {
     width: 300px; /* Fixed width for the sidebar */
@@ -50,6 +56,9 @@
     background-color: #f5f5f5; /* Optional background color for sidebar */
     padding: 15px;
     border-left: 1px solid #ddd; /* Optional border for separation */
+}
+.form-group {
+    margin-right: 15px; /* Adjust as needed */
 }
 
 
@@ -68,6 +77,7 @@
                 <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" class="profile-image">
             </div>
         </div>
+        
         
         <div class="card">
             <h3>Profile</h3>
