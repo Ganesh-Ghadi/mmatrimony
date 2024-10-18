@@ -66,6 +66,12 @@ class UserProfilesController extends Controller
         return view('default.view.profile.life_partner.create', ['user' => $user]);
     }
 
+    public function user_packages()
+    {
+        $user = auth()->user()->profile()->first();
+        return view('default.view.profile.user_packages.create', ['user' => $user]);
+    }
+
     public function store(Request $request)
     // public function store(UpdateProfileRequest $request)
     {

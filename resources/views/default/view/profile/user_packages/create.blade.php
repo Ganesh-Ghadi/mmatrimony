@@ -1,3 +1,5 @@
+<x-layout.user>
+    
  
     <style>
         /* Sidebar style */
@@ -12,7 +14,6 @@
             z-index: 1030; /* Above other content */
             display: none; /* Start with sidebar hidden */
             overflow-y: auto; /* Enable scrolling when content exceeds the sidebar height */
-            z-index: 500;
         }
     
         /* Ensure sidebar is hidden on small screens and toggle button is visible */
@@ -79,42 +80,59 @@
             margin: 0 10px; /* Margin between boxes */
         }
 
+        .sidebar {
+    width: 300px; /* Fixed width for the sidebar */
+    position: sticky;
+    top: 0; /* Make the sidebar sticky at the top when scrolling */
+    height: 100vh; /* Full height of the viewport */
+    background-color: #f5f5f5; /* Optional background color for sidebar */
+    padding: 15px;
+    border-left: 1px solid #ddd; /* Optional border for separation */
+}
+
     </style>
     
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
-     
-
-     
-
-    {{-- Sidebar for larger screens --}}
-    <div id="sidebar">
-        <div class="offcanvas-header"> <!-- Hide on large screens -->
-        <h5 class="offcanvas-title" id="sidebarLabel">Profile Details</h5>
-        <button id="sidebarClose" class="btn btn-close  d-lg-none"></button> <!-- Close button -->
-    </div>
-    
-        <div class="offcanvas-body">
-            <ul class="list-group">
-                <li class="list-group-item"><a href="{{ route('view_profile.create') }}">View Profile</a></li>
-                <li class="list-group-item"><a href="{{ route('basic_details.index') }}">Basic Details</a></li>
-                <li class="list-group-item"><a href="{{ route('religious_details.create') }}">Religious Details</a></li>
-                <li class="list-group-item"><a href="{{ route('family_details.create') }}">Family Background</a></li>
-                <li class="list-group-item"><a href="{{ route('astronomy_details.create') }}">Astronomy Details</a></li>
-                <li class="list-group-item"><a href="{{ route('educational_details.create') }}">Educational Details</a></li>
-                <li class="list-group-item"><a href="{{ route('occupation_details.create') }}">Occupational Details</a></li>
-                <li class="list-group-item"><a href="{{ route('contact_details.create') }}">Contact Details</a></li>
-                 <li class="list-group-item"><a href="{{ route('life_partner.create') }}">About Life Partner</a></li>
-                 <li class="list-group-item"><a href="{{ route('user_packages.create') }}">Package</a></li>
-                <li class="list-group-item"><a href="#">Pay Now</a></li> 
-            </ul>
+    <div class="main-content">
+        <div class="container bg-">
+            <h3 class="text-center">Packages</h3>
+             <div class="package-container ">
+                <div class="package">
+                    <div class="package-box">
+                        <h4>Gold Package</h4>
+                        <p>Details about the Gold Package.</p>
+                    </div>
+                </div>
+                <div class="package">
+                    <div class="package-box">
+                        <h4>Silver Package</h4>
+                        <p>Details about the Silver Package.</p>
+                    </div>
+                </div>
+                <div class="package">
+                    <div class="package-box">
+                        <h4>Platinum Package</h4>
+                        <p>Details about the Platinum Package.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
- 
-    
-   
+    <div class="sidebar">
+        <x-common.usersidebar />
+    </div>
+     
+     <script>
+        //
+    </script>
 </body>
 
- 
+</html>
+
+    
+    
+    
+    
+</x-layout.user>
