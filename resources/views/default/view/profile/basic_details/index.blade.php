@@ -102,7 +102,7 @@
    
             
         </style>
-   <form action="{{ route('profiles.store') }}" method="POST">
+   <form action="{{ route('profiles.store') }}" enctype="multipart/form-data" method="POST">
     @csrf
         <div class="l">
 
@@ -345,15 +345,31 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="photo1">Photo 1</label>
-                <input type="file" id="photo1" accept="image/*">
+                <input type="file" name="img_1" id="photo1" >
             </div>
+
             <div class="form-group">
                 <label for="photo2">Photo 2</label>
-                <input type="file" id="photo2" accept="image/*">
+                <input type="file" name="img_2"  id="photo2">
             </div>
             <div class="form-group">
                 <label for="photo3">Photo 3</label>
-                <input type="file" id="photo3" accept="image/*">
+                <input type="file" name="img_3" id="photo3">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" style="max-width: 100px;">
+
+            </div>
+
+            <div class="form-group">
+                <img src="{{ asset('storage/images/' . $user->img_2) }}" alt="Uploaded Image" style="max-width: 100px;">
+
+            </div>
+            <div class="form-group">
+                <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" style="max-width: 100px;">
+
             </div>
         </div>
     </div>
