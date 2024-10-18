@@ -24,6 +24,10 @@
          {{-- <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet"> --}}
         <link href="{{ asset('assets/user/lib/animate/animate.min.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/user/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+        <!-- Include SweetAlert2 CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
 
        
 
@@ -61,11 +65,30 @@
                             </div>
                             @auth
                             <div class="d-flex align-items-center flex-nowrap">
-                                <form action="{{ route('logout') }}" method="POST">
+                                <form action="{{ route('logout') }}" method="POST" id="logout-form">
                                     @csrf
-                                    <button type="submit" class="btn btn-sm btn-primary py-1 px-3 ms-3">Logout</button>
+                                    <button type="button" class="btn btn-sm btn-primary py-1 px-3 ms-3" onclick="confirmLogout()">Logout</button>
                                 </form>
                             </div>
+                            
+                            <script>
+                                function confirmLogout() {
+                                    Swal.fire({
+                                        title: 'Are you sure?',
+                                        text: "You will be logged out!",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Yes, logout!',
+                                        cancelButtonText: 'No, cancel!'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            document.getElementById('logout-form').submit();
+                                        }
+                                    });
+                                }
+                            </script>
+                            
+                            
                             @else
                             <div class="d-flex align-items-center flex-nowrap">
                                 <a href="{{route('register')}}" class="btn btn-sm btn-primary py-1 px-3 ms-3">Register</a>

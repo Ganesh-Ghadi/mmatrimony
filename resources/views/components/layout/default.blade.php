@@ -57,6 +57,7 @@
                                 <a href="#" class="nav-item nav-link">About Us</a>
                                 <a href="#" class="nav-item nav-link">Success Stories</a>
                                 <a href="#" class="nav-item nav-link">Contact Us</a>
+                                
                             </div>
                             @auth
                             <div class="d-flex align-items-center flex-nowrap pt-xl-0">
