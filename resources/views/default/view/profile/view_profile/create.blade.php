@@ -1,7 +1,7 @@
 <x-layout.user>
 
     <style>
-        .card-container {
+    .card-container {
     display: flex;
     flex-direction: column;
     align-items: center;
