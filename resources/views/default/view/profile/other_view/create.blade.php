@@ -12,8 +12,11 @@
     <h1>{{ $user->first_name }} {{ $user->last_name }}'s Profile</h1>
 
     <div class="profile-details">
-        <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Profile Image" class="profile-image">
-        
+        @if($user->img_1)
+            <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Profile Image" class="profile-image">
+        @else
+            <p>No photo available</p> <!-- Or use an image tag for a placeholder image -->
+        @endif
     </div>
     <div class="card">
         <h3>Profile</h3>
