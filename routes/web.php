@@ -53,6 +53,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::delete('/user_profiles/{id}', 'ProfilesController@edit')->name('user_profiles.destroy');
         });
 
+        Route::get('/user/profile/{id}', [UserProfilesController::class, 'show'])->name('user.profile');
+
+        Route::get('/search', [UserProfilesController::class, 'search'])->name('search.create');
+        Route::post('/search', [SearchController::class, 'search']);
         Route::get('/view_profile', [UserProfilesController::class, 'view_profile'])->name('view_profile.create');
         Route::get('/user_packages', [UserProfilesController::class, 'user_packages'])->name('user_packages.create');
         Route::post('/purchase_packages', [ProfilePackagesController::class, 'purchasePackage'])->name('purchase_packages.store');
@@ -70,8 +74,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('states', StatesController::class);
         Route::resource('cities', CitiesController::class);
         Route::post('/save-profile', [UserProfilesController::class, 'store'])->name('profiles.store');
-        
-        
 
         Route::resource('roles', RolesController::class);
         Route::resource('permissions', PermissionsController::class);

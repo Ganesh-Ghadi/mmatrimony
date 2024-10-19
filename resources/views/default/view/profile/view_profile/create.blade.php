@@ -60,6 +60,20 @@
 .form-group {
     margin-right: 15px; /* Adjust as needed */
 }
+.progress {
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    height: 25px;
+    width: 100%;
+}
+
+.progress-bar {
+    background-color: #007bff;
+    height: 100%;
+    color: white;
+    text-align: center;
+    line-height: 25px;
+}
 
 
     </style>
@@ -87,6 +101,15 @@
         @else
             <p>No pic display</p>
         @endif
+    </div>
+</div>
+
+<div>
+    <h2>Profile Completion</h2>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: {{ $profileCompletion }}%;" aria-valuenow="{{ $profileCompletion }}" aria-valuemin="0" aria-valuemax="100">
+            {{ $profileCompletion }}%
+        </div>
     </div>
 </div>
 
