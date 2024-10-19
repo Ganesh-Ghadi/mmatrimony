@@ -67,16 +67,29 @@
     <div class="card-container">
         <h3>Profile Images</h3>
         <div class="form-row image-gallery">
-            <div class="form-group">
-                <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
-            </div>
-            <div class="form-group">
-                <img src="{{ asset('storage/images/' . $user->img_2) }}" alt="Uploaded Image" class="profile-image">
-            </div>
-            <div class="form-group">
-                <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" class="profile-image">
-            </div>
-        </div>
+    <div class="form-group">
+        @if($user->img_1)
+            <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
+        @else
+            <p>No pic display</p>
+        @endif
+    </div>
+    <div class="form-group">
+        @if($user->img_2)
+            <img src="{{ asset('storage/images/' . $user->img_2) }}" alt="Uploaded Image" class="profile-image">
+        @else
+            <p>No pic display</p>
+        @endif
+    </div>
+    <div class="form-group">
+        @if($user->img_3)
+            <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" class="profile-image">
+        @else
+            <p>No pic display</p>
+        @endif
+    </div>
+</div>
+
         
         
         <div class="card">

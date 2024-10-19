@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Default\UpdateProfileRequest;
 use App\Models\Caste;
+use App\Models\Package;
 use App\Models\Profile;
 use App\Models\SubCaste;
 use Illuminate\Http\Request;
+use App\Http\Requests\Default\UpdateProfileRequest;
 
 class UserProfilesController extends Controller
 {
@@ -70,8 +71,10 @@ class UserProfilesController extends Controller
     public function user_packages()
     {
         $user = auth()->user()->profile()->first();
-        return view('default.view.profile.user_packages.create', ['user' => $user]);
-    }
+        $packages = Package::all();
+        return view('default.view.profile.user_packages.create', ['user' => $user, 'packages' => $packages]);
+
+     }
 
     public function store(Request $request)
     {

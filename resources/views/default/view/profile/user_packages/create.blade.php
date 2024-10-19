@@ -95,38 +95,41 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
-    <div class="main-content">
-        <div class="container bg-">
-            <h3 class="text-center">Packages</h3>
-             <div class="package-container ">
+<div class="main-content">
+    <div class="container">
+        <h3 class="text-center">Packages</h3>
+        <div class="package-container">
+            @foreach ($packages as $package)
                 <div class="package">
                     <div class="package-box">
-                        <h4>Gold Package</h4>
-                        <p>Details about the Gold Package.</p>
+                        <h4>{{ $package->name }}</h4>
+                        <div class="form-group">
+                            <p><strong>Package Description:</strong> {{ $package->description }}</p>
+                            <p><strong>Package Price:</strong> ₹{{ number_format($package->price, 2) }}</p>
+                            <button class="btn btn-primary" onclick="buyPackage({{ $package->id }})">Buy</button>
+                        </div>
                     </div>
                 </div>
-                <div class="package">
-                    <div class="package-box">
-                        <h4>Silver Package</h4>
-                        <p>Details about the Silver Package.</p>
-                    </div>
-                </div>
-                <div class="package">
-                    <div class="package-box">
-                        <h4>Platinum Package</h4>
-                        <p>Details about the Platinum Package.</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
+</div>
+
+<script>
+    function buyPackage(packageId) {
+        // Logic to handle the purchase
+        alert('You are buying package ID: ' + packageId);
+        // You can redirect to a purchase page or perform an AJAX request here
+    }
+</script>
+
+
+
     <div class="sidebar">
         <x-common.usersidebar />
     </div>
      
-     <script>
-        //
-    </script>
+     
 </body>
 
 </html>
@@ -136,3 +139,17 @@
     
     
 </x-layout.user>
+
+   <!-- <div class="form-group">
+    <label for="name">Package Name:</label>
+    <select name="name" id="name" disabled>
+        @foreach ($packages as $package)
+            <option value="{{ $package->id }}" {{ ($user->package === $package->id) ? 'selected' : '' }}>
+                {{ $package->name }}
+            </option>
+        @endforeach
+    </select>
+    
+
+    <x-input-error :messages="$errors->get('package')" class="mt-2" />
+</div> -->
