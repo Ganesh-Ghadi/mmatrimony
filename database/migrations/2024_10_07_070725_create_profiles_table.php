@@ -22,13 +22,14 @@ return new class extends Migration
             $table->string('gender', 50)->nullable();
             $table->string('marital_status', 50)->nullable();
             $table->string('living_with', 100)->nullable();
+            $table->integer('available_tokens')->default(0);
             // health info
             $table->string('blood_group', 10)->nullable();
             $table->string('height', 10)->nullable();
             $table->string('weight', 10)->nullable();
             $table->string('body_type', 50)->nullable();
             $table->string('complexion', 50)->nullable();
-            $table->boolean('physical_abnormality', 100)->default(0);
+            $table->boolean('physical_abnormality')->default(0);
             $table->boolean('spectacles')->default(0);
             $table->boolean('lens')->default(0);
             // food habits
@@ -46,21 +47,21 @@ return new class extends Migration
             $table->integer('sub_caste')->nullable();
             $table->string('gotra', 100)->nullable();
             // family details
-            $table->string('father_is_alive', 10)->nullable();
+            $table->boolean('father_is_alive')->default(0);
             $table->string('father_name', 100)->nullable();
             $table->string('father_occupation', 100)->nullable();
             $table->string('father_organization', 100)->nullable();
             $table->string('father_job_type', 100)->nullable();
-            $table->string('mother_is_alive', 10)->nullable();
+            $table->boolean('mother_is_alive')->default(0);
             $table->string('mother_name', 100)->nullable();
             $table->string('mother_occupation', 100)->nullable();
             $table->string('mother_organization', 100)->nullable();
             $table->string('mother_job_type', 100)->nullable();
-            $table->string('number_of_brothers_married', 40)->nullable();
-            $table->string('number_of_brothers_unmarried', 40)->nullable();
+            $table->integer('number_of_brothers_married')->nullable();
+            $table->integer('number_of_brothers_unmarried')->nullable();
             $table->string('brother_resident_place', 100)->nullable();
-            $table->string('number_of_sisters_married', 40)->nullable();
-            $table->string('number_of_sisters_unmarried', 40)->nullable();
+            $table->integer('number_of_sisters_married')->nullable();
+            $table->integer('number_of_sisters_unmarried')->nullable();
             $table->string('sister_resident_place', 100)->nullable();
             $table->text('about_parents')->nullable();
             // birth Information

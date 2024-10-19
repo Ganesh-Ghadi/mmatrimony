@@ -7,6 +7,7 @@ use App\Models\Package;
 use App\Models\Profile;
 use App\Models\SubCaste;
 use Illuminate\Http\Request;
+use App\Models\ProfilePackage;
 use App\Http\Requests\Default\UpdateProfileRequest;
 
 class UserProfilesController extends Controller
@@ -68,16 +69,33 @@ class UserProfilesController extends Controller
         return view('default.view.profile.life_partner.create', ['user' => $user]);
     }
 
+    //  ->where(function ($query) use ($data) {
+    //     $query->whereHas('Manager', function ($query) use ($data) {
+    //         $query->where('name', 'like', "%$data%");
+    //     })
+    //     ->orWhereHas('Manager.AreaManager', function ($query) use ($data) {
+    //         $query->where('name', 'like', "%$data%");
+    //     })
+    //     ->orWhereHas('Manager.ZonalManager', function ($query) use ($data) {
+    //         $query->where('name', 'like', "%$data%");
+    //     });
+    //    })
+       
     public function user_packages()
     {
         $user = auth()->user()->profile()->first();
+        $purchased_packages = auth()->user()->profile->profilePackages()
+        ->withPivot('tokens_received', 'tokens_used', 'starts_at', 'expires_at')
+        ->where('expires_at', '>', now())
+        ->get();
+        
         $packages = Package::all();
-        return view('default.view.profile.user_packages.create', ['user' => $user, 'packages' => $packages]);
+        return view('default.view.profile.user_packages.create', ['user' => $user, 'packages' => $packages,'purchased_packages'=>$purchased_packages]);
 
      }
 
-    public function store(Request $request)
-    {
+    public function store(UpdateProfileRequest $request)
+    {  
         if($request->hasFile('img_1')){
             $img_1FileNameWithExtention = $request->file('img_1')->getClientOriginalName();
             $img_1Filename = pathinfo($img_1FileNameWithExtention, PATHINFO_FILENAME);
@@ -102,23 +120,23 @@ class UserProfilesController extends Controller
             $img_3Path = $request->file('img_3')->storeAs('public/images', $img_3FileNameToStore);
          }
          
-        $data = $request->all();
+        $data = $request->validated();
         if($request->hasFile('img_1')){
          $data['img_1'] = $img_1FileNameToStore;
             
         }
 
         if($request->hasFile('img_2')){
-            $data['img_2'] = $img_2FileNameToStore;
-               
+            $data['img_2'] = $img_2FileNameToStore;               
            }
 
            if($request->hasFile('img_3')){
-            $data['img_3'] = $img_3FileNameToStore;
-               
+            $data['img_3'] = $img_3FileNameToStore;   
            }
-         
+           $data['lens'] = $request->has('lens');
+           $data['spectacles'] = $request->has('spectacles');
 
+         
         $profile = Profile::where('user_id', auth()->user()->id)->first();
 
         if ($profile) {

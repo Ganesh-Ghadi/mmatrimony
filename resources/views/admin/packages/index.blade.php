@@ -21,6 +21,8 @@
                                 <th style="text-align:right;">Name</th>
                                 <th style="text-align:right;">description</th>
                                 <th style="text-align:right;">price</th>
+                                <th style="text-align:right;">tokens</th>
+                                <th style="text-align:right;">validity</th>
                                 <th style="text-align:right;">Action</th>
                             </tr>
                         </thead>
@@ -31,6 +33,8 @@
                                 <td style="text-align:right;"> {{ $package->name }}</td>
                                 <td style="text-align:right;"> {{ $package->description }}</td>
                                 <td style="text-align:right;"> {{ $package->price }}</td>
+                                <td style="text-align:right;"> {{ $package->tokens }}</td>
+                                <td style="text-align:right;"> {{ $package->validity }} days</td>
                                 <td class="float-right">
                                     <ul class="flex items-center gap-2" >
                                         <li style="display: inline-block;vertical-align:top;">

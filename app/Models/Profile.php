@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Package;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -47,6 +48,8 @@ class Profile extends Model
         'mother_is_alive',
         'mother_name',
         'mother_occupation',
+        'mother_organization',
+        'mother_job_type',
         'number_of_brothers_married',
         'number_of_brothers_unmarried',
         'brother_resident_place',
@@ -92,10 +95,16 @@ class Profile extends Model
         'partner_job',
         'partner_business',
         'partner_foreign_resident',
+        'available_tokens',
     ];
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function profilePackages(){
+        return $this->belongsToMany(Package::class, 'profile_packages')
+        ->withPivot('tokens_received', 'tokens_used', 'starts_at', 'expires_at');
     }
 
 }

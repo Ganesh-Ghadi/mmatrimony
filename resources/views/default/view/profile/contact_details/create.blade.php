@@ -77,7 +77,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col" id="stateContainer" style="display: none;">
+                    <div class="col" id="stateContainer" style="">
                         <div class="form-group">
                             <label for="state">State</label>
                             <select class="form-input" name="state" id="state">
@@ -89,7 +89,7 @@
                         </div>
                     </div>
         
-                    <div class="col" id="cityContainer" style="display: none;">
+                    <div class="col" id="cityContainer" style="">
                         <div class="form-group">
                             <label for="city">City</label>
                             <input type="text" name="city"  value="{{ $user->city }}" id="city" placeholder="Enter City" required>
@@ -100,7 +100,7 @@
             </div>
         </div>
         
-        <script>
+        {{-- <script>
             // Get the country, state, and city elements
             const countryDropdown = document.getElementById('country');
             const stateContainer = document.getElementById('stateContainer');
@@ -116,7 +116,7 @@
                     cityContainer.style.display = 'none'; // Hide city dropdown
                 }
             });
-        </script>
+        </script> --}}
         
         
 
@@ -163,7 +163,6 @@
                         <input name="mobile" type="text" id="mobile" class="form-control" required
                                placeholder="1234567890"
                                value="{{ $user->mobile }}" 
-                               pattern="^\d{10}$"
                                title="Please enter a valid 10-digit mobile number">
                     </div>
                 </div>
@@ -181,12 +180,23 @@
                     <input name="email" type="email" id="email" class="form-control" required
                            placeholder="example@example.com"
                            value="{{ $user->email }}"
-                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                      
                            title="Please enter a valid email address">
                 </div>
             </div>
         </div>
     </div>  
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+    
     <div class="container text-end">
         <button type="submit" class="btn btn-primary btn-sm p-2">Save</button>
     </div>
@@ -195,9 +205,9 @@
 <div class="sidebar">
     <x-common.usersidebar />
 </div>
-    <script>
+    {{-- <script>
          
-    </script>
+    </script> --}}
 
     
    

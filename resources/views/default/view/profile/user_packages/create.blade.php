@@ -95,7 +95,41 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
+
+   
+
+
 <div class="main-content">
+    @if($purchased_packages)
+   
+    <div class="container">
+        <h3 class="text-center">Purchased Packages  </h3>
+        <h3 class="text-center">available Tokens {{$user->available_tokens}}  </h3>
+
+        <div class="d-flex flex-row justify-items-center gap-4 ">
+
+        @foreach ($purchased_packages as $purchased_package)
+        <div class="package-container">
+                <div class="package">
+                    <div class="package-box">
+                        <h4>{{ $purchased_package->name }}</h4>
+                        <div class="form-group">
+                            <p><strong>Package Description:</strong> {{ $purchased_package->description }}</p>
+                            <p><strong>Package Price:</strong> ₹{{ number_format($purchased_package->price, 2) }}</p>
+                            <p><strong>Expiry date:</strong> {{ $purchased_package->pivot->expires_at }}</p>
+                            <p><strong>Package Price:</strong> ₹{{ number_format($purchased_package->price, 2) }}</p>
+
+                        </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        @endforeach
+    </div>
+
+
+    </div>
+@endif
     <div class="container">
         <h3 class="text-center">Packages</h3>
         <div class="package-container">
@@ -106,7 +140,11 @@
                         <div class="form-group">
                             <p><strong>Package Description:</strong> {{ $package->description }}</p>
                             <p><strong>Package Price:</strong> ₹{{ number_format($package->price, 2) }}</p>
-                            <button class="btn btn-primary" onclick="buyPackage({{ $package->id }})">Buy</button>
+                            <form action="{{route('purchase_packages.store')}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="package_id" type="number" value="{{$package->id}}">
+                            <button type="submit" class="btn btn-primary">Buy</button>
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -115,13 +153,13 @@
     </div>
 </div>
 
-<script>
+
+{{-- <script>
     function buyPackage(packageId) {
         // Logic to handle the purchase
         alert('You are buying package ID: ' + packageId);
-        // You can redirect to a purchase page or perform an AJAX request here
     }
-</script>
+</script> --}}
 
 
 

@@ -1,17 +1,18 @@
 <?php
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\admin\CastesController;
 use App\Http\Controllers\admin\CitiesController;
-use App\Http\Controllers\admin\PackagesController;
-use App\Http\Controllers\admin\PermissionsController;
-use App\Http\Controllers\admin\ProfilesController;
-use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\admin\StatesController;
-use App\Http\Controllers\admin\subCastesController;
-use App\Http\Controllers\admin\UsersController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserProfilesController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\PackagesController;
+use App\Http\Controllers\admin\ProfilesController;
+use App\Http\Controllers\admin\subCastesController;
+use App\Http\Controllers\ProfilePackagesController;
+use App\Http\Controllers\admin\PermissionsController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
  * |--------------------------------------------------------------------------
@@ -54,6 +55,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('/view_profile', [UserProfilesController::class, 'view_profile'])->name('view_profile.create');
         Route::get('/user_packages', [UserProfilesController::class, 'user_packages'])->name('user_packages.create');
+        Route::post('/purchase_packages', [ProfilePackagesController::class, 'purchasePackage'])->name('purchase_packages.store');
         Route::get('/basic_details', [UserProfilesController::class, 'basic_details'])->name('basic_details.index');
         Route::get('/religious_details', [UserProfilesController::class, 'religious_details'])->name('religious_details.create');
         Route::get('/family_details', [UserProfilesController::class, 'family_details'])->name('family_details.create');
@@ -61,7 +63,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/educational_details', [UserProfilesController::class, 'educational_details'])->name('educational_details.create');
         Route::get('/occupation_details', [UserProfilesController::class, 'occupation_details'])->name('occupation_details.create');
         Route::get('/contact_details', [UserProfilesController::class, 'contact_details'])->name('contact_details.create');
-        Route::get('/life_partner', [UserProfilesController::class, 'life_partner'])->name('life_partner.create');
+        Route::get('/purchase_packages', [UserProfilesController::class, 'life_partner'])->name('life_partner.create');
         Route::resource('castes', CastesController::class);
         Route::resource('sub_castes', subCastesController::class);
         Route::resource('packages', PackagesController::class);

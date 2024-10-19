@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->integer('tokens')->nullable();
+            $table->integer('validity')->nullable();
             $table->decimal('price',10,2)->nullable();
             $table->timestamps();
         });

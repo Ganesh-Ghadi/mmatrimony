@@ -262,7 +262,7 @@
             <div class="form-group">
                 <label for="spectacles">Spectacles</label>
                 <!-- Hidden input to ensure 0 is submitted when unchecked -->
-                <input type="hidden" name="spectacles" value="0">
+                {{-- <input type="hidden" name="spectacles" value="0"> --}}
                 
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" name="spectacles" id="spectacles" value="1"
@@ -271,10 +271,7 @@
                 <x-input-error :messages="$errors->get('spectacles')" class="mt-2" />
             </div>
             <div class="form-group">
-                <label for="lens">lens</label>
-                <!-- Hidden input to ensure 0 is submitted when unchecked -->
-                <input type="hidden" name="lens" value="0">
-                
+                <label for="lens">lens</label>                
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" name="lens" id="lens" value="1"
                         {{ $user->lens ? 'checked' : '' }}>
@@ -284,7 +281,15 @@
             
             
             
-            
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
  
             
             
@@ -359,16 +364,20 @@
         </div>
         <div class="form-row">
             <div class="form-group">
+                @if($user->img_1)
                 <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" style="max-width: 100px;">
-
+                @endif
             </div>
 
             <div class="form-group">
+                @if($user->img_2)
                 <img src="{{ asset('storage/images/' . $user->img_2) }}" alt="Uploaded Image" style="max-width: 100px;">
-
+                  @endif
             </div>
             <div class="form-group">
-                <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" style="max-width: 100px;">
+                @if($user->img_3)
+                    <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" style="max-width: 100px;">
+                @endif
 
             </div>
         </div>

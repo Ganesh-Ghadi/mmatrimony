@@ -86,15 +86,15 @@
                 <label for="father_is_alive">Father is Alive</label>
                 <select class="form-input" name="father_is_alive" id="father_is_alive">
                     <option value="" selected>Select an option</option>
-                    <option value="yes" {{ $user->father_is_alive === "yes" ? 'selected' : '' }}>Yes</option>
-                    <option value="no" {{ $user->father_is_alive === "no" ? 'selected' : '' }}>No</option>
+                    <option value="1" {{ $user->father_is_alive === 1 ? 'selected' : '' }}>Yes</option>
+                    <option value="0" {{ $user->father_is_alive === 0 ? 'selected' : '' }}>No</option>
                 </select>
                 <x-input-error :messages="$errors->get('father_is_alive')" class="mt-2" />
             </div>
         </div>
 
         <!-- Native Place and Gender fields, initially hidden -->
-        <div class="form-row {{ $user->father_is_alive === 'yes' ? '' : 'hidden' }}" id="additionalInfo">
+        <div class="form-row">
 
               <div class="form-group">
                 <label for="father_name">Father Name</label>
@@ -138,14 +138,14 @@
                 <label for="mother_is_alive">Is Alive</label>
                 <select class="form-input" name="mother_is_alive" id="mother_is_alive">
                     <option value="" selected>Select an option</option>
-                    <option value="yes" {{ $user->mother_is_alive === "yes" ? 'selected' : '' }}>Yes</option>
-                    <option value="no" {{ $user->mother_is_alive === "no" ? 'selected' : '' }}>No</option>
+                    <option value="1" {{ $user->mother_is_alive === 1 ? 'selected' : '' }}>Yes</option>
+                    <option value="0" {{ $user->mother_is_alive === 0 ? 'selected' : '' }}>No</option>
                 </select>
             </div>
         </div>
     
         <!-- Additional fields, initially hidden -->
-        <div class="form-row {{ $user->mother_is_alive === 'yes' ? '' : 'hidden' }}" id="additionalInfo">
+        <div class="form-row">
 
         {{-- <div class="form-row hidden" id="motherAdditionalInfo"> --}}
             <div class="form-group">
