@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('first_name', 100)->nullable();
             $table->string('middle_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
+            $table->enum('role',['bride','groom'])->nullable();
             $table->string('mother_tongue', 100)->nullable();
             $table->string('native_place', 100)->nullable();
             $table->string('gender', 50)->nullable();

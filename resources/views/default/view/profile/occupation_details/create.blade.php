@@ -75,13 +75,18 @@
                                 <option value="{{$value}}" {{ ($user->occupation === $value) ? 'selected' : ''}} >{{ $name }}</option>
                             @endforeach
                         </select>
+                        @if ($errors->has('occupation'))
+                        <span class="text-danger small">{{ $errors->first('occupation') }}</span>
+                        @endif  
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="organization">Organisation</label>
                         <input type="text" name="organization" value="{{$user->organization}}" id="organization" class="form-control" placeholder="Enter Organization">
-                        <x-input-error :messages="$errors->get('organization')" class="mt-2" />
+                        @if ($errors->has('organization'))
+                        <span class="text-danger small">{{ $errors->first('organization') }}</span>
+                        @endif  
                     </div>
                 </div>
             </div>
@@ -90,14 +95,18 @@
                     <div class="form-group">
                         <label for="designation">Designation</label>
                         <input type="text" name="designation" value="{{$user->designation}}" id="designation" class="form-control" placeholder="Enter designation">
-                        <x-input-error :messages="$errors->get('designation')" class="mt-2" />
+                        @if ($errors->has('designation'))
+                        <span class="text-danger small">{{ $errors->first('designation') }}</span>
+                        @endif  
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="job_location">Job Location</label>
                         <input type="text" name="job_location" value="{{$user->job_location}}" id="job_location" class="form-control" placeholder="Enter job_location">
-                        <x-input-error :messages="$errors->get('job_location')" class="mt-2" />
+                        @if ($errors->has('job_location'))
+                        <span class="text-danger small">{{ $errors->first('job_location') }}</span>
+                        @endif  
                     </div>
                 </div>
             </div>
@@ -119,7 +128,9 @@
                     <div class="form-group">
                         <label for="job_experience">Job Experience</label>
                         <input type="text" name="job_experience" value="{{$user->job_experience}}" id="job_experience" class="form-control" placeholder="Enter Job Experience">
-                        <x-input-error :messages="$errors->get('job_experience')" class="mt-2" />
+                        @if ($errors->has('job_experience'))
+                        <span class="text-danger small">{{ $errors->first('job_experience') }}</span>
+                        @endif  
                     </div>
                 </div>
                 {{-- <div class="col">

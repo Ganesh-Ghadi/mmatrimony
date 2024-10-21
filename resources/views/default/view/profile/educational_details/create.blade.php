@@ -87,22 +87,27 @@
                                 </optgroup>
                             @endforeach
                         </select>
+                        @if ($errors->has('highest_education'))
+                        <span class="text-danger small">{{ $errors->first('highest_education') }}</span>
+                        @endif  
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="education_in_detail">Education in Detail</label> 
-                      <input type="text" name="education_in_detail" value="{{$user->education_in_detail}}" id="education_in_detail" placeholder="Enter education in detail" required>
-                      <x-input-error :messages="$errors->get('education_in_detail')" class="mt-2" />
-
+                      <input type="text" name="education_in_detail" value="{{$user->education_in_detail}}" id="education_in_detail" placeholder="Enter education in detail" >
+                      @if ($errors->has('education_in_detail'))
+                      <span class="text-danger small">{{ $errors->first('education_in_detail') }}</span>
+                      @endif  
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="additional_degree">Additional Degree</label> 
-                      <input type="text" name="additional_degree" value="{{$user->additional_degree}}" id="additional_degree" placeholder="Enter education in detail" required>
-                      <x-input-error :messages="$errors->get('additional_degree')" class="mt-2" />
-
+                      <input type="text" name="additional_degree" value="{{$user->additional_degree}}" id="additional_degree" placeholder="Enter education in detail" >
+                      @if ($errors->has('additional_degree'))
+                      <span class="text-danger small">{{ $errors->first('additional_degree') }}</span>
+                      @endif  
                     </div>
                    
                 </div>

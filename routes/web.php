@@ -74,7 +74,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('states', StatesController::class);
         Route::resource('cities', CitiesController::class);
         Route::post('/save-profile', [UserProfilesController::class, 'store'])->name('profiles.store');
+        Route::post('/add-favorites', [UserProfilesController::class, 'add_favorite'])->name('profiles.add_favorite');
+        Route::post('/remove-favorites', [UserProfilesController::class, 'remove_favorite'])->name('profiles.remove_favorite');
 
+        
         Route::resource('roles', RolesController::class);
         Route::resource('permissions', PermissionsController::class);
 

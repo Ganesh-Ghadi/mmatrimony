@@ -114,19 +114,26 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="first_name">First Name</label>
-                <input type="text" name="first_name"  value="{{ $user->first_name }}" id="first_name" placeholder="Enter first name" required>
-                <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
+                <input type="text" name="first_name"  value="{{ $user->first_name }}" id="first_name" placeholder="Enter first name">
+                @if ($errors->has('first_name'))
+                <span class="text-danger small">{{ $errors->first('first_name') }}</span>
+                @endif
             </div>
             
             <div class="form-group">
                 <label for="middle_name">Middle Name</label>
                 <input type="text" name="middle_name"  value="{{ $user->middle_name }}" id="middle_name" placeholder="Enter Middle name" required>
-                <x-input-error :messages="$errors->get('middle_name')" class="mt-2" />            </div>
+                @if ($errors->has('middle_name'))
+                <span class="text-danger small">{{ $errors->first('middle_name') }}</span>
+                @endif
+            </div>
             <div class="form-group">
                 <label for="last_name">Last Name</label>
                 <input type="text" name="last_name"  value="{{ $user->last_name }}" id="last_name" placeholder="Enter First name" required>
-                <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
-             </div>
+                @if ($errors->has('last_name'))
+                <span class="text-danger small">{{ $errors->first('last_name') }}</span>
+                @endif
+           </div>
         </div>
 
         <!-- Second row with Mother Tongue and Country -->
@@ -139,15 +146,17 @@
                         <option value="{{ $value }}" {{ ($user->mother_tongue === $value) ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach
                 </select>
- 
-                
-                
+                @if ($errors->has('mother_tongue'))
+                <span class="text-danger small">{{ $errors->first('mother_tongue') }}</span>
+                @endif
             </div>
             <div class="form-group">
                 <label for="native_place">Native Place</label>
-                <input type="text" name="native_place"  value="{{ $user->native_place }}" id="native_place" placeholder="Enter Native Place" required>
-                <x-input-error :messages="$errors->get('native_place')" class="mt-2" />
-            </div>
+                <input type="text" name="native_place"  value="{{ $user->native_place }}" id="native_place" placeholder="Enter Native Place" >
+                @if ($errors->has('native_place'))
+                <span class="text-danger small">{{ $errors->first('native_place') }}</span>
+                @endif
+             </div>
  
             <div class="form-group">
                 <label for="gender">Gender</label>
@@ -159,6 +168,9 @@
                         @endforeach
                     @endif
                 </select>
+                @if ($errors->has('gender'))
+                <span class="text-danger small">{{ $errors->first('gender') }}</span>
+                @endif
             </div>
 
            
@@ -170,10 +182,11 @@
                     <option value="" selected>Select an option</option>
                     @foreach (config('data.marital_status', []) as $value => $name)
                         <option value="{{ $value }}" {{ ($user->marital_status === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                    
-                        
+                    @endforeach  
                 </select>
+                @if ($errors->has('marital_status'))
+                <span class="text-danger small">{{ $errors->first('marital_status') }}</span>
+                @endif
             </div>
             <div class="form-group">
                 <label for="living_with">Living With</label>
@@ -183,6 +196,9 @@
                         <option value="{{ $value }}" {{ ($user->living_with === $value) ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach <!-- Add this to close the loop -->
                 </select>
+                @if ($errors->has('living_with'))
+                <span class="text-danger small">{{ $errors->first('living_with') }}</span>
+                @endif
             </div>
             
         </div>
@@ -199,8 +215,10 @@
                     @foreach (config('data.blood_group', []) as $value => $name)    
                     <option value="{{ $value }}" {{ ($user->blood_group === $value) ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach
-                      
                 </select>
+                @if ($errors->has('blood_group'))
+                <span class="text-danger small">{{ $errors->first('blood_group') }}</span>
+                @endif
             </div>
             <div class="form-group">
                 <label for="height">Height</label>
@@ -209,14 +227,17 @@
                     @foreach (config('data.height', []) as $value => $name)
                         <option value="{{ $value }}" {{ ($user->height === $value) ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach 
-                    
-                    
                 </select>
+                @if ($errors->has('height'))
+                <span class="text-danger small">{{ $errors->first('height') }}</span>
+                @endif
             </div>
             <div class="form-group">
                 <label for="weight">Weight (kg)</label>
-                <input type="text" name="weight"  value="{{ $user->weight }}" id="weight" placeholder="Enter Weight in Kgs" required>
-                <x-input-error :messages="$errors->get('weight')" class="mt-2" />
+                <input type="text" name="weight"  value="{{ $user->weight }}" id="weight" placeholder="Enter Weight in Kgs" >
+                @if ($errors->has('weight'))
+                <span class="text-danger small">{{ $errors->first('weight') }}</span>
+                @endif
             </div>
         </div>
        
@@ -230,12 +251,13 @@
                     @foreach (config('data.body_type', []) as $value => $name)
                         <option value="{{ $value }}" {{ ($user->body_type === $value) ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach
-                     
                 </select>
+                @if ($errors->has('body_type'))
+                <span class="text-danger small">{{ $errors->first('body_type') }}</span>
+                @endif
             </div>
            
             <div class="form-group">
-                
                     <label>Complexion <span class="text-red-500">*</span></label>
                     <select class="form-input" name="complexion" id="complexion">
                         <option value="" selected>select an option</option>
@@ -243,8 +265,9 @@
                             <option value="{{$value}}" {{ ($user->complexion === $value) ? 'selected' : ''}} >{{ $name }}</option>
                         @endforeach
                     </select> 
-                    <x-input-error :messages="$errors->get('complexion')" class="mt-2" /> 
-                 
+                    @if ($errors->has('complexion'))
+                    <span class="text-danger small">{{ $errors->first('complexion') }}</span>
+                    @endif                 
             </div>
 
            
@@ -257,18 +280,16 @@
                     <option value="1" {{$user->physical_abnormality === 1 ? 'selected' : ''}} >Yes</option>
                     <option value="0" {{$user->physical_abnormality === 0 ? 'selected' : ''}}>No</option>
                 </select>
-                <x-input-error :messages="$errors->get('physical_abnormality')" class="mt-2" /> 
+                @if ($errors->has('physical_abnormality'))
+                <span class="text-danger small">{{ $errors->first('physical_abnormality') }}</span>
+                @endif     
             </div>
             <div class="form-group">
-                <label for="spectacles">Spectacles</label>
-                <!-- Hidden input to ensure 0 is submitted when unchecked -->
-                {{-- <input type="hidden" name="spectacles" value="0"> --}}
-                
+                <label for="spectacles">Spectacles</label> 
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" name="spectacles" id="spectacles" value="1"
                         {{ $user->spectacles ? 'checked' : '' }}>
                  </div>
-                <x-input-error :messages="$errors->get('spectacles')" class="mt-2" />
             </div>
             <div class="form-group">
                 <label for="lens">lens</label>                
@@ -276,23 +297,7 @@
                     <input type="checkbox" class="form-check-input" name="lens" id="lens" value="1"
                         {{ $user->lens ? 'checked' : '' }}>
                  </div>
-                <x-input-error :messages="$errors->get('lens')" class="mt-2" />
-            </div>
-            
-            
-            
-            @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
- 
-            
-            
+            </div>  
         </div>
     </div>
     <div class="panel">
@@ -306,6 +311,9 @@
                         <option value="{{ $value }}" {{ ($user->eating_habits === $value) ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach
                 </select>
+                @if ($errors->has('eating_habits'))
+                <span class="text-danger small">{{ $errors->first('eating_habits') }}</span>
+                @endif     
             </div>
            
             <div class="form-group">
@@ -317,6 +325,9 @@
                     @endforeach
                     
                 </select>
+                @if ($errors->has('drinking_habits'))
+                <span class="text-danger small">{{ $errors->first('drinking_habits') }}</span>
+                @endif     
             </div>
             <div class="form-group">
                 <label for="smoking_habits">Smoking Habbits</label>
@@ -327,6 +338,9 @@
                     @endforeach
                     
                 </select>
+                @if ($errors->has('smoking_habits'))
+                <span class="text-danger small">{{ $errors->first('smoking_habits') }}</span>
+                @endif     
             </div>
 
            
@@ -337,8 +351,10 @@
    <div class="panel">
         <div class="form-group">
             <label for="about_self">About Yourself</label>
-            <textarea name="about_self" id="about_self" class="form-input" placeholder="Tell us about yourself..." required>{{ old('about_self', $user->about_self) }}</textarea>
-            <x-input-error :messages="$errors->get('about_self')" class="mt-2" />
+            <textarea name="about_self" id="about_self" class="form-input" placeholder="Tell us about yourself..." >{{ old('about_self', $user->about_self) }}</textarea>
+            @if ($errors->has('about_self'))
+            <span class="text-danger small">{{ $errors->first('about_self') }}</span>
+            @endif     
         </div>
     
     
@@ -351,15 +367,24 @@
             <div class="form-group">
                 <label for="photo1">Photo 1</label>
                 <input type="file" name="img_1" id="photo1" >
+                @if ($errors->has('img_1'))
+                <span class="text-danger small">{{ $errors->first('img_1') }}</span>
+                @endif  
             </div>
 
             <div class="form-group">
                 <label for="photo2">Photo 2</label>
                 <input type="file" name="img_2"  id="photo2">
+                @if ($errors->has('img_2'))
+                <span class="text-danger small">{{ $errors->first('img_2') }}</span>
+                @endif  
             </div>
             <div class="form-group">
                 <label for="photo3">Photo 3</label>
                 <input type="file" name="img_3" id="photo3">
+                @if ($errors->has('img_3'))
+                <span class="text-danger small">{{ $errors->first('img_3') }}</span>
+                @endif  
             </div>
         </div>
         <div class="form-row">

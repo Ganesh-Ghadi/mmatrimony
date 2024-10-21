@@ -16,7 +16,7 @@
                     <h5 class="font-semibold text-lg dark:text-white-light">Add State</h5>
                 </div>               
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
-                    <x-text-input name="name" value="{{ old('name') }}" :label="__('Cast Name')" :require="true" :messages="$errors->get('name')"/>                       
+                    <x-text-input name="name" value="{{ old('name') }}" :label="__('State Name')" :require="true" :messages="$errors->get('name')"/>                       
                 </div>
                 <div class="flex justify-end mt-4">
                     <x-success-button>

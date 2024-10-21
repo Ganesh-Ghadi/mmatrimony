@@ -3,11 +3,11 @@
         class="sidebar fixed min-h-screen h-full top-0 bottom-0 w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] z-50 transition-all duration-300">
         <div class="bg-white dark:bg-[#0e1726] h-full">
             <div class="flex justify-between items-center px-4 py-3">
-                <a href="/" class="main-logo flex items-center shrink-0">
+                <a href="{{ url('/admin/dashboard') }}" class="main-logo flex items-center shrink-0">
                     <img class="w-8 ml-[5px] flex-none" src="/assets/images/encore-logo-icon.png"
                         alt="image" />
                     <span
-                        class="text-2xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle lg:inline dark:text-white-light">{{ config('app.name', 'Encore') }}</span>
+                        class="text-2xl ltr:ml-1.5 rtl:mr-1.5  font-semibold  align-middle lg:inline dark:text-white-light">{{ config('app.name', 'Matrimony') }}</span>
                 </a>
                 <a href="javascript:;"
                     class="collapse-icon w-8 h-8 rounded-full flex items-center hover:bg-gray-500/10 dark:hover:bg-dark-light/10 dark:text-white-light transition duration-300 rtl:rotate-180"
@@ -80,8 +80,8 @@
                         </div>
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500">
-                        <li><a href="/castes">Casts</a></li>
-                        <li><a href="/sub_castes">SubCasts</a></li>
+                        <li><a href="/castes">Castes</a></li>
+                        <li><a href="/sub_castes">Sub Castes</a></li>
                         <li><a href="/packages">Packages</a></li>
                         <li><a href="/states">States</a></li>
                         <li><a href="/cities">Cities</a></li>

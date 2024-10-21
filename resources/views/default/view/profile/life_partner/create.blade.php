@@ -78,6 +78,9 @@
                                     @endforeach
                                 @endif
                             </select>
+                            @if ($errors->has('partner_min_age'))
+                            <span class="text-danger small">{{ $errors->first('partner_min_age') }}</span>
+                            @endif  
                         </div>
                     </div>
                     <div class="col">
@@ -91,6 +94,9 @@
                                     @endforeach
                                 @endif
                             </select>
+                            @if ($errors->has('partner_max_age'))
+                            <span class="text-danger small">{{ $errors->first('partner_max_age') }}</span>
+                            @endif  
                         </div>
                     </div>
                     <div class="col">
@@ -104,6 +110,9 @@
                                     @endforeach
                                 @endif
                             </select>
+                            @if ($errors->has('partner_min_height'))
+                            <span class="text-danger small">{{ $errors->first('partner_min_height') }}</span>
+                            @endif 
                         </div>
                     </div>
                     <div class="col">
@@ -118,6 +127,9 @@
                                 @endif
                                 
                             </select>
+                            @if ($errors->has('partner_max_height'))
+                            <span class="text-danger small">{{ $errors->first('partner_max_height') }}</span>
+                            @endif 
                         </div>
                     </div>
                     
@@ -130,8 +142,10 @@
             <div class="row mt-3">
                 <div class="form-group">
                     <label for="partner_income">Partner Income</label>
-                    <input type="text" name="partner_income"  value="{{ $user->partner_income }}" id="partner_income" placeholder="Enter Native Place" required>
-                    <x-input-error :messages="$errors->get('partner_income')" class="mt-2" />
+                    <input type="text" name="partner_income"  value="{{ $user->partner_income }}" id="partner_income" placeholder="Enter Native Place" >
+                    @if ($errors->has('partner_income'))
+                    <span class="text-danger small">{{ $errors->first('partner_income') }}</span>
+                    @endif 
                 </div>
                 <div class="col">
                     <div class="form-group">
@@ -145,6 +159,9 @@
                             @endif
                             
                         </select>
+                        @if ($errors->has('partner_currency'))
+                    <span class="text-danger small">{{ $errors->first('partner_currency') }}</span>
+                    @endif 
                     </div>
                 </div>
             </div>
@@ -159,7 +176,9 @@
                         <option value="yes" {{ $user->want_to_see_patrika === 'yes' ? 'selected' : '' }}>Yes</option>
                         <option value="no" {{ $user->want_to_see_patrika === 'no' ? 'selected' : '' }}>No</option>
                     </select>
-                    <x-input-error :messages="$errors->get('want_to_see_patrika')" class="mt-2" /> 
+                    @if ($errors->has('want_to_see_patrika'))
+                    <span class="text-danger small">{{ $errors->first('want_to_see_patrika') }}</span>
+                    @endif 
                 </div>
                 
             </div>
@@ -172,7 +191,9 @@
                         <option value="yes" {{ $user->partner_sub_cast === 'yes' ? 'selected' : '' }}>Yes</option>
                         <option value="no" {{ $user->partner_sub_cast === 'no' ? 'selected' : '' }}>No</option>
                     </select>
-                    <x-input-error :messages="$errors->get('partner_sub_cast')" class="mt-2" /> 
+                    @if ($errors->has('partner_sub_cast'))
+                    <span class="text-danger small">{{ $errors->first('partner_sub_cast') }}</span>
+                    @endif         
                 </div>
                 </div> 
             <div class="row mt-3">
@@ -185,22 +206,29 @@
                                 <option value="{{ $value }}" {{ ($user->partner_eating_habbit === $value) ? 'selected' : '' }}>{{ $name }}</option>
                             @endforeach
                         </select>
+                        @if ($errors->has('partner_eating_habbit'))
+                        <span class="text-danger small">{{ $errors->first('partner_eating_habbit') }}</span>
+                        @endif    
                     </div>
                     </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="partner_city_preference">City Preference</label>
-                        <input type="text" name="partner_city_preference"  value="{{ $user->partner_city_preference }}" id="partner_city_preference" placeholder="Enter City Preference" required>
-                        <x-input-error :messages="$errors->get('partner_city_preference')" class="mt-2" />
-                    </div>
+                        <input type="text" name="partner_city_preference"  value="{{ $user->partner_city_preference }}" id="partner_city_preference" placeholder="Enter City Preference" >
+                        @if ($errors->has('partner_city_preference'))
+                        <span class="text-danger small">{{ $errors->first('partner_city_preference') }}</span>
+                        @endif  
+                </div>
                 </div>
             </div>  
             <div class="row mt-3">
                 <div class="col">
                     <div class="form-group">
                         <label for="partner_education">Education</label>
-                        <input type="text" name="partner_education"  value="{{ $user->partner_education }}" id="partner_education" placeholder="Enter Education" required>
-                        <x-input-error :messages="$errors->get('partner_education')" class="mt-2" />
+                        <input type="text" name="partner_education"  value="{{ $user->partner_education }}" id="partner_education" placeholder="Enter Education" >
+                        @if ($errors->has('partner_education'))
+                        <span class="text-danger small">{{ $errors->first('partner_education') }}</span>
+                        @endif  
                     </div>
                 </div>
                 <div class="col">
@@ -212,7 +240,9 @@
                             <option value="yes" {{ $user->partner_job === 'yes' ? 'selected' : '' }}>Yes</option>
                             <option value="no" {{ $user->partner_job === 'no' ? 'selected' : '' }}>No</option>
                         </select>
-                        <x-input-error :messages="$errors->get('partner_job')" class="mt-2" /> 
+                        @if ($errors->has('partner_job'))
+                        <span class="text-danger small">{{ $errors->first('partner_job') }}</span>
+                        @endif  
                     </div>
                     </div>
                 <div class="col">
@@ -224,7 +254,9 @@
                             <option value="yes" {{ $user->partner_business === 'yes' ? 'selected' : '' }}>Yes</option>
                             <option value="no" {{ $user->partner_business === 'no' ? 'selected' : '' }}>No</option>
                         </select>
-                        <x-input-error :messages="$errors->get('partner_business')" class="mt-2" /> 
+                        @if ($errors->has('partner_business'))
+                        <span class="text-danger small">{{ $errors->first('partner_business') }}</span>
+                        @endif  
                     </div>
                     </div>
                 <div class="col">
@@ -236,8 +268,10 @@
                             <option value="yes" {{ $user->partner_foreign_resident === 'yes' ? 'selected' : '' }}>Yes</option>
                             <option value="no" {{ $user->partner_foreign_resident === 'no' ? 'selected' : '' }}>No</option>
                         </select>
-                        <x-input-error :messages="$errors->get('partner_foreign_resident')" class="mt-2" /> 
-                    </div>
+                        @if ($errors->has('partner_foreign_resident'))
+                        <span class="text-danger small">{{ $errors->first('partner_foreign_resident') }}</span>
+                        @endif            
+                  </div>
                     </div>
             </div>         
         </div>

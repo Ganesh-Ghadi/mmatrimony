@@ -13,10 +13,10 @@
             @csrf
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Add Cast</h5>
+                    <h5 class="font-semibold text-lg dark:text-white-light">Add Caste</h5>
                 </div>               
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
-                    <x-text-input name="name" value="{{ old('name') }}" :label="__('Cast Name')" :require="true" :messages="$errors->get('name')"/>                       
+                    <x-text-input name="name" value="{{ old('name') }}" :label="__('Caste Name')" :require="true" :messages="$errors->get('name')"/>                       
                 </div>
                 <div class="flex justify-end mt-4">
                     <x-success-button>

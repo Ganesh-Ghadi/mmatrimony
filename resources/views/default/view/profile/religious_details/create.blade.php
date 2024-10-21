@@ -104,8 +104,9 @@
                     <option value="" selected>select an option</option>
                     <option value="hindu" {{ ($user->religion === 'hindu') ? 'selected' : ''}} >Hindu</option>
                 </select> 
-                <x-input-error :messages="$errors->get('religion')" class="mt-2" /> 
-                
+                @if ($errors->has('religion'))
+                <span class="text-danger small">{{ $errors->first('religion') }}</span>
+                @endif                  
 
             </div>
         </div>
@@ -120,8 +121,10 @@
                     <option value="{{$caste->id}}" {{ ($user->caste === $caste->id ) ? 'selected' : ''}}>{{$caste->name}}</option>
                     @endforeach
                 </select> 
-                <x-input-error :messages="$errors->get('castes')" class="mt-2" /> 
-            </div>   
+                @if ($errors->has('castes'))
+                <span class="text-danger small">{{ $errors->first('castes') }}</span>
+                @endif   
+             </div>   
 
             <div class="form-group">
                 <label>Subcastes</label>
@@ -131,12 +134,16 @@
                     <option value="{{$subCaste->id}}" {{ ($user->sub_caste === $subCaste->id ) ? 'selected' : ''}}>{{$subCaste->name}}</option>
                     @endforeach
                 </select> 
-                <x-input-error :messages="$errors->get('sub_caste')" class="mt-2" /> 
-            </div>
+                @if ($errors->has('sub_caste'))
+                <span class="text-danger small">{{ $errors->first('sub_caste') }}</span>
+                @endif        
+           </div>
             <div class="form-group">
                 <label for="gotra">Gotra</label>
-                <input type="text" name="gotra"  value="{{ $user->gotra }}" id="gotra" placeholder="Enter first name" required>
-                <x-input-error :messages="$errors->get('gotra')" class="mt-2" />
+                <input type="text" name="gotra"  value="{{ $user->gotra }}" id="gotra" placeholder="Enter first name" >
+                @if ($errors->has('gotra'))
+                <span class="text-danger small">{{ $errors->first('gotra') }}</span>
+                @endif   
             </div>
         </div>
     </div>

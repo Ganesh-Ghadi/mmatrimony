@@ -24,10 +24,10 @@ class UpdateProfileRequest extends FormRequest
         $id = auth()->user()->profile->id;
         return [
             'user_id' => 'nullable|exists:users,id',
-            'first_name' => 'nullable|string|max:100',
+            'first_name' => 'required|string|max:100',
             'middle_name' => 'nullable|string|max:100',
             'last_name' => 'nullable|string|max:100',
-            'mother_tongue' => 'nullable|string|max:100',
+            'mother_tongue' => 'required|string|max:100',
             'native_place' => 'nullable|string|max:100',
             'gender' => 'nullable|string|max:50',
             'marital_status' => 'nullable|string|max:50',
@@ -45,9 +45,7 @@ class UpdateProfileRequest extends FormRequest
             'drinking_habits' => 'nullable|string|max:100',
             'smoking_habits' => 'nullable|string|max:100',
             'about_self' => 'nullable|string',
-            'img_1' => 'nullable|string|max:255',
-            'img_2' => 'nullable|string|max:255',
-            'img_3' => 'nullable|string|max:255',
+         
             'religion' => 'nullable|string|max:100',
             'caste' => 'nullable|integer',
             'sub_caste' => 'nullable|integer',

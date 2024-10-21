@@ -75,6 +75,9 @@
                                     <option value="{{ $value }}" {{ ($user->country === $value) ? 'selected' : '' }}>{{ $name }}</option>
                                 @endforeach
                             </select>
+                            @if ($errors->has('country'))
+                            <span class="text-danger small">{{ $errors->first('country') }}</span>
+                            @endif  
                         </div>
                     </div>
                     <div class="col" id="stateContainer" style="">
@@ -86,15 +89,20 @@
                                     <option value="{{ $value }}" {{ ($user->state === $value) ? 'selected' : '' }}>{{ $name }}</option>
                                 @endforeach
                             </select>
+                            @if ($errors->has('state'))
+                            <span class="text-danger small">{{ $errors->first('state') }}</span>
+                            @endif  
                         </div>
                     </div>
         
                     <div class="col" id="cityContainer" style="">
                         <div class="form-group">
                             <label for="city">City</label>
-                            <input type="text" name="city"  value="{{ $user->city }}" id="city" placeholder="Enter City" required>
-                            <x-input-error :messages="$errors->get('city')" class="mt-2" />
-                        </div>
+                            <input type="text" name="city"  value="{{ $user->city }}" id="city" placeholder="Enter City" >
+                            @if ($errors->has('city'))
+                            <span class="text-danger small">{{ $errors->first('city') }}</span>
+                            @endif  
+                    </div>
                     </div>
                 </div>
             </div>
@@ -127,15 +135,19 @@
                 <div class="form-group">
                     <label for="address_line_1" class="form-label">Address Line 1</label>
                     <input type="text" name="address_line_1" value="{{$user->address_line_1}}" id="address_line_1" class="form-control" placeholder="Enter Address Line 1">
-                    <x-input-error :messages="$errors->get('address_line_1')" class="mt-2" />
+                    @if ($errors->has('address_line_1'))
+                    <span class="text-danger small">{{ $errors->first('address_line_1') }}</span>
+                    @endif  
                 </div>
             </div>
             <div class="col mt-3">
                 <div class="form-group">
                     <label for="address_line_2" class="form-label">Address Line 2</label>
                     <input type="text" name="address_line_2" value="{{$user->address_line_2}}" id="address_line_2" class="form-control" placeholder="Enter Address Line 2">
-                    <x-input-error :messages="$errors->get('address_line_2')" class="mt-2" />
-                </div>
+                    @if ($errors->has('address_line_2'))
+                    <span class="text-danger small">{{ $errors->first('address_line_2') }}</span>
+                    @endif  
+               </div>
             </div>
             <div class="row mt-3">
                
@@ -143,15 +155,19 @@
                     <div class="form-group">
                         <label for="landmark" class="form-label">Landmark</label>
                         <input type="text" name="landmark" value="{{$user->landmark}}" id="landmark" class="form-control" placeholder="Enter Landmark">
-                        <x-input-error :messages="$errors->get('landmark')" class="mt-2" />
-                    </div>
+                        @if ($errors->has('landmark'))
+                        <span class="text-danger small">{{ $errors->first('landmark') }}</span>
+                        @endif  
+                </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="pincode" class="form-label">pincode</label>
                         <input type="text" name="pincode" value="{{$user->pincode}}" id="pincode" class="form-control" placeholder="Enter pincode">
-                        <x-input-error :messages="$errors->get('pincode')" class="mt-2" />
-                    </div>
+                        @if ($errors->has('pincode'))
+                        <span class="text-danger small">{{ $errors->first('pincode') }}</span>
+                        @endif  
+                </div>
                 </div>
                 
             </div>  
@@ -160,42 +176,42 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="mobile" class="form-label">Mobile</label>
-                        <input name="mobile" type="text" id="mobile" class="form-control" required
+                        <input name="mobile" type="text" id="mobile" class="form-control" 
                                placeholder="1234567890"
                                value="{{ $user->mobile }}" 
                                title="Please enter a valid 10-digit mobile number">
                     </div>
+                    @if ($errors->has('mobile'))
+                    <span class="text-danger small">{{ $errors->first('mobile') }}</span>
+                    @endif  
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="landline">Landline</label>
-                        <input type="text" name="landline"  value="{{ $user->landline }}" id="landline" placeholder="Enter landline" required>
-                        <x-input-error :messages="$errors->get('landline')" class="mt-2" />
+                        <input type="text" name="landline"  value="{{ $user->landline }}" id="landline" placeholder="Enter landline" >
+                        @if ($errors->has('landline'))
+                        <span class="text-danger small">{{ $errors->first('landline') }}</span>
+                        @endif  
                     </div>
                 </div>
             </div>
             <div class="row mt-3">  
                 <div class="form-group">
                     <label for="email" class="form-label">Email</label>
-                    <input name="email" type="email" id="email" class="form-control" required
+                    <input name="email" type="email" id="email" class="form-control" 
                            placeholder="example@example.com"
                            value="{{ $user->email }}"
                       
                            title="Please enter a valid email address">
+                           @if ($errors->has('email'))
+                           <span class="text-danger small">{{ $errors->first('email') }}</span>
+                           @endif  
                 </div>
             </div>
         </div>
     </div>  
 
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    
     
     <div class="container text-end">
         <button type="submit" class="btn btn-primary btn-sm p-2">Save</button>

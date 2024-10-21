@@ -41,6 +41,7 @@ class RegisteredUserController extends Controller
             'mobile' => ['required', 'digits:10'],
             'date_of_birth' => ['required', 'date'],    
              'password' => ['required', 'confirmed', Rules\Password::defaults()],
+             'role'=>  ['required'],
         ]);
         // dd($request);
 
@@ -54,6 +55,14 @@ class RegisteredUserController extends Controller
              'password' => Hash::make($request->password),
         ]);
         // dd($user->id);
+           if($request->role ==='bride'){
+              $userRole = 'groom';
+           }
+
+           if($request->role ==='groom'){
+            $userRole = 'bride';
+         }
+
         $profile = Profile::create([
             'user_id' => $user->id,
             'first_name' => $request->first_name,
@@ -62,6 +71,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'date_of_birth' => $request->date_of_birth,
              'mobile' => $request->mobile,
+             'role' => $userRole,
         ]);
 
         event(new Registered($user));

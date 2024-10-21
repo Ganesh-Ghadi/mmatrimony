@@ -89,8 +89,10 @@
                     <option value="1" {{ $user->father_is_alive === 1 ? 'selected' : '' }}>Yes</option>
                     <option value="0" {{ $user->father_is_alive === 0 ? 'selected' : '' }}>No</option>
                 </select>
-                <x-input-error :messages="$errors->get('father_is_alive')" class="mt-2" />
-            </div>
+                @if ($errors->has('father_is_alive'))
+                <span class="text-danger small">{{ $errors->first('father_is_alive') }}</span>
+                @endif        
+           </div>
         </div>
 
         <!-- Native Place and Gender fields, initially hidden -->
@@ -98,9 +100,11 @@
 
               <div class="form-group">
                 <label for="father_name">Father Name</label>
-                <input type="text" class="form-input" name="father_name"  value="{{ $user->father_name }}" id="father_name" placeholder="Enter Father Name" required>
-                <x-input-error :messages="$errors->get('father_name')" class="mt-2" />
-            </div>
+                <input type="text" class="form-input" name="father_name"  value="{{ $user->father_name }}" id="father_name" placeholder="Enter Father Name" >
+                @if ($errors->has('father_name'))
+                <span class="text-danger small">{{ $errors->first('father_name') }}</span>
+                @endif           
+             </div>
             
             <div class="form-group">
                 <label for="occupation">Occupation</label>
@@ -111,6 +115,9 @@
                     @endforeach
                    
                 </select>
+                @if ($errors->has('occupation'))
+                <span class="text-danger small">{{ $errors->first('occupation') }}</span>
+                @endif    
             </div>
             <div class="form-group">
                 <label for="father_job_type">Job Type</label>
@@ -121,11 +128,16 @@
                     @endforeach
                   
                 </select>
+                @if ($errors->has('father_job_type'))
+                <span class="text-danger small">{{ $errors->first('father_job_type') }}</span>
+                @endif    
             </div>
             <div class="form-group">
-                <label for="organisationName">Organisation Name</label>
-                <input type="text" class="form-input" name="father_organization"  value="{{ $user->father_organization }}" id="father_organization" placeholder="Enter Organisation Name" required>
-                <x-input-error :messages="$errors->get('father_organization')" class="mt-2" />
+                <label for="father_organization">Organisation Name</label>
+                <input type="text" class="form-input" name="father_organization"  value="{{ $user->father_organization }}" id="father_organization" placeholder="Enter Organisation Name" >
+                @if ($errors->has('father_organization'))
+                <span class="text-danger small">{{ $errors->first('father_organization') }}</span>
+                @endif   
             </div>
        
     </div>
@@ -141,6 +153,9 @@
                     <option value="1" {{ $user->mother_is_alive === 1 ? 'selected' : '' }}>Yes</option>
                     <option value="0" {{ $user->mother_is_alive === 0 ? 'selected' : '' }}>No</option>
                 </select>
+                @if ($errors->has('mother_is_alive'))
+                <span class="text-danger small">{{ $errors->first('mother_is_alive') }}</span>
+                @endif   
             </div>
         </div>
     
@@ -150,8 +165,10 @@
         {{-- <div class="form-row hidden" id="motherAdditionalInfo"> --}}
             <div class="form-group">
                 <label for="mother_name">Full Name</label>
-                <input class="form-input" name="mother_name"  value="{{ $user->mother_name }}" id="mother_name" placeholder="Enter Mother Name" required>
-                <x-input-error :messages="$errors->get('mother_name')" class="mt-2" />
+                <input class="form-input" name="mother_name"  value="{{ $user->mother_name }}" id="mother_name" placeholder="Enter Mother Name" >
+                @if ($errors->has('mother_name'))
+                <span class="text-danger small">{{ $errors->first('mother_name') }}</span>
+                @endif   
             </div>
             <div class="form-group">
                 <label for="occupation">Occupation</label>
@@ -162,6 +179,9 @@
                     @endforeach
                    
                 </select>
+                @if ($errors->has('mother_occupation'))
+                <span class="text-danger small">{{ $errors->first('mother_occupation') }}</span>
+                @endif   
             </div>
             <div class="form-group">
                 <label for="mother_job_type">Job Type</label>
@@ -172,11 +192,16 @@
                     @endforeach
                      
                 </select>
+                @if ($errors->has('mother_job_type'))
+                <span class="text-danger small">{{ $errors->first('mother_job_type') }}</span>
+                @endif   
             </div>
             <div class="form-group">
                 <label for="mother_organization">Organization Name</label>
-                <input type="text" name="mother_organization"  value="{{ $user->mother_organization }}" id="mother_organization" placeholder="Enter Native Place" required>
-                <x-input-error :messages="$errors->get('mother_organization')" class="mt-2" />
+                <input type="text" name="mother_organization"  value="{{ $user->mother_organization }}" id="mother_organization" placeholder="Enter Native Place" >
+                @if ($errors->has('mother_organization'))
+                <span class="text-danger small">{{ $errors->first('mother_organization') }}</span>
+                @endif   
             </div>
         </div>
     </div>
@@ -185,9 +210,11 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="brother_resident_place">Resident Place</label>
-                <input type="text" class="form-input" name="brother_resident_place"  value="{{ $user->brother_resident_place }}" id="brother_resident_place" placeholder="Enter Resident Place" required>
-                <x-input-error :messages="$errors->get('brother_resident_place')" class="mt-2" />
-             </div>
+                <input type="text" class="form-input" name="brother_resident_place"  value="{{ $user->brother_resident_place }}" id="brother_resident_place" placeholder="Enter Resident Place" >
+                @if ($errors->has('brother_resident_place'))
+                <span class="text-danger small">{{ $errors->first('brother_resident_place') }}</span>
+                @endif             
+            </div>
              <div class="form-group">
                 <label for="number_of_brothers_married">Brother Married</label>
                 <select name="number_of_brothers_married" id="number_of_brothers_married" class="form-input">
@@ -196,6 +223,9 @@
                         <option value="{{ $i }}" {{ ($user->number_of_brothers_married == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Brothers' : 'Brother' }}</option>
                     @endfor
                 </select>
+                @if ($errors->has('number_of_brothers_married'))
+                <span class="text-danger small">{{ $errors->first('number_of_brothers_married') }}</span>
+                @endif   
             </div>
             
             <div class="form-group">
@@ -206,6 +236,9 @@
                         <option value="{{ $i }}" {{ ($user->number_of_brothers_unmarried == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Brothers' : 'Brother' }}</option>
                     @endfor
                 </select>
+                @if ($errors->has('number_of_brothers_unmarried'))
+                <span class="text-danger small">{{ $errors->first('number_of_brothers_unmarried') }}</span>
+                @endif   
             </div>
         </div>
     </div>
@@ -214,8 +247,10 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="sister_resident_place">Resident Place</label>
-                <input class="form-input" name="sister_resident_place"  value="{{ $user->sister_resident_place }}" id="sister_resident_place" placeholder="Enter Resident Place" required>
-                <x-input-error :messages="$errors->get('sister_resident_place')" class="mt-2" />
+                <input class="form-input" name="sister_resident_place"  value="{{ $user->sister_resident_place }}" id="sister_resident_place" placeholder="Enter Resident Place" >
+                @if ($errors->has('sister_resident_place'))
+                <span class="text-danger small">{{ $errors->first('sister_resident_place') }}</span>
+                @endif   
              </div>
              <div class="form-group">
                 <label for="number_of_sisters_married">Sister Married</label>
@@ -225,6 +260,9 @@
                         <option value="{{ $i }}" {{ ($user->number_of_sisters_married == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Sisters' : 'Sister' }}</option>
                     @endfor
                 </select>
+                @if ($errors->has('number_of_sisters_married'))
+                <span class="text-danger small">{{ $errors->first('number_of_sisters_married') }}</span>
+                @endif   
             </div>
             <div class="form-group">
                 <label for="number_of_sisters_unmarried">Sister UnMarried</label>
@@ -234,6 +272,9 @@
                         <option value="{{ $i }}" {{ ($user->number_of_sisters_unmarried == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Brothers' : 'Brother' }}</option>
                     @endfor
                 </select>
+                @if ($errors->has('number_of_sisters_unmarried'))
+                <span class="text-danger small">{{ $errors->first('number_of_sisters_unmarried') }}</span>
+                @endif   
             </div>
         </div>
     </div>
@@ -244,8 +285,10 @@
         <div class="panel">
             <div class="form-group">
                 <label for="about_parents">About Yourself</label>
-                <textarea name="about_parents" id="about_parents" class="form-input" placeholder="Tell us about yourself..." required>{{ old('about_parents', $user->about_parents) }}</textarea>
-                <x-input-error :messages="$errors->get('about_parents')" class="mt-2" />
+                <textarea name="about_parents" id="about_parents" class="form-input" placeholder="Tell us about yourself..." >{{ old('about_parents', $user->about_parents) }}</textarea>
+                @if ($errors->has('about_parents'))
+                <span class="text-danger small">{{ $errors->first('about_parents') }}</span>
+                @endif   
             </div>
     </div>
     </div>

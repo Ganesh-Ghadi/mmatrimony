@@ -96,6 +96,7 @@ class Profile extends Model
         'partner_business',
         'partner_foreign_resident',
         'available_tokens',
+        'role'
     ];
 
     public function user(){
@@ -105,6 +106,10 @@ class Profile extends Model
     public function profilePackages(){
         return $this->belongsToMany(Package::class, 'profile_packages')
         ->withPivot('tokens_received', 'tokens_used', 'starts_at', 'expires_at');
+    }
+
+    public function favoriteProfiles(){
+        return $this->belongsToMany(Profile::class, 'profile_favorites', 'profile_id','favorite_profile_id');
     }
 
 }

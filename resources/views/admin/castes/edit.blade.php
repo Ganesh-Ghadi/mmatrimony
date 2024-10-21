@@ -2,7 +2,7 @@
 <div>
     <ul class="flex space-x-2 rtl:space-x-reverse">
         <li>
-            <a href="{{ route('castes.index') }}" class="text-primary hover:underline">Cates</a>
+            <a href="{{ route('castes.index') }}" class="text-primary hover:underline">Castes</a>
         </li>
         <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
             <span>Edit</span>

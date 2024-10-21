@@ -48,6 +48,24 @@
                         <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2 text-danger small" />
                     </div>
                     
+                    <div class="mb-2 ">
+                        <label class="form-label" style="color: black; margin: 10px 0;">Looking for:</label>
+                        <div class="d-flex gap-2 flex-row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role" id="bride" value="bride" {{ old('role') === 'bride' ? 'checked' : '' }} required>
+                            <label class="form-check-label" for="bride" style="color: black;">
+                                Bride
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role" id="groom" value="groom" {{ old('role') === 'groom' ? 'checked' : '' }} required>
+                            <label class="form-check-label" for="groom" style="color: black;">
+                                Groom
+                            </label>
+                        </div>
+                        <x-input-error :messages="$errors->get('role')" class="mt-2 text-danger small" />
+                    </div>
+                </div>
                     
                     
                     <div class="mb-2">
@@ -62,12 +80,7 @@
                     </div>
                     <button type="submit" class="btn text-white btn-primary w-100">Register</button>
                 </form>
-                {{-- <div class="text-center my-4">
-                    <div class="position-relative">
-                        <hr class="my-2" />
-                        <span class="bg-light px-2">OR</span>
-                    </div>
-                </div> --}}
+               
                 @if (Route::has('password.request'))
                 <p class="text-end my-2 small"> 
                         <a class="text-primary font-weight-bold" href="{{ route('login') }}">

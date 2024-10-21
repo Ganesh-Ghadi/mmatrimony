@@ -182,10 +182,39 @@ a.btn:hover {
                         <p>Age: {{ $user->age }}</p> <!-- Displaying the calculated age -->
                         <p>Marital Status: {{ $user->marital_status }}</p> <!-- Displaying the marital status -->
             
-                        <!-- View Profile Link -->
-                        <a href="{{ route('user.profile', $user->id) }}" class="btn btn-primary">View Profile</a>
+                        {{-- <!-- View Profile Link -->
+                        <form action="{{ route('profiles.add_favorite') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="favorite_id" value="{{$user->id}}">
+                        <button type="submit" class="btn btn-primary text-white btn-sm ">Add to favorites</button>
+                    </form>
+
+
+                        <a href="{{ route('user.profile', $user->id) }}" class="btn btn-primary">View Profile</a> --}}
+                        {{-- start --}}
+
+                        @if($user->is_favorited)
+                        <form action="{{ route('profiles.remove_favorite') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="favorite_id" value="{{$user->id}}">
+
+                            <button type="submit">Remove from Favorites</button>
+                        </form>
+                    @else
+                        <form action="{{ route('profiles.add_favorite') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="favorite_id" value="{{$user->id}}">
+
+                            <button type="submit">Add to Favorites</button>
+                        </form>
+                    @endif
+
+                        {{-- end --}}
+                        <a href="{{ route('user.profile', $user->id) }}" class="btn btn-primary">View Profile</a> 
+
                     </div>
                 @endforeach
+
             </div>
         @else
             <p>No users found.</p>
