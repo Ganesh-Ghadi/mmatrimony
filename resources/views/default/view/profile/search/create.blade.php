@@ -1,5 +1,4 @@
 <x-layout.user>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -108,23 +107,29 @@
                 grid-template-columns: 1fr; /* 1 card per row on small screens */
             }
         }
+
         button,
-a.btn {
-    background-color: #ff0000; /* Rose Red color */
-     cursor: pointer;
-    padding: 10px 25px;
-    margin-top: 40px; /* Top margin */
-    margin-bottom: 20px; /* Bottom margin */
-    margin-right: 15px; /* Right margin */
-    border: none; /* Remove default border */
-    text-align: center; /* Center text */
-}
+        a.btn {
+            background-color: #ff0000; /* Rose Red color */
+            cursor: pointer;
+            padding: 10px 25px;
+            margin-top: 40px; /* Top margin */
+            margin-bottom: 20px; /* Bottom margin */
+            margin-right: 15px; /* Right margin */
+            border: none; /* Remove default border */
+            text-align: center; /* Center text */
+        }
 
-button:hover,
-a.btn:hover {
-    background-color: #cc0066; /* Darker shade for hover effect */
-}
+        button:hover,
+        a.btn:hover {
+            background-color: #cc0066; /* Darker shade for hover effect */
+        }
 
+        /* Specific styles for the small button */
+        .small-btn {
+            padding: 5px 10px; /* Smaller padding for the button */
+            font-size: 0.8em; /* Reduced font size */
+        }
     </style>
 
     <div>
@@ -152,7 +157,6 @@ a.btn:hover {
                 <label><input type="checkbox" name="marital_status[]" value="Separated" {{ in_array('Separated', (array) request()->input('marital_status')) ? 'checked' : '' }}> Separated</label>
                 <label><input type="checkbox" name="marital_status[]" value="Widowed" {{ in_array('Widowed', (array) request()->input('marital_status')) ? 'checked' : '' }}> Widowed</label>
                 <label><input type="checkbox" name="marital_status[]" value="Annulled" {{ in_array('Annulled', (array) request()->input('marital_status')) ? 'checked' : '' }}> Annulled</label>
-                 
             </div>
         
             <!-- Search and Reset Buttons -->
@@ -182,6 +186,7 @@ a.btn:hover {
                         <p>Age: {{ $user->age }}</p> <!-- Displaying the calculated age -->
                         <p>Marital Status: {{ $user->marital_status }}</p> <!-- Displaying the marital status -->
             
+ 
                         {{-- <!-- View Profile Link -->
                         <form action="{{ route('profiles.add_favorite') }}" method="POST">
                             @csrf
@@ -212,6 +217,7 @@ a.btn:hover {
                         {{-- end --}}
                         <a href="{{ route('user.profile', $user->id) }}" class="btn btn-primary">View Profile</a> 
 
+ 
                     </div>
                 @endforeach
 

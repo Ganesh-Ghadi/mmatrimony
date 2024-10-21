@@ -97,7 +97,7 @@
     
         <div class="offcanvas-body">
             <ul class="list-group">
-                <li class="list-group-item"><a href="{{ route('search.create') }}">search</a></li>
+                <li class="list-group-item"><a href="{{ route('search.create') }}">Quick Search</a></li>
                 <li class="list-group-item"><a href="{{ route('view_profile.create') }}">View Profile</a></li>
                 <li class="list-group-item"><a href="{{ route('basic_details.index') }}">Basic Details</a></li>
                 <li class="list-group-item"><a href="{{ route('religious_details.create') }}">Religious Details</a></li>

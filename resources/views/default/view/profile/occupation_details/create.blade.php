@@ -119,14 +119,14 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label for="income">Income</label>
+                        <label for="income">Income (INR)</label>
                         <input type="text" name="income" value="{{$user->income}}" id="income" class="form-control" placeholder="Enter income">
                         <x-input-error :messages="$errors->get('income')" class="mt-2" />
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="job_experience">Job Experience</label>
+                        <label for="job_experience">Job Experience (months)</label>
                         <input type="text" name="job_experience" value="{{$user->job_experience}}" id="job_experience" class="form-control" placeholder="Enter Job Experience">
                         @if ($errors->has('job_experience'))
                         <span class="text-danger small">{{ $errors->first('job_experience') }}</span>

@@ -149,10 +149,11 @@ document.getElementById('submit').addEventListener('click', function() {
 <div class="panel">
     <h2>Astronomy Information</h2>
     
-    <div class="">
+    <div>
         <input type="checkbox" id="toggleDropdowns" />
-        <label for="toggleDropdowns">Will show when we meet</label>
-     </div>
+        <label class="text-black" for="toggleDropdowns" style="color: black;">Will show when we meet</label>
+    </div>
+    
     
 
     <div class="container" id="dropdowns">
@@ -230,6 +231,38 @@ document.getElementById('submit').addEventListener('click', function() {
         </div>
     </div>
     </div>
+    <div class="image-container" style="position: relative; display: inline-block;">
+        <img src="{{ asset('storage/images/patrika.png' . $user->img_1) }}" alt="Profile Image" class="profile-image" style="width: 100%;">
+    
+        <!-- Dropdown over the image -->
+        <div class="dropdown-container" style="position: absolute; top: 10px; left: 120px;">
+            <select id="imageDropdown" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+                <option value="">Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </div>
+        <div class="dropdown-container" style="position: absolute; top: 60px; left: 20px;">
+            <select id="imageDropdown" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+                <option value="">Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </div>
+        <div class="dropdown-container" style="position: absolute; top: 60px; left: 20px;">
+            <select id="imageDropdown" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+                <option value="">Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </div>
+        
+        
+    </div>
+    
     
     <div class="panel">
         <div class="form-group">
