@@ -237,28 +237,131 @@ document.getElementById('submit').addEventListener('click', function() {
         <!-- Dropdown over the image -->
         <div class="dropdown-container" style="position: absolute; top: 10px; left: 120px;">
             <select id="imageDropdown" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
-                <option value="">Select</option>
+                <option value="">Select1</option>
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>
             </select>
         </div>
-        <div class="dropdown-container" style="position: absolute; top: 60px; left: 20px;">
-            <select id="imageDropdown" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
-                <option value="">Select</option>
+      <!-- Dropdown over the image -->
+        <div class="dropdown-container" style="position: absolute; top: 60px; left: 280px;">
+            <!-- First Dropdown -->
+            <select id="imageDropdown3" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black; margin-bottom: 5px;">
+                <option value="">Select 1</option>
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>
             </select>
-        </div>
-        <div class="dropdown-container" style="position: absolute; top: 60px; left: 20px;">
-            <select id="imageDropdown" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
-                <option value="">Select</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+        
+            <!-- Second Dropdown (Numbers from 1 to 12) -->
+            <select id="imageDropdown4" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+                <option value="">Select No.</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
             </select>
         </div>
+        
+    <div class="dropdown-container" style="position: absolute; top: 60px; left: 20px;">
+        <select id="imageDropdown2" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 2</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="dropdown-container" style="position: absolute; top: 10px; left: 120px;">
+        <select id="imageDropdown1" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 3</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+
+    <div class="dropdown-container" style="position: absolute; top: 10px; left: 460px;">
+        <select id="imageDropdown4" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 4</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="dropdown-container" style="position: absolute; top: 140px; left: 460px;">
+        <select id="imageDropdown5" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 5</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="dropdown-container" style="position: absolute; top: 230px; left: 280px;">
+        <select id="imageDropdown6" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 6</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="dropdown-container" style="position: absolute; top: 230px; left: 30px;">
+        <select id="imageDropdown7" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 7</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="dropdown-container" style="position: absolute; top: 230px; left: 560px;">
+        <select id="imageDropdown8" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 8</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="dropdown-container" style="position: absolute; top: 280px; left: 460px;">
+        <select id="imageDropdown9" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 9</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="dropdown-container" style="position: absolute; top: 280px; left: 120px;">
+        <select id="imageDropdown10" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 10</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="dropdown-container" style="position: absolute; top: 140px; left: 150px;">
+        <select id="imageDropdown11" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 11</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="dropdown-container" style="position: absolute; top: 60px; left: 560px;">
+        <select id="imageDropdown12" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="">Select 12</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+{{-- doprdown end --}}
+
         
         
     </div>
