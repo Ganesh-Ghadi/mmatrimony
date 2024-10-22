@@ -76,6 +76,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/save-profile', [UserProfilesController::class, 'store'])->name('profiles.store');
         Route::post('/add-favorites', [UserProfilesController::class, 'add_favorite'])->name('profiles.add_favorite');
         Route::post('/remove-favorites', [UserProfilesController::class, 'remove_favorite'])->name('profiles.remove_favorite');
+        Route::get('/view_favorites', [UserProfilesController::class, 'view_favorite'])->name('profiles.view_favorite');
 
         
         Route::resource('roles', RolesController::class);

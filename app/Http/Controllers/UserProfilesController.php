@@ -366,5 +366,14 @@ class UserProfilesController extends Controller
     return redirect()->back()->with('success', 'profile removed from favorites successfully');
 }
 
+
+     public function view_favorite(){
+
+        $users = auth()->user()->profile->favoriteProfiles()->get();
+
+        return view('default.view.profile.view_favorites.index', ['users' => $users]);
+    }
+    
+
     
 }
