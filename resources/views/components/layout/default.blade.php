@@ -53,7 +53,7 @@
                         </button>
                         <div class="collapse navbar-collapse py-3" id="navbarCollapse">
                             <div class="navbar-nav mx-auto border-top">
-                                <a href="#" class="nav-item nav-link active">Home</a>
+                                <a href="#" class="nav-item nav-link active">Hasdasome</a>
                                 <a href="#" class="nav-item nav-link">About Us</a>
                                 <a href="#" class="nav-item nav-link">Success Stories</a>
                                 <a href="#" class="nav-item nav-link">Contact Us</a>
@@ -165,7 +165,7 @@
                             </p>
                             @auth
                             <div class="btn-link d-flex justify-content-center">
-                                <a href="{{route('logout')}}" class="btn  btn-light btn-light-outline-0 me-2">Logout</a>
+                                <a href="{{route('logout')}}" class="btn  btn-light btn-light-outline-0 me-2">Logosadut</a>
                             @else
                                 <a href="{{route('register')}}" class="btn  btn-light btn-light-outline-0 me-2">  Register</a>
                                 <a href="{{route('login')}}" class="btn  btn-light btn-light-outline-0 me-2">  Login</a>

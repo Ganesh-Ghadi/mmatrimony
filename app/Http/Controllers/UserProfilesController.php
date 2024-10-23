@@ -147,18 +147,15 @@ class UserProfilesController extends Controller
         }
 
         // Fetch users from the database
-        if(auth()->user()->profile->role === 'bride'){
-            $users = $users->where('role','groom')->get();
-         } 
-         elseif(auth()->user()->profile->role === 'groom'){
-            $users = $users->where('role','bride')->get();
-         }
+        if (auth()->user()->profile->role === 'bride') {
+            $users = $users->where('role', 'groom')->get();
+        } elseif (auth()->user()->profile->role === 'groom') {
+            $users = $users->where('role', 'bride')->get();
+        }
 
         foreach ($users as $user) {
             $user->is_favorited = auth()->user()->profile->favoriteProfiles()->where('favorite_profile_id', $user->id)->exists();
         }
-
-        
 
         // Convert birthdate to age for each user, handling null or invalid birthdates
         foreach ($users as $user) {
@@ -175,14 +172,12 @@ class UserProfilesController extends Controller
 
         // If no filters applied, show random 10 users
         if (empty($query) && empty($from_age) && empty($to_age) && empty($marital_status)) {
+            if (auth()->user()->profile->role === 'bride') {
+                $users = $users->where('role', 'groom')->shuffle()->take(10);
+            } elseif (auth()->user()->profile->role === 'groom') {
+                $users = $users->where('role', 'bride')->shuffle()->take(10);
+            }
 
-             if(auth()->user()->profile->role === 'bride'){
-                $users = $users->where('role','groom')->shuffle()->take(10);
-             } 
-             elseif(auth()->user()->profile->role === 'groom'){
-                $users = $users->where('role','bride')->shuffle()->take(10);
-             }
-            
             foreach ($users as $user) {
                 $user->is_favorited = auth()->user()->profile->favoriteProfiles()->where('favorite_profile_id', $user->id)->exists();
             }
@@ -248,6 +243,7 @@ class UserProfilesController extends Controller
     {
         $user = auth()->user()->profile()->first();
         $profileCompletion = $this->calculateProfileCompletion($user);
+
         return view('default.view.profile.contact_details.create', ['user' => $user, 'profileCompletion' => $profileCompletion]);
     }
 
@@ -335,9 +331,7 @@ class UserProfilesController extends Controller
         $data['lens'] = $request->has('lens');
         $data['spectacles'] = $request->has('spectacles');
 
-    
         $profile = Profile::where('user_id', auth()->user()->id)->first();
-
         if ($profile) {
             $profile->update($data);  // update() handles mass assignment based on fillable fields
         } else {
@@ -347,47 +341,40 @@ class UserProfilesController extends Controller
         return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
+    public function add_favorite(Request $request)
+    {
+        $favUserId = $request->favorite_id;
 
+        $favProfile = Profile::find($favUserId);
+        if (!$favProfile) {
+            return redirect()->back()->with('error', 'profile does not exists');
+        }
 
-   public function add_favorite(Request $request){
-     
-       $favUserId = $request->favorite_id;
-         
-       $favProfile = Profile::find($favUserId);
-       if(!$favProfile){
-          return redirect()->back()->with('error', 'profile does not exists');
-       }
-       
-       $profile = auth()->user()->profile;
-       $profile->favoriteProfiles()->attach($favProfile->id);
-        
-       return redirect()->back()->with('success', 'profile added to favorites successfully');
-   }
+        $profile = auth()->user()->profile;
+        $profile->favoriteProfiles()->attach($favProfile->id);
 
-   
-   public function remove_favorite(Request $request){
-     
-    $favUserId = $request->favorite_id;
-      
-    $favProfile = Profile::find($favUserId);
-    if(!$favProfile){
-       return redirect()->back()->with('error', 'profile does not exists');
+        return redirect()->back()->with('success', 'profile added to favorites successfully');
     }
-    
-    $profile = auth()->user()->profile;
-    $profile->favoriteProfiles()->detach($favProfile->id);
-     
-    return redirect()->back()->with('success', 'profile removed from favorites successfully');
-}
 
+    public function remove_favorite(Request $request)
+    {
+        $favUserId = $request->favorite_id;
 
-     public function view_favorite(){
+        $favProfile = Profile::find($favUserId);
+        if (!$favProfile) {
+            return redirect()->back()->with('error', 'profile does not exists');
+        }
 
+        $profile = auth()->user()->profile;
+        $profile->favoriteProfiles()->detach($favProfile->id);
+
+        return redirect()->back()->with('success', 'profile removed from favorites successfully');
+    }
+
+    public function view_favorite()
+    {
         $users = auth()->user()->profile->favoriteProfiles()->get();
 
         return view('default.view.profile.view_favorites.index', ['users' => $users]);
     }
-    
-
-    
 }

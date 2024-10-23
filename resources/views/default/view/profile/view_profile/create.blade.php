@@ -85,21 +85,21 @@
         @if($user->img_1)
             <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
         @else
-            <p>No pic display</p>
+            {{-- <p>No pic display</p> --}}
         @endif
     </div>
     <div class="form-group">
         @if($user->img_2)
             <img src="{{ asset('storage/images/' . $user->img_2) }}" alt="Uploaded Image" class="profile-image">
         @else
-            <p>No pic display</p>
+            {{-- <p>No pic display</p> --}}
         @endif
     </div>
     <div class="form-group">
         @if($user->img_3)
             <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" class="profile-image">
         @else
-            <p>No pic display</p>
+            {{-- <p>No pic display</p> --}}
         @endif
     </div>
 </div>
@@ -127,9 +127,7 @@
                 <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Personal Information</h4>
                 <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                     <p><strong>User ID:</strong> {{ $user->user_id }}</p>
-                    <p><strong>First Name:</strong> {{ $user->first_name }}</p>
-                    <p><strong>Middle Name:</strong> {{ $user->middle_name }}</p>
-                    <p><strong>Last Name:</strong> {{ $user->last_name }}</p>
+                    <p><strong>Full Name:</strong> {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</p>
                      <p><strong>Mother Tongue:</strong> {{ $user->mother_tongue }}</p>
                     <p><strong>Native Place:</strong> {{ $user->native_place }}</p>
                     <p><strong>Gender:</strong> {{ $user->gender }}</p>
@@ -213,9 +211,9 @@
                         <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Brother Details</h4>
                         <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                             <p><strong>Resident Place:</strong> {{ $user->brother_resident_place }}</p>
-                            <p><strong>Married:</strong> {{ $user->brother_is_alive ? 'Yes' : 'No' }}</p>
-                            <p><strong>Unmarried:</strong> {{ $user->brother_is_alive ? 'Yes' : 'No' }}</p>
-                        </div>
+                            <p><strong>Married:</strong> {{ $user->brother_is_alive ?? 0 }} {{ ($user->brother_is_alive ?? 0) == 1 ? 'brother' : 'brothers' }}</p>
+                            <p><strong>Unmarried:</strong> {{ $user->brother_is_alive ?? 0 }} {{ ($user->brother_is_alive ?? 0) == 1 ? 'brother' : 'brothers' }}</p>
+                                </div>
                     </div>
             
                     <!-- Sister Details -->
@@ -223,10 +221,12 @@
                         <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Sister Details</h4>
                         <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                             <p><strong>Resident Place:</strong> {{ $user->sister_resident_place }}</p>
-                            <p><strong>Married:</strong> {{ $user->sister_is_alive ? 'Yes' : 'No' }}</p>
-                            <p><strong>Unmarried:</strong> {{ $user->sister_is_alive ? 'Yes' : 'No' }}</p>
+                            <p><strong>Married:</strong> {{ $user->number_of_sisters_married ?? 0 }} {{ ($user->number_of_sisters_married ?? 0) == 1 ? 'sister' : 'sisters' }}</p>
+                            <p><strong>Unmarried:</strong> {{ $user->number_of_sisters_unmarried ?? 0 }} {{ ($user->number_of_sisters_unmarried ?? 0) == 1 ? 'sister' : 'sisters' }}</p>
+                            
                         </div>
                     </div>
+                    
             
                     <!-- About Parents -->
                     <div>

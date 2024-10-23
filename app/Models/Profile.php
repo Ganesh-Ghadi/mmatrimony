@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use App\Models\Package;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
@@ -37,8 +37,8 @@ class Profile extends Model
         'img_2',
         'img_3',
         'religion',
-        'cast',
-        'sub_cast',
+        'caste',
+        'sub_caste',
         'gotra',
         'father_is_alive',
         'father_name',
@@ -99,17 +99,20 @@ class Profile extends Model
         'role'
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function profilePackages(){
-        return $this->belongsToMany(Package::class, 'profile_packages')
-        ->withPivot('tokens_received', 'tokens_used', 'starts_at', 'expires_at');
+    public function profilePackages()
+    {
+        return $this
+            ->belongsToMany(Package::class, 'profile_packages')
+            ->withPivot('tokens_received', 'tokens_used', 'starts_at', 'expires_at');
     }
 
-    public function favoriteProfiles(){
-        return $this->belongsToMany(Profile::class, 'profile_favorites', 'profile_id','favorite_profile_id');
+    public function favoriteProfiles()
+    {
+        return $this->belongsToMany(Profile::class, 'profile_favorites', 'profile_id', 'favorite_profile_id');
     }
-
 }

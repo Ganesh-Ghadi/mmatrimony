@@ -94,6 +94,18 @@
                 @endif        
            </div>
         </div>
+{{-- 
+        @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif --}}
+
+
 
         <!-- Native Place and Gender fields, initially hidden -->
         <div class="form-row">
@@ -269,7 +281,7 @@
                 <select name="number_of_sisters_unmarried" id="number_of_sisters_unmarried" class="form-input">
                     <option value="" selected>Select an option</option>
                     @for ($i = 1; $i <= 10; $i++)
-                        <option value="{{ $i }}" {{ ($user->number_of_sisters_unmarried == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Brothers' : 'Brother' }}</option>
+                        <option value="{{ $i }}" {{ ($user->number_of_sisters_unmarried == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Sisters' : 'Sister' }}</option>
                     @endfor
                 </select>
                 @if ($errors->has('number_of_sisters_unmarried'))
@@ -304,7 +316,7 @@
     
 
 
-    <script>
+    {{-- <script>
         // Grab the 'Is Alive' dropdown and the additional info row
         const isAliveSelect = document.getElementById('father_is_alive');
         const additionalInfo = document.getElementById('additionalInfo');
@@ -334,7 +346,7 @@
             motherAdditionalInfo.classList.add('hidden');
         }
     });
-    </script>
+    </script> --}}
 
     </body>
     </html>

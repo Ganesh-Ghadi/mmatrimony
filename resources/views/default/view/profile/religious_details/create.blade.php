@@ -115,7 +115,7 @@
         <div class="form-row hidden" id="habitsRow">
             <div class="form-group">
                 <label>Castes</label>
-                <select class="form-input" name="castes" id="castes">
+                <select class="form-input" name="caste" id="caste">
                     <option value="" selected>select an option</option>
                     @foreach($castes as $caste)
                     <option value="{{$caste->id}}" {{ ($user->caste === $caste->id ) ? 'selected' : ''}}>{{$caste->name}}</option>
@@ -136,8 +136,10 @@
                 </select> 
                 @if ($errors->has('sub_caste'))
                 <span class="text-danger small">{{ $errors->first('sub_caste') }}</span>
-                @endif        
+                @endif   
+                  
            </div>
+          
             <div class="form-group">
                 <label for="gotra">Gotra</label>
                 <input type="text" name="gotra"  value="{{ $user->gotra }}" id="gotra" placeholder="Enter first name" >
@@ -157,21 +159,28 @@
     </div>
 
     <script>
-        // Grab the dropdowns
-        const religionSelect = document.getElementById('religion');
-        const habitsRow = document.getElementById('habitsRow');
-
-        // Listen for changes in the Religion dropdown
-        religionSelect.addEventListener('change', function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            const religionSelect = document.getElementById('religion');
+            const habitsRow = document.getElementById('habitsRow');
+    
+            // Check the initial value of the religion dropdown
             if (religionSelect.value === 'hindu') {
-                // Show the habits dropdowns if 'Hindu' is selected
                 habitsRow.classList.remove('hidden');
             } else {
-                // Hide the habits dropdowns if any other religion is selected
                 habitsRow.classList.add('hidden');
             }
+    
+            // Listen for changes in the Religion dropdown
+            religionSelect.addEventListener('change', function() {
+                if (religionSelect.value === 'hindu') {
+                    habitsRow.classList.remove('hidden');
+                } else {
+                    habitsRow.classList.add('hidden');
+                }
+            });
         });
     </script>
+    
 
     </body>
     </html>
