@@ -109,7 +109,7 @@
                  <li class="list-group-item"><a href="{{ route('life_partner.create') }}">About Life Partner</a></li>
                  <li class="list-group-item"><a href="{{ route('user_packages.create') }}">Package</a></li>
                  <li class="list-group-item"><a href="{{ route('profiles.view_favorite') }}">Favorites</a></li>
-                <li class="list-group-item"><a href="#">Pay Now</a></li> 
+                {{-- <li class="list-group-item"><a href="#">Pay Now</a></li>  --}}
             </ul>
         </div>
     </div>

@@ -422,7 +422,9 @@ document.getElementById('submit').addEventListener('click', function() {
                     <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
                 @endif  
             </div>
-        </div>      
+        </div>   
+        
+        
         </div>
         <div class="panel">
             <div class="form-group">
