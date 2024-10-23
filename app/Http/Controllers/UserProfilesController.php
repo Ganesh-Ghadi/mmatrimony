@@ -147,11 +147,18 @@ class UserProfilesController extends Controller
         }
 
         // Fetch users from the database
-        $users = $users->get();
+        if(auth()->user()->profile->role === 'bride'){
+            $users = $users->where('role','groom')->get();
+         } 
+         elseif(auth()->user()->profile->role === 'groom'){
+            $users = $users->where('role','bride')->get();
+         }
 
         foreach ($users as $user) {
             $user->is_favorited = auth()->user()->profile->favoriteProfiles()->where('favorite_profile_id', $user->id)->exists();
         }
+
+        
 
         // Convert birthdate to age for each user, handling null or invalid birthdates
         foreach ($users as $user) {
@@ -168,7 +175,14 @@ class UserProfilesController extends Controller
 
         // If no filters applied, show random 10 users
         if (empty($query) && empty($from_age) && empty($to_age) && empty($marital_status)) {
-            $users = $users->shuffle()->take(10);
+
+             if(auth()->user()->profile->role === 'bride'){
+                $users = $users->where('role','groom')->shuffle()->take(10);
+             } 
+             elseif(auth()->user()->profile->role === 'groom'){
+                $users = $users->where('role','bride')->shuffle()->take(10);
+             }
+            
             foreach ($users as $user) {
                 $user->is_favorited = auth()->user()->profile->favoriteProfiles()->where('favorite_profile_id', $user->id)->exists();
             }

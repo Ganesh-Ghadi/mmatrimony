@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\admin\CastesController;
@@ -77,6 +78,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/add-favorites', [UserProfilesController::class, 'add_favorite'])->name('profiles.add_favorite');
         Route::post('/remove-favorites', [UserProfilesController::class, 'remove_favorite'])->name('profiles.remove_favorite');
         Route::get('/view_favorites', [UserProfilesController::class, 'view_favorite'])->name('profiles.view_favorite');
+        
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/dashboard/load', [DashboardController::class, 'load_users'])->name('dashboard.view_load_users');
 
         
         Route::resource('roles', RolesController::class);
