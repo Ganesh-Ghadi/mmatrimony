@@ -93,35 +93,57 @@
     font-size: 12px;           /* Ensure font size matches input */
     color: black;              /* Set text color */
 }
+/* //new */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    cursor: pointer;
+    width: 50px; /* Adjust the width */
+    height: 20px; /* Adjust the height */
+    font-size: 12px; /* Smaller font size */
+    text-align: center; /* Center the text horizontally */
+    color: black; /* Set text color to black */
+    background-color: transparent; /* Make the background transparent */
+    border: 1px solid #ccc; /* Add a border */
+    padding: 0; /* Remove default padding */
+    line-height: 2px; /* Center text vertically within the button */
+}
+ .dropdown-menu {
+    display: none; /* Initially hidden */
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 100;
+    max-height: 200px; /* Limit height */
+    overflow-y: auto; /* Scroll if too many items */
+    width: 50px;
+ }
+.dropdown-menu label {
+    color: black; /* Set text color to black */
+    font-size: 14px; /* Smaller font size for dropdown items */
+    padding: 4px; /* Reduced padding */
+}
+.checkbox-option {
+    margin-right: 5px; /* Space between checkbox and label */
+    transform: scale(1.2); /* Make checkboxes smaller */
+}
         </style>
     </head>
     <body>
-         <div class="l">
+        <form action="{{ route('profiles.store') }}" enctype="multipart/form-data" method="POST">
+            @csrf
+                     <div class="l">
     <div class="panel">
         <h2>Personal Information</h2>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="dob_day">Day</label>
-                <select id="dob_day">
-                    <option value="">Day</option>
-                    <!-- Options for days will be populated dynamically -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="dob_month">Month</label>
-                <select id="dob_month">
-                    <option value="">Month</option>
-                    <!-- Options for months will be populated dynamically -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="dob_year">Year</label>
-                <select id="dob_year">
-                    <option value="">Year</option>
-                    <!-- Options for years will be populated dynamically -->
-                </select>
-            </div>
+        <div class="mb-2">
+            <label for="date_of_birth" class="form-label" style="color: black; margin: 10px 0;">Date of Birth</label>
+            <input id="date_of_birth" name="date_of_birth" type="date" class="form-control @error('date_of_birth') is-invalid @enderror"
+                   value="{{ $user->date_of_birth }}" placeholder="Enter Date of Birth" required
+                   max="{{ now()->subYears(18)->format('Y-m-d') }}" title="You must be at least 18 years old" />
+            <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2 text-danger small" />
         </div>
         <div class="form-row">
             <div class="form-group">
@@ -131,50 +153,6 @@
             </div>
         </div>
     </div>
-    <script>
-        // Add any JavaScript functionality if needed
-       // Populate days (1-31)
-// Populate days (1-31)
-const days = Array.from({ length: 31 }, (_, i) => `<option value="${i + 1}">${i + 1}</option>`);
-document.getElementById('dob_day').innerHTML = `<option value="">Day</option>` + days.join('');
-
-// Populate months (January - December)
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const monthOptions = months.map((month, index) => `<option value="${index + 1}">${month}</option>`);
-document.getElementById('dob_month').innerHTML = `<option value="">Month</option>` + monthOptions.join('');
-
-// Populate years (current year - 100 years back)
-const currentYear = new Date().getFullYear();
-const years = Array.from({ length: 100 }, (_, i) => `<option value="${currentYear - i}">${currentYear - i}</option>`);
-document.getElementById('dob_year').innerHTML = `<option value="">Year</option>` + years.join('');
-
-// Add event listener to validate age
-document.getElementById('submit').addEventListener('click', function() {
-    const day = parseInt(document.getElementById('dob_day').value);
-    const month = parseInt(document.getElementById('dob_month').value);
-    const year = parseInt(document.getElementById('dob_year').value);
-    const errorElement = document.getElementById('error');
-    // Reset the error message
-    errorElement.textContent = '';
-    if (!day || !month || !year) {
-        errorElement.textContent = 'Please select a valid date of birth.';
-        return;
-    }
-    const birthDate = new Date(year, month - 1, day);
-    const today = new Date();
-    
-    // Calculate the cutoff date: today's date minus 18 years
-    const cutoffDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
-
-    if (birthDate > cutoffDate) {
-        errorElement.textContent = 'You must be at least 18 years old.';
-    } else {
-        errorElement.textContent = '';
-        // Proceed with form submission or further processing
-        alert('Birth date is valid!');
-    }
-});
-    </script>
 <div class="panel">
     <h2>Astronomy Information</h2>
     <div>
@@ -277,142 +255,152 @@ document.getElementById('submit').addEventListener('click', function() {
          <option value="11">11</option>
          <option value="12">12</option>
          </select>
-
-         <div class="dropdown-container" style="position: relative;">
-             <select class="form-input celestial-dropdown" id="celestialDropdown1" style="position: absolute; top: -45px; left: -72px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                 <option value="">Select</option>
-                     @foreach (config('data.celestial_bodies', []) as $value => $name)
-                 <option value="{{ $value }}">{{ $name }}</option>
-                     @endforeach
-             </select>
-         </div>
-
-         
-        
+         {{-- dropdown 1 --}}
+        <div class="dropdown-container" style="position: relative;">
+            <button id="dropdownButton2" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -67px; left: 13px;">Select</button>
+            <div id="dropdownMenu2" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -48px; left: 13px;">
+                @foreach (config('data.celestial_bodies', []) as $value => $name)
+                    <label style="display: block;">
+                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                    </label>
+                @endforeach
+            </div>
+        </div>
          <!-- Celestial Bodies Dropdowns -->
          {{-- dropdown 2 --}}
          <div class="dropdown-container" style="position: relative;">
-            <input id="imageDropdown2" class="transparent-input" style="position: absolute; top: -73px; left: -270px;" disabled placeholder="Select 2">
-            <select class="form-input celestial-dropdown" id="celestialDropdown1" style="position: absolute; top: -75px; left: -250px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                 <option value="">Select</option>
-                     @foreach (config('data.celestial_bodies', []) as $value => $name)
-                 <option value="{{ $value }}">{{ $name }}</option>
-                     @endforeach
-             </select>
-         </div>
+            <input id="imageDropdown2" class="transparent-input" style="position: absolute; top: -104px; left: -168px;" disabled placeholder="Select 2">
+            <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -103px; left: -148px;">Select</button>
+            <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -83px; left: -148px;">
+                @foreach (config('data.celestial_bodies', []) as $value => $name)
+                    <label style="display: block;">
+                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                    </label>
+                @endforeach
+            </div>
+        </div>
          {{--  dropdown 3 --}}
          <div class="dropdown-container" style="position: relative;">
-            <input id="imageDropdown3" class="transparent-input" style="position: absolute; top: -25px; left: -357px;" disabled placeholder="Select 3">
-             <select class="form-input celestial-dropdown" id="celestialDropdown2" style="position: absolute; top: -25px; left: -340px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                 <option value="">Select an option</option>
-                     @foreach (config('data.celestial_bodies', []) as $value => $name)
-                 <option value="{{ $value }}">{{ $name }}</option>
-                     @endforeach
-             </select>
-         </div>
+            <input id="imageDropdown3" class="transparent-input" style="position: absolute; top: -59px; left: -268px;" disabled placeholder="Select 3">
+            <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -56px; left: -248px;">Select</button>
+            <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -37px; left: -248px;">
+                @foreach (config('data.celestial_bodies', []) as $value => $name)
+                    <label style="display: block;">
+                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                    </label>
+                @endforeach
+            </div>
+        </div>
          {{-- dropdown 4 --}}
          <div class="dropdown-container" style="position: relative;">
-            <input id="imageDropdown4" class="transparent-input" style="position: absolute; top: 55px; left: -241px;" disabled placeholder="Select 4">
-            <select class="form-input celestial-dropdown" id="celestialDropdown3" style="position: absolute; top: 55px; left: -221px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                <option value="">Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                <option value="{{ $value }}">{{ $name }}</option>
-                    @endforeach
-            </select>
-         </div>
+            <input id="imageDropdown4" class="transparent-input" style="position: absolute; top: 24px; left: -175px;" disabled placeholder="Select 4">
+            <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 26px; left: -160px;">Select</button>
+            <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 46px; left: -160px;">
+                @foreach (config('data.celestial_bodies', []) as $value => $name)
+                    <label style="display: block;">
+                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                    </label>
+                @endforeach
+            </div>
+        </div>
          {{-- dropdown 5 --}}
          <div class="dropdown-container" style="position: relative;">
-            <input id="imageDropdown5" class="transparent-input" style="position: absolute; top: 139px; left: -357px;" disabled placeholder="Select 5">
-            <select class="form-input celestial-dropdown" id="celestialDropdown4" style="position: absolute; top: 138px; left: -340px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                <option value="">Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                <option value="{{ $value }}">{{ $name }}</option>
-                    @endforeach
-            </select>
-         </div>
+            <input id="imageDropdown5" class="transparent-input" style="position: absolute; top: 110px; left: -272px;" disabled placeholder="Select 5">
+            <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 112px; left: -256px;">Select</button>
+            <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 131px; left: -256px;">
+                @foreach (config('data.celestial_bodies', []) as $value => $name)
+                    <label style="display: block;">
+                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                    </label>
+                @endforeach
+            </div>
+        </div>
             {{-- dropdown 6 --}}
             <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown6" class="transparent-input" style="position: absolute; top: 184px; left: -270px;" disabled placeholder="Select 6">
-                <select class="form-input celestial-dropdown" id="celestialDropdown5" style="position: absolute; top: 184px; left: -250px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                    <option value="">Select an option</option>
-                        @foreach (config('data.celestial_bodies', []) as $value => $name)
-                    <option value="{{ $value }}">{{ $name }}</option>
-                        @endforeach
-                </select>
+                <input id="imageDropdown6" class="transparent-input" style="position: absolute; top: 156px; left: -185px;" disabled placeholder="Select 6">
+                <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 158px; left: -168px;">Select</button>
+                <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 158px; left: -256px;">
+                    @foreach (config('data.celestial_bodies', []) as $value => $name)
+                        <label style="display: block;">
+                            <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                        </label>
+                    @endforeach
+                </div>
             </div>
-
-
                 {{-- dropdown 7 --}}
                 <div class="dropdown-container" style="position: relative;">
-                    <input id="imageDropdown7" class="transparent-input" style="position: absolute; top: 133px; left: -92px;" disabled placeholder="Select 7">
-                    <select class="form-input celestial-dropdown" id="celestialDropdown6" style="position: absolute; top: 132px; left: -72px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                        <option value="">Select an option</option>
-                            @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}">{{ $name }}</option>
-                            @endforeach
-                    </select>
+                    <input id="imageDropdown7" class="transparent-input" style="position: absolute; top: 109px; left: -31px;" disabled placeholder="Select 7">
+                    <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 111px; left: -13px;">Select</button>
+                    <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 130px; left: -13px;">
+                        @foreach (config('data.celestial_bodies', []) as $value => $name)
+                            <label style="display: block;">
+                                <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                            </label>
+                        @endforeach
+                    </div>
                 </div>
-
                     {{-- dropdown 8 --}}
                     <div class="dropdown-container" style="position: relative;">
-                        <input id="imageDropdown8" class="transparent-input" style="position: absolute; top: 182px; left: 85px;" disabled placeholder="Select 8">
-                        <select class="form-input celestial-dropdown" id="celestialDropdown7" style="position: absolute; top: 182px; left: 105px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                            <option value="">Select an option</option>
-                                @foreach (config('data.celestial_bodies', []) as $value => $name)
-                            <option value="{{ $value }}">{{ $name }}</option>
-                                @endforeach
-                        </select>
+                        <input id="imageDropdown8" class="transparent-input" style="position: absolute; top: 157px; left: 131px;" disabled placeholder="Select 8">
+                        <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 158px; left: 147px;">Select</button>
+                        <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 177px; left: 147px;">
+                            @foreach (config('data.celestial_bodies', []) as $value => $name)
+                                <label style="display: block;">
+                                    <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                                </label>
+                            @endforeach
+                        </div>
                     </div>
-
                         {{-- dropdown 9 --}}
                         <div class="dropdown-container" style="position: relative;">
-                            <input id="imageDropdown9" class="transparent-input" style="position: absolute; top: 135px; left: 183px;" disabled placeholder="Select 9">
-                            <select class="form-input celestial-dropdown" id="celestialDropdown8" style="position: absolute; top: 135px; left: 203px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                                <option value="">Select an option</option>
-                                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                                <option value="{{ $value }}">{{ $name }}</option>
-                                    @endforeach
-                            </select>
+                            <input id="imageDropdown9" class="transparent-input" style="position: absolute;  top: 108px; left: 215px; " disabled placeholder="Select 9">
+                            <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 109px; left: 233px;">Select</button>
+                            <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 129px; left: 123px;">
+                                @foreach (config('data.celestial_bodies', []) as $value => $name)
+                                    <label style="display: block;">
+                                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                                    </label>
+                                @endforeach
+                            </div>
                         </div>
-
                             {{-- dropdown 10 --}}
                             <div class="dropdown-container" style="position: relative;">
-                                <input id="imageDropdown10" class="transparent-input" style="position: absolute; top: 59px; left: 67px;" disabled placeholder="Select 10">
-                                <select class="form-input celestial-dropdown" id="celestialDropdown9" style="position: absolute; top: 58px; left: 87px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                                    <option value="">Select an option</option>
-                                        @foreach (config('data.celestial_bodies', []) as $value => $name)
-                                    <option value="{{ $value }}">{{ $name }}</option>
-                                        @endforeach
-                                </select>
+                                <input id="imageDropdown10" class="transparent-input" style="position: absolute;top: 24px; left: 121px;" disabled placeholder="Select 10">
+                                <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 25px; left: 140px; ">Select</button>
+                                <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 44px; left: 153px;">
+                                    @foreach (config('data.celestial_bodies', []) as $value => $name)
+                                        <label style="display: block;">
+                                            <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                                        </label>
+                                    @endforeach
+                                </div>
                             </div>
-
                                 {{-- dropdown 11 --}}
                                 <div class="dropdown-container" style="position: relative;">
-                                    <input id="imageDropdown11" class="transparent-input" style="position: absolute; top: -30px; left: 182px;" disabled placeholder="Select 11">
-                                    <select class="form-input celestial-dropdown" id="celestialDropdown10" style="position: absolute; top: -31px; left: 203px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                                        <option value="">Select an option</option>
-                                            @foreach (config('data.celestial_bodies', []) as $value => $name)
-                                        <option value="{{ $value }}">{{ $name }}</option>
-                                            @endforeach
-                                    </select>
+                                    <input id="imageDropdown11" class="transparent-input" style="position: absolute;top: -107px; left: 119`px;" disabled placeholder="Select 11">
+                                    <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -55px; left: 240px; ">Select</button>
+                                    <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -36px; left: 130px;">
+                                        @foreach (config('data.celestial_bodies', []) as $value => $name)
+                                            <label style="display: block;">
+                                                <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                                            </label>
+                                        @endforeach
+                                    </div>
                                 </div>
-
                                     {{-- dropdown 12 --}}
                                     <div class="dropdown-container" style="position: relative;">
-                                        <input id="imageDropdown12" class="transparent-input" style="position: absolute; top: -75px; left: 80px;" disabled placeholder="Select 12">
-                                        <select class="form-input celestial-dropdown" id="celestialDropdown11" style="position: absolute; top: -75px; left: 99px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                                            <option value="">Select an option</option>
-                                                @foreach (config('data.celestial_bodies', []) as $value => $name)
-                                            <option value="{{ $value }}">{{ $name }}</option>
-                                                @endforeach
-                                        </select>
+                                        <input id="imageDropdown12" class="transparent-input" style="position: absolute;top: -56px; left: 221px;" disabled placeholder="Select 12">
+                                        <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -105px; left: 140px; ">Select</button>
+                                        <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -85px; left: 140px;">
+                                            @foreach (config('data.celestial_bodies', []) as $value => $name)
+                                                <label style="display: block;">
+                                                    <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                                                </label>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        
-        
-         
-         
         <script>
             //numbers
             document.getElementById('imageDropdown1').addEventListener('change', function() {
@@ -444,38 +432,49 @@ document.getElementById('submit').addEventListener('click', function() {
     });
     //dropdown
     document.addEventListener('DOMContentLoaded', function () {
-    const celestialDropdowns = document.querySelectorAll('.celestial-dropdown');
+    const dropdownButtons = document.querySelectorAll('.dropdown-button');
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
 
-    celestialDropdowns.forEach(dropdown => {
-        dropdown.addEventListener('change', updateDropdowns);
-    });
+    dropdownButtons.forEach((button, index) => {
+        const menu = dropdownMenus[index];
+        const checkboxes = menu.querySelectorAll('.checkbox-option');
 
-    function updateDropdowns() {
-        // Get all selected values
-        const selectedValues = Array.from(celestialDropdowns).map(dropdown => dropdown.value).filter(value => value);
+        button.addEventListener('click', function () {
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
 
-        celestialDropdowns.forEach(dropdown => {
-            const currentValue = dropdown.value;
+        // Close dropdown if clicked outside
+        document.addEventListener('click', function (event) {
+            if (!button.contains(event.target) && !menu.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
 
-            // Remove options that are selected in other dropdowns
-            dropdown.querySelectorAll('option').forEach(option => {
-                if (selectedValues.includes(option.value) && option.value !== currentValue) {
-                    option.remove();
-                }
-            });
-
-            // Re-add options that are not selected anymore
-            const allOptions = Array.from(document.querySelectorAll('.celestial-dropdown option'));
-            allOptions.forEach(option => {
-                if (!selectedValues.includes(option.value) && !dropdown.querySelector(`option[value="${option.value}"]`)) {
-                    const newOption = option.cloneNode(true);
-                    dropdown.appendChild(newOption);
-                }
+        // Handle checkbox changes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                updateSelectedValues();
             });
         });
-    }
-});
+        function updateSelectedValues() {
+            // Get all selected values across all dropdowns
+            const selectedValues = Array.from(document.querySelectorAll('.checkbox-option:checked')).map(checkbox => checkbox.value);
 
+            // Update each dropdown based on selected values
+            dropdownMenus.forEach((otherMenu, otherIndex) => {
+                const otherCheckboxes = otherMenu.querySelectorAll('.checkbox-option');
+
+                otherCheckboxes.forEach(option => {
+                    if (selectedValues.includes(option.value) && !option.checked) {
+                        option.parentElement.style.display = 'none'; // Hide option if selected in another dropdown
+                    } else {
+                        option.parentElement.style.display = 'block'; // Show option if not selected
+                    }
+                });
+            });
+        }
+    });
+});
         </script>
          <div class="panel">
             <div class="form-group">
@@ -484,10 +483,13 @@ document.getElementById('submit').addEventListener('click', function() {
             </div>
         </div>
         </div>
-
-{{-- doprdown end --}}  
- 
-
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        
+        
+          </form>
+{{-- dropdown end --}}  
 <div class="sidebar">
     <x-common.usersidebar />
 </div>
