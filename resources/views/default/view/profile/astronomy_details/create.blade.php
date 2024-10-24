@@ -157,41 +157,53 @@
     <h2>Astronomy Information</h2>
     <div>
         <input type="checkbox" id="toggleDropdowns" />
-        <label class="text-black" for="toggleDropdowns" style="color: black;">Will show when we meet</label>
+        <label class="text-black" for="toggleDropdowns" style="color: black;">भेटल्यावर बोलूया</label>
     </div>
     <div class="container" id="dropdowns">
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="dropdown1" class="form-label">Raashee</label>
-                    <select id="dropdown1" class="form-select">
-                        <option value="">Select an option</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
+                    <label for="rashee">राशी</label>
+                    <select class="form-input" name="rashee" id="rashee">
+                        <option value="" selected>Select an option</option>
+                        @foreach (config('data.rashee', []) as $value => $name)
+                            <option value="{{ $value }}" {{ ($user->rashee === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                        @endforeach
+                        
                     </select>
+                    @if ($errors->has('rashee'))
+                    <span class="text-danger small">{{ $errors->first('rashee') }}</span>
+                    @endif     
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <label for="dropdown2" class="form-label">Nakshatra</label>
-                    <select id="dropdown2" class="form-select">
-                        <option value="">Select an option</option>
-                        <option value="A">Option A</option>
-                        <option value="B">Option B</option>
-                        <option value="C">Option C</option>
+                    <label for="nakshatra">नक्षत्र</label>
+                    <select class="form-input" name="nakshatra" id="nakshatra">
+                        <option value="" selected>Select an option</option>
+                        @foreach (config('data.nakshatra', []) as $value => $name)
+                            <option value="{{ $value }}" {{ ($user->nakshatra === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                        @endforeach
+                        
                     </select>
+                    @if ($errors->has('nakshatra'))
+                    <span class="text-danger small">{{ $errors->first('nakshatra') }}</span>
+                    @endif     
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <label for="dropdown3" class="form-label">Nakshatra</label>
-                    <select id="dropdown3" class="form-select">
-                        <option value="">Select an option</option>
-                        <option value="A">Option A</option>
-                        <option value="B">Option B</option>
-                        <option value="C">Option C</option>
+                    <label for="mangal">मंगळ</label>
+                    <select class="form-input" name="mangal" id="mangal">
+                        <option value="" selected>Select an option</option>
+                        @foreach (config('data.mangal', []) as $value => $name)
+                            <option value="{{ $value }}" {{ ($user->mangal === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                        @endforeach
+                        
                     </select>
+                    @if ($errors->has('mangal'))
+                    <span class="text-danger small">{{ $errors->first('mangal') }}</span>
+                    @endif     
                 </div>
             </div>
         </div>
@@ -199,35 +211,47 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown1" class="form-label">Caraṇa</label>
-                        <select id="dropdown1" class="form-select">
-                            <option value="">Select an option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                        <label for="charan">चरण</label>
+                        <select class="form-input" name="charan" id="charan">
+                            <option value="" selected>Select an option</option>
+                            @foreach (config('data.charan', []) as $value => $name)
+                                <option value="{{ $value }}" {{ ($user->charan === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                            @endforeach
+                            
                         </select>
+                        @if ($errors->has('charan'))
+                        <span class="text-danger small">{{ $errors->first('charan') }}</span>
+                        @endif     
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown2" class="form-label">Gan</label>
-                        <select id="dropdown2" class="form-select">
-                            <option value="">Select an option</option>
-                            <option value="A">Option A</option>
-                            <option value="B">Option B</option>
-                            <option value="C">Option C</option>
+                        <label for="gana">गण</label>
+                        <select class="form-input" name="gana" id="gana">
+                            <option value="" selected>Select an option</option>
+                            @foreach (config('data.gana', []) as $value => $name)
+                                <option value="{{ $value }}" {{ ($user->gana === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                            @endforeach
+                            
                         </select>
+                        @if ($errors->has('gana'))
+                        <span class="text-danger small">{{ $errors->first('gana') }}</span>
+                        @endif     
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="dropdown3" class="form-label">Nadi</label>
-                        <select id="dropdown3" class="form-select">
-                            <option value="">Select an option</option>
-                            <option value="A">Option A</option>
-                            <option value="B">Option B</option>
-                            <option value="C">Option C</option>
+                        <label for="nadi">गण</label>
+                        <select class="form-input" name="nadi" id="nadi">
+                            <option value="" selected>Select an option</option>
+                            @foreach (config('data.nadi', []) as $value => $name)
+                                <option value="{{ $value }}" {{ ($user->nadi === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                            @endforeach
+                            
                         </select>
+                        @if ($errors->has('nadi'))
+                        <span class="text-danger small">{{ $errors->first('nadi') }}</span>
+                        @endif     
                     </div>
                 </div>
             </div>
@@ -377,7 +401,7 @@
                             </div>
                                 {{-- dropdown 11 --}}
                                 <div class="dropdown-container" style="position: relative;">
-                                    <input id="imageDropdown11" class="transparent-input" style="position: absolute;top: -107px; left: 119`px;" disabled placeholder="Select 11">
+                                    <input id="imageDropdown11" class="transparent-input" style="position: absolute;top: -56px; left: 221px;" disabled placeholder="Select 11">
                                     <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -55px; left: 240px; ">Select</button>
                                     <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -36px; left: 130px;">
                                         @foreach (config('data.celestial_bodies', []) as $value => $name)
@@ -389,7 +413,7 @@
                                 </div>
                                     {{-- dropdown 12 --}}
                                     <div class="dropdown-container" style="position: relative;">
-                                        <input id="imageDropdown12" class="transparent-input" style="position: absolute;top: -56px; left: 221px;" disabled placeholder="Select 12">
+                                        <input id="imageDropdown12" class="transparent-input" style="position: absolute;top: -106px; left: 121px;" disabled placeholder="Select 12">
                                         <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -105px; left: 140px; ">Select</button>
                                         <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -85px; left: 140px;">
                                             @foreach (config('data.celestial_bodies', []) as $value => $name)
@@ -439,7 +463,8 @@
         const menu = dropdownMenus[index];
         const checkboxes = menu.querySelectorAll('.checkbox-option');
 
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default action (e.g., form submission)
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         });
 
@@ -456,6 +481,7 @@
                 updateSelectedValues();
             });
         });
+
         function updateSelectedValues() {
             // Get all selected values across all dropdowns
             const selectedValues = Array.from(document.querySelectorAll('.checkbox-option:checked')).map(checkbox => checkbox.value);
@@ -475,6 +501,7 @@
         }
     });
 });
+
         </script>
          <div class="panel">
             <div class="form-group">
