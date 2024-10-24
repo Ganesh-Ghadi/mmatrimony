@@ -110,28 +110,26 @@
             <div id="carouselId" class="carousel slide myslider" data-bs-ride="carousel">
                 <div class="carousel-inner myslider" role="listbox">
                     <div class="carousel-item active">
-                        <img src="{{asset('assets/user/img/carousel-1.jpg')}}" class="img-fluid" alt="Image">
+                        <img src="{{asset('storage/images/mvm banner01.jpeg')}}" class="img-fluid" alt="Image">
                         <div class="carousel-caption myslider">
                             <div class="p-3 mx-auto animated zoomIn" style="max-width: 900px;">
                                 <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">
-                                    <p class="myp h4 text-white fw-bold mb-0" style="letter-spacing: 3px;">Text will come here </p>
+                                    <p class="myp h4 text-white fw-bold mb-0" style="letter-spacing: 3px;">Maratha Vivah Mandal </p>
                                 </div>
-                                <h1 class="display-1 text-capitalize text-white mb-3">Maratha <em class="fa fa-heart text-primary">&nbsp;</em>Matrimonial</h1>
+                                <h1 class="display-1 text-capitalize text-white mb-3">Welcome </h1>
                                 <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">
-                                    <p class="myp h4 text-white  fw-bold mb-0" style="letter-spacing: 3px;">Text will come  here</p>
+                                    <p class="myp h4 text-white  fw-bold mb-0" style="letter-spacing: 3px;">Maratha Vivah Mandal</p>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn btn-primary btn-primary-outline-0 py-md-3 px-5 py-1 px-2" href="#">Register</a>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item myslider">
-                        <img src="{{asset('assets/user/img/carousel-2.jpg')}}" class="img-fluid" alt="Image">
+                        <img src="{{asset('storage/images/mvm banner02.jpeg')}}" class="img-fluid" alt="Image">
                         <div class="carousel-caption myslider">
                             <div class="p-3 mx-auto animated zoomIn" style="max-width: 900px;">
                                 <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">
-                                    <p class="myp h4 text-white fw-bold mb-0" style="letter-spacing: 3px;">Text will come here </p>
+                                    <p class="myp h4 text-white fw-bold mb-0" style="letter-spacing: 3px;">Welcome to </p>
                                 </div>
                                 <h2 class="display-1 text-capitalize text-white mb-3">Maratha Vivah Mandal</h2>
                                 <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">
@@ -143,6 +141,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">

@@ -174,54 +174,44 @@
             <div class="results">
                 @foreach ($users as $user)
                     <div class="card">
-                        <!-- Display user profile image -->
-                        <div class="form-group">
+                        <div class="form-group" style="position: relative;"> <!-- Added relative positioning -->
                             @if($user->img_1)
                                 <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
                             @else
                                 <p>No pic display</p>
                             @endif
+            
+                            <!-- Heart Icon for Favorite -->
+                            <div style="position: absolute; top: 10px; right: 10px;">
+                                @if($user->is_favorited)
+                                    <form action="{{ route('profiles.remove_favorite') }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <input type="hidden" name="favorite_id" value="{{$user->id}}">
+                                        <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                            <i class="fas fa-heart" style="color: red;"></i>
+                                        </button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('profiles.add_favorite') }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <input type="hidden" name="favorite_id" value="{{$user->id}}">
+                                        <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                            <i class="far fa-heart" style="color: grey;"></i>
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
                         </div>
                         <h3>{{ $user->first_name }} {{ $user->last_name }}</h3>
-                        <p>Age: {{ $user->age }}</p> <!-- Displaying the calculated age -->
-                        <p>Marital Status: {{ $user->marital_status }}</p> <!-- Displaying the marital status -->
+                        <p>Age: {{ $user->age }}</p>
+                        <p>Marital Status: {{ $user->marital_status }}</p>
             
- 
-                        {{-- <!-- View Profile Link -->
-                        <form action="{{ route('profiles.add_favorite') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="favorite_id" value="{{$user->id}}">
-                        <button type="submit" class="btn btn-primary text-white btn-sm ">Add to favorites</button>
-                    </form>
-
-
-                        <a href="{{ route('user.profile', $user->id) }}" class="btn btn-primary">View Profile</a> --}}
-                        {{-- start --}}
-
-                        @if($user->is_favorited)
-                        <form action="{{ route('profiles.remove_favorite') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="favorite_id" value="{{$user->id}}">
-
-                            <button type="submit">Remove from Favorites</button>
-                        </form>
-                    @else
-                        <form action="{{ route('profiles.add_favorite') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="favorite_id" value="{{$user->id}}">
-
-                            <button type="submit">Add to Favorites</button>
-                        </form>
-                    @endif
-
-                        {{-- end --}}
-                        <a href="{{ route('user.profile', $user->id) }}" class="btn btn-primary">View Profile</a> 
-
- 
+                        <a href="{{ route('user.profile', $user->id) }}" class="btn btn-primary">View Profile</a>
                     </div>
                 @endforeach
-
             </div>
+            
+            
         @else
             <p>No users found.</p>
         @endif
