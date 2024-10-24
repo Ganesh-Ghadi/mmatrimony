@@ -96,7 +96,7 @@
         </style>
     </head>
     <body>
-        <div class="l">
+         <div class="l">
     <div class="panel">
         <h2>Personal Information</h2>
 
@@ -257,185 +257,165 @@ document.getElementById('submit').addEventListener('click', function() {
     </div>
     </div>
     <div class="image-container" style="position: relative; display: inline-block;">
-        <img src="{{ asset('storage/images/patrika.png') }}" alt="Profile Image" class="profile-image" style="width: 100%;">
-        <!-- Dropdown positioned over the image -->
-        <div class="dropdown-container" style="position: absolute; top: 80px; left: 290px;">
-            <select id="imageDropdown1" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
-                <option value="">Select 1</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
+         <img src="{{ asset('storage/images/patrika.png') }}" alt="Profile Image" class="profile-image" style="width: 100%;">
+        
+         <!-- Dropdown positioned over the image -->
+         <div class="dropdown-container" style="position: absolute; top: 80px; left: 290px;">
+         <!-- Number Dropdown -->
+         <select id="imageDropdown1" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+         <option value="">numbers</option>
+         <option value="1">1</option>
+         <option value="2">2</option>
+         <option value="3">3</option>
+         <option value="4">4</option>
+         <option value="5">5</option>
+         <option value="6">6</option>
+         <option value="7">7</option>
+         <option value="8">8</option>
+         <option value="9">9</option>
+         <option value="10">10</option>
+         <option value="11">11</option>
+         <option value="12">12</option>
+         </select>
+
+         <div class="dropdown-container" style="position: relative;">
+             <select class="form-input celestial-dropdown" id="celestialDropdown1" style="position: absolute; top: -45px; left: -72px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                 <option value="">Select</option>
+                     @foreach (config('data.celestial_bodies', []) as $value => $name)
+                 <option value="{{ $value }}">{{ $name }}</option>
+                     @endforeach
+             </select>
+         </div>
+
+         
+        
+         <!-- Celestial Bodies Dropdowns -->
+         {{-- dropdown 2 --}}
+         <div class="dropdown-container" style="position: relative;">
+            <input id="imageDropdown2" class="transparent-input" style="position: absolute; top: -73px; left: -270px;" disabled placeholder="Select 2">
+            <select class="form-input celestial-dropdown" id="celestialDropdown1" style="position: absolute; top: -75px; left: -250px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                 <option value="">Select</option>
+                     @foreach (config('data.celestial_bodies', []) as $value => $name)
+                 <option value="{{ $value }}">{{ $name }}</option>
+                     @endforeach
+             </select>
+         </div>
+         {{--  dropdown 3 --}}
+         <div class="dropdown-container" style="position: relative;">
+            <input id="imageDropdown3" class="transparent-input" style="position: absolute; top: -25px; left: -357px;" disabled placeholder="Select 3">
+             <select class="form-input celestial-dropdown" id="celestialDropdown2" style="position: absolute; top: -25px; left: -340px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                 <option value="">Select an option</option>
+                     @foreach (config('data.celestial_bodies', []) as $value => $name)
+                 <option value="{{ $value }}">{{ $name }}</option>
+                     @endforeach
+             </select>
+         </div>
+         {{-- dropdown 4 --}}
+         <div class="dropdown-container" style="position: relative;">
+            <input id="imageDropdown4" class="transparent-input" style="position: absolute; top: 55px; left: -241px;" disabled placeholder="Select 4">
+            <select class="form-input celestial-dropdown" id="celestialDropdown3" style="position: absolute; top: 55px; left: -221px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                <option value="">Select an option</option>
+                    @foreach (config('data.celestial_bodies', []) as $value => $name)
+                <option value="{{ $value }}">{{ $name }}</option>
+                    @endforeach
             </select>
-            <div class="dropdown-container" style="position: relative;">
-                <!-- Adjusted position of imageDropdown2 -->
-                <input id="imageDropdown2" class="transparent-input" style="position: absolute; top: -74px; left: -270px;" disabled placeholder="Select 2">
-                
-                <!-- Celestial Bodies Select Dropdown (Smaller Size) -->
-                <select class="form-input" name="celestial_bodies" id="celestial_bodies" style="position: absolute; top: -75px; left: -250px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                    <option value="" selected>Select</option>
+         </div>
+         {{-- dropdown 5 --}}
+         <div class="dropdown-container" style="position: relative;">
+            <input id="imageDropdown5" class="transparent-input" style="position: absolute; top: 139px; left: -357px;" disabled placeholder="Select 5">
+            <select class="form-input celestial-dropdown" id="celestialDropdown4" style="position: absolute; top: 138px; left: -340px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                <option value="">Select an option</option>
                     @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                <option value="{{ $value }}">{{ $name }}</option>
                     @endforeach
-                </select>
-            
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small" style="position: absolute; top: -50px; left: -150px;">{{ $errors->first('celestial_bodies') }}</span>
-                @endif
-            </div>
-{{-- dropdown2 --}}
-            <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown3" class="transparent-input" style="position: absolute; top: -23px; left: -359px;" disabled placeholder="Select 3">
-                <select class="form-input" name="celestial_bodies" id="celestial_bodies" style="position: absolute; top: -25px; left: -340px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
-                @endif  
-            </div>
-            {{-- dropdown3 --}}
-            <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown4" class="transparent-input" style="position: absolute; top: 56px; left: -241px;" disabled placeholder="Select 4">
-                <select class="form-input" name="celestial_bodies" id="celestial_bodies" style="position: absolute; top: 55px; left: -221px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
-                @endif  
-            </div>
-            {{-- drop down4 --}}
-            <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown5" class="transparent-input" style="position: absolute; top: 138px; left: -362px;" disabled placeholder="Select 5">
-                <select class="form-input" name="celestial_bodies" style="position: absolute; top: 138px; left: -343px; width: 60px; height: 25px; font-size: 12px; padding: 2px;" id="celestial_bodies">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
-                @endif  
-            </div>
-            {{-- dropdown 5 --}}
-            <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown6" class="transparent-input" style="position: absolute; top: 184px; left: -274px;" disabled placeholder="Select 6">
-                <select class="form-input" name="celestial_bodies" id="celestial_bodies" style="position: absolute; top: 184px; left: -254px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
-                @endif  
-            </div>
+            </select>
+         </div>
             {{-- dropdown 6 --}}
             <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown7" class="transparent-input" style="position: absolute; top: 132px; left: -87px" disabled placeholder="Select 7">
-                <select class="form-input" name="celestial_bodies" id="celestial_bodies" style="position: absolute; top: 130px; left: -67px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                    
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
+                <input id="imageDropdown6" class="transparent-input" style="position: absolute; top: 184px; left: -270px;" disabled placeholder="Select 6">
+                <select class="form-input celestial-dropdown" id="celestialDropdown5" style="position: absolute; top: 184px; left: -250px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                    <option value="">Select an option</option>
+                        @foreach (config('data.celestial_bodies', []) as $value => $name)
+                    <option value="{{ $value }}">{{ $name }}</option>
+                        @endforeach
                 </select>
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
-                @endif  
             </div>
-            {{-- drop down 7  --}}
-            <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown8" class="transparent-input" style="position: absolute; top: 182px; left: 90px" disabled placeholder="Select 8">
-                <select class="form-input" name="celestial_bodies" id="celestial_bodies" style="position: absolute; top: 181px; left: 108px; width: 60px; height: 25px; font-size: 12px; padding: 2px;>
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
-                @endif  
-            </div>
-            {{-- 8 --}}
-            <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown9" class="transparent-input" style="position: absolute; top: 135px; left: 175px" disabled placeholder="Select 9">
-                <select class="form-input" name="celestial_bodies" style="position: absolute; top: 135px; left: 195px; width: 60px; height: 25px; font-size: 12px; padding: 2px; id="celestial_bodies">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
-                @endif  
-            </div>
-            {{-- 9 --}}
-            <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown10" class="transparent-input" style="position: absolute; top: 58px; left: 87px" disabled placeholder="Select 10">
-                <select class="form-input" name="celestial_bodies" style="position: absolute; top: 57px; left: 108px; width: 60px; height: 25px; font-size: 12px; padding: 2px; id="celestial_bodies">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
-                @endif  
-            </div>
-            {{-- 10 --}}
-            <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown11" class="transparent-input" style="position: absolute; top: -31px; left: 185px" disabled placeholder="Select 11">
-                <select class="form-input" name="celestial_bodies" style="position: absolute; top: -31px; left: 205px; width: 60px; height: 25px; font-size: 12px; padding: 2px; id="celestial_bodies">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
-                @endif  
-            </div>
-            {{-- 11 --}}
-            <div class="dropdown-container" style="position: relative;">
-                <input id="imageDropdown12" class="transparent-input" style="position: absolute; top: -75px; left: 99px" disabled placeholder="Select 12">
-                <select class="form-input" name="celestial_bodies" style="position: absolute; top: -75px; left: 117px; width: 60px; height: 25px; font-size: 12px; padding: 2px; id="celestial_bodies">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <option value="{{ $value }}" {{ ($user->celestial_bodies === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('celestial_bodies'))
-                    <span class="text-danger small">{{ $errors->first('celestial_bodies') }}</span>
-                @endif  
-            </div>
-        </div>   
+
+
+                {{-- dropdown 7 --}}
+                <div class="dropdown-container" style="position: relative;">
+                    <input id="imageDropdown7" class="transparent-input" style="position: absolute; top: 133px; left: -92px;" disabled placeholder="Select 7">
+                    <select class="form-input celestial-dropdown" id="celestialDropdown6" style="position: absolute; top: 132px; left: -72px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                        <option value="">Select an option</option>
+                            @foreach (config('data.celestial_bodies', []) as $value => $name)
+                        <option value="{{ $value }}">{{ $name }}</option>
+                            @endforeach
+                    </select>
+                </div>
+
+                    {{-- dropdown 8 --}}
+                    <div class="dropdown-container" style="position: relative;">
+                        <input id="imageDropdown8" class="transparent-input" style="position: absolute; top: 182px; left: 85px;" disabled placeholder="Select 8">
+                        <select class="form-input celestial-dropdown" id="celestialDropdown7" style="position: absolute; top: 182px; left: 105px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                            <option value="">Select an option</option>
+                                @foreach (config('data.celestial_bodies', []) as $value => $name)
+                            <option value="{{ $value }}">{{ $name }}</option>
+                                @endforeach
+                        </select>
+                    </div>
+
+                        {{-- dropdown 9 --}}
+                        <div class="dropdown-container" style="position: relative;">
+                            <input id="imageDropdown9" class="transparent-input" style="position: absolute; top: 135px; left: 183px;" disabled placeholder="Select 9">
+                            <select class="form-input celestial-dropdown" id="celestialDropdown8" style="position: absolute; top: 135px; left: 203px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                                <option value="">Select an option</option>
+                                    @foreach (config('data.celestial_bodies', []) as $value => $name)
+                                <option value="{{ $value }}">{{ $name }}</option>
+                                    @endforeach
+                            </select>
+                        </div>
+
+                            {{-- dropdown 10 --}}
+                            <div class="dropdown-container" style="position: relative;">
+                                <input id="imageDropdown10" class="transparent-input" style="position: absolute; top: 59px; left: 67px;" disabled placeholder="Select 10">
+                                <select class="form-input celestial-dropdown" id="celestialDropdown9" style="position: absolute; top: 58px; left: 87px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                                    <option value="">Select an option</option>
+                                        @foreach (config('data.celestial_bodies', []) as $value => $name)
+                                    <option value="{{ $value }}">{{ $name }}</option>
+                                        @endforeach
+                                </select>
+                            </div>
+
+                                {{-- dropdown 11 --}}
+                                <div class="dropdown-container" style="position: relative;">
+                                    <input id="imageDropdown11" class="transparent-input" style="position: absolute; top: -30px; left: 182px;" disabled placeholder="Select 11">
+                                    <select class="form-input celestial-dropdown" id="celestialDropdown10" style="position: absolute; top: -31px; left: 203px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                                        <option value="">Select an option</option>
+                                            @foreach (config('data.celestial_bodies', []) as $value => $name)
+                                        <option value="{{ $value }}">{{ $name }}</option>
+                                            @endforeach
+                                    </select>
+                                </div>
+
+                                    {{-- dropdown 12 --}}
+                                    <div class="dropdown-container" style="position: relative;">
+                                        <input id="imageDropdown12" class="transparent-input" style="position: absolute; top: -75px; left: 80px;" disabled placeholder="Select 12">
+                                        <select class="form-input celestial-dropdown" id="celestialDropdown11" style="position: absolute; top: -75px; left: 99px; width: 60px; height: 25px; font-size: 12px; padding: 2px;">
+                                            <option value="">Select an option</option>
+                                                @foreach (config('data.celestial_bodies', []) as $value => $name)
+                                            <option value="{{ $value }}">{{ $name }}</option>
+                                                @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        
         
-        
-        </div>
-        <div class="panel">
-            <div class="form-group">
-                <label for="patrika" class="form-label">More About Patrika</label>
-                <textarea id="patrika" class="form-control" rows="4" placeholder="Enter more details..."></textarea>
-            </div>
-        </div>
-        </div>
-<!-- JavaScript to handle dropdown value update -->
-<script>
-    document.getElementById('imageDropdown1').addEventListener('change', function() {
+         
+         
+        <script>
+            //numbers
+            document.getElementById('imageDropdown1').addEventListener('change', function() {
         const selectedValue = parseInt(this.value);
         
         // Reference to the inputs
@@ -462,7 +442,49 @@ document.getElementById('submit').addEventListener('click', function() {
             });
         }
     });
-</script> 
+    //dropdown
+    document.addEventListener('DOMContentLoaded', function () {
+    const celestialDropdowns = document.querySelectorAll('.celestial-dropdown');
+
+    celestialDropdowns.forEach(dropdown => {
+        dropdown.addEventListener('change', updateDropdowns);
+    });
+
+    function updateDropdowns() {
+        // Get all selected values
+        const selectedValues = Array.from(celestialDropdowns).map(dropdown => dropdown.value).filter(value => value);
+
+        celestialDropdowns.forEach(dropdown => {
+            const currentValue = dropdown.value;
+
+            // Remove options that are selected in other dropdowns
+            dropdown.querySelectorAll('option').forEach(option => {
+                if (selectedValues.includes(option.value) && option.value !== currentValue) {
+                    option.remove();
+                }
+            });
+
+            // Re-add options that are not selected anymore
+            const allOptions = Array.from(document.querySelectorAll('.celestial-dropdown option'));
+            allOptions.forEach(option => {
+                if (!selectedValues.includes(option.value) && !dropdown.querySelector(`option[value="${option.value}"]`)) {
+                    const newOption = option.cloneNode(true);
+                    dropdown.appendChild(newOption);
+                }
+            });
+        });
+    }
+});
+
+        </script>
+         <div class="panel">
+            <div class="form-group">
+                <label for="patrika" class="form-label">More About Patrika</label>
+                <textarea id="patrika" class="form-control" rows="4" placeholder="Enter more details..."></textarea>
+            </div>
+        </div>
+        </div>
+
 {{-- doprdown end --}}  
  
 
@@ -483,3 +505,5 @@ document.getElementById('submit').addEventListener('click', function() {
     </body>
     </html>
 </x-layout.user>
+
+
