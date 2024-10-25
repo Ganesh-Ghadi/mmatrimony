@@ -67,7 +67,7 @@ return new class extends Migration
             $table->text('about_parents')->nullable();
             // birth Information
             $table->date('date_of_birth')->nullable();
-            $table->string('birth_time', 50)->nullable();
+            $table->time('birth_time')->nullable();
             $table->string('birth_place', 100)->nullable();
             // educational Information
             $table->string('highest_education', 100)->nullable();

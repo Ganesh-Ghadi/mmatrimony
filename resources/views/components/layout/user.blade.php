@@ -18,12 +18,14 @@
         <!-- Icon Font Stylesheet -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="{{ asset('assets/user/lib/animate/animate.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/user/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+
 
         <!-- Libraries Stylesheet -->
         {{-- <link href="lib/animate/animate.min.css" rel="stylesheet"> --}}
          {{-- <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet"> --}}
-        <link href="{{ asset('assets/user/lib/animate/animate.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/user/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+       
         <!-- Include SweetAlert2 CSS and JS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
