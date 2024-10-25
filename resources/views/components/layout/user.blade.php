@@ -111,7 +111,7 @@
 
 
         <!-- Carousel Start -->
-        {{-- <div class="container-fluid carousel-header px-0 myslider">
+        <div class="container-fluid carousel-header px-0 myslider">
             <div id="carouselId" class="carousel slide myslider" data-bs-ride="carousel">
                 <div class="carousel-inner myslider" role="listbox">
                     <div class="carousel-item active">
@@ -146,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-                     --}}
+                    
 
                   
                     

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Caste;
 use App\Models\Package;
+use App\Models\SubCaste;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -96,7 +98,17 @@ class Profile extends Model
         'partner_business',
         'partner_foreign_resident',
         'available_tokens',
-        'role'
+        'role',
+        'when_meet',
+        'rashee',
+        'nakshatra',
+        'mangal',
+        'charan',
+        'gana',
+        'nadi',
+        'chart',
+        'more_about_patrika',
+        'celestial_bodies',
     ];
 
     public function user()
@@ -114,5 +126,10 @@ class Profile extends Model
     public function favoriteProfiles()
     {
         return $this->belongsToMany(Profile::class, 'profile_favorites', 'profile_id', 'favorite_profile_id');
+    }
+
+    public function subCaste()
+    {
+        return $this->belongsTo(SubCaste::class, 'sub_caste');
     }
 }

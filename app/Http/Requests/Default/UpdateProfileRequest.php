@@ -104,6 +104,17 @@ class UpdateProfileRequest extends FormRequest
             'partner_job' => 'nullable|string|max:100',
             'partner_business' => 'nullable|string|max:100',
             'partner_foreign_resident' => 'nullable|string|max:100',
+            'when_meet' => 'nullable|boolean',
+            'rashee' => 'nullable|string|max:50',
+            'nakshatra' => 'nullable|string|max:50',
+            'mangal' => 'nullable|string|max:50',
+            'charan' => 'nullable|string|max:50',
+            'gana' => 'nullable|string|max:50',
+            'nadi' => 'nullable|string|max:50',
+            'chart' => 'nullable|string|max:50',
+            'more_about_patrika' => 'nullable|string',
+            'celestial_bodies' => 'nullable|string|max:50',
+            
         ];
     }
 }

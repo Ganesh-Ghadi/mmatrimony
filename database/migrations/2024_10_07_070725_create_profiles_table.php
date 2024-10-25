@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,7 +16,7 @@ return new class extends Migration
             $table->string('first_name', 100)->nullable();
             $table->string('middle_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
-            $table->enum('role',['bride','groom'])->nullable();
+            $table->enum('role', ['bride', 'groom'])->nullable();
             $table->string('mother_tongue', 100)->nullable();
             $table->string('native_place', 100)->nullable();
             $table->string('gender', 50)->nullable();
@@ -80,7 +79,7 @@ return new class extends Migration
             $table->string('job_location', 100)->nullable();
             // experience/income Information
             $table->string('job_experience', 100)->nullable();
-            $table->decimal('income', 10,2)->nullable();
+            $table->decimal('income', 10, 2)->nullable();
             $table->string('currency', 50)->nullable();
             // contact details
             $table->string('country', 100)->nullable();
@@ -111,6 +110,18 @@ return new class extends Migration
             $table->string('partner_job', 100)->nullable();
             $table->string('partner_business', 100)->nullable();
             $table->string('partner_foreign_resident', 100)->nullable();
+            // astronomy
+            $table->boolean('when_meet')->default(0);
+            $table->string('rashee', 50)->nullable();
+            $table->string('nakshatra', 50)->nullable();
+            $table->string('mangal', 50)->nullable();
+            $table->string('charan', 50)->nullable();
+            $table->string('gana', 50)->nullable();
+            $table->string('nadi', 50)->nullable();
+            $table->string('chart', 50)->nullable();
+            $table->text('more_about_patrika')->nullable();
+            $table->string('celestial_bodies', 50)->nullable();
+
             $table->timestamps();
         });
     }

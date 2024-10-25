@@ -377,4 +377,5 @@ class UserProfilesController extends Controller
 
         return view('default.view.profile.view_favorites.index', ['users' => $users]);
     }
+   
 }

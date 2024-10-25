@@ -83,7 +83,7 @@
     
  <body data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
     {{-- Sidebar for larger screens --}}
-    <div class="card" id="sidebar">
+    <div  id="sidebar">
         <div class="offcanvas-header"> <!-- Hide on large screens -->
         <h5 class="offcanvas-title" id="sidebarLabel">Profile Details</h5>
         <button id="sidebarClose" class="btn btn-close  d-lg-none"></button> <!-- Close button -->

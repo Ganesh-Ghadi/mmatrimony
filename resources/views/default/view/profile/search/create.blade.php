@@ -132,7 +132,7 @@
         }
     </style>
 
-    <div>
+    <div class="card">
         <h1 class="text-center">User Search</h1>
 
         <!-- Search Form -->

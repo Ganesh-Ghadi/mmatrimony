@@ -148,8 +148,8 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="birth_time">Birth Time (IST)</label>
-                <input type="time" id="birth_time" name="birth_time" >
-                <small>Format: HH:MM (Indian Standard Time)</small>
+                <input type="time" id="birth_time" name="birth_time" value="{{ $user->birth_time }}" required>
+                <small style="color: red;">Format: HH:MM (Indian Standard Time)</small>
             </div>
         </div>
         <div class="form-row">
@@ -165,9 +165,14 @@
 <div class="panel">
     <h2>Astronomy Information</h2>
     <div>
-        <input type="checkbox" id="toggleDropdowns" />
-        <label class="text-black" for="toggleDropdowns" style="color: black;">भेटल्यावर बोलूया</label>
+        <input name="when_meet" type="checkbox" value="1"
+            {{ $user->when_meet ? 'checked' : '' }} 
+            id="toggleDropdowns" />
+        <label class="text-black" for="toggleDropdowns" style="color: black;">
+            भेटल्यावर बोलूया
+        </label>
     </div>
+    
     <div class="container" id="dropdowns">
         <div class="row">
             <div class="col">
@@ -273,30 +278,24 @@
          <!-- Dropdown positioned over the image -->
          <div class="dropdown-container" style="position: absolute; top: 80px; left: 290px;">
          <!-- Number Dropdown -->
-         <select id="imageDropdown1" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
-         <option value="">numbers</option>
-         <option value="1">1</option>
-         <option value="2">2</option>
-         <option value="3">3</option>
-         <option value="4">4</option>
-         <option value="5">5</option>
-         <option value="6">6</option>
-         <option value="7">7</option>
-         <option value="8">8</option>
-         <option value="9">9</option>
-         <option value="10">10</option>
-         <option value="11">11</option>
-         <option value="12">12</option>
-         </select>
+         <select id="imageDropdown1" name="chart" class="form-select" style="width: 80px; padding: 3px; font-size: 12px; color: black;">
+            <option value="" disabled {{ $user->chart === null ? 'selected' : '' }}>Select a number</option>
+            @for ($i = 1; $i <= 12; $i++)
+                <option value="{{ $i }}" {{ $user->chart == $i ? 'selected' : '' }}>{{ $i }}</option>
+            @endfor
+        </select>
+        
          {{-- dropdown 1 --}}
         <div class="dropdown-container" style="position: relative;">
             <button id="dropdownButton2" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -67px; left: 13px;">Select</button>
-            <div id="dropdownMenu2" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -48px; left: 13px;">
+            <div  id="dropdownMenu2" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -48px; left: 13px;">
                 @foreach (config('data.celestial_bodies', []) as $value => $name)
                     <label style="display: block;">
-                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
+                        <input type="checkbox" class="checkbox-option" name="celestial_bodies" value="{{$value}}" > {{ $name }}
                     </label>
+                   
                 @endforeach
+                
             </div>
         </div>
          <!-- Celestial Bodies Dropdowns -->
@@ -436,10 +435,10 @@
                             </div>
         <script>
             //numbers
-            document.getElementById('imageDropdown1').addEventListener('change', function() {
-        const selectedValue = parseInt(this.value);
-        
-        // Reference to the inputs
+            document.addEventListener('DOMContentLoaded', function() {
+        const dropdown1 = document.getElementById('imageDropdown1');
+        const selectedValue = parseInt(dropdown1.value);
+
         const inputs = [];
         for (let i = 2; i <= 12; i++) {
             inputs.push(document.getElementById(`imageDropdown${i}`));
@@ -447,7 +446,21 @@
 
         if (!isNaN(selectedValue)) {
             inputs.forEach((input, index) => {
-                // Calculate the anticlockwise countdown value
+                let calculatedValue = selectedValue + index + 1; // Start counting from the selected value
+
+                // Wrap values if they go above 12
+                if (calculatedValue > 12) calculatedValue -= 12;
+
+                // Set the initial values in the inputs
+                input.value = calculatedValue;
+            });
+        }
+
+        // Add change event listener to the main dropdown
+        dropdown1.addEventListener('change', function() {
+            const selectedValue = parseInt(this.value);
+            
+            inputs.forEach((input, index) => {
                 let calculatedValue = selectedValue + index + 1; // Start counting from the selected value
 
                 // Wrap values if they go above 12
@@ -456,12 +469,7 @@
                 // Update the values in the inputs
                 input.value = calculatedValue;
             });
-        } else {
-            // Reset the inputs if no value is selected
-            inputs.forEach(input => {
-                input.value = '';
-            });
-        }
+        });
     });
     //dropdown
     document.addEventListener('DOMContentLoaded', function () {
@@ -514,8 +522,8 @@
         </script>
          <div class="panel">
             <div class="form-group">
-                <label for="patrika" class="form-label">More About Patrika</label>
-                <textarea id="patrika" class="form-control" rows="4" placeholder="Enter more details..."></textarea>
+                <label for="more_about_patrika" class="form-label">More About Patrika</label>
+                <textarea value="{{ $user->more_about_patrika }}" id="more_about_patrika" name="more_about_patrika" class="form-control" rows="4" placeholder="Enter more details..."></textarea>
             </div>
         </div>
         </div>
