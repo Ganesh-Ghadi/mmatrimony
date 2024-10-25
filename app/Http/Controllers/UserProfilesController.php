@@ -291,7 +291,7 @@ class UserProfilesController extends Controller
     }
 
     public function store(UpdateProfileRequest $request)
-    {
+    {          
         if ($request->hasFile('img_1')) {
             $img_1FileNameWithExtention = $request->file('img_1')->getClientOriginalName();
             $img_1Filename = pathinfo($img_1FileNameWithExtention, PATHINFO_FILENAME);

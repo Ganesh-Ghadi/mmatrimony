@@ -9,14 +9,14 @@ class DashboardController extends Controller
 {
     public function index(){
         $users = Profile::take(4)->get();
-        return view('default.view.pages.home_page.index', ['users' => $users]);
+        return view('dashboard', ['users' => $users]);
     }
 
 
     public function load_users(Request $request){
         $offset = $request->input('offset', 0);
         $users = auth()->user()->profile()->skip($offset)->take(4)->get();
-        return view('default.view.pages.home_page.index', ['users' => $users]);
+        return view('dashboard', ['users' => $users]);
     }
     
 }

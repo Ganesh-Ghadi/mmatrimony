@@ -27,9 +27,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
  */
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
 
     Route::group(['middleware' => ['guest']], function () {
         Route::get('/admin', function () {
@@ -79,7 +79,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/remove-favorites', [UserProfilesController::class, 'remove_favorite'])->name('profiles.remove_favorite');
         Route::get('/view_favorites', [UserProfilesController::class, 'view_favorite'])->name('profiles.view_favorite');
         
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('/dashboard/load', [DashboardController::class, 'load_users'])->name('dashboard.view_load_users');
 
         
