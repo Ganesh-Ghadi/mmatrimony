@@ -152,6 +152,15 @@
                 <small>Format: HH:MM (Indian Standard Time)</small>
             </div>
         </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="birth_place">Birth Place</label>
+                <input type="text" id="birth_place" name="birth_place" class="form-control" value="{{ $user->birth_place }}" required>
+                @if ($errors->has('birth_place'))
+                <span class="text-danger small">{{ $errors->first('birth_place') }}</span>
+                @endif     
+            </div>
+        </div>    
     </div>
 <div class="panel">
     <h2>Astronomy Information</h2>
