@@ -672,25 +672,24 @@ return [
         'nahi' => 'नही',
         'nirdosh' => 'निर्दोष',
         'soumya' => 'सौम्य',
-        'mahiti_naahi' => 'महिती नाही',
+        'maahiti_naahi' => 'माहिती नाही',
     ],
     'charan' => [
         'prathama' => 'प्रथम',
         'drishtiya' => 'दृष्टिया',
         'trutiya' => 'त्रुतिया',
         'chaturti' => 'चतुर्ति',
-        'mahiti_naahi' => 'महिती नाही',
+        'maahiti_naahi' => 'माहिती नाही',
     ],
     'gana' => [
         'dev' => 'देव',
         'manushya' => 'मनुष्य',
         'rakshasa' => 'रक्षस',
-        'mahiti_naahi' => 'महिती नाही',
+        'maahiti_naahi' => 'माहिती नाही',
     ],
     'nadi' => [
-      'madhya' => 'मध्य',
-      'aantya' => 'आंत्य',
-      'mahiti_naahi' => 'महिती नाही',
+        'madhya' => 'मध्य',
+        'aantya' => 'आंत्य',
+        'maahiti_naahi' => 'माहिती नाही',
     ],
-
 ];

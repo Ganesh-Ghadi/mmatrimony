@@ -40,7 +40,10 @@
         {{-- <link href="css/style.css" rel="stylesheet"> --}}
         <link href="{{ asset('assets/user/css/style.css') }}" rel="stylesheet">
 
+       
+        
     </head>
+    
 
     <body data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
 
@@ -106,7 +109,7 @@
 
 
         <!-- Carousel Start -->
-        <div class="container-fluid carousel-header px-0 myslider">
+        {{-- <div class="container-fluid carousel-header px-0 myslider">
             <div id="carouselId" class="carousel slide myslider" data-bs-ride="carousel">
                 <div class="carousel-inner myslider" role="listbox">
                     <div class="carousel-item active">
@@ -141,17 +144,12 @@
                             </div>
                         </div>
                     </div>
-                    
+                     --}}
+
+                  
                     
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                
             </div>
         </div>
 

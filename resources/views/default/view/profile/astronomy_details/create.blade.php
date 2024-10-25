@@ -148,7 +148,7 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="birth_time">Birth Time (IST)</label>
-                <input type="time" id="birth_time" value="12:00">
+                <input type="time" id="birth_time" name="birth_time" >
                 <small>Format: HH:MM (Indian Standard Time)</small>
             </div>
         </div>
@@ -241,7 +241,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="nadi">गण</label>
+                        <label for="nadi">नाडी</label>
                         <select class="form-input" name="nadi" id="nadi">
                             <option value="" selected>Select an option</option>
                             @foreach (config('data.nadi', []) as $value => $name)

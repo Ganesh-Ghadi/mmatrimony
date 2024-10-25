@@ -81,20 +81,13 @@
 
     </style>
     
-</head>
-
-<body data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
-     
-
-     
-
+ <body data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
     {{-- Sidebar for larger screens --}}
-    <div id="sidebar">
+    <div class="card" id="sidebar">
         <div class="offcanvas-header"> <!-- Hide on large screens -->
         <h5 class="offcanvas-title" id="sidebarLabel">Profile Details</h5>
         <button id="sidebarClose" class="btn btn-close  d-lg-none"></button> <!-- Close button -->
     </div>
-    
         <div class="offcanvas-body">
             <ul class="list-group">
                 <li class="list-group-item"><a href="{{ route('search.create') }}">Quick Search</a></li>
