@@ -55,7 +55,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ $user->first_name }} {{ $user->last_name }}</h5>
                                 <p class="card-text">{{ \Carbon\Carbon::parse($user->date_of_birth)->age }} years</p> <!-- Display age -->
-                                <p class="card-text">{{ $user->subCaste->name }}</p> <!-- Display sub_caste -->
+                                <p class="card-text">{{ @$user->subCaste->name }}</p> <!-- Display sub_caste -->
                                 <p class="card-text">{{ $user->bio }}</p>
                                 <span class="view-profile" onclick="location.href='{{ route('user.profile', $user->id) }}'">View Profile</span>
                             </div>
@@ -79,7 +79,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ $user->first_name }} {{ $user->last_name }}</h5>
                                 <p class="card-text">{{ \Carbon\Carbon::parse($user->date_of_birth)->age }} years</p> <!-- Display age -->
-                                <p class="card-text">{{ $user->subCaste->name }}</p> <!-- Display sub_caste -->
+                                <p class="card-text">{{ @$user->subCaste->name }}</p> <!-- Display sub_caste -->
                                 <p class="card-text">{{ $user->bio }}</p>
                                 <span class="view-profile" onclick="location.href='{{ route('user.profile', $user->id) }}'">View Profile</span>
                             </div>

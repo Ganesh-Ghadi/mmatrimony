@@ -10,7 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $users = auth()->user()->profile()->with('subCaste')->get();
+        // $users = auth()->user()->profile()->with('subCaste')->get();
+        $users = Profile::with('subCaste')->get();
         $profiles = Profile::all();
         return view('dashboard', ['users' => $users, 'profiles' => $profiles]);
     }
