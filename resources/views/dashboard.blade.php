@@ -1,6 +1,6 @@
 <x-layout.user>
-    <link href="{{ asset('assets/user/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/user/css/styles.css') }}" rel="stylesheet"> <!-- Optional custom styles -->
+    {{-- <link href="{{ asset('assets/user/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('assets/user/css/styles.css') }}" rel="stylesheet"> <!-- Optional custom styles --> --}}
 
     <style>
         .card {
@@ -48,7 +48,15 @@
                     <div class="col-md-4 mb-4">
                         <div class="card">
                             @if ($user->img_1)
-                                <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
+                            <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_1 }}')">
+                                <template x-if="imageUrl">
+                                    <img class="profile-image" :src="imageUrl" alt="Uploaded Image" />
+                                </template>
+                                <template x-if="!imageUrl">
+                                    {{-- <p>Loading image...</p> --}}
+                                </template>
+                            </div>
+                                {{-- <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image"> --}}
                             @else
                                 <div class="no-profile-photo">No Profile Photo Displayed</div>
                             @endif
@@ -72,7 +80,15 @@
                     <div class="col-md-4 mb-4">
                         <div class="card">
                             @if ($user->img_1)
-                                <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
+                            <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_1 }}')">
+                                <template x-if="imageUrl">
+                                    <img class="profile-image" :src="imageUrl" alt="Uploaded Image" />
+                                </template>
+                                <template x-if="!imageUrl">
+                                    {{-- <p>Loading image...</p> --}}
+                                </template>
+                            </div>
+                                {{-- <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image"> --}}
                             @else
                                 <div class="no-profile-photo">No Profile Photo Displayed</div>
                             @endif
@@ -90,6 +106,30 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{{ asset('assets/user/js/bootstrap.bundle.min.js') }}"></script>
+
+    
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{{ asset('assets/user/js/bootstrap.bundle.min.js') }}"></script> --}}
+         {{-- image display --}}
+         <script>
+            function imageLoader() {
+                return {
+                    imageUrl: null,
+            
+                    async fetchImage(filename) {
+                        try {
+                            const response = await fetch(`/api/images/${filename}`);
+                            if (!response.ok) throw new Error('Image not found');
+                            
+                            // Create a blob URL for the image
+                            const blob = await response.blob();
+                            this.imageUrl = URL.createObjectURL(blob);
+                        } catch (error) {
+                            console.error('Error fetching image:', error);
+                            this.imageUrl = null; // Handle error case
+                        }
+                    }
+                };
+            }
+            </script>
 </x-layout.user>

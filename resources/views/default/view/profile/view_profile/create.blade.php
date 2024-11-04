@@ -88,21 +88,45 @@ button.btn {
         <div class="form-row image-gallery">
     <div class="form-group">
         @if($user->img_1)
-            <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
+        <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_1 }}')">
+            <template x-if="imageUrl">
+                <img class="profile-image" :src="imageUrl" alt="Uploaded Image" />
+            </template>
+            <template x-if="!imageUrl">
+                {{-- <p>Loading image...</p> --}}
+            </template>
+        </div>
+            {{-- <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image"> --}}
         @else
             {{-- <p>No pic display</p> --}}
         @endif
     </div>
     <div class="form-group">
         @if($user->img_2)
-            <img src="{{ asset('storage/images/' . $user->img_2) }}" alt="Uploaded Image" class="profile-image">
+        <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_2 }}')">
+            <template x-if="imageUrl">
+                <img class="profile-image" :src="imageUrl" alt="Uploaded Image" />
+            </template>
+            <template x-if="!imageUrl">
+                {{-- <p>Loading image...</p> --}}
+            </template>
+        </div>
+            {{-- <img src="{{ asset('storage/images/' . $user->img_2) }}" alt="Uploaded Image" class="profile-image"> --}}
         @else
             {{-- <p>No pic display</p> --}}
         @endif
     </div>
     <div class="form-group">
         @if($user->img_3)
-            <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" class="profile-image">
+        <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_3 }}')">
+            <template x-if="imageUrl">
+                <img class="profile-image" :src="imageUrl" alt="Uploaded Image" />
+            </template>
+            <template x-if="!imageUrl">
+                {{-- <p>Loading image...</p> --}}
+            </template>
+        </div>
+            {{-- <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" class="profile-image"> --}}
         @else
             {{-- <p>No pic display</p> --}}
         @endif
@@ -342,7 +366,28 @@ button.btn {
         <x-common.usersidebar />
     </div>
      
-    
+      {{-- image display --}}
+      <script>
+        function imageLoader() {
+            return {
+                imageUrl: null,
+        
+                async fetchImage(filename) {
+                    try {
+                        const response = await fetch(`/api/images/${filename}`);
+                        if (!response.ok) throw new Error('Image not found');
+                        
+                        // Create a blob URL for the image
+                        const blob = await response.blob();
+                        this.imageUrl = URL.createObjectURL(blob);
+                    } catch (error) {
+                        console.error('Error fetching image:', error);
+                        this.imageUrl = null; // Handle error case
+                    }
+                }
+            };
+        }
+        </script>
     
     
     

@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Default\UpdateProfileRequest;
+use Carbon\Carbon;
 use App\Models\Caste;
 use App\Models\Package;
 use App\Models\Profile;
-use App\Models\ProfilePackage;
 use App\Models\SubCaste;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\ProfilePackage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Default\UpdateProfileRequest;
 
 class UserProfilesController extends Controller
 {
@@ -415,7 +417,24 @@ class UserProfilesController extends Controller
 
 
 
+       public function showImages(string $filename)
+    {
+        // $img_1_name = auth()->user()->profile->img_1;
+        //  Log::info("this is image name ", $filename);
+        Log::info("Requested image filename", ['filename' => $filename]); // Correct usage
 
+        $path = 'images/' . $filename;
+    
+        if (!Storage::disk('public')->exists($path)) {
+            return response()->json(['error' => 'Image not found.'], 404);
+        }
+    
+        $file = Storage::disk('public')->get($path);
+        $type = Storage::disk('public')->mimeType($path);
+    
+        return response($file, 200)
+                  ->header("Content-Type", $type);
+    }
 
 
 
