@@ -1,179 +1,149 @@
 <x-layout.user>
-    
- 
     <style>
         /* Sidebar style */
         #sidebar {
-            position: fixed; /* Fixed positioning for the sidebar */
+            position: fixed;
             top: 0;
             right: 0;
-            width: 250px; /* Adjust the width as needed */
+            width: 220px; /* Reduced sidebar width */
             height: 100%;
-            background-color: #f8f9fa; /* Background color of sidebar */
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
-            z-index: 1030; /* Above other content */
-            display: none; /* Start with sidebar hidden */
-            overflow-y: auto; /* Enable scrolling when content exceeds the sidebar height */
+            background-color: #f8f9fa;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 1030;
+            overflow-y: auto;
+            display: block;
         }
-    
-        /* Ensure sidebar is hidden on small screens and toggle button is visible */
+
+        /* Adjust sidebar display on different screen sizes */
         @media (max-width: 992px) {
-            #sidebar {
-                display: none; /* Hide sidebar on small screens */
-            }
-    
-            #sidebarToggle {
-                display: block; /* Show toggle button */
-            }
+            #sidebar { display: none; }
+            #sidebarToggle { display: block; }
         }
-    
         @media (min-width: 992px) {
-            #sidebar {
-                display: block; /* Show sidebar */
-                float: right; /* Place sidebar beside main content */
-                position: relative; /* Make sidebar part of the main content flow */
-            }
-
-            .main-content {
-                margin-right: 250px; /* Space for the sidebar */
-            }
-
-            #sidebarToggle {
-                display: block; /* Hide toggle button */
-            }
+            #sidebar { display: block; }
+            .main-content { margin-right: 220px; } /* Adjusted to sidebar width */
+            #sidebarToggle { display: none; }
         }
 
         /* Main content area */
         .main-content {
-            margin-right: 250px; /* Space for the sidebar */
+            margin-right: 220px;
         }
-    
-        /* Adjust main content on smaller screens */
         @media (max-width: 992px) {
-            .main-content {
-                margin-right: 0; /* No margin on small screens */
-            }
+            .main-content { margin-right: 0; }
         }
 
         /* Package box style */
         .package-box {
-            border: 1px solid #ddd; /* Border for package box */
-            border-radius: 8px; /* Rounded corners */
-            padding: 20px; /* Padding inside the box */
-            text-align: center; /* Center text */
-            transition: box-shadow 0.3s; /* Smooth shadow transition */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: box-shadow 0.3s;
         }
-
         .package-box:hover {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Horizontal layout for package boxes */
-        .package-container {
-            display: flex; /* Flex container for horizontal layout */
-            justify-content: space-between; /* Space between items */
-            margin-top: 20px; /* Space above package section */
-        }
-
-        .package {
-            flex: 1; /* Each package box takes equal space */
-            margin: 0 10px; /* Margin between boxes */
-        }
-
-        .sidebar {
-    width: 300px; /* Fixed width for the sidebar */
-    position: sticky;
-    top: 0; /* Make the sidebar sticky at the top when scrolling */
-    height: 100vh; /* Full height of the viewport */
-    background-color: #f5f5f5; /* Optional background color for sidebar */
-    padding: 15px;
-    border-left: 1px solid #ddd; /* Optional border for separation */
+        /* Horizontal layout with scrolling */
+        .scrollable-packages {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto; /* Allow only horizontal scrolling */
+    max-height: 240px; /* Fixed height for visibility */
+    max-width: 85%; /* Decreased width for visibility */
+    padding: 10px;
+    border: 1px solid #ccc;
+    white-space: nowrap;
 }
 
+/* Optionally, you can remove the height property of .package-container */
+.package-container {
+    flex: 1 1 200px;
+}
+
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 220px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-left: 1px solid #ddd;
+        }
+        
+        button.btn {
+            background-color: #ff0000;
+            color: white !important;
+            border: none;
+        }
+        .panel {
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 20px auto;
+        }
+        
     </style>
+
+    <div class="panel">
+        <h3 class="text-center m-3">Available Tokens: {{$user->available_tokens}}</h3>
+        @if($purchased_packages->isNotEmpty())
+        <h3 class="text-center m-3">Purchased Packages</h3>
+        <div class="container">
+            <div class="scrollable-packages">
+                @foreach ($purchased_packages as $purchased_package)
+                    <div class="package-container">
+                        <div class="package">
+                            <div class="package-box">
+                                <h4>{{ $purchased_package->name }}</h4>
+                                <div class="form-group">
+                                    <p><strong>Package Description:</strong> {{ $purchased_package->description }}</p>
+                                    <p><strong>Package Price:</strong> ₹{{ number_format($purchased_package->price, 2) }}</p>
+                                    <p><strong>Expiry Date:</strong> {{ $purchased_package->pivot->expires_at }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
     
-</head>
 
-<body data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
-
-   
-
-<div class="main-content">
-    <h3 class="text-center m-3">available Tokens {{$user->available_tokens}}  </h3>
-    @if($purchased_packages->isNotEmpty())
-    <h3 class="text-center m-3">Purchased Packages  </h3>
-    <div class="container">
-        <div class=" d-flex flex-row justify-items-center gap-4 ">
-        @foreach ($purchased_packages as $purchased_package)
-        <div class="package-container">
-                <div class="package">
-                    <div class="package-box">
-                        <h4>{{ $purchased_package->name }}</h4>
-                        <div class="form-group">
-                            <p><strong>Package Description:</strong> {{ $purchased_package->description }}</p>
-                            <p><strong>Package Price:</strong> ₹{{ number_format($purchased_package->price, 2) }}</p>
-                            <p><strong>Expiry date:</strong> {{ $purchased_package->pivot->expires_at }}</p>
-                            <p><strong>Package Price:</strong> ₹{{ number_format($purchased_package->price, 2) }}</p>
-
-                        </form>
+        <div class="container">
+            <h3 class="text-center m-3">Packages</h3>
+            <div class="package-container">
+                <div class="row">
+                    @foreach ($packages as $package)
+                        <div class="col-md-4 mb-3 col-12">
+                            <div class="package">
+                                <div class="package-box">
+                                    <h4>{{ $package->name }}</h4>
+                                    <div class="form-group">
+                                        <p><strong>Package Description:</strong> {{ $package->description }}</p>
+                                        <p><strong>Package Price:</strong> ₹{{ number_format($package->price, 2) }}</p>
+                                        <form action="{{ route('purchase_packages.store') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="package_id" value="{{ $package->id }}">
+                                            <button type="submit" class="btn btn-primary">Buy</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
-        </div>
-        @endforeach
-    </div>
-
-
-    </div>
-@endif
-    <div class="container">
-        <h3 class="text-center m-3">Packages</h3>
-        <div class="package-container">
-            <div class="row">
-            @foreach ($packages as $package)
-               <div class="col-md-4 mb-3 col-12">
-                <div class="package">
-                    <div class="package-box">
-                        <h4>{{ $package->name }}</h4>
-                        <div class="form-group">
-                            <p><strong>Package Description:</strong> {{ $package->description }}</p>
-                            <p><strong>Package Price:</strong> ₹{{ number_format($package->price, 2) }}</p>
-                            <form action="{{route('purchase_packages.store')}}" method="POST">
-                                @csrf
-                                <input type="hidden" name="package_id" type="number" value="{{$package->id}}">
-                            <button type="submit" class="btn btn-primary">Buy</button>
-                        </form>
-                        </div>
-                    </div>
-                </div>
-               </div>
-            @endforeach
+            </div>
         </div>
     </div>
-    </div>
-</div>
-
-
-{{-- <script>
-    function buyPackage(packageId) {
-        // Logic to handle the purchase
-        alert('You are buying package ID: ' + packageId);
-    }
-</script> --}}
-
 
     <div class="sidebar">
         <x-common.usersidebar />
     </div>
-
-     
-</body>
-
-</html>
-
-    
-    
-    
-    
 </x-layout.user>
-

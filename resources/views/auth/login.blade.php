@@ -1,4 +1,11 @@
 <x-layout.user>
+    <style>
+        a.btn {
+       background-color: #ff0000; /* Rose Red color */
+       color: white !important; /* Ensure text color is white */
+       
+   }
+   </style>
     <div class="d-flex justify-content-center align-items-center min-vh-100 bg-light" style="background-image: url('/assets/images/map.svg'); background-size: cover; background-position: center;">
         <div class="card" style="width: 480px;">
             <div class="card-body">

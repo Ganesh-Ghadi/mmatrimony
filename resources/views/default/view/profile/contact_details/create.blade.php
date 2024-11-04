@@ -59,7 +59,11 @@
     .progress {
         height: 30px;  
     }
-        
+    button.btn {
+    background-color: #ff0000; /* Rose Red color */
+    color: white !important; /* Ensure text color is white */
+    border: none; /* Optional: remove border */
+}
     </style>
 
     <form action="{{ route('profiles.store') }}" method="POST">

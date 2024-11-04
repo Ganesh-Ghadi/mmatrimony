@@ -131,6 +131,56 @@
             padding: 5px 10px; /* Smaller padding for the button */
             font-size: 0.8em; /* Reduced font size */
         }
+
+        .profile-image {
+                width: 80%;
+                height: auto;
+                margin: 10px auto;
+                display: block;
+                border-radius: 8px;
+            }
+
+            .no-profile-photo {
+                width: 80%;
+                height: 150px;
+                background-color: #f0f0f0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #888;
+                font-weight: bold;
+                margin: 10px auto;
+                border-radius: 8px;
+            }
+            .view-profile {
+                color: red;
+                font-weight: bold;
+                cursor: pointer;
+                display: inline-block;
+             }
+
+ /* Other styles remain unchanged */
+
+ 
+ button,
+    a.btn {
+        background-color: #ff0000; /* Rose Red color */
+        color: white !important; /* Ensure text color is white */
+        cursor: pointer;
+        padding: 10px 25px;
+        margin-top: 40px; /* Top margin */
+        margin-bottom: 20px; /* Bottom margin */
+        margin-right: 15px; /* Right margin */
+        border: none; /* Remove default border */
+        text-align: center; /* Center text */
+    }
+
+    button:hover,
+    a.btn:hover {
+        background-color: #cc0066; /* Darker shade for hover effect */
+    }     
+
+    
     </style>
     
     <div class="container-fluid">
@@ -142,9 +192,7 @@
 
         <!-- Search Form -->
         <form action="{{ route('search.create') }}" method="GET">
-            <div class="input-group mb-3">
-                <input class="form-control" type="text" name="query" placeholder="Search Bride/Groom" value="{{ request()->input('query') }}">
-            </div>
+           
         
             <!-- Age Range Search Inputs -->
             <div class="age-range">
@@ -180,10 +228,10 @@
                 @foreach ($users as $user)
                     <div class="card">
                         <div class="form-group" style="position: relative;"> <!-- Added relative positioning -->
-                            @if($user->img_1)
+                            @if ($user->img_1)
                                 <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
                             @else
-                                <p>No pic display</p>
+                                <div class="no-profile-photo">No Profile Photo Displayed</div>
                             @endif
             
                             <!-- Heart Icon for Favorite -->
@@ -209,8 +257,7 @@
                         </div>
                         <h3>{{ $user->first_name }} {{ $user->last_name }}</h3>
                         <p>Age: {{ $user->age }}</p>
-                        <p>Marital Status: {{ $user->marital_status }}</p>
-                    {{-- start --}}
+                     {{-- start --}}
                     <div style="position: absolute; top: 10px; right: 10px;">
                     <div  x-data="favoriteToggle({{ $user->id }}, {{ $user->is_favorited ? 'true' : 'false' }})" >
                         <form @submit.prevent="submit" style="display: inline;">
@@ -225,8 +272,8 @@
             
      
             {{-- end --}}
-                        <a href="{{ route('user.profile', $user->id) }}" class="btn btn-primary">View Profile</a>
-                    </div>
+            <span class="view-profile" onclick="location.href='{{ route('user.profile', $user->id) }}'">View Profile</span>
+        </div>
                 @endforeach
             </div>
             

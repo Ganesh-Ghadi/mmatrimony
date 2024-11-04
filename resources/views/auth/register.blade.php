@@ -1,5 +1,13 @@
 <x-layout.user>
-    <div class="d-flex justify-content-center align-items-center min-vh-100 bg-light" style="background-image: url('/assets/images/map.svg'); background-size: cover; background-position: center;">
+    <style>
+         a.btn {
+        background-color: #ff0000; /* Rose Red color */
+        color: white !important; /* Ensure text color is white */
+        
+    }
+    </style>
+
+<div class="d-flex justify-content-center align-items-center min-vh-100 bg-light" style="background-image: url('/assets/images/map.svg'); background-size: cover; background-position: center;">
         <div class="card" style="width: 480px;">
             <div class="card-body">
                 <h2 class="font-weight-bold mb-3 text-center">Register</h2>
@@ -13,6 +21,24 @@
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="row mb-2">
+                        <div class="mb-2 ">
+                            <label class="form-label" style="color: black; margin: 10px 0;">Looking for:</label>
+                            <div class="d-flex gap-2 flex-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="role" id="bride" value="bride" {{ old('role') === 'bride' ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="bride" style="color: black;">
+                                    Bride
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="role" id="groom" value="groom" {{ old('role') === 'groom' ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="groom" style="color: black;">
+                                    Groom
+                                </label>
+                            </div>
+                            <x-input-error :messages="$errors->get('role')" class="mt-2 text-danger small" />
+                        </div>
+                    </div>
                         <div class="col">
                             <label for="first_name" class="form-label" style="color: black; margin: 10px 0">First Name</label>
                             <input id="first_name" name="first_name" type="text" class="form-control" value="{{ old('first_name') }}" placeholder="First Name" required autofocus autocomplete="" />
@@ -65,24 +91,7 @@
                         <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2 text-danger small" />
                     </div>
                     
-                    <div class="mb-2 ">
-                        <label class="form-label" style="color: black; margin: 10px 0;">Looking for:</label>
-                        <div class="d-flex gap-2 flex-row">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="role" id="bride" value="bride" {{ old('role') === 'bride' ? 'checked' : '' }} required>
-                            <label class="form-check-label" for="bride" style="color: black;">
-                                Bride
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="role" id="groom" value="groom" {{ old('role') === 'groom' ? 'checked' : '' }} required>
-                            <label class="form-check-label" for="groom" style="color: black;">
-                                Groom
-                            </label>
-                        </div>
-                        <x-input-error :messages="$errors->get('role')" class="mt-2 text-danger small" />
-                    </div>
-                </div>
+                   
                     
                     
                     {{-- <div class="mb-2">
@@ -108,6 +117,27 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const brideRadio = document.getElementById('bride');
+            const groomRadio = document.getElementById('groom');
+            const dateOfBirthInput = document.getElementById('date_of_birth');
+
+            function updateMaxDate() {
+                const today = new Date();
+                let minAge = brideRadio.checked ? 21 : 18;
+                const maxDate = new Date(today.getFullYear() - minAge, today.getMonth(), today.getDate());
+                dateOfBirthInput.max = maxDate.toISOString().split('T')[0];
+            }
+
+            brideRadio.addEventListener('change', updateMaxDate);
+            groomRadio.addEventListener('change', updateMaxDate);
+
+            // Initial call to set the correct max date on page load
+            updateMaxDate();
+        });
+    </script>
     
     
 

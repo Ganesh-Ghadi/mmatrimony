@@ -104,10 +104,12 @@ return [
     'drinking_habits' => [
         'non-alcoholic' => 'Non-Alcoholic',
         'alcoholic' => 'Alcoholic',
+        'occasional' => 'Occasional',
     ],
     'smoking_habits' => [
         'non-smoker' => 'Non-Smoker',
         'smoker' => 'Smoker',
+        'occasional' => 'Occasional',
     ],
     // Educational Information
     // Organizational Information

@@ -71,7 +71,13 @@
         color: white;
         text-align: center;
         line-height: 25px;
-    }</style>
+    }
+    button.btn {
+    background-color: #ff0000; /* Rose Red color */
+    color: white !important; /* Ensure text color is white */
+    border: none; /* Optional: remove border */
+}
+</style>
     <div>
     <h1>{{ $user->first_name }} {{ $user->last_name }}'s Profile</h1>
 

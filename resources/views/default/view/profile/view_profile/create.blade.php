@@ -75,6 +75,11 @@
     line-height: 25px;
 }
 
+button.btn {
+    background-color: #ff0000; /* Rose Red color */
+    color: white !important; /* Ensure text color is white */
+    border: none; /* Optional: remove border */
+}
 
     </style>
     

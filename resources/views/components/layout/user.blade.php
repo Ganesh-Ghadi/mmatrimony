@@ -140,9 +140,7 @@
                                 <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">
                                     <p class="myp h4 text-white fw-bold mb-0" style="letter-spacing: 3px;">Dombivli </p>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn btn-primary btn-primary-outline-0  py-md-3 px-5 py-1 px-2" href="#">Login</a>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
