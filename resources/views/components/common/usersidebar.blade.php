@@ -81,7 +81,7 @@
 
     </style>
     
- <body data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
+ <div data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
     {{-- Sidebar for larger screens --}}
     <div  id="sidebar">
         <div class="offcanvas-header"> <!-- Hide on large screens -->
@@ -110,6 +110,6 @@
  
     
    
-</body>
+</div>
 
  

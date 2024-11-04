@@ -7,6 +7,7 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <link rel="icon" href="{{asset('assets/user/img/favicon.png')}}">
 
@@ -43,7 +44,6 @@
         <link href="{{ asset('assets/user/css/style.css') }}" rel="stylesheet">
 
        
-        
     </head>
     
 
@@ -242,6 +242,14 @@
     <!-- Template Javascript -->
     {{-- <script src="js/main.js"></script> --}}
     <script src="{{ asset('assets/user/js/main.js') }}"></script>
+
+    
+    <script src="/assets/js/alpine-collaspe.min.js"></script>
+    <script src="/assets/js/alpine-persist.min.js"></script>
+    <script defer src="/assets/js/alpine-ui.min.js"></script>
+    <script defer src="/assets/js/alpine-focus.min.js"></script>
+    <script defer src="/assets/js/alpine.min.js"></script>
+    <script src="/assets/js/custom.js"></script>
 
     </body>
 

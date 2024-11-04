@@ -79,7 +79,9 @@
  <div>
     <div class="panel">
         <h2>Father Details</h2>
-
+        @if(auth()->user() && auth()->user()->hasVerifiedEmail())
+        <p>Email verified</p>
+    @endif
         <div class="form-row">
             
             <div class="form-group">

@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Models\Profile;
-use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use App\Models\Profile;
+use Illuminate\View\View;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\SetPasswordMail;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Password;
 
 class RegisteredUserController extends Controller
 {
@@ -40,20 +45,21 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'mobile' => ['required', 'digits:10'],
             'date_of_birth' => ['required', 'date'],    
-             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            //  'password' => ['required', 'confirmed', Rules\Password::defaults()],
              'role'=>  ['required'],
         ]);
-        // dd($request);
+        // dd($request);`
 
         $fullName = trim($request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name);
-
+        $ranToken = Str::random(60); // Generate a random token
         $user = User::create([
             'name' => $fullName,
             'email' => $request->email,
             'mobile' => $request->mobile,
              'date_of_birth' => $request->date_of_birth,
-             'password' => Hash::make($request->password),
+            //  'password' => Hash::make($request->password),
         ]);
+       
         // dd($user->id);
            if($request->role ==='bride'){
               $userRole = 'groom';
@@ -62,6 +68,13 @@ class RegisteredUserController extends Controller
            if($request->role ==='groom'){
             $userRole = 'bride';
          }
+
+         DB::table('password_reset_tokens')->insert([
+            'email' => $user->email,
+            'token' => Hash::make($ranToken),
+            'created_at' => now(),
+        ]);
+        
 
         $profile = Profile::create([
             'user_id' => $user->id,
@@ -74,12 +87,42 @@ class RegisteredUserController extends Controller
              'role' => $userRole,
         ]);
 
-        event(new Registered($user));
         $memberRole = Role::where('name', 'member')->first();
         $user->assignRole($memberRole);
         // Auth::login($user);
+        // event(new Registered($user));
 
-        return redirect(route('login', absolute: false));
-        // return redirect(RouteServiceProvider::HOME);
+        // start
+        // $user = User::where('email', $request->email)->first();
+
+        // if($user){
+        //     $status = Password::sendResetLink(
+        //         $request->only('email')
+        //     );
+        // }
+      
+
+
+        // We will send the password reset link to this user. Once we have attempted
+        // to send the link, we will examine the response then see the message we
+        // need to show to the user. Finally, we'll send out a proper response.
+       
+
+        // return $status == Password::RESET_LINK_SENT
+        //             ? back()->with('status', __('we have emailed you a link to set password.'))
+        //             : back()->withInput($request->only('email'))
+        //                     ->withErrors(['email' => __($status)]);
+        // end
+
+        // new start
+        $url = route('password.reset', ['token' => $ranToken]). '?email=' . urlencode($user->email); // Adjust this route as necessary
+
+       
+        Mail::to($user->email)
+           ->send(new SetPasswordMail($url));
+           
+          return redirect()->back()->with('status','we have emailed you a link to set password.');
+        // end end
     }
+    
 }

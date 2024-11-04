@@ -106,9 +106,24 @@
                       <form action="{{ route('profiles.remove_favorite') }}" method="POST">
                         @csrf
                         <input type="hidden" name="favorite_id" value="{{$user->id}}">
-
+                         <input type="hidden" name="fav_page" value="fav_page">
                         <button class="btn text-white btn-primary" type="submit">Remove from Favorites</button>
                     </form>
+                    {{-- start --}}
+                    {{-- <div style="position: absolute; top: 10px; right: 10px;">
+                        <div  x-data="favoriteToggle({{ $user->id }})" >
+                            <form @submit.prevent="submit" style="display: inline;">
+                                @csrf
+                                <input type="hidden" name="favorite_id" x-model="favoriteId">
+                                <button type="submit" class="btn btn-link p-0 m-0" title="Toggle Favorite">
+                                    <i class="fas fa-heart text-danger'"></i>
+                                </button>
+                            </form>
+                        </div>
+                        </div> --}}
+                
+         
+                {{-- end --}}
                       {{-- <a href="#" class="btn text-white btn-primary">Remove from favorites</a> --}}
                     </div>
                   </div>
@@ -126,5 +141,6 @@
     </body>
     </html>
 
+   
 {{-- end --}}
 </x-layout.user>

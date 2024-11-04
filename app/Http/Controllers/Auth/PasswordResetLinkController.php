@@ -41,7 +41,7 @@ class PasswordResetLinkController extends Controller
             $status = Password::sendResetLink(
                 $request->only('email')
             );
-            Notification::sendNow($user, new WelcomeNotification());
+            // Notification::sendNow($user, new WelcomeNotification());
         }
       
 

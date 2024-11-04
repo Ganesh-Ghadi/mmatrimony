@@ -98,16 +98,12 @@
 
    
 
-
 <div class="main-content">
-    @if($purchased_packages)
-   
+    <h3 class="text-center m-3">available Tokens {{$user->available_tokens}}  </h3>
+    @if($purchased_packages->isNotEmpty())
+    <h3 class="text-center m-3">Purchased Packages  </h3>
     <div class="container">
-        <h3 class="text-center">Purchased Packages  </h3>
-        <h3 class="text-center">available Tokens {{$user->available_tokens}}  </h3>
-
-        <div class="d-flex flex-row justify-items-center gap-4 ">
-
+        <div class=" d-flex flex-row justify-items-center gap-4 ">
         @foreach ($purchased_packages as $purchased_package)
         <div class="package-container">
                 <div class="package">
@@ -131,9 +127,11 @@
     </div>
 @endif
     <div class="container">
-        <h3 class="text-center">Packages</h3>
+        <h3 class="text-center m-3">Packages</h3>
         <div class="package-container">
+            <div class="row">
             @foreach ($packages as $package)
+               <div class="col-md-4 mb-3 col-12">
                 <div class="package">
                     <div class="package-box">
                         <h4>{{ $package->name }}</h4>
@@ -148,8 +146,10 @@
                         </div>
                     </div>
                 </div>
+               </div>
             @endforeach
         </div>
+    </div>
     </div>
 </div>
 
@@ -162,11 +162,10 @@
 </script> --}}
 
 
-
     <div class="sidebar">
         <x-common.usersidebar />
     </div>
-     
+
      
 </body>
 
@@ -178,16 +177,3 @@
     
 </x-layout.user>
 
-   <!-- <div class="form-group">
-    <label for="name">Package Name:</label>
-    <select name="name" id="name" disabled>
-        @foreach ($packages as $package)
-            <option value="{{ $package->id }}" {{ ($user->package === $package->id) ? 'selected' : '' }}>
-                {{ $package->name }}
-            </option>
-        @endforeach
-    </select>
-    
-
-    <x-input-error :messages="$errors->get('package')" class="mt-2" />
-</div> -->

@@ -4,7 +4,12 @@
             <div class="card-body">
                 <h2 class="font-weight-bold mb-3">Sign In</h2>
                 <p class="mb-4">Enter your email and password to login</p>
-                <x-auth-session-status class="mb-4" :status="session('status')" />
+                {{-- <x-auth-session-status class="mb-4" :status="session('status')" /> --}}
+                @if(Session::has('status'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Password has been set successfully.
+                </div>
+            @endif
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="mb-3">

@@ -31,6 +31,7 @@ class AuthenticatedSessionController extends Controller
 
         if (auth()->user()->roles->pluck('name')->first() === 'member') {
             // dd('working');
+            // return redirect()->route('basic_details.index');
             return redirect()->route('basic_details.index');
         }
         return redirect()->intended(RouteServiceProvider::HOME);

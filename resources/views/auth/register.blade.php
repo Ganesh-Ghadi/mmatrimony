@@ -4,7 +4,12 @@
             <div class="card-body">
                 <h2 class="font-weight-bold mb-3 text-center">Register</h2>
                 <p class="mb-3 text-center">Enter the following details to register</p>
-                <x-auth-session-status class="mb-4" :status="session('status')" />
+                {{-- <x-auth-session-status class="mb-4" :status="session('status')" /> --}}
+                @if(Session::has('status'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="row mb-2">
@@ -68,7 +73,7 @@
                 </div>
                     
                     
-                    <div class="mb-2">
+                    {{-- <div class="mb-2">
                         <label for="password" class="form-label" style="color: black; margin: 10px 0;">Password</label>
                         <input id="password" name="password" type="password" class="form-control" placeholder="Enter Password" required autocomplete="current-password" />
                         <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger small" />
@@ -77,7 +82,7 @@
                         <label for="password_confirmation" class="form-label" style="color: black; margin: 10px 0;">Confirm Password</label>
                         <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" placeholder="Confirm Password" required autocomplete="current-password" />
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-danger small" />
-                    </div>
+                    </div> --}}
                     <button type="submit" class="btn text-white btn-primary w-100">Register</button>
                 </form>
                

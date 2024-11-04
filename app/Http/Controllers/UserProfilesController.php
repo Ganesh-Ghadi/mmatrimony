@@ -342,7 +342,7 @@ class UserProfilesController extends Controller
     }
 
     public function add_favorite(Request $request)
-    {
+    {  
         $favUserId = $request->favorite_id;
 
         $favProfile = Profile::find($favUserId);
@@ -353,7 +353,9 @@ class UserProfilesController extends Controller
         $profile = auth()->user()->profile;
         $profile->favoriteProfiles()->attach($favProfile->id);
 
-        return redirect()->back()->with('success', 'profile added to favorites successfully');
+        return response()->json(['message' => 'added to favorites']);
+
+        // return redirect()->back()->with('success', 'profile added to favorites successfully');
     }
 
     public function remove_favorite(Request $request)
@@ -368,7 +370,11 @@ class UserProfilesController extends Controller
         $profile = auth()->user()->profile;
         $profile->favoriteProfiles()->detach($favProfile->id);
 
-        return redirect()->back()->with('success', 'profile removed from favorites successfully');
+        if($request->has('fav_page')){
+            return redirect()->back()->with('success', 'profile removed from favorites successfully');
+        }
+        return response()->json(['message' => 'removed from favorites']);
+
     }
 
     public function view_favorite()
@@ -378,4 +384,42 @@ class UserProfilesController extends Controller
         return view('default.view.profile.view_favorites.index', ['users' => $users]);
     }
    
+    
+    
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'token' => 'required',
+            'password' => 'required|min:6|confirmed',
+        ]);
+    
+        // Check if the token exists in the password_resets table
+        $reset = DB::table('password_resets')->where('email', $request->email)->where('token', $request->token)->first();
+    
+        if (!$reset) {
+            return back()->withErrors(['email' => 'This password reset token is invalid.']);
+        }
+    
+        // Update the user's password
+        $user = User::where('email', $request->email)->first();
+        $user->password = Hash::make($request->password);
+        $user->save();
+    
+        // Optionally, you can delete the token after it's used
+        DB::table('password_resets')->where('email', $request->email)->delete();
+    
+        return redirect()->route('login')->with('status', 'Password has been reset.');
+    }
+
+
+
+
+
+
+
+
+
+
+    
 }

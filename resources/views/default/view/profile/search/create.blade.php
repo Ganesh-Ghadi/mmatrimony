@@ -1,4 +1,5 @@
 <x-layout.user>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -131,7 +132,11 @@
             font-size: 0.8em; /* Reduced font size */
         }
     </style>
-
+    
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-9">
+    
     <div class="card">
         <h1 class="text-center">User Search</h1>
 
@@ -182,7 +187,7 @@
                             @endif
             
                             <!-- Heart Icon for Favorite -->
-                            <div style="position: absolute; top: 10px; right: 10px;">
+                            {{-- <div style="position: absolute; top: 10px; right: 10px;">
                                 @if($user->is_favorited)
                                     <form action="{{ route('profiles.remove_favorite') }}" method="POST" style="display: inline;">
                                         @csrf
@@ -200,12 +205,26 @@
                                         </button>
                                     </form>
                                 @endif
-                            </div>
+                            </div> --}}
                         </div>
                         <h3>{{ $user->first_name }} {{ $user->last_name }}</h3>
                         <p>Age: {{ $user->age }}</p>
                         <p>Marital Status: {{ $user->marital_status }}</p>
+                    {{-- start --}}
+                    <div style="position: absolute; top: 10px; right: 10px;">
+                    <div  x-data="favoriteToggle({{ $user->id }}, {{ $user->is_favorited ? 'true' : 'false' }})" >
+                        <form @submit.prevent="submit" style="display: inline;">
+                            @csrf
+                            <input type="hidden" name="favorite_id" x-model="favoriteId">
+                            <button type="submit" class="btn btn-link p-0 m-0" title="Toggle Favorite">
+                                <i :class="isFavorited ? 'fas fa-heart text-danger' : 'far fa-heart text-secondary'"></i>
+                            </button>
+                        </form>
+                    </div>
+                    </div>
             
+     
+            {{-- end --}}
                         <a href="{{ route('user.profile', $user->id) }}" class="btn btn-primary">View Profile</a>
                     </div>
                 @endforeach
@@ -216,9 +235,51 @@
             <p>No users found.</p>
         @endif
     </div>
-
+</div>
+  <div class="col-md-3">
     <div class="sidebar">
         <x-common.usersidebar />
+ </div>
+</div> 
+</div>
     </div>
 
+    <script>
+        function favoriteToggle(userId, isFavorited) {
+            return {
+                favoriteId: userId,
+                isFavorited: isFavorited,
+                message: '',
+                async submit() {
+                    const endpoint = this.isFavorited 
+                        ? '{{ route('profiles.remove_favorite') }}' 
+                        : '{{ route('profiles.add_favorite') }}';
+    
+                    try {
+                        const response = await fetch(endpoint, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            },
+                            body: JSON.stringify({ favorite_id: this.favoriteId }),
+                        });
+    
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+    
+                        const data = await response.json();
+                        console.log(data);
+                        this.message = data.message;
+    
+                        // Toggle favorite state
+                        this.isFavorited = !this.isFavorited;
+                    } catch (error) {
+                        this.message = 'An error occurred: ' + error.message;
+                    }
+                }
+            }
+        }
+    </script>
 </x-layout.user>
