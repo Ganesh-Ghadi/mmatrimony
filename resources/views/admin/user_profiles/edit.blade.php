@@ -49,7 +49,7 @@
                                 <label>Living With <span class="text-red-500">*</span></label>
                                 <select class="form-input" name="living_with" id="living_with">
                                     <option value="" selected>select an option</option>
-                                    @foreach (config('data.living_status') as $value => $name)
+                                    @foreach (config('data.living_with') as $value => $name)
                                         <option value="{{$value}}" {{ ($profile->living_with === $value) ? 'selected' : ''}} >{{ $name }}</option>
                                     @endforeach
                                 </select> 
