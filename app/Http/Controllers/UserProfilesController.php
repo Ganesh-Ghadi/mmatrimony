@@ -123,6 +123,7 @@ class UserProfilesController extends Controller
         $from_age = $request->input('from_age');
         $to_age = $request->input('to_age');
         $marital_status = $request->input('marital_status');
+        $castes = $request->input('caste');
 
         // Initialize query builder for Profile model
         $users = Profile::query();
@@ -148,6 +149,11 @@ class UserProfilesController extends Controller
                 ->whereRaw('TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) BETWEEN ? AND ?', [$from_age, $to_age]);
         }
 
+        if ($castes) {
+            $users->whereHas('caste', function ($query) use ($castes) {
+                $query->whereIn('id', $castes);
+            });
+        }
         // Fetch users from the database
         if (auth()->user()->profile->role === 'bride') {
             $users = $users->where('role', 'groom')->get();
@@ -179,7 +185,6 @@ class UserProfilesController extends Controller
             } elseif (auth()->user()->profile->role === 'groom') {
                 $users = $users->where('role', 'bride')->shuffle()->take(10);
             }
-
             foreach ($users as $user) {
                 $user->is_favorited = auth()->user()->profile->favoriteProfiles()->where('favorite_profile_id', $user->id)->exists();
             }
@@ -293,7 +298,7 @@ class UserProfilesController extends Controller
     }
 
     public function store(UpdateProfileRequest $request)
-    {          
+    {
         if ($request->hasFile('img_1')) {
             $img_1FileNameWithExtention = $request->file('img_1')->getClientOriginalName();
             $img_1Filename = pathinfo($img_1FileNameWithExtention, PATHINFO_FILENAME);
@@ -344,7 +349,7 @@ class UserProfilesController extends Controller
     }
 
     public function add_favorite(Request $request)
-    {  
+    {
         $favUserId = $request->favorite_id;
 
         $favProfile = Profile::find($favUserId);
@@ -372,11 +377,10 @@ class UserProfilesController extends Controller
         $profile = auth()->user()->profile;
         $profile->favoriteProfiles()->detach($favProfile->id);
 
-        if($request->has('fav_page')){
+        if ($request->has('fav_page')) {
             return redirect()->back()->with('success', 'profile removed from favorites successfully');
         }
         return response()->json(['message' => 'removed from favorites']);
-
     }
 
     public function view_favorite()
@@ -385,9 +389,7 @@ class UserProfilesController extends Controller
 
         return view('default.view.profile.view_favorites.index', ['users' => $users]);
     }
-   
-    
-    
+
     public function reset(Request $request)
     {
         $request->validate([
@@ -395,24 +397,25 @@ class UserProfilesController extends Controller
             'token' => 'required',
             'password' => 'required|min:6|confirmed',
         ]);
-    
+
         // Check if the token exists in the password_resets table
         $reset = DB::table('password_resets')->where('email', $request->email)->where('token', $request->token)->first();
-    
+
         if (!$reset) {
             return back()->withErrors(['email' => 'This password reset token is invalid.']);
         }
-    
+
         // Update the user's password
         $user = User::where('email', $request->email)->first();
         $user->password = Hash::make($request->password);
         $user->save();
-    
+
         // Optionally, you can delete the token after it's used
         DB::table('password_resets')->where('email', $request->email)->delete();
-    
+
         return redirect()->route('login')->with('status', 'Password has been reset.');
     }
+
 
 
 
@@ -441,4 +444,5 @@ class UserProfilesController extends Controller
 
 
     
+
 }
