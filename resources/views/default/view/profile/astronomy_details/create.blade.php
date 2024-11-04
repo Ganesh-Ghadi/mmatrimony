@@ -297,7 +297,7 @@
     </div>
     </div>
     <div class="image-container" style="position: relative; display: inline-block;">
-         <img src="{{ asset('storage/images/patrika.png') }}" alt="Profile Image" class="profile-image" style="width: 100%;">
+         <img src="{{ asset('assets/images/patrika.png') }}" alt="Profile Image" class="profile-image" style="width: 100%;">
         
          <!-- Dropdown positioned over the image -->
          <div class="dropdown-container" style="position: absolute; top: 80px; left: 290px;">

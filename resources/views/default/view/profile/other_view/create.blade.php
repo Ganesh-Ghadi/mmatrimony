@@ -93,9 +93,7 @@
             <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Personal Information</h4>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                 <p><strong>User ID:</strong> {{ $user->user_id }}</p>
-                <p><strong>First Name:</strong> {{ $user->first_name }}</p>
-                <p><strong>Middle Name:</strong> {{ $user->middle_name }}</p>
-                <p><strong>Last Name:</strong> {{ $user->last_name }}</p>
+                <p><strong>First Name:</strong> {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</p>
                  <p><strong>Mother Tongue:</strong> {{ $user->mother_tongue }}</p>
                 <p><strong>Native Place:</strong> {{ $user->native_place }}</p>
                 <p><strong>Gender:</strong> {{ $user->gender }}</p>
