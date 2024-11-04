@@ -71,17 +71,40 @@
     padding: 15px;
     border-left: 1px solid #ddd; /* Optional border for separation */
 }
+
+ /* Decrease width by 20% */
+ .profile-completion {
+        width: 80%; /* 100% - 20% */
+        margin: 0 auto; /* Center the container */
+
+    }
+    .progress {
+        height: 30px; /* Set the width to 100% */
+    }
+           
         </style>
     </head>
     <body>
         <form action="{{ route('profiles.store') }}" method="POST">
             @csrf
  <div>
+    <div class="profile-completion">
+        <h2>Profile Completion</h2>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" 
+                 style="width: {{ $profileCompletion }}%;" 
+                 aria-valuenow="{{ $profileCompletion }}" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100">
+                {{ $profileCompletion }}%
+            </div>
+        </div>
+    </div>
     <div class="panel">
         <h2>Father Details</h2>
-        @if(auth()->user() && auth()->user()->hasVerifiedEmail())
+        {{-- @if(auth()->user() && auth()->user()->hasVerifiedEmail())
         <p>Email verified</p>
-    @endif
+    @endif --}}
         <div class="form-row">
             
             <div class="form-group">

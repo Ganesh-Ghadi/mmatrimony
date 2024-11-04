@@ -130,12 +130,36 @@
     margin-right: 5px; /* Space between checkbox and label */
     transform: scale(1.2); /* Make checkboxes smaller */
 }
+
+
+  /* Decrease width by 20% */
+  .profile-completion {
+        width: 80%; /* 100% - 20% */
+        margin: 0 auto; /* Center the container */
+
+    }
+    .progress {
+        height: 30px; /* Set the width to 100% */
+    }
+          
         </style>
     </head>
     <body>
         <form action="{{ route('profiles.store') }}" enctype="multipart/form-data" method="POST">
             @csrf
                      <div class="l">
+                        <div class="profile-completion">
+                            <h2>Profile Completion</h2>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: {{ $profileCompletion }}%;" 
+                                     aria-valuenow="{{ $profileCompletion }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                    {{ $profileCompletion }}%
+                                </div>
+                            </div>
+                        </div>
     <div class="panel">
         <h2>Personal Information</h2>
         <div class="mb-2">

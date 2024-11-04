@@ -115,7 +115,7 @@
             <div id="carouselId" class="carousel slide myslider" data-bs-ride="carousel">
                 <div class="carousel-inner myslider" role="listbox">
                     <div class="carousel-item active">
-                        <img src="{{asset('storage/images/mvm banner01.jpeg')}}" class="img-fluid" alt="Image">
+                        <img src="{{asset('assets/images/mvm banner01.jpeg')}}" class="img-fluid" alt="Image">
                         <div class="carousel-caption myslider">
                             <div class="p-3 mx-auto animated zoomIn" style="max-width: 900px;">
                                 <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">
@@ -130,7 +130,7 @@
                         </div>
                     </div>
                     <div class="carousel-item myslider">
-                        <img src="{{asset('storage/images/mvm banner02.jpeg')}}" class="img-fluid" alt="Image">
+                        <img src="{{asset('assets/images/mvm banner02.jpeg')}}" class="img-fluid" alt="Image">
                         <div class="carousel-caption myslider">
                             <div class="p-3 mx-auto animated zoomIn" style="max-width: 900px;">
                                 <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">

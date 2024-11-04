@@ -38,12 +38,24 @@
                     </div>
                     <div class="mb-2">
                         <label for="mobile" class="form-label" style="color: black; margin: 10px 0;">Mobile</label>
-                        <input id="mobile" name="mobile" type="tel" class="form-control @error('mobile') is-invalid @enderror"
-                               value="{{ old('mobile') }}" placeholder="+91 1234567890" required autofocus autocomplete="off"
-                               pattern="^\+?[0-9]{1,15}$" title="Please enter a valid mobile number with country code (e.g., +1 1234567890)" />
-                        
-                        <x-input-error :messages="$errors->get('mobile')" class="mt-2 text-danger small" />
+                        <div class="input-group">
+                            <!-- Country Code Dropdown -->
+                            <select class="form-select" name="country_code" id="country_code" style="max-width: 100px; color: black;" required>
+                                <option value="+91">+91 (India)</option>
+                                <option value="+1">+1 (USA)</option>
+                                <option value="+44">+44 (UK)</option>
+                                <option value="+61">+61 (Australia)</option>
+                            </select>
+                            
+                             <input id="mobile" name="mobile" type="tel" class="form-control @error('mobile') is-invalid @enderror"
+                                   value="{{ old('mobile') }}" placeholder="1234567890" required autofocus autocomplete="off"
+                                   pattern="^[0-9]{10}$" title="Please enter a valid mobile number" style="color: black;" />
+                        </div>
+                    
+                         <x-input-error :messages="$errors->get('mobile')" class="mt-2 text-danger small" />
                     </div>
+                    
+                    
                     <div class="mb-2">
                         <label for="date_of_birth" class="form-label" style="color: black; margin: 10px 0;">Date of Birth</label>
                         <input id="date_of_birth" name="date_of_birth" type="date" class="form-control @error('date_of_birth') is-invalid @enderror"

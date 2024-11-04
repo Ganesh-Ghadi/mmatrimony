@@ -89,44 +89,33 @@
     padding: 15px;
     border-left: 1px solid #ddd; /* Optional border for separation */
 }
+
+.view-profile {
+            color: #007bff; /* Bootstrap primary color */
+            text-decoration: underline; /* Underline the text */
+            cursor: pointer; /* Change cursor to pointer */
+        }
         </style>
     </head>
     <body>
       <div class="container-fluid">
-    <div class="row">
+    <div class="panel">
         @foreach($users as $user)
             <div class="col-md-4 mx-3 "> <!-- This will make 3 cards per row on medium and larger screens -->
-                <div class="card my-2" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">{{$user->first_name. ' '. $user->middle_name. ' '. $user->last_name}}</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <p>{{$user->email}}</p>
-                      <p>{{$user->mobile}}</p>
-                      <form action="{{ route('profiles.remove_favorite') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="favorite_id" value="{{$user->id}}">
-                         <input type="hidden" name="fav_page" value="fav_page">
-                        <button class="btn text-white btn-primary" type="submit">Remove from Favorites</button>
-                    </form>
-                    {{-- start --}}
-                    {{-- <div style="position: absolute; top: 10px; right: 10px;">
-                        <div  x-data="favoriteToggle({{ $user->id }})" >
-                            <form @submit.prevent="submit" style="display: inline;">
-                                @csrf
-                                <input type="hidden" name="favorite_id" x-model="favoriteId">
-                                <button type="submit" class="btn btn-link p-0 m-0" title="Toggle Favorite">
-                                    <i class="fas fa-heart text-danger'"></i>
-                                </button>
-                            </form>
-                        </div>
-                        </div> --}}
-                
-         
-                {{-- end --}}
-                      {{-- <a href="#" class="btn text-white btn-primary">Remove from favorites</a> --}}
+                <div class="card">
+                    @if ($user->img_1)
+                        <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
+                    @else
+                        <div class="no-profile-photo">No Profile Photo Displayed</div>
+                    @endif
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ $user->first_name }} {{ $user->last_name }}</h5>
+                        <p class="card-text">{{ \Carbon\Carbon::parse($user->date_of_birth)->age }} years</p> <!-- Display age -->
+                        <p class="card-text">{{ @$user->subCaste->name }}</p> <!-- Display sub_caste -->
+                        <p class="card-text">{{ $user->bio }}</p>
+                        <span class="view-profile" onclick="location.href='{{ route('user.profile', $user->id) }}'">View Profile</span>
                     </div>
-                  </div>
+                </div>
 =            </div>
         @endforeach
     </div>

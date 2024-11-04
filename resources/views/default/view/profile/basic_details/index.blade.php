@@ -97,6 +97,16 @@
     color: #333; /* Change label text color */
 }
 
+
+/* //progress bar */
+   .profile-completion {
+        width: 80%;  
+        margin: 0 auto;  
+
+    }
+    .progress {
+        height: 30px;  
+    }
             
 
    
@@ -104,9 +114,23 @@
         </style>
    <form action="{{ route('profiles.store') }}" enctype="multipart/form-data" method="POST">
     @csrf
-        <div class="l">
+        <div class="l">3
+            <div class="profile-completion">
+                <h2>Profile Completion</h2>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" 
+                         style="width: {{ $profileCompletion }}%;" 
+                         aria-valuenow="{{ $profileCompletion }}" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        {{ $profileCompletion }}%
+                    </div>
+                </div>
+            </div>
+            
 
                   <div class="panel">
+                    
        
         <h2>Personal Information</h2>
 

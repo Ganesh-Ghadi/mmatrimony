@@ -56,12 +56,36 @@
     padding: 15px;
     border-left: 1px solid #ddd; /* Optional border for separation */
 }
+
+
+/* //progress bar */
+.profile-completion {
+        width: 80%;  
+        margin: 0 auto;  
+
+    }
+    .progress {
+        height: 30px;  
+    }
+        
         </style>
     </head>
     <body>
         <form action="{{ route('profiles.store') }}" method="POST">
             @csrf
     <div>
+        <div class="profile-completion">
+            <h2>Profile Completion</h2>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" 
+                     style="width: {{ $profileCompletion }}%;" 
+                     aria-valuenow="{{ $profileCompletion }}" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100">
+                    {{ $profileCompletion }}%
+                </div>
+            </div>
+        </div>
     <div class="panel">
         <h2>Organisation Information</h2>
         <div class="container mt-3" id="dropdowns">
