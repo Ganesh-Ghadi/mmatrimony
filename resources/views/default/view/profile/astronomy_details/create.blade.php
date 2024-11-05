@@ -147,6 +147,8 @@
     color: white !important; /* Ensure text color is white */
     border: none; /* Optional: remove border */
 }
+/* img */
+ 
         </style>
     </head>
     <body>
@@ -549,10 +551,43 @@
 });
 
         </script>
-         <div class="panel">
+        <div class="panel">
+            <!-- More About Patrika Section -->
             <div class="form-group">
                 <label for="more_about_patrika" class="form-label">More About Patrika</label>
-                <textarea value="{{ $user->more_about_patrika }}" id="more_about_patrika" name="more_about_patrika" class="form-control" rows="4" placeholder="Enter more details..."></textarea>
+                <textarea id="more_about_patrika" name="more_about_patrika" class="form-control" rows="4" placeholder="Enter more details...">{{ old('more_about_patrika', $user->more_about_patrika) }}</textarea>
+                @if ($errors->has('more_about_patrika'))
+                    <span class="text-danger small">{{ $errors->first('more_about_patrika') }}</span>
+                @endif
+            </div>
+        
+            <!-- Patrika Image Upload Section -->
+            <div class="form-group">
+                <label for="photo1">Patrika Image</label>
+                <input type="file" name="img_patrika" id="photo1" class="form-control">
+                @if ($errors->has('img_patrika'))
+                    <span class="text-danger small">{{ $errors->first('img_patrika') }}</span>
+                @endif
+            </div>
+        
+            <!-- Display Uploaded Image Section -->
+            <div class="form-group">
+                @if ($user->img_patrika)
+                <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_patrika }}')">
+                    <label>Uploaded Image</label>
+                    <template x-if="imageUrl">
+                        <div class="d-flex align-items-center">
+                            <!-- Wrap the image with an anchor tag to open it in a new tab -->
+                            <a :href="imageUrl" target="_blank">
+                                <img style="max-width: 100px; margin-right: 10px;" :src="imageUrl" alt="Uploaded Image" />
+                            </a>
+                         </div>
+                    </template>
+                    <template x-if="!imageUrl">
+                        <p>Loading image...</p>
+                    </template>
+                </div>
+                @endif
             </div>
         </div>
         </div>
@@ -566,6 +601,29 @@
 <div class="sidebar">
     <x-common.usersidebar />
 </div>
+  
+<script>
+    // img
+    function imageLoader() {
+        return {
+            imageUrl: null,
+
+            async fetchImage(filename) {
+                try {
+                    const response = await fetch(`/api/images/${filename}`);
+                    if (!response.ok) throw new Error('Image not found');
+                    
+                    // Create a blob URL for the image
+                    const blob = await response.blob();
+                    this.imageUrl = URL.createObjectURL(blob);
+                } catch (error) {
+                    console.error('Error fetching image:', error);
+                    this.imageUrl = null; // Handle error case
+                }
+            }
+        };
+    }
+</script>+
 <script>
     document.getElementById('toggleDropdowns').addEventListener('change', function() {
     const dropdowns = document.getElementById('dropdowns');
@@ -576,7 +634,8 @@
         dropdowns.style.display = 'block'; // Show dropdowns
     }
 });
-</script> 
+
+ </script> 
     </body>
     </html>
 </x-layout.user>

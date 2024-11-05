@@ -109,6 +109,7 @@ class Profile extends Model
         'chart',
         'more_about_patrika',
         'celestial_bodies',
+        'img_patrika'
     ];
 
     public function user()
@@ -126,6 +127,11 @@ class Profile extends Model
     public function favoriteProfiles()
     {
         return $this->belongsToMany(Profile::class, 'profile_favorites', 'profile_id', 'favorite_profile_id');
+    }
+
+    public function interestProfiles()
+    {
+        return $this->belongsToMany(Profile::class, 'profile_interests', 'profile_id', 'interest_profile_id');
     }
 
     public function subCaste()

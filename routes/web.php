@@ -1,20 +1,20 @@
 <?php
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\admin\RolesController;
-use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\admin\CastesController;
 use App\Http\Controllers\admin\CitiesController;
-use App\Http\Controllers\admin\StatesController;
-use App\Http\Controllers\UserProfilesController;
 use App\Http\Controllers\admin\PackagesController;
-use App\Http\Controllers\admin\ProfilesController;
-use App\Http\Controllers\admin\subCastesController;
-use App\Http\Controllers\ProfilePackagesController;
 use App\Http\Controllers\admin\PermissionsController;
+use App\Http\Controllers\admin\ProfilesController;
+use App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\admin\StatesController;
+use App\Http\Controllers\admin\subCastesController;
+use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfilePackagesController;
+use App\Http\Controllers\UserProfilesController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
  * |--------------------------------------------------------------------------
@@ -28,9 +28,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
  */
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
-
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
 
     Route::group(['middleware' => ['guest']], function () {
         Route::get('/admin', function () {
@@ -58,7 +56,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/user/profile/{id}', [UserProfilesController::class, 'show'])->name('user.profile');
 
         Route::get('/search', [UserProfilesController::class, 'search'])->name('search.create');
-        Route::post('/search', [SearchController::class, 'search']);
+        // Route::post('/search', [SearchController::class, 'search']);
         Route::get('/view_profile', [UserProfilesController::class, 'view_profile'])->name('view_profile.create');
         Route::get('/user_packages', [UserProfilesController::class, 'user_packages'])->name('user_packages.create');
         Route::post('/purchase_packages', [ProfilePackagesController::class, 'purchasePackage'])->name('purchase_packages.store');
@@ -79,10 +77,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/add-favorites', [UserProfilesController::class, 'add_favorite'])->name('profiles.add_favorite');
         Route::post('/remove-favorites', [UserProfilesController::class, 'remove_favorite'])->name('profiles.remove_favorite');
         Route::get('/view_favorites', [UserProfilesController::class, 'view_favorite'])->name('profiles.view_favorite');
-        
+
         Route::get('/dashboard/load', [DashboardController::class, 'load_users'])->name('dashboard.view_load_users');
 
-        
         Route::resource('roles', RolesController::class);
         Route::resource('permissions', PermissionsController::class);
 

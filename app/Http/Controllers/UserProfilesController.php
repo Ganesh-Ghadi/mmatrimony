@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use App\Http\Requests\Default\UpdateProfileRequest;
 use App\Models\Caste;
 use App\Models\Package;
 use App\Models\Profile;
-use App\Models\SubCaste;
-use Illuminate\Http\Request;
 use App\Models\ProfilePackage;
+use App\Models\SubCaste;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\Default\UpdateProfileRequest;
 
 class UserProfilesController extends Controller
 {
@@ -124,6 +124,11 @@ class UserProfilesController extends Controller
         $to_age = $request->input('to_age');
         $marital_status = $request->input('marital_status');
         $castes = $request->input('caste');
+        $from_height = $request->input('from_height');
+        $to_height = $request->input('to_height');
+        $Castes = Caste::all();
+        $SubCastes = SubCaste::all();
+        $Subcastes = $request->input('Subcastes');
 
         // Initialize query builder for Profile model
         $users = Profile::query();
@@ -150,10 +155,24 @@ class UserProfilesController extends Controller
         }
 
         if ($castes) {
-            $users->whereHas('caste', function ($query) use ($castes) {
-                $query->whereIn('id', $castes);
+            $users->where(function ($queryBuilder) use ($query) {
+                $queryBuilder
+                    ->where('caste', 'like', '%' . $query . '%');
             });
         }
+        if ($Subcastes) {
+            $users->where(function ($queryBuilder) use ($query) {
+                $queryBuilder
+                    ->where('sub_caste', 'like', '%' . $query . '%');
+            });
+        }
+
+        if ($from_height && $to_height) {
+            $users
+                ->whereNotNull('height')  // Ensure users have a height
+                ->whereRaw('height BETWEEN ? AND ?', [$from_height, $to_height]);
+        }
+
         // Fetch users from the database
         if (auth()->user()->profile->role === 'bride') {
             $users = $users->where('role', 'groom')->get();
@@ -191,7 +210,7 @@ class UserProfilesController extends Controller
         }
 
         // Return the filtered users to the view
-        return view('default.view.profile.search.create', ['users' => $users]);
+        return view('default.view.profile.search.create', ['users' => $users, 'Caste' => $Castes, 'SubCaste' => $SubCastes]);
     }
 
     public function view_profile()
@@ -306,6 +325,13 @@ class UserProfilesController extends Controller
             $img_1FileNameToStore = $img_1Filename . '_' . time() . '.' . $img_1Extention;
             $img_1Path = $request->file('img_1')->storeAs('public/images', $img_1FileNameToStore);
         }
+        if ($request->hasFile('img_patrika')) {
+            $img_patrikaFileNameWithExtention = $request->file('img_patrika')->getClientOriginalName();
+            $img_patrikaFilename = pathinfo($img_patrikaFileNameWithExtention, PATHINFO_FILENAME);
+            $img_patrikaExtention = $request->file('img_patrika')->getClientOriginalExtension();
+            $img_patrikaFileNameToStore = $img_patrikaFilename . '_' . time() . '.' . $img_patrikaExtention;
+            $img_patrikaPath = $request->file('img_patrika')->storeAs('public/images', $img_patrikaFileNameToStore);
+        }
 
         if ($request->hasFile('img_2')) {
             $img_2FileNameWithExtention = $request->file('img_2')->getClientOriginalName();
@@ -326,6 +352,9 @@ class UserProfilesController extends Controller
         $data = $request->validated();
         if ($request->hasFile('img_1')) {
             $data['img_1'] = $img_1FileNameToStore;
+        }
+        if ($request->hasFile('img_patrika')) {
+            $data['img_patrika'] = $img_patrikaFileNameToStore;
         }
 
         if ($request->hasFile('img_2')) {
@@ -363,6 +392,23 @@ class UserProfilesController extends Controller
         return response()->json(['message' => 'added to favorites']);
 
         // return redirect()->back()->with('success', 'profile added to favorites successfully');
+    }
+
+    public function show_interest(Request $request)
+    {
+        $interestUserId = $request->interest_id;
+
+        $interestProfile = Profile::find($interestUserId);
+        if (!$interestProfile) {
+            return redirect()->back()->with('error', 'profile does not exists');
+        }
+
+        $profile = auth()->user()->profile;
+        $profile->interestProfiles()->attach($interestProfile->id);
+
+        // return response()->json(['message' => 'added to interests']);
+
+        return redirect()->back()->with('success', 'profile added to Interests successfully');
     }
 
     public function remove_favorite(Request $request)
@@ -416,33 +462,22 @@ class UserProfilesController extends Controller
         return redirect()->route('login')->with('status', 'Password has been reset.');
     }
 
-
-
-
-
-       public function showImages(string $filename)
+    public function showImages(string $filename)
     {
         // $img_1_name = auth()->user()->profile->img_1;
         //  Log::info("this is image name ", $filename);
-        Log::info("Requested image filename", ['filename' => $filename]); // Correct usage
+        Log::info('Requested image filename', ['filename' => $filename]);  // Correct usage
 
         $path = 'images/' . $filename;
-    
+
         if (!Storage::disk('public')->exists($path)) {
             return response()->json(['error' => 'Image not found.'], 404);
         }
-    
+
         $file = Storage::disk('public')->get($path);
         $type = Storage::disk('public')->mimeType($path);
-    
+
         return response($file, 200)
-                  ->header("Content-Type", $type);
+            ->header('Content-Type', $type);
     }
-
-
-
-
-
-    
-
 }

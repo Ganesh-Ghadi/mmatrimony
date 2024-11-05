@@ -178,7 +178,54 @@
     button:hover,
     a.btn:hover {
         background-color: #cc0066; /* Darker shade for hover effect */
-    }     
+    }    
+    
+    /* Form Styling */
+.age-range {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #4CAF50;  /* Green color on focus */
+    outline: none;
+}
+
+.text-danger {
+    color: #e74c3c;
+    font-size: 12px;
+}
+
+.small {
+    font-size: 12px;
+}
+
 
     
     </style>
@@ -200,6 +247,66 @@
                 <span>to</span>
                 <input type="number" class="form-control" name="to_age" placeholder="To age" min="18" max="70" value="{{ request()->input('to_age') }}">
             </div>
+            <div class="age-range">
+                <div class="age-range">
+                    <div class="form-group">
+                        <label for="from_height" class="form-label">From Height</label>
+                        <select class="form-input" name="from_height" id="from_height">
+                            <option value="" selected>Select an option</option>
+                            @foreach (collect(config('data.height', []))->sortKeys()->toArray() as $value => $name)
+                                <option value="{{ $value }}">{{ $name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('from_height'))
+                            <span class="text-danger small">{{ $errors->first('from_height') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="to_height" class="form-label">To Height</label>
+                        <select class="form-input" name="to_height" id="to_height">
+                            <option value="" selected>Select an option</option>
+                            @foreach (collect(config('data.height', []))->sortKeys()->toArray() as $value => $name)
+                                <option value="{{ $value }}">{{ $name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('to_height'))
+                            <span class="text-danger small">{{ $errors->first('to_height') }}</span>
+                        @endif
+                    </div>
+                </div>
+                
+            
+            
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Castes</label>
+                    <select class="form-input" name="caste" id="caste">
+                        <option value="" selected>select an option</option>
+                        @foreach($Caste as $Castes)
+                        <option value="{{$Castes->id}}">{{$Castes->name}}</option>
+                        @endforeach
+                    </select> 
+                    @if ($errors->has('castes'))
+                    <span class="text-danger small">{{ $errors->first('castes') }}</span>
+                    @endif   
+                 </div> 
+                <div class="form-group">
+                    <label>SubCastes</label>
+                    <select class="form-input" name="Subcastes" id="Subcastes">
+                        <option value="" selected>select an option</option>
+                        @foreach($SubCaste as $SubCastes)
+                        <option value="{{$SubCastes->id}}">{{$SubCastes->name}}</option>
+                        @endforeach
+                    </select> 
+                    @if ($errors->has('Subcastes'))
+                    <span class="text-danger small">{{ $errors->first('Subcastes') }}</span>
+                    @endif   
+                 </div> 
+    {{-- <div class="form-group">
+       <input type="text" name="caste" class="form-control" placeholder="Search by name, age, marital status, caste, etc.">
+    </div> --}}
+</div>
+</div>
         
             <!-- Marital Status Multi-select Checkboxes -->
             <div class="marital-status mt-3">

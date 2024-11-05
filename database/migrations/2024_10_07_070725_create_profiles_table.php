@@ -120,6 +120,7 @@ return new class extends Migration {
             $table->string('nadi', 50)->nullable();
             $table->string('chart', 50)->nullable();
             $table->text('more_about_patrika')->nullable();
+            $table->string('img_patrika', 255)->nullable();
             $table->string('celestial_bodies', 50)->nullable();
 
             $table->timestamps();
