@@ -18,7 +18,7 @@ class CreateAdminUserSeeder extends Seeder
     {
         // Create or retrieve the admin user
         $user = User::updateOrCreate(
-            ['email' => 'admim@matrimonial.com'],  // Search for user by email
+            ['email' => 'admin@matrimonial.com'],  // Search for user by email
             [
                 'name' => 'Admin MiddleName LastName',
                 'password' => Hash::make('abcd123')  // Hash the password
