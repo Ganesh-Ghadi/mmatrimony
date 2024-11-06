@@ -124,6 +124,7 @@ class UserProfilesController extends Controller
         $to_age = $request->input('to_age');
         $marital_status = $request->input('marital_status');
         $castes = $request->input('caste');
+        // dd($castes);
         $from_height = $request->input('from_height');
         $to_height = $request->input('to_height');
         $Castes = Caste::all();
@@ -155,17 +156,32 @@ class UserProfilesController extends Controller
         }
 
         if ($castes) {
-            $users->where(function ($queryBuilder) use ($query) {
-                $queryBuilder
-                    ->where('caste', 'like', '%' . $query . '%');
-            });
+            // Ensure $castes is an array even if it's a single value
+            if (!is_array($castes)) {
+                $castes = [$castes];  // Convert the single value to an array
+            }
+            $users->whereIn('caste', $castes);
         }
         if ($Subcastes) {
-            $users->where(function ($queryBuilder) use ($query) {
-                $queryBuilder
-                    ->where('sub_caste', 'like', '%' . $query . '%');
-            });
+            // Ensure $castes is an array even if it's a single value
+            if (!is_array($Subcastes)) {
+                $Subcastes = [$Subcastes];  // Convert the single value to an array
+            }
+            $users->whereIn('sub_caste', $Subcastes);
         }
+
+        // if ($castes) {
+        //     $users->where(function ($queryBuilder) use ($query) {
+        //         $queryBuilder
+        //             ->where('caste', $query);
+        //     });
+        // }
+        // if ($Subcastes) {
+        //     $users->where(function ($queryBuilder) use ($query) {
+        //         $queryBuilder
+        //             ->where('sub_caste', 'like', '%' . $query . '%');
+        //     });
+        // }
 
         if ($from_height && $to_height) {
             $users

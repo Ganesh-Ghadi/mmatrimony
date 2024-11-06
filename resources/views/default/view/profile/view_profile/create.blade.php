@@ -202,10 +202,10 @@ button.btn {
                         <p><strong>Religion:</strong>{{ $user->religion }}</p>
                     </div>
                     <div>
-                        <p><strong>Caste:</strong>{{ $user->cast }}</p>
+                        <p><strong>Caste:</strong>{{ $user->caste }}</p>
                     </div>
                     <div>
-                        <p><strong>Sub-Caste:</strong>{{ $user->sub_cast }}</p>
+                        <p><strong>Sub-Caste:</strong>{{ $user->sub_caste }}</p>
                     </div>
                     <div>
                         <p><strong>Gotra:</strong>{{ $user->gotra }}</p>

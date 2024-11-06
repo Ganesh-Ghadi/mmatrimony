@@ -247,7 +247,7 @@
                 <span>to</span>
                 <input type="number" class="form-control" name="to_age" placeholder="To age" min="18" max="70" value="{{ request()->input('to_age') }}">
             </div>
-            <div class="age-range">
+        <div class="age-range">
                 <div class="age-range">
                     <div class="form-group">
                         <label for="from_height" class="form-label">From Height</label>
@@ -274,25 +274,23 @@
                         @endif
                     </div>
                 </div>
-                
-            
-            
+            {{-- caste&subcaste --}}
             <div class="card-body">
                 <div class="form-group">
                     <label>Castes</label>
-                    <select class="form-input" name="caste" id="caste">
+                    <select class="form-input" name="caste">
                         <option value="" selected>select an option</option>
                         @foreach($Caste as $Castes)
                         <option value="{{$Castes->id}}">{{$Castes->name}}</option>
                         @endforeach
                     </select> 
-                    @if ($errors->has('castes'))
-                    <span class="text-danger small">{{ $errors->first('castes') }}</span>
+                    @if ($errors->has('caste'))
+                    <span class="text-danger small">{{ $errors->first('caste') }}</span>
                     @endif   
                  </div> 
                 <div class="form-group">
                     <label>SubCastes</label>
-                    <select class="form-input" name="Subcastes" id="Subcastes">
+                    <select class="form-input" name="Subcastes">
                         <option value="" selected>select an option</option>
                         @foreach($SubCaste as $SubCastes)
                         <option value="{{$SubCastes->id}}">{{$SubCastes->name}}</option>
@@ -302,13 +300,12 @@
                     <span class="text-danger small">{{ $errors->first('Subcastes') }}</span>
                     @endif   
                  </div> 
-    {{-- <div class="form-group">
-       <input type="text" name="caste" class="form-control" placeholder="Search by name, age, marital status, caste, etc.">
-    </div> --}}
-</div>
-</div>
+            </div>
+            
+        </div>
         
             <!-- Marital Status Multi-select Checkboxes -->
+            <div class="age-range">
             <div class="marital-status mt-3">
                 <label><input type="checkbox" name="marital_status[]" value="Never Married" {{ in_array('Never Married', (array) request()->input('marital_status')) ? 'checked' : '' }}> Never Married</label>
                 <label><input type="checkbox" name="marital_status[]" value="Married" {{ in_array('Married', (array) request()->input('marital_status')) ? 'checked' : '' }}> Married</label>
@@ -317,6 +314,7 @@
                 <label><input type="checkbox" name="marital_status[]" value="Separated" {{ in_array('Separated', (array) request()->input('marital_status')) ? 'checked' : '' }}> Separated</label>
                 <label><input type="checkbox" name="marital_status[]" value="Widowed" {{ in_array('Widowed', (array) request()->input('marital_status')) ? 'checked' : '' }}> Widowed</label>
                 <label><input type="checkbox" name="marital_status[]" value="Annulled" {{ in_array('Annulled', (array) request()->input('marital_status')) ? 'checked' : '' }}> Annulled</label>
+            </div>
             </div>
         
             <!-- Search and Reset Buttons -->
