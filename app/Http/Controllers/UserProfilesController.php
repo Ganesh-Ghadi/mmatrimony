@@ -695,4 +695,9 @@ class UserProfilesController extends Controller
         return response($file, 200)
             ->header('Content-Type', $type);
     }
+
+
+   
+
+    
 }

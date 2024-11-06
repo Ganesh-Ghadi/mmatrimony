@@ -61,9 +61,40 @@ class ProfilePackagesController extends Controller
     }
 
 
-    public function useTokens(){
-        //later
-    }
+    // public function useTokens(){
+    //     //later
+    // }
+    
 
+    public function useTokens(string $tokenToUse){
+        $userPackages = auth()->user()->profile()->profilePackages()
+        ->where('expires_at', '>', now())
+        ->orderBy('expires_at')
+        ->get();
+       
+        $tokensAvailable = 0; 
+       
+        foreach($userPackages as $userPackage){
+            
+            $availableTokens = $userPackage->tokens_received - $userPackage->tokens_used;
+            $tokensAvailable += $availableTokens;
+            
+             if($tokensAvailable >= $tokenToUse){
+                
+                $userPackage->tokens_used += $tokenToUse;
+                $userPackage->save();
+
+                $this->updateTotalTokens(auth()->user()->profile->id);
+                return true;
+             }
+             else{
+                $tokenToUse -= $availableTokens;
+                $userPackage->tokens_used = $userPackage->tokens_received;
+                $userPackage->save();
+             }
+
+        }
+          return false;
+   }
     
 }
