@@ -53,10 +53,19 @@
         }
 
         .marital-status {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+    display: flex;
+    align-items: center; /* Vertically align inputs */
+    margin-top: 20px; /* Add space from the top */
+    margin-bottom: 10px;
+    max-width: 500px;
+    margin: 14px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+    flex-wrap: wrap;
+}
 
         .results {
             display: grid;
@@ -305,8 +314,7 @@
         </div>
         
             <!-- Marital Status Multi-select Checkboxes -->
-            <div class="age-range">
-            <div class="marital-status mt-3">
+             <div class="marital-status">
                 <label><input type="checkbox" name="marital_status[]" value="Never Married" {{ in_array('Never Married', (array) request()->input('marital_status')) ? 'checked' : '' }}> Never Married</label>
                 <label><input type="checkbox" name="marital_status[]" value="Married" {{ in_array('Married', (array) request()->input('marital_status')) ? 'checked' : '' }}> Married</label>
                 <label><input type="checkbox" name="marital_status[]" value="Divorced" {{ in_array('Divorced', (array) request()->input('marital_status')) ? 'checked' : '' }}> Divorced</label>
@@ -314,8 +322,7 @@
                 <label><input type="checkbox" name="marital_status[]" value="Separated" {{ in_array('Separated', (array) request()->input('marital_status')) ? 'checked' : '' }}> Separated</label>
                 <label><input type="checkbox" name="marital_status[]" value="Widowed" {{ in_array('Widowed', (array) request()->input('marital_status')) ? 'checked' : '' }}> Widowed</label>
                 <label><input type="checkbox" name="marital_status[]" value="Annulled" {{ in_array('Annulled', (array) request()->input('marital_status')) ? 'checked' : '' }}> Annulled</label>
-            </div>
-            </div>
+             </div>
         
             <!-- Search and Reset Buttons -->
             <div class="form-actions mt-3">
@@ -434,4 +441,4 @@
             }
         }
     </script>
-</x-layout.user>
+</x-layout.user>    

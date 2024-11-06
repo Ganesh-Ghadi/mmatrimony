@@ -119,7 +119,7 @@
    
             
         </style>
-   <form action="{{ route('profiles.store') }}" enctype="multipart/form-data" method="POST">
+   <form action="{{ route('profiles.basic_details_store') }}" enctype="multipart/form-data" method="POST">
     @csrf
         <div class="l">3
             <div class="profile-completion">
@@ -397,8 +397,8 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="photo1">Photo 1</label>
-                <input type="file" name="img_1" id="photo1" >
-                @if ($errors->has('img_1'))
+                <input type="file" name="img_1" id="photo1" value="{{ $user->img_1 }}">
+                 @if ($errors->has('img_1'))
                 <span class="text-danger small">{{ $errors->first('img_1') }}</span>
                 @endif  
             </div>

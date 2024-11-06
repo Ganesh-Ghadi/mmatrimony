@@ -108,7 +108,7 @@
         </style>
     </head>
     <body>
-        <form action="{{ route('profiles.store') }}" method="POST">
+        <form action="{{ route('profiles.religious_details_store') }}" enctype="multipart/form-data" method="POST">
             @csrf
         <div class="l">
             <div class="profile-completion">

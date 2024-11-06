@@ -74,9 +74,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('states', StatesController::class);
         Route::resource('cities', CitiesController::class);
         Route::post('/save-profile', [UserProfilesController::class, 'store'])->name('profiles.store');
+        Route::post('/save-basic-details', [UserProfilesController::class, 'basic_details_store'])->name('profiles.basic_details_store');
+        Route::post('/save-religious-details.', [UserProfilesController::class, 'religious_details_store'])->name('profiles.religious_details_store');
+        Route::post('/save-family-details', [UserProfilesController::class, 'family_details_store'])->name('profiles.family_details_store');
+        Route::post('/save-astronomy-details', [UserProfilesController::class, 'astronomy_details_store'])->name('profiles.astronomy_details_store');
+        Route::post('/save-educational-details', [UserProfilesController::class, 'educational_details_store'])->name('profiles.educational_details_store');
         Route::post('/add-favorites', [UserProfilesController::class, 'add_favorite'])->name('profiles.add_favorite');
         Route::post('/remove-favorites', [UserProfilesController::class, 'remove_favorite'])->name('profiles.remove_favorite');
         Route::get('/view_favorites', [UserProfilesController::class, 'view_favorite'])->name('profiles.view_favorite');
+        Route::post('/show_interest', [UserProfilesController::class, 'show_interest'])->name('profiles.show_interest');
+        Route::post('/remove-interest', [UserProfilesController::class, 'remove_interest'])->name('profiles.remove_interest');
 
         Route::get('/dashboard/load', [DashboardController::class, 'load_users'])->name('dashboard.view_load_users');
 

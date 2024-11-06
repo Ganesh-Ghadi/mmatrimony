@@ -147,6 +147,15 @@ button.btn {
         
         <div class="panel">
             <h3>Your Profile</h3>
+            <div  x-data="interestToggle({{ $user->id }}, {{ $user->is_interest ? 'true' : 'false' }})" >
+                        <form @submit.prevent="submit" style="display: inline;">
+                            @csrf
+                            <input type="hidden" name="show_interest" x-model="interestId">
+                            <button type="submit" title="Toggle interest">
+                                show interest
+                             </button>
+                        </form>
+                    </div>
             
             <div class="card">
                 <h3 class="text-center">Basic Profile</h3>
@@ -386,6 +395,43 @@ button.btn {
                     }
                 }
             };
+        }
+        // interest
+        function interestToggle(userId, isInterest) {
+            return {
+                interestId: userId,
+                isInterest: isInterest,
+                message: '',
+                async submit() {
+                    const endpoint = this.isInterest 
+                        ? '{{ route('profiles.remove_interest') }}' 
+                        : '{{ route('profiles.show_interest') }}';
+    
+                    try {
+                        const response = await fetch(endpoint, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            },
+                            body: JSON.stringify({ interest_id: this.interestId }),
+                        });
+    
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+    
+                        const data = await response.json();
+                        console.log(data);
+                        this.message = data.message;
+    
+                        // Toggle favorite state
+                        this.isInterest = !this.isInterest;
+                    } catch (error) {
+                        this.message = 'An error occurred: ' + error.message;
+                    }
+                }
+            }
         }
         </script>
     

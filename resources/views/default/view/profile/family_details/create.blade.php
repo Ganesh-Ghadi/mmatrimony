@@ -90,7 +90,7 @@
         </style>
     </head>
     <body>
-        <form action="{{ route('profiles.store') }}" method="POST">
+        <form action="{{ route('profiles.family_details_store') }}" method="POST">
             @csrf
  <div>
     <div class="profile-completion">

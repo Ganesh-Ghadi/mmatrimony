@@ -71,7 +71,7 @@
     </head>
     <body>
 
-        <form action="{{ route('profiles.store') }}" method="POST">
+        <form action="{{ route('profiles.educational_details_store') }}" enctype="multipart/form-data" method="POST">
             @csrf
     
   

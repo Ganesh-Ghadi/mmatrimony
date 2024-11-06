@@ -237,11 +237,94 @@ class UserProfilesController extends Controller
         return view('default.view.profile.view_profile.create', ['user' => $user, 'profiles' => $profiles, 'profileCompletion' => $profileCompletion]);
     }
 
-    public function basic_details()
+    public function basic_details(Request $request)
     {
         $user = auth()->user()->profile()->first();
         $profileCompletion = $this->calculateProfileCompletion($user);
         return view('default.view.profile.basic_details.index', ['user' => $user, 'profileCompletion' => $profileCompletion]);
+    }
+
+    public function basic_details_store(Request $request)
+    {
+        $profile_pics = auth()->user()->profile->img_1;
+        $rules = [
+            'first_name' => 'required|string|max:100',
+            'middle_name' => 'required|string|max:100',
+            'last_name' => 'required|string|max:100',
+            'mother_tongue' => 'nullable|string|max:100',
+            'native_place' => 'nullable|string|max:100',
+            'gender' => 'required|string|max:50',
+            'marital_status' => 'required|string|max:50',
+            'living_with' => 'required|string|max:100',
+            'blood_group' => 'required|string|max:10',
+            'height' => 'required|string|max:10',
+            'weight' => 'nullable|string|max:10',
+            'body_type' => 'required|string|max:50',
+            'complexion' => 'required|string|max:50',
+            'physical_abnormality' => 'required|boolean',
+            'spectacles' => 'nullable|boolean',
+            'lens' => 'nullable|boolean',
+            'eating_habits' => 'nullable|string|max:100',
+            'drinking_habits' => 'nullable|string|max:100',
+            'smoking_habits' => 'nullable|string|max:100',
+            'img_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img_3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
+        if ($profile_pics) {
+            // If profile exists, make img_1 nullable
+            $rules['img_1'] = 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048';
+        } else {
+            // If profile does not exist, img_1 is required
+            $rules['img_1'] = 'required|image|mimes:jpeg,png,jpg,gif|max:2048';
+        }
+
+        $validated = $request->validate($rules);
+        $data = $validated;
+        // dd($data);
+        if ($request->hasFile('img_1')) {
+            $img_1FileNameWithExtention = $request->file('img_1')->getClientOriginalName();
+            $img_1Filename = pathinfo($img_1FileNameWithExtention, PATHINFO_FILENAME);
+            $img_1Extention = $request->file('img_1')->getClientOriginalExtension();
+            $img_1FileNameToStore = $img_1Filename . '_' . time() . '.' . $img_1Extention;
+            $img_1Path = $request->file('img_1')->storeAs('public/images', $img_1FileNameToStore);
+        }
+
+        if ($request->hasFile('img_2')) {
+            $img_2FileNameWithExtention = $request->file('img_2')->getClientOriginalName();
+            $img_2Filename = pathinfo($img_2FileNameWithExtention, PATHINFO_FILENAME);
+            $img_2Extention = $request->file('img_2')->getClientOriginalExtension();
+            $img_2FileNameToStore = $img_2Filename . '_' . time() . '.' . $img_2Extention;
+            $img_2Path = $request->file('img_2')->storeAs('public/images', $img_2FileNameToStore);
+        }
+
+        if ($request->hasFile('img_3')) {
+            $img_3FileNameWithExtention = $request->file('img_3')->getClientOriginalName();
+            $img_3Filename = pathinfo($img_3FileNameWithExtention, PATHINFO_FILENAME);
+            $img_3Extention = $request->file('img_3')->getClientOriginalExtension();
+            $img_3FileNameToStore = $img_3Filename . '_' . time() . '.' . $img_3Extention;
+            $img_3Path = $request->file('img_3')->storeAs('public/images', $img_3FileNameToStore);
+        }
+
+        if ($request->hasFile('img_1')) {
+            $data['img_1'] = $img_1FileNameToStore;
+        }
+
+        if ($request->hasFile('img_2')) {
+            $data['img_2'] = $img_2FileNameToStore;
+        }
+
+        if ($request->hasFile('img_3')) {
+            $data['img_3'] = $img_3FileNameToStore;
+        }
+
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+        if ($profile) {
+            $profile->update($data);
+        } else {
+            return redirect()->back()->with('error', 'Profile not found.');
+        }
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
     public function religious_details()
@@ -253,11 +336,64 @@ class UserProfilesController extends Controller
         return view('default.view.profile.religious_details.create', ['user' => $user, 'castes' => $castes, 'subCastes' => $subCastes, 'profileCompletion' => $profileCompletion]);
     }
 
+    public function religious_details_store(Request $request)
+    {
+        $validated = $request->validate([
+            'religion' => 'required|string|max:100',
+            'caste' => 'required|integer',
+            'sub_caste' => 'required|integer',
+            'gotra' => 'nullable|string|max:100',
+        ]);
+        $data = $validated;
+
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+        if ($profile) {
+            $profile->update($data);
+        } else {
+            return redirect()->back()->with('error', 'Profile not found.');
+        }
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
+    }
+
     public function family_details()
     {
         $user = auth()->user()->profile()->first();
         $profileCompletion = $this->calculateProfileCompletion($user);
         return view('default.view.profile.family_details.create', ['user' => $user, 'profileCompletion' => $profileCompletion]);
+    }
+
+    public function family_details_store(Request $request)
+    {
+        $validated = $request->validate([
+            'father_is_alive' => 'required|boolean',
+            'father_name' => 'nullable|string|max:100',
+            'father_occupation' => 'nullable|string|max:100',
+            'father_job_type' => 'nullable|string|max:100',
+            'father_organization' => 'nullable|string|max:100',
+            'mother_is_alive' => 'nullable|boolean',
+            'mother_name' => 'nullable|string|max:100',
+            'mother_occupation' => 'nullable|string|max:100',
+            'mother_job_type' => 'nullable|string|max:100',
+            'mother_organization' => 'nullable|string|max:100',
+            'brother_resident_place' => 'nullable|string|max:100',
+            'number_of_brothers_married' => 'nullable|integer|min:0|max:10',
+            'number_of_brothers_unmarried' => 'nullable|integer|min:0|max:10',
+            'sister_resident_place' => 'nullable|string|max:100',
+            'number_of_sisters_married' => 'nullable|integer|min:0|max:10',
+            'number_of_sisters_unmarried' => 'nullable|integer|min:0|max:10',
+            'about_parents' => 'nullable|string',
+        ]);
+        $data = $validated;
+
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+        if ($profile) {
+            $profile->update($data);
+        } else {
+            return redirect()->back()->with('error', 'Profile not found.');
+        }
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
     public function astronomy_details()
@@ -267,11 +403,74 @@ class UserProfilesController extends Controller
         return view('default.view.profile.astronomy_details.create', ['user' => $user, 'profileCompletion' => $profileCompletion]);
     }
 
+    public function astronomy_details_store(Request $request)
+    {
+        // dd($request);
+        // Validate input data
+        $validated = $request->validate([
+            'birth_place' => 'nullable|string|max:100',
+            'date_of_birth' => 'nullable|date',
+            'birth_time' => 'nullable|string|max:50',
+            'when_meet' => 'nullable|boolean',
+            'rashee' => 'nullable|string|max:50',
+            'nakshatra' => 'nullable|string|max:50',
+            'mangal' => 'nullable|string|max:50',
+            'charan' => 'nullable|string|max:50',
+            'gana' => 'nullable|string|max:50',
+            'nadi' => 'nullable|string|max:50',
+            'chart' => 'nullable|string|max:50',
+            'more_about_patrika' => 'nullable|string',
+            'celestial_bodies' => 'nullable|string|max:50',
+            'img_patrika' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        $data = $validated;
+
+        if ($request->hasFile('img_patrika')) {
+            $img_patrikaFileNameWithExtention = $request->file('img_patrika')->getClientOriginalName();
+            $img_patrikaFilename = pathinfo($img_patrikaFileNameWithExtention, PATHINFO_FILENAME);
+            $img_patrikaExtention = $request->file('img_patrika')->getClientOriginalExtension();
+            $img_patrikaFileNameToStore = $img_patrikaFilename . '_' . time() . '.' . $img_patrikaExtention;
+            $img_patrikaPath = $request->file('img_patrika')->storeAs('public/images', $img_patrikaFileNameToStore);
+        }
+        if ($request->hasFile('img_patrika')) {
+            $data['img_patrika'] = $img_patrikaFileNameToStore;
+        }
+
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+        if ($profile) {
+            $profile->update($data);
+        } else {
+            return redirect()->back()->with('error', 'Profile not found.');
+        }
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
+    }
+
     public function educational_details()
     {
         $user = auth()->user()->profile()->first();
         $profileCompletion = $this->calculateProfileCompletion($user);
         return view('default.view.profile.educational_details.create', ['user' => $user, 'profileCompletion' => $profileCompletion]);
+    }
+
+    public function educational_details_store(Request $request)
+    {
+        $validated = $request->validate([
+            'highest_education' => 'required|string|max:100',  // Fixed typo here: 'required' instead of 'requried'
+            'education_in_detail' => 'nullable|string',
+            'additional_degree' => 'nullable|string|max:100',
+        ]);
+
+        $data = $validated;
+
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+        if ($profile) {
+            $profile->update($data);
+        } else {
+            return redirect()->back()->with('error', 'Profile not found.');
+        }
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
     public function occupation_details()

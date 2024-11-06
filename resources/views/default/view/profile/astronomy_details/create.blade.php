@@ -152,7 +152,7 @@
         </style>
     </head>
     <body>
-        <form action="{{ route('profiles.store') }}" enctype="multipart/form-data" method="POST">
+        <form action="{{ route('profiles.astronomy_details_store') }}" enctype="multipart/form-data" method="POST">
             @csrf
                      <div class="l">
                         <div class="profile-completion">
@@ -572,8 +572,9 @@
         
             <!-- Display Uploaded Image Section -->
             <div class="form-group">
+                
                 @if ($user->img_patrika)
-                <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_patrika }}')">
+                <div x-data="imageLoader()" x-init="fetchImage('{{  $user->img_patrika }}')">
                     <label>Uploaded Image</label>
                     <template x-if="imageUrl">
                         <div class="d-flex align-items-center">
@@ -583,9 +584,7 @@
                             </a>
                          </div>
                     </template>
-                    <template x-if="!imageUrl">
-                        <p>Loading image...</p>
-                    </template>
+                   
                 </div>
                 @endif
             </div>
@@ -623,7 +622,7 @@
             }
         };
     }
-</script>+
+</script>
 <script>
     document.getElementById('toggleDropdowns').addEventListener('change', function() {
     const dropdowns = document.getElementById('dropdowns');
