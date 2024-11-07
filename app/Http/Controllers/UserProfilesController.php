@@ -131,6 +131,8 @@ class UserProfilesController extends Controller
         $Subcastes = $request->input('Subcastes');
         $eating_habits = $request->input('eating_habits');
         $country = $request->input('country');
+        $state = $request->input('state');
+        $highest_education = $request->input('highest_education');
 
         $users = Profile::query();
 
@@ -183,6 +185,22 @@ class UserProfilesController extends Controller
                 $country = [$country];  // Convert the single value to an array
             }
             $users->whereIn('country', $country);
+        }
+
+        if ($state) {
+            // Ensure $state is an array even if it's a single value
+            if (!is_array($state)) {
+                $state = [$state];  // Convert the single value to an array
+            }
+            $users->whereIn('state', $state);
+        }
+
+        if ($highest_education) {
+            // Ensure $highest_education is an array even if it's a single value
+            if (!is_array($highest_education)) {
+                $highest_education = [$highest_education];  // Convert the single value to an array
+            }
+            $users->whereIn('highest_education', $highest_education);
         }
 
         if ($from_height && $to_height) {
