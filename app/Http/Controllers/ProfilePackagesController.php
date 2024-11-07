@@ -2,14 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Package;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Models\ProfilePackage;
-use App\Models\Package;
-use Carbon\Carbon;
 
 
 class ProfilePackagesController extends Controller
 {
+
+    public function show_interest(Request $request)
+    {
+    
+        $interestUserId = $request->interest_id;
+
+        $interestProfile = Profile::find($interestUserId);
+        if (!$interestProfile) {
+            return redirect()->back()->with('error', 'profile does not exists');
+        }
+
+        $profile = auth()->user()->profile;
+        $tokenToUse = 500;
+        // $this->useTokens($tokenToUse);
+        if (!$this->useTokens($tokenToUse)) {
+            dd('not enought token');
+            return redirect()->back()->with('error', 'Not enough tokens to add to interests');
+        }
+    
+
+        $profile->interestProfiles()->attach($interestProfile->id);
+
+        // return response()->json(['message' => 'added to interests']);
+        return redirect()->back()->with('success', 'profile added to Interests successfully');
+    }
     
     public function purchasePackage(Request $request){
         $validated = $request->validate([
@@ -49,7 +75,7 @@ class ProfilePackagesController extends Controller
     }
 
     private function updateTotalTokens($profileId){
-         
+
         $totalTokens = ProfilePackage::where('profile_id', $profileId)
         ->where('expires_at', '>', now())
         ->get()
@@ -67,34 +93,103 @@ class ProfilePackagesController extends Controller
     
 
     public function useTokens(string $tokenToUse){
-        $userPackages = auth()->user()->profile()->profilePackages()
+        $userPackages = auth()->user()->profile->profilePackages()
         ->where('expires_at', '>', now())
         ->orderBy('expires_at')
         ->get();
-       
-        $tokensAvailable = 0; 
+
+        $tokensAvailable = 0;
+        $tokensAvail=0; 
+         //  start
+         foreach ($userPackages as $userPackage) {
+            $availTokens = $userPackage->pivot->tokens_received - $userPackage->pivot->tokens_used;
+            $tokensAvail += $availTokens;
+        }
+    
+        // If the total available tokens are less than what the user requested, return false
+        if ($tokensAvail < $tokenToUse) {
+            return false;  // Not enough tokens
+        }
+     // end
+
        
         foreach($userPackages as $userPackage){
-            
-            $availableTokens = $userPackage->tokens_received - $userPackage->tokens_used;
+            $availableTokens = $userPackage->pivot->tokens_received - $userPackage->pivot->tokens_used;
             $tokensAvailable += $availableTokens;
-            
+
              if($tokensAvailable >= $tokenToUse){
+                $userPackage->pivot->tokens_used += $tokenToUse;
                 
-                $userPackage->tokens_used += $tokenToUse;
-                $userPackage->save();
+                $userPackage->pivot->save();  //issue
+                // dd($userPackage->pivot->package_id);
+                //  $userPackage->profile()->profilePackages->updateExistingPivot($userPackage->pivot->package_id, [
+                //     'tokens_used' => $tt
+                // ]);
+                //   $p = ProfilePackage::find($userPackage->pivot->package_id);
+                //   $p->tokens_used = $tt;
+                //   $p->save();
 
                 $this->updateTotalTokens(auth()->user()->profile->id);
+
                 return true;
              }
              else{
+
                 $tokenToUse -= $availableTokens;
-                $userPackage->tokens_used = $userPackage->tokens_received;
-                $userPackage->save();
+                $userPackage->pivot->tokens_used = $userPackage->pivot->tokens_received;
+                $userPackage->pivot->save();
              }
 
         }
           return false;
    }
+
+
+// public function useTokens(string $tokenToUse)
+// {
+//     // Get the user's profile packages that are not expired
+//     $userPackages = auth()->user()->profile->profilePackages()
+//         ->where('expires_at', '>', now())
+//         ->orderBy('expires_at')
+//         ->get();
+
+//     $tokensAvailable = 0;
+//     $totalTokensToUse = $tokenToUse;  // Track the initial requested tokens
+
+//     // First, calculate the total available tokens in all packages
+//     foreach ($userPackages as $userPackage) {
+//         $availableTokens = $userPackage->pivot->tokens_received - $userPackage->pivot->tokens_used;
+//         $tokensAvailable += $availableTokens;
+//     }
+
+//     // If the total available tokens are less than what the user requested, return false
+//     if ($tokensAvailable < $tokenToUse) {
+//         return false;  // Not enough tokens
+//     }
+
+//     // Now, loop through the packages to deduct tokens
+//     foreach ($userPackages as $userPackage) {
+//         $availableTokens = $userPackage->pivot->tokens_received - $userPackage->pivot->tokens_used;
+
+//         if ($availableTokens >= $tokenToUse) {
+//             // If there are enough tokens in this package, use them
+//             $userPackage->pivot->tokens_used += $tokenToUse;
+//             $userPackage->pivot->save();  // Save the updated pivot data
+
+//             // After using tokens, exit because we used enough tokens
+//             $this->updateTotalTokens(auth()->user()->profile->id);
+//             return true;
+//         } else {
+//             // If there are not enough tokens in this package, use all remaining tokens in this package
+//             $tokenToUse -= $availableTokens;  // Subtract the used tokens from the requested tokens
+//             $userPackage->pivot->tokens_used = $userPackage->pivot->tokens_received;  // Mark all tokens as used
+//             $userPackage->pivot->save();  // Save the updated pivot data
+//         }
+//     }
+
+//     // If we exit the loop, it means there are still remaining tokens to be used but no more packages available
+//     return false;  // Not enough tokens
+// }
+
     
 }

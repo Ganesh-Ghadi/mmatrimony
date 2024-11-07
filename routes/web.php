@@ -82,7 +82,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/add-favorites', [UserProfilesController::class, 'add_favorite'])->name('profiles.add_favorite');
         Route::post('/remove-favorites', [UserProfilesController::class, 'remove_favorite'])->name('profiles.remove_favorite');
         Route::get('/view_favorites', [UserProfilesController::class, 'view_favorite'])->name('profiles.view_favorite');
-        Route::post('/show_interest', [UserProfilesController::class, 'show_interest'])->name('profiles.show_interest');
+        Route::post('/show_interest', [ProfilePackagesController::class, 'show_interest'])->name('profiles.show_interest');
         Route::post('/remove-interest', [UserProfilesController::class, 'remove_interest'])->name('profiles.remove_interest');
 
         Route::get('/dashboard/load', [DashboardController::class, 'load_users'])->name('dashboard.view_load_users');
