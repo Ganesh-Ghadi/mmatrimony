@@ -150,7 +150,7 @@
 
 #more_about_patrika {
     color: black; /* Changes the text inside the textarea to black */
-}
+}   
 
 .form-label {
     color: black; /* Changes the label text color to black */

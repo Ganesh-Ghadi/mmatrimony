@@ -245,6 +245,39 @@
                 <span class="text-danger small">{{ $errors->first('mother_organization') }}</span>
                 @endif   
             </div>
+           
+        </div>
+        <style>
+            .form-row {
+                display: flex;
+                justify-content: space-between;
+            }
+            .form-group {
+                flex: 1;
+                margin-right: 20px; /* Add some space between fields */
+            }
+            .form-group:last-child {
+                margin-right: 0; /* Remove right margin from last field */
+            }
+        </style>
+        <div class="form-row">
+            <!-- Native Place Field -->
+            <div class="form-group">
+                <label for="mother_native_place">Native Place</label>
+                <input type="text" name="mother_native_place" value="{{ $user->mother_native_place }}" id="mother_native_place" placeholder="Enter Native Place" class="form-control">
+                @if ($errors->has('mother_native_place'))
+                    <span class="text-danger small">{{ $errors->first('mother_native_place') }}</span>
+                @endif
+            </div>
+        
+            <!-- Mother Name Before Marriage Field -->
+            <div class="form-group">
+                <label for="mother_name_before_marriage">Mother Name Before Marriage</label>
+                <input type="text" name="mother_name_before_marriage" value="{{ $user->mother_name_before_marriage }}" id="mother_name_before_marriage" placeholder="Enter Mother Name Before Marriage" class="form-control">
+                @if ($errors->has('mother_name_before_marriage'))
+                    <span class="text-danger small">{{ $errors->first('mother_name_before_marriage') }}</span>
+                @endif
+            </div>
         </div>
     </div>
     <div class="panel">

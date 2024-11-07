@@ -52,6 +52,8 @@ class Profile extends Model
         'mother_occupation',
         'mother_organization',
         'mother_job_type',
+        'mother_native_place',
+        'mother_name_before_marriage',
         'number_of_brothers_married',
         'number_of_brothers_unmarried',
         'brother_resident_place',

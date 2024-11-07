@@ -13,8 +13,8 @@ class ProfilePackagesController extends Controller
     public function show_interest(Request $request)
     {
         $interestUserId = $request->interest_id;
-
         $interestProfile = Profile::find($interestUserId);
+
         if (!$interestProfile) {
             return redirect()->back()->with('error', 'profile does not exists');
         }
@@ -27,10 +27,11 @@ class ProfilePackagesController extends Controller
             return redirect()->back()->with('error', 'Not enough tokens to add to interests');
         }
 
+        $message = 'Tokens Available ' . $profile->available_tokens;
         $profile->interestProfiles()->attach($interestProfile->id);
 
         // return response()->json(['message' => 'added to interests']);
-        return redirect()->back()->with('success', 'profile added to Interests successfully');
+        return redirect()->back()->with('success', $message);
     }
 
     public function purchasePackage(Request $request)

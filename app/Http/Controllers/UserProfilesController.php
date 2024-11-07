@@ -389,6 +389,7 @@ class UserProfilesController extends Controller
 
     public function family_details_store(Request $request)
     {
+        // dd($request->input('mother_native_place'));
         $validated = $request->validate([
             'father_is_alive' => 'required|boolean',
             'father_name' => 'nullable|string|max:100',
@@ -400,6 +401,8 @@ class UserProfilesController extends Controller
             'mother_occupation' => 'nullable|string|max:100',
             'mother_job_type' => 'nullable|string|max:100',
             'mother_organization' => 'nullable|string|max:100',
+            'mother_native_place' => 'nullable|string|max:100',
+            'mother_name_before_marriage' => 'nullable|string|max:100',
             'brother_resident_place' => 'nullable|string|max:100',
             'number_of_brothers_married' => 'nullable|integer|min:0|max:10',
             'number_of_brothers_unmarried' => 'nullable|integer|min:0|max:10',
@@ -632,8 +635,6 @@ class UserProfilesController extends Controller
 
         // return redirect()->back()->with('success', 'profile added to favorites successfully');
     }
-
-   
 
     public function remove_favorite(Request $request)
     {

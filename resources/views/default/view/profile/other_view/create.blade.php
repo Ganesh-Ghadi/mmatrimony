@@ -89,20 +89,34 @@
         @endif
     </div>
     <div class="panel">
-        
+
+         @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+             
+        @endif
         
         <div class="card">
             <h3 class="text-center">Basic Profile</h3>
             <div  x-data="interestToggle({{ $user->id }}, {{ $user->is_interest ? 'true' : 'false' }})" >
-                <form @submit.prevent="submit" style="display: inline;">
-                    @csrf
-                    <input type="hidden" name="show_interest" x-model="interestId">
-                    <button type="submit" title="Toggle interest">
+
+            <form action="{{ route('profiles.show_interest') }}" method="POST">
+                @csrf
+                    <input type="hidden" name="interest_id" value="{{$user->id}}">
+                    
+                    <button  type="submit" title="Toggle interest">
                         show interest
                      </button>
+
                 </form>
+                
+                
+               
             </div>
             <br/>
+           
             
             <!-- First Row: User Info -->
             <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Personal Information</h4>
