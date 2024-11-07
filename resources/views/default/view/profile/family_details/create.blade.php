@@ -110,79 +110,114 @@
         {{-- @if(auth()->user() && auth()->user()->hasVerifiedEmail())
         <p>Email verified</p>
     @endif --}}
-        <div class="form-row">
-            
-            <div class="form-group">
-                <label for="father_is_alive">Father is Alive</label>
-                <select class="form-input" name="father_is_alive" id="father_is_alive">
-                    <option value="" selected>Select an option</option>
-                    <option value="1" {{ $user->father_is_alive === 1 ? 'selected' : '' }}>Yes</option>
-                    <option value="0" {{ $user->father_is_alive === 0 ? 'selected' : '' }}>No</option>
-                </select>
-                @if ($errors->has('father_is_alive'))
+    <div class="form-row">
+        <div class="form-group">
+            <label for="father_is_alive">Father is Alive</label>
+            <select class="form-input" name="father_is_alive" id="father_is_alive">
+                <option value="" selected>Select an option</option>
+                <option value="1" {{ $user->father_is_alive === 1 ? 'selected' : '' }}>Yes</option>
+                <option value="0" {{ $user->father_is_alive === 0 ? 'selected' : '' }}>No</option>
+            </select>
+            @if ($errors->has('father_is_alive'))
                 <span class="text-danger small">{{ $errors->first('father_is_alive') }}</span>
-                @endif        
-           </div>
+            @endif        
         </div>
-{{-- 
-        @if($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
     </div>
-@endif --}}
-
-
-
-        <!-- Native Place and Gender fields, initially hidden -->
-        <div class="form-row">
-
-              <div class="form-group">
+    
+    <div class="form-row" id="father_details">
+        <!-- First Row -->
+        <div class="form-row"> <!-- Wrapper for the row -->
+            <!-- First Column: Father Name -->
+            <div class="form-group col-md-6">
                 <label for="father_name">Father Name</label>
-                <input type="text" class="form-input" name="father_name"  value="{{ $user->father_name }}" id="father_name" placeholder="Enter Father Name" >
+                <input type="text" class="form-input" name="father_name" value="{{ $user->father_name }}" id="father_name" placeholder="Enter Father Name">
                 @if ($errors->has('father_name'))
-                <span class="text-danger small">{{ $errors->first('father_name') }}</span>
-                @endif           
-             </div>
-            
-            <div class="form-group">
-                <label for="occupation">Occupation</label>
+                    <span class="text-danger small">{{ $errors->first('father_name') }}</span>
+                @endif   
+            </div>
+        
+            <!-- Second Column: Father Occupation -->
+            <div class="form-group col-md-6">
+                <label for="father_occupation">Occupation</label>
                 <select class="form-input" name="father_occupation" id="father_occupation">
                     <option value="" selected>Select an option</option>
                     @foreach (config('data.occupation') as $value => $name)
-                        <option value="{{$value}}" {{ ($user->father_occupation === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                        <option value="{{$value}}" {{ ($user->father_occupation === $value) ? 'selected' : ''}}>{{ $name }}</option>
                     @endforeach
-                   
                 </select>
-                @if ($errors->has('occupation'))
-                <span class="text-danger small">{{ $errors->first('occupation') }}</span>
-                @endif    
+                @if ($errors->has('father_occupation'))
+                    <span class="text-danger small">{{ $errors->first('father_occupation') }}</span>
+                @endif   
             </div>
-            <div class="form-group">
+        </div>
+        
+    
+        <!-- Second Row -->
+        <div class="form-row"> <!-- Wrapper for the row -->
+            <!-- First Column: Father Job Type -->
+            <div class="form-group col-md-6">
                 <label for="father_job_type">Job Type</label>
                 <select class="form-input" name="father_job_type" id="father_job_type">
                     <option value="" selected>Select an option</option>
                     @foreach (config('data.job_type') as $value => $name)
                         <option value="{{$value}}" {{ ($user->father_job_type === $value) ? 'selected' : ''}} >{{ $name }}</option>
                     @endforeach
-                  
                 </select>
                 @if ($errors->has('father_job_type'))
-                <span class="text-danger small">{{ $errors->first('father_job_type') }}</span>
-                @endif    
-            </div>
-            <div class="form-group">
-                <label for="father_organization">Organisation Name</label>
-                <input type="text" class="form-input" name="father_organization"  value="{{ $user->father_organization }}" id="father_organization" placeholder="Enter Organisation Name" >
-                @if ($errors->has('father_organization'))
-                <span class="text-danger small">{{ $errors->first('father_organization') }}</span>
+                    <span class="text-danger small">{{ $errors->first('father_job_type') }}</span>
                 @endif   
             </div>
-       
+            
+            <!-- Second Column: Father Organization -->
+            <div class="form-group col-md-6">
+                <label for="father_organization">Organisation Name</label>
+                <input type="text" class="form-input" name="father_organization" value="{{ $user->father_organization }}" id="father_organization" placeholder="Enter Organisation Name">
+                @if ($errors->has('father_organization'))
+                    <span class="text-danger small">{{ $errors->first('father_organization') }}</span>
+                @endif   
+            </div>
+        </div>
+        
     </div>
+    
+    
+    
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fatherAliveSelect = document.getElementById('father_is_alive');
+            const fatherDetailsSection = document.getElementById('father_details');
+            const fatherNameField = document.getElementById('father_name');
+            const fatherOccupationField = document.getElementById('father_occupation');
+            const fatherJobTypeField = document.getElementById('father_job_type');
+            const fatherOrganizationField = document.getElementById('father_organization');
+    
+            // Function to toggle visibility of father details and reset values if necessary
+            function toggleFatherDetails() {
+                if (fatherAliveSelect.value === '1') {
+                    // Show the details if father is alive
+                    fatherDetailsSection.style.display = 'block';
+                } else {
+                    // Hide the details if father is not alive
+                    fatherDetailsSection.style.display = 'none';
+    
+                    // Reset the values to null when father is not alive
+                    fatherNameField.value = '';
+                    fatherOccupationField.value = '';
+                    fatherJobTypeField.value = '';
+                    fatherOrganizationField.value = '';
+                }
+            }
+    
+            // Initial call to set visibility based on the current value
+            toggleFatherDetails();
+    
+            // Event listener for changes in the "Father is Alive" dropdown
+            fatherAliveSelect.addEventListener('change', toggleFatherDetails);
+        });
+    </script>
+    
+    
     </div>
     <div class="panel">
         <h2>Mother Details</h2>
@@ -196,57 +231,103 @@
                     <option value="0" {{ $user->mother_is_alive === 0 ? 'selected' : '' }}>No</option>
                 </select>
                 @if ($errors->has('mother_is_alive'))
-                <span class="text-danger small">{{ $errors->first('mother_is_alive') }}</span>
+                    <span class="text-danger small">{{ $errors->first('mother_is_alive') }}</span>
                 @endif   
             </div>
         </div>
-    
+        
         <!-- Additional fields, initially hidden -->
-        <div class="form-row">
-
-        {{-- <div class="form-row hidden" id="motherAdditionalInfo"> --}}
-            <div class="form-group">
-                <label for="mother_name">Full Name</label>
-                <input class="form-input" name="mother_name"  value="{{ $user->mother_name }}" id="mother_name" placeholder="Enter Mother Name" >
-                @if ($errors->has('mother_name'))
-                <span class="text-danger small">{{ $errors->first('mother_name') }}</span>
-                @endif   
+        <div class="form-row" id="mother_details">
+    
+            <!-- First Column: Full Name and Occupation -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="mother_name">Full Name</label>
+                    <input class="form-input" name="mother_name" value="{{ $user->mother_name }}" id="mother_name" placeholder="Enter Mother Name">
+                    @if ($errors->has('mother_name'))
+                        <span class="text-danger small">{{ $errors->first('mother_name') }}</span>
+                    @endif   
+                </div>
+            
+                <div class="form-group col-md-6">
+                    <label for="mother_occupation">Occupation</label>
+                    <select class="form-input" name="mother_occupation" id="mother_occupation">
+                        <option value="" selected>Select an option</option>
+                        @foreach (config('data.occupation') as $value => $name)
+                            <option value="{{$value}}" {{ ($user->mother_occupation === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('mother_occupation'))
+                        <span class="text-danger small">{{ $errors->first('mother_occupation') }}</span>
+                    @endif   
+                </div>
             </div>
-            <div class="form-group">
-                <label for="occupation">Occupation</label>
-                <select class="form-input" name="mother_occupation" id="mother_occupation">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.occupation') as $value => $name)
-                        <option value="{{$value}}" {{ ($user->mother_occupation === $value) ? 'selected' : ''}} >{{ $name }}</option>
-                    @endforeach
-                   
-                </select>
-                @if ($errors->has('mother_occupation'))
-                <span class="text-danger small">{{ $errors->first('mother_occupation') }}</span>
-                @endif   
+            
+        
+            <!-- Second Column: Job Type and Organization Name -->
+            <div class="form-row">
+                <!-- First Column: Job Type -->
+                <div class="form-group col-md-6">
+                    <label for="mother_job_type">Job Type</label>
+                    <select class="form-input" name="mother_job_type" id="mother_job_type">
+                        <option value="" selected>Select an option</option>
+                        @foreach (config('data.job_type') as $value => $name)
+                            <option value="{{$value}}" {{ ($user->mother_job_type === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('mother_job_type'))
+                        <span class="text-danger small">{{ $errors->first('mother_job_type') }}</span>
+                    @endif   
+                </div>
+            
+                <!-- Second Column: Organization Name -->
+                <div class="form-group col-md-6">
+                    <label for="mother_organization">Organization Name</label>
+                    <input type="text" name="mother_organization" value="{{ $user->mother_organization }}" id="mother_organization" placeholder="Enter Organization Name">
+                    @if ($errors->has('mother_organization'))
+                        <span class="text-danger small">{{ $errors->first('mother_organization') }}</span>
+                    @endif   
+                </div>
             </div>
-            <div class="form-group">
-                <label for="mother_job_type">Job Type</label>
-                <select class="form-input" name="mother_job_type" id="mother_job_type">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.job_type') as $value => $name)
-                        <option value="{{$value}}" {{ ($user->mother_job_type === $value) ? 'selected' : ''}} >{{ $name }}</option>
-                    @endforeach
-                     
-                </select>
-                @if ($errors->has('mother_job_type'))
-                <span class="text-danger small">{{ $errors->first('mother_job_type') }}</span>
-                @endif   
-            </div>
-            <div class="form-group">
-                <label for="mother_organization">Organization Name</label>
-                <input type="text" name="mother_organization"  value="{{ $user->mother_organization }}" id="mother_organization" placeholder="Enter Native Place" >
-                @if ($errors->has('mother_organization'))
-                <span class="text-danger small">{{ $errors->first('mother_organization') }}</span>
-                @endif   
-            </div>
-           
+            
+        
         </div>
+        
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const motherAliveSelect = document.getElementById('mother_is_alive');
+                const motherDetailsSection = document.getElementById('mother_details');
+                const motherNameField = document.getElementById('mother_name');
+                const motherOccupationField = document.getElementById('mother_occupation');
+                const motherJobTypeField = document.getElementById('mother_job_type');
+                const motherOrganizationField = document.getElementById('mother_organization');
+        
+                // Function to toggle visibility and reset values of mother-related details
+                function toggleMotherDetails() {
+                    if (motherAliveSelect.value === '1') {
+                        // Show mother details if she is alive
+                        motherDetailsSection.style.display = 'block';
+                    } else {
+                        // Hide mother details and reset values if she is not alive
+                        motherDetailsSection.style.display = 'none';
+        
+                        // Reset the values to null when mother is not alive
+                        motherNameField.value = '';
+                        motherOccupationField.value = '';
+                        motherJobTypeField.value = '';
+                        motherOrganizationField.value = '';
+                    }
+                }
+        
+                // Initial call to set visibility and reset values based on current state
+                toggleMotherDetails();
+        
+                // Add event listener for changes in the "Mother is Alive" dropdown
+                motherAliveSelect.addEventListener('change', toggleMotherDetails);
+            });
+        </script>
+        
         <style>
             .form-row {
                 display: flex;
