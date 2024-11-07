@@ -147,6 +147,18 @@
     color: white !important; /* Ensure text color is white */
     border: none; /* Optional: remove border */
 }
+
+#more_about_patrika {
+    color: black; /* Changes the text inside the textarea to black */
+}
+
+.form-label {
+    color: black; /* Changes the label text color to black */
+}
+
+.text-danger {
+    color: black; /* Changes the error message color to black */
+}
 /* img */
  
         </style>

@@ -65,7 +65,10 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     gap: 10px;
     flex-wrap: wrap;
+    
 }
+ 
+
         .advance {
     display: flex;
     align-items: center; /* Vertically align inputs */
@@ -376,102 +379,119 @@
                 <label><input type="checkbox" name="marital_status[]" value="Separated" {{ in_array('Separated', (array) request()->input('marital_status')) ? 'checked' : '' }}> Separated</label>
                 <label><input type="checkbox" name="marital_status[]" value="Widowed" {{ in_array('Widowed', (array) request()->input('marital_status')) ? 'checked' : '' }}> Widowed</label>
                 <label><input type="checkbox" name="marital_status[]" value="Annulled" {{ in_array('Annulled', (array) request()->input('marital_status')) ? 'checked' : '' }}> Annulled</label>
-             </div>
+            
+             <div>
+                <button type="button" id="settingsButton" class="btn btn-primary">Advance Search</button>
+            </div>
+            </div>
+            
+
+
+
              {{-- advance search --}}
-            
 
-             <div class="advance">
-                 {{-- <button type="button" id="toggleButton" class="small-button">Advance Search</button> --}}
-
+             <div id="advancedSettings" class="advance" style="display: none;"> <!-- Initially hidden -->
                  <div class="advance-card">
-                    <div class="form-group">
-                        <label for="country" class="form-label">Country</label>
-                        <select class="form-input" name="country" id="country">
-                            <option value="" selected>Select an option</option>
-                            @foreach (collect(config('data.country', []))->sortKeys()->toArray() as $value => $name)
-                                <option value="{{ $value }}" 
-                                        {{ request()->input('country') == $value ? 'selected' : '' }}>
-                                    {{ $name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="state" class="form-label">State</label>
-                        <select class="form-input" name="state" id="state">
-                            <option value="" selected>Select an option</option>
-                            @foreach (collect(config('data.state', []))->sortKeys()->toArray() as $value => $name)
-                                <option value="{{ $value }}" 
-                                        {{ request()->input('state') == $value ? 'selected' : '' }}>
-                                    {{ $name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                
-                
-                
+                     <div class="form-group">
+                         <label for="country" class="form-label">Country</label>
+                         <select class="form-input" name="country" id="country">
+                             <option value="" selected>Select an option</option>
+                             @foreach (collect(config('data.country', []))->sortKeys()->toArray() as $value => $name)
+                                 <option value="{{ $value }}" 
+                                         {{ request()->input('country') == $value ? 'selected' : '' }}>
+                                     {{ $name }}
+                                 </option>
+                             @endforeach
+                         </select>
+                     </div>
+                     <div class="form-group">
+                         <label for="state" class="form-label">State</label>
+                         <select class="form-input" name="state" id="state">
+                             <option value="" selected>Select an option</option>
+                             @foreach (collect(config('data.state', []))->sortKeys()->toArray() as $value => $name)
+                                 <option value="{{ $value }}" 
+                                         {{ request()->input('state') == $value ? 'selected' : '' }}>
+                                     {{ $name }}
+                                 </option>
+                             @endforeach
+                         </select>
+                     </div>
+                 </div>
+                 
+                     
+                        <label for="highest_education" class="form-label">Highest Education</label>
+                     <select class="form-input" name="highest_education" id="highest_education">
+                         <option value="" selected>Select an option</option>
+                         @foreach (config('data.highest_education', []) as $category => $subcategories)
+                             <optgroup label="{{ ucfirst(str_replace('_', ' ', $category)) }}">
+                                 @foreach ($subcategories as $value => $name)
+                                     @if (is_array($name)) 
+                                         @foreach ($name as $subValue => $subName)
+                                             <option value="{{ $subValue }}" 
+                                                     {{ request()->input('highest_education') == $subValue ? 'selected' : '' }}>
+                                                 {{ $subName }}
+                                             </option>
+                                         @endforeach
+                                     @else
+                                         <option value="{{ $value }}" 
+                                                 {{ request()->input('highest_education') == $value ? 'selected' : '' }}>
+                                             {{ $name }}
+                                         </option>
+                                     @endif
+                                 @endforeach
+                             </optgroup>
+                         @endforeach
+                     </select>
+                                      
 
-                <div>
-                <select class="form-input" name="highest_education" id="highest_education">
-                    <option value="" selected>Select an option</option>
-                    @foreach (config('data.highest_education', []) as $category => $subcategories)
-                        <optgroup label="{{ ucfirst(str_replace('_', ' ', $category)) }}">
-                            @foreach ($subcategories as $value => $name)
-                                @if (is_array($name)) 
-                                    @foreach ($name as $subValue => $subName)
-                                        <option value="{{ $subValue }}" 
-                                                {{ request()->input('highest_education') == $subValue ? 'selected' : '' }}>
-                                            {{ $subName }}
-                                        </option>
-                                    @endforeach
-                                @else
-                                    <option value="{{ $value }}" 
-                                            {{ request()->input('highest_education') == $value ? 'selected' : '' }}>
-                                        {{ $name }}
-                                    </option>
-                                @endif
-                            @endforeach
-                        </optgroup>
-                    @endforeach
-                </select>
-            </div>
-              
-                
-
-                
-                
-            
-                 {{-- <div id="eatingHabitsContent" style="display: none;"> --}}
-                    <label><input type="checkbox" name="eating_habits[]" value="vegetarian" 
-                        {{ in_array('vegetarian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Vegetarian</label>
-                    <label><input type="checkbox" name="eating_habits[]" value="non-vegetarian" 
-                        {{ in_array('non-vegetarian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Non-Vegetarian</label>
-                    <label><input type="checkbox" name="eating_habits[]" value="vegan" 
-                        {{ in_array('vegan', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Vegan</label>
-                    <label><input type="checkbox" name="eating_habits[]" value="eggiterian" 
-                        {{ in_array('eggiterian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Eggiterian</label>
-                {{-- </div> --}}
-            </div>
-
-            
-             {{-- <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                     const toggleButton = document.getElementById("toggleButton");
-                    const eatingHabitsContent = document.getElementById("eatingHabitsContent");
-                     toggleButton.addEventListener("click", function() {
-                         if (eatingHabitsContent.style.display === "none") {
-                            eatingHabitsContent.style.display = "block";  
-                            toggleButton.textContent = "Hide Advance Search";   
-                        } else {
-                            eatingHabitsContent.style.display = "none";   
-                            toggleButton.textContent = "Show Advance Search";    
-                        }
-                    });
+                 
+             
+                 <div class="eating-habits">
+                     <label><input type="checkbox" name="eating_habits[]" value="vegetarian" 
+                             {{ in_array('vegetarian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Vegetarian</label>
+                     <label><input type="checkbox" name="eating_habits[]" value="non-vegetarian" 
+                             {{ in_array('non-vegetarian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Non-Vegetarian</label>
+                     <label><input type="checkbox" name="eating_habits[]" value="vegan" 
+                             {{ in_array('vegan', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Vegan</label>
+                     <label><input type="checkbox" name="eating_habits[]" value="eggiterian" 
+                             {{ in_array('eggiterian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Eggiterian</label>
+                 </div>
+             </div>
+             
+             <!-- JavaScript to toggle the settings -->
+             <script>
+                // Check the localStorage on page load to determine if the advanced search section should be visible
+                window.addEventListener('DOMContentLoaded', function() {
+                    var settingsContent = document.getElementById('advancedSettings');
+                    
+                    // Retrieve the visibility state from localStorage
+                    if (localStorage.getItem('advancedSearchVisible') === 'true') {
+                        settingsContent.style.display = 'block';
+                    } else {
+                        settingsContent.style.display = 'none';
+                    }
                 });
-            </script> --}}
+            
+                document.getElementById('settingsButton').addEventListener('click', function(event) {
+                    event.preventDefault();  // Prevent page refresh
+            
+                    var settingsContent = document.getElementById('advancedSettings');
+                    
+                    // Toggle the display of the settings
+                    if (settingsContent.style.display === 'none') {
+                        settingsContent.style.display = 'block';
+                        localStorage.setItem('advancedSearchVisible', 'true');  // Store state in localStorage
+                    } else {
+                        settingsContent.style.display = 'none';
+                        localStorage.setItem('advancedSearchVisible', 'false');  // Store state in localStorage
+                    }
+                });
+            </script>
+             
+
+
+            
+             
             
             
         

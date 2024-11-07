@@ -96,6 +96,7 @@
             <h2>Age / Height Information</h2>
             <div class="container mt-3" id="dropdowns">
                 <div class="row">
+                    @if($user->role === 'bride')
                     <div class="col">
                         <div class="form-group">
                             <label for="partner_min_age">Min Age</label>
@@ -112,6 +113,25 @@
                             @endif  
                         </div>
                     </div>
+                    @else 
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="partner_min_age">Min Age</label>
+                            <select name="partner_min_age" id="partner_min_age" class="form-input">
+                                <option value="" selected>select an option</option>
+                                @if (config('data.bride_min_age'))
+                                    @foreach (config('data.bride_min_age') as $value => $name)
+                                        <option value="{{$value}}" {{ ($user->partner_min_age === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            @if ($errors->has('partner_min_age'))
+                            <span class="text-danger small">{{ $errors->first('partner_min_age') }}</span>
+                            @endif  
+                        </div>
+                    </div>
+                    @endif
+                   
                     <div class="col">
                         <div class="form-group">
                             <label for="partner_max_age">Max Age</label>
