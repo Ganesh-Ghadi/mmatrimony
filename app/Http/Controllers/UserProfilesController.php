@@ -291,6 +291,7 @@ class UserProfilesController extends Controller
             'eating_habits' => 'nullable|string|max:100',
             'drinking_habits' => 'nullable|string|max:100',
             'smoking_habits' => 'nullable|string|max:100',
+            'about_self' => 'nullable|string',
             'img_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'img_3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
