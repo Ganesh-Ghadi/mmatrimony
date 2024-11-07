@@ -208,112 +208,150 @@
 <div class="panel">
     <h2>Astronomy Information</h2>
     <div>
+        <!-- Hidden input to ensure 0 is sent when checkbox is unchecked -->
+        <input type="hidden" name="when_meet" value="0" />
+        
+        <!-- Checkbox input -->
         <input name="when_meet" type="checkbox" value="1"
-            {{ $user->when_meet ? 'checked' : '' }} 
-            id="toggleDropdowns" />
+               {{ $user->when_meet ? 'checked' : '' }} 
+               id="toggleDropdowns" />
+        
         <label class="text-black" for="toggleDropdowns" style="color: black;">
             भेटल्यावर बोलूया
         </label>
     </div>
     
-    <div class="container" id="dropdowns">
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="rashee">राशी</label>
-                    <select class="form-input" name="rashee" id="rashee">
-                        <option value="" selected>Select an option</option>
-                        @foreach (config('data.rashee', []) as $value => $name)
-                            <option value="{{ $value }}" {{ ($user->rashee === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                        @endforeach
-                        
-                    </select>
-                    @if ($errors->has('rashee'))
-                    <span class="text-danger small">{{ $errors->first('rashee') }}</span>
-                    @endif     
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="nakshatra">नक्षत्र</label>
-                    <select class="form-input" name="nakshatra" id="nakshatra">
-                        <option value="" selected>Select an option</option>
-                        @foreach (config('data.nakshatra', []) as $value => $name)
-                            <option value="{{ $value }}" {{ ($user->nakshatra === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                        @endforeach
-                        
-                    </select>
-                    @if ($errors->has('nakshatra'))
-                    <span class="text-danger small">{{ $errors->first('nakshatra') }}</span>
-                    @endif     
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="mangal">मंगळ</label>
-                    <select class="form-input" name="mangal" id="mangal">
-                        <option value="" selected>Select an option</option>
-                        @foreach (config('data.mangal', []) as $value => $name)
-                            <option value="{{ $value }}" {{ ($user->mangal === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                        @endforeach
-                        
-                    </select>
-                    @if ($errors->has('mangal'))
-                    <span class="text-danger small">{{ $errors->first('mangal') }}</span>
-                    @endif     
-                </div>
-            </div>
-        </div>
-        <div class="container mt-4" id="dropdowns">
+    <!-- Content that will be toggled -->
+    <div id="toggleContent" style="display: {{ $user->when_meet ? 'none' : 'block' }};">
+        <div class="container" id="dropdowns">
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label for="charan">चरण</label>
-                        <select class="form-input" name="charan" id="charan">
+                        <label for="rashee">राशी</label>
+                        <select class="form-input" name="rashee" id="rashee">
                             <option value="" selected>Select an option</option>
-                            @foreach (config('data.charan', []) as $value => $name)
-                                <option value="{{ $value }}" {{ ($user->charan === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                            @foreach (config('data.rashee', []) as $value => $name)
+                                <option value="{{ $value }}" {{ ($user->rashee === $value) ? 'selected' : '' }}>{{ $name }}</option>
                             @endforeach
                             
                         </select>
-                        @if ($errors->has('charan'))
-                        <span class="text-danger small">{{ $errors->first('charan') }}</span>
+                        @if ($errors->has('rashee'))
+                        <span class="text-danger small">{{ $errors->first('rashee') }}</span>
                         @endif     
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="gana">गण</label>
-                        <select class="form-input" name="gana" id="gana">
+                        <label for="nakshatra">नक्षत्र</label>
+                        <select class="form-input" name="nakshatra" id="nakshatra">
                             <option value="" selected>Select an option</option>
-                            @foreach (config('data.gana', []) as $value => $name)
-                                <option value="{{ $value }}" {{ ($user->gana === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                            @foreach (config('data.nakshatra', []) as $value => $name)
+                                <option value="{{ $value }}" {{ ($user->nakshatra === $value) ? 'selected' : '' }}>{{ $name }}</option>
                             @endforeach
                             
                         </select>
-                        @if ($errors->has('gana'))
-                        <span class="text-danger small">{{ $errors->first('gana') }}</span>
+                        @if ($errors->has('nakshatra'))
+                        <span class="text-danger small">{{ $errors->first('nakshatra') }}</span>
                         @endif     
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="nadi">नाडी</label>
-                        <select class="form-input" name="nadi" id="nadi">
+                        <label for="mangal">मंगळ</label>
+                        <select class="form-input" name="mangal" id="mangal">
                             <option value="" selected>Select an option</option>
-                            @foreach (config('data.nadi', []) as $value => $name)
-                                <option value="{{ $value }}" {{ ($user->nadi === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                            @foreach (config('data.mangal', []) as $value => $name)
+                                <option value="{{ $value }}" {{ ($user->mangal === $value) ? 'selected' : '' }}>{{ $name }}</option>
                             @endforeach
                             
                         </select>
-                        @if ($errors->has('nadi'))
-                        <span class="text-danger small">{{ $errors->first('nadi') }}</span>
+                        @if ($errors->has('mangal'))
+                        <span class="text-danger small">{{ $errors->first('mangal') }}</span>
                         @endif     
                     </div>
                 </div>
             </div>
+            <div class="container mt-4" id="dropdowns">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="charan">चरण</label>
+                            <select class="form-input" name="charan" id="charan">
+                                <option value="" selected>Select an option</option>
+                                @foreach (config('data.charan', []) as $value => $name)
+                                    <option value="{{ $value }}" {{ ($user->charan === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                                @endforeach
+                                
+                            </select>
+                            @if ($errors->has('charan'))
+                            <span class="text-danger small">{{ $errors->first('charan') }}</span>
+                            @endif     
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="gana">गण</label>
+                            <select class="form-input" name="gana" id="gana">
+                                <option value="" selected>Select an option</option>
+                                @foreach (config('data.gana', []) as $value => $name)
+                                    <option value="{{ $value }}" {{ ($user->gana === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                                @endforeach
+                                
+                            </select>
+                            @if ($errors->has('gana'))
+                            <span class="text-danger small">{{ $errors->first('gana') }}</span>
+                            @endif     
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="nadi">नाडी</label>
+                            <select class="form-input" name="nadi" id="nadi">
+                                <option value="" selected>Select an option</option>
+                                @foreach (config('data.nadi', []) as $value => $name)
+                                    <option value="{{ $value }}" {{ ($user->nadi === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                                @endforeach
+                                
+                            </select>
+                            @if ($errors->has('nadi'))
+                            <span class="text-danger small">{{ $errors->first('nadi') }}</span>
+                            @endif     
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkbox = document.getElementById('toggleDropdowns');
+            const content = document.getElementById('toggleContent');
+    
+            // Initially hide/show content based on checkbox state
+            if (checkbox.checked) {
+                content.style.display = 'none'; // Hide content when checkbox is checked
+            } else {
+                content.style.display = 'block'; // Show content when checkbox is unchecked
+            }
+    
+            // Toggle visibility when the checkbox is clicked
+            checkbox.addEventListener('change', function () {
+                if (checkbox.checked) {
+                    content.style.display = 'none'; // Hide content when checked
+                } else {
+                    content.style.display = 'block'; // Show content when unchecked
+                }
+            });
+        });
+    </script>
+    
+    
+    
+ 
+     
+    
     </div>
     <div class="image-container" style="position: relative; display: inline-block;">
          <img src="{{ asset('assets/images/patrika.png') }}" alt="Profile Image" class="profile-image" style="width: 100%;">
