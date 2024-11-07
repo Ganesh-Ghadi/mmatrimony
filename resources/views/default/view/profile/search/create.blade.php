@@ -271,58 +271,73 @@
                 <input type="number" class="form-control" name="to_age" placeholder="To age" min="18" max="70" value="{{ request()->input('to_age') }}">
             </div>
         <div class="age-range">
-                <div class="age-range">
-                    <div class="form-group">
-                        <label for="from_height" class="form-label">From Height</label>
-                        <select class="form-input" name="from_height" id="from_height">
-                            <option value="" selected>Select an option</option>
-                            @foreach (collect(config('data.height', []))->sortKeys()->toArray() as $value => $name)
-                                <option value="{{ $value }}">{{ $name }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('from_height'))
-                            <span class="text-danger small">{{ $errors->first('from_height') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <label for="to_height" class="form-label">To Height</label>
-                        <select class="form-input" name="to_height" id="to_height">
-                            <option value="" selected>Select an option</option>
-                            @foreach (collect(config('data.height', []))->sortKeys()->toArray() as $value => $name)
-                                <option value="{{ $value }}">{{ $name }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('to_height'))
-                            <span class="text-danger small">{{ $errors->first('to_height') }}</span>
-                        @endif
-                    </div>
+            <div class="age-range">
+                <div class="form-group">
+                    <label for="from_height" class="form-label">From Height</label>
+                    <select class="form-input" name="from_height" id="from_height">
+                        <option value="" selected>Select an option</option>
+                        @foreach (collect(config('data.height', []))->sortKeys()->toArray() as $value => $name)
+                            <option value="{{ $value }}" 
+                                    {{ request()->input('from_height') == $value ? 'selected' : '' }}>
+                                {{ $name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('from_height'))
+                        <span class="text-danger small">{{ $errors->first('from_height') }}</span>
+                    @endif
                 </div>
+                <div class="form-group">
+                    <label for="to_height" class="form-label">To Height</label>
+                    <select class="form-input" name="to_height" id="to_height">
+                        <option value="" selected>Select an option</option>
+                        @foreach (collect(config('data.height', []))->sortKeys()->toArray() as $value => $name)
+                            <option value="{{ $value }}" 
+                                    {{ request()->input('to_height') == $value ? 'selected' : '' }}>
+                                {{ $name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('to_height'))
+                        <span class="text-danger small">{{ $errors->first('to_height') }}</span>
+                    @endif
+                </div>
+            </div>
+            
             {{-- caste&subcaste --}}
             <div class="card-body">
                 <div class="form-group">
-                    <label>Castes</label>
-                    <select class="form-input" name="caste">
-                        <option value="" selected>select an option</option>
-                        @foreach($Caste as $Castes)
-                        <option value="{{$Castes->id}}">{{$Castes->name}}</option>
+                    <label for="caste">Castes</label>
+                    <select class="form-input" name="caste" id="caste">
+                        <option value="" selected>Select an option</option>
+                        @foreach($Caste as $caste)
+                            <option value="{{ $caste->id }}" 
+                                {{ request()->input('caste') == $caste->id ? 'selected' : '' }}>
+                                {{ $caste->name }}
+                            </option>
                         @endforeach
                     </select> 
                     @if ($errors->has('caste'))
-                    <span class="text-danger small">{{ $errors->first('caste') }}</span>
+                        <span class="text-danger small">{{ $errors->first('caste') }}</span>
                     @endif   
-                 </div> 
-                <div class="form-group">
-                    <label>SubCastes</label>
-                    <select class="form-input" name="Subcastes">
-                        <option value="" selected>select an option</option>
-                        @foreach($SubCaste as $SubCastes)
-                        <option value="{{$SubCastes->id}}">{{$SubCastes->name}}</option>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="Subcastes">SubCastes</label>
+                    <select class="form-input" name="Subcastes" id="Subcastes">
+                        <option value="" selected>Select an option</option>
+                        @foreach ($SubCaste as $subCaste)
+                            <option value="{{ $subCaste->id }}" 
+                                {{ request()->input('Subcastes') == $subCaste->id ? 'selected' : '' }}>
+                                {{ $subCaste->name }}
+                            </option>
                         @endforeach
                     </select> 
                     @if ($errors->has('Subcastes'))
-                    <span class="text-danger small">{{ $errors->first('Subcastes') }}</span>
+                        <span class="text-danger small">{{ $errors->first('Subcastes') }}</span>
                     @endif   
-                 </div> 
+                </div>
+                
             </div>
             
         </div>
@@ -339,19 +354,46 @@
              </div>
              {{-- advance search --}}
              <div class="advance">
+                 <button type="button" id="toggleButton" class="small-button">Advance Search</button>
 
-                
-                <div>
-                <label><input type="checkbox" name="eating_habits[]" value="vegetarian" 
-                    {{ in_array('vegetarian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Vegetarian</label>
-                <label><input type="checkbox" name="eating_habits[]" value="non-vegetarian" 
-                    {{ in_array('non-vegetarian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Non-Vegetarian</label>
-                <label><input type="checkbox" name="eating_habits[]" value="vegan" 
-                    {{ in_array('vegan', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Vegan</label>
-                <label><input type="checkbox" name="eating_habits[]" value="eggiterian" 
-                    {{ in_array('eggiterian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Eggiterian</label>
+                 <select class="form-input" name="country" id="country">
+                    <option value="" selected>Select an option</option>
+                    @foreach (collect(config('data.country', []))->sortKeys()->toArray() as $value => $name)
+                        <option value="{{ $value }}" 
+                                {{ request()->input('country') == $value ? 'selected' : '' }}>
+                            {{ $name }}
+                        </option>
+                    @endforeach
+                </select>
+            
+                 <div id="eatingHabitsContent" style="display: none;">
+                    <label><input type="checkbox" name="eating_habits[]" value="vegetarian" 
+                        {{ in_array('vegetarian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Vegetarian</label>
+                    <label><input type="checkbox" name="eating_habits[]" value="non-vegetarian" 
+                        {{ in_array('non-vegetarian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Non-Vegetarian</label>
+                    <label><input type="checkbox" name="eating_habits[]" value="vegan" 
+                        {{ in_array('vegan', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Vegan</label>
+                    <label><input type="checkbox" name="eating_habits[]" value="eggiterian" 
+                        {{ in_array('eggiterian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Eggiterian</label>
                 </div>
-             </div>
+            </div>
+            
+             <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                     const toggleButton = document.getElementById("toggleButton");
+                    const eatingHabitsContent = document.getElementById("eatingHabitsContent");
+                     toggleButton.addEventListener("click", function() {
+                         if (eatingHabitsContent.style.display === "none") {
+                            eatingHabitsContent.style.display = "block";  
+                            toggleButton.textContent = "Hide Advance Search";   
+                        } else {
+                            eatingHabitsContent.style.display = "none";   
+                            toggleButton.textContent = "Show Advance Search";    
+                        }
+                    });
+                });
+            </script>
+            
             
         
             <!-- Search and Reset Buttons -->

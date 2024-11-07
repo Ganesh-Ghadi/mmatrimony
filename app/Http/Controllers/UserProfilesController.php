@@ -130,6 +130,7 @@ class UserProfilesController extends Controller
         $SubCastes = SubCaste::all();
         $Subcastes = $request->input('Subcastes');
         $eating_habits = $request->input('eating_habits');
+        $country = $request->input('country');
 
         $users = Profile::query();
 
@@ -176,6 +177,14 @@ class UserProfilesController extends Controller
             $users->whereIn('eating_habits', $eating_habits);
         }
 
+        if ($country) {
+            // Ensure $country is an array even if it's a single value
+            if (!is_array($country)) {
+                $country = [$country];  // Convert the single value to an array
+            }
+            $users->whereIn('country', $country);
+        }
+
         if ($from_height && $to_height) {
             $users
                 ->whereNotNull('height')  // Ensure users have a height
@@ -219,7 +228,11 @@ class UserProfilesController extends Controller
         }
 
         // Return the filtered users to the view
-        return view('default.view.profile.search.create', ['users' => $users, 'Caste' => $Castes, 'SubCaste' => $SubCastes]);
+        return view('default.view.profile.search.create', [
+            'users' => $users,
+            'Caste' => $Castes,
+            'SubCaste' => $SubCastes,
+        ]);
     }
 
     public function view_profile()
