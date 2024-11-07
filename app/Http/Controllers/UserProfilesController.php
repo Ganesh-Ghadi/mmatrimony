@@ -124,17 +124,15 @@ class UserProfilesController extends Controller
         $to_age = $request->input('to_age');
         $marital_status = $request->input('marital_status');
         $castes = $request->input('caste');
-        // dd($castes);
         $from_height = $request->input('from_height');
         $to_height = $request->input('to_height');
         $Castes = Caste::all();
         $SubCastes = SubCaste::all();
         $Subcastes = $request->input('Subcastes');
+        $eating_habits = $request->input('eating_habits');
 
-        // Initialize query builder for Profile model
         $users = Profile::query();
 
-        // Filter by name if a query is provided
         if ($query) {
             $users->where(function ($queryBuilder) use ($query) {
                 $queryBuilder
@@ -170,18 +168,13 @@ class UserProfilesController extends Controller
             $users->whereIn('sub_caste', $Subcastes);
         }
 
-        // if ($castes) {
-        //     $users->where(function ($queryBuilder) use ($query) {
-        //         $queryBuilder
-        //             ->where('caste', $query);
-        //     });
-        // }
-        // if ($Subcastes) {
-        //     $users->where(function ($queryBuilder) use ($query) {
-        //         $queryBuilder
-        //             ->where('sub_caste', 'like', '%' . $query . '%');
-        //     });
-        // }
+        if ($eating_habits) {
+            // Ensure $eating_habits is an array even if it's a single value
+            if (!is_array($eating_habits)) {
+                $eating_habits = [$eating_habits];  // Convert the single value to an array
+            }
+            $users->whereIn('eating_habits', $eating_habits);
+        }
 
         if ($from_height && $to_height) {
             $users
@@ -695,9 +688,4 @@ class UserProfilesController extends Controller
         return response($file, 200)
             ->header('Content-Type', $type);
     }
-
-
-   
-
-    
 }

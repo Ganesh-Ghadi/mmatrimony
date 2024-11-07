@@ -66,6 +66,20 @@
     gap: 10px;
     flex-wrap: wrap;
 }
+        .advance {
+    display: flex;
+    align-items: center; /* Vertically align inputs */
+    margin-top: 20px; /* Add space from the top */
+    margin-bottom: 10px;
+    max-width: 500px;
+    margin: 14px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+    flex-wrap: wrap;
+}
 
         .results {
             display: grid;
@@ -323,6 +337,22 @@
                 <label><input type="checkbox" name="marital_status[]" value="Widowed" {{ in_array('Widowed', (array) request()->input('marital_status')) ? 'checked' : '' }}> Widowed</label>
                 <label><input type="checkbox" name="marital_status[]" value="Annulled" {{ in_array('Annulled', (array) request()->input('marital_status')) ? 'checked' : '' }}> Annulled</label>
              </div>
+             {{-- advance search --}}
+             <div class="advance">
+
+                
+                <div>
+                <label><input type="checkbox" name="eating_habits[]" value="vegetarian" 
+                    {{ in_array('vegetarian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Vegetarian</label>
+                <label><input type="checkbox" name="eating_habits[]" value="non-vegetarian" 
+                    {{ in_array('non-vegetarian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Non-Vegetarian</label>
+                <label><input type="checkbox" name="eating_habits[]" value="vegan" 
+                    {{ in_array('vegan', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Vegan</label>
+                <label><input type="checkbox" name="eating_habits[]" value="eggiterian" 
+                    {{ in_array('eggiterian', (array) request()->input('eating_habits')) ? 'checked' : '' }}> Eggiterian</label>
+                </div>
+             </div>
+            
         
             <!-- Search and Reset Buttons -->
             <div class="form-actions mt-3">

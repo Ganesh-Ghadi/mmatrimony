@@ -86,7 +86,7 @@ button.btn {
     <div class="card-container">
         <h3>Profile Images</h3>
         <div class="form-row image-gallery">
-    <div class="form-group">
+     <div class="form-group">
         @if($user->img_1)
         <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_1 }}')">
             <template x-if="imageUrl">
@@ -100,8 +100,8 @@ button.btn {
         @else
             {{-- <p>No pic display</p> --}}
         @endif
-    </div>
-    <div class="form-group">
+     </div>
+     <div class="form-group">
         @if($user->img_2)
         <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_2 }}')">
             <template x-if="imageUrl">
@@ -115,7 +115,7 @@ button.btn {
         @else
             {{-- <p>No pic display</p> --}}
         @endif
-    </div>
+      </div>
     <div class="form-group">
         @if($user->img_3)
         <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_3 }}')">
@@ -131,28 +131,21 @@ button.btn {
             {{-- <p>No pic display</p> --}}
         @endif
     </div>
-</div>
-<div>
+        </div>
+    <div>
     <h2>Profile Completion</h2>
     <div class="progress">
         <div class="progress-bar" role="progressbar" style="width: {{ $profileCompletion }}%;" aria-valuenow="{{ $profileCompletion }}" aria-valuemin="0" aria-valuemax="100">
             {{ $profileCompletion }}%
         </div>
     </div>
-</div>
+    </div>
 </br>
-
-
-        
-        
-        <div class="panel">
+    <div class="panel">
             <h3>Your Profile</h3>
-           
-            
             <div class="card">
                 <h3 class="text-center">Basic Profile</h3>
                 <br/>
-                
                 <!-- First Row: User Info -->
                 <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Personal Information</h4>
                 <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
@@ -165,10 +158,8 @@ button.btn {
                     <p><strong>Living With:</strong> {{ $user->living_with }}</p>
 
                 </div>
-            
                 <!-- Third Row: Personal Details -->
                 <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Health Information</h4>
-
                 <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                     <p><strong>Blood Group:</strong> {{ $user->blood_group }}</p>
                     <p><strong>Height:</strong> {{ $user->height }}</p>
@@ -178,24 +169,19 @@ button.btn {
                     <p><strong>Physical Abnormality:</strong> {{ $user->physical_abnormality ? 'Yes' : 'No' }}</p>
                     <p><strong>Spectacles:</strong> {{ $user->spectacles ? 'Yes' : 'No' }}</p>
                     <p><strong>Lens:</strong> {{ $user->lens ? 'Yes' : 'No' }}</p>
-
                 </div>
-            
                 <!-- Fifth Row: Other Habits -->
                 <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Food Habits</h4>
-
                 <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                     <p><strong>Eating Habits:</strong> {{ $user->eating_habits }}</p>
                     <p><strong>Drinking Habits:</strong> {{ $user->drinking_habits }}</p>
                     <p><strong>Smoking Habits:</strong> {{ $user->smoking_habits }}</p>
                 </div>
-            
                 <!-- Sixth Row: About Self -->
                 <div class="card-row" style="border-top: 1px solid #ccc; padding-top: 10px;">
                     <p><strong>About Self:</strong> {{ $user->about_self }}</p>
                 </div>
             </div>
-            
             <div class="card">
                 <h3 class="text-center">Religious Profile</h3></br>
                 <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -213,10 +199,6 @@ button.btn {
                     </div>
                 </div>
             </div>
-            
-
-         
-         
             <div class="card">
                 <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
                     <!-- Family Profile -->
@@ -235,7 +217,6 @@ button.btn {
                             <p><strong>Mother's Organization:</strong> {{ $user->mother_organization }}</p>
                         </div>
                     </div>
-            
                     <!-- Brother Details -->
                     <div>
                         <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Brother Details</h4>
@@ -245,7 +226,6 @@ button.btn {
                             <p><strong>Unmarried:</strong> {{ $user->brother_is_alive ?? 0 }} {{ ($user->brother_is_alive ?? 0) == 1 ? 'brother' : 'brothers' }}</p>
                                 </div>
                     </div>
-            
                     <!-- Sister Details -->
                     <div>
                         <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Sister Details</h4>
@@ -351,16 +331,8 @@ button.btn {
                 <p><strong>Partner Foreign Resident:</strong> {{ $user->partner_foreign_resident ? 'Yes' : 'No' }}</p>
             </div>
         </div>
-    </div>
-    
-         
-            
-           
-            
-            
-            
-           
-        </div>
+    </div>     
+      </div>
     </div>
 
     <div class="sidebar">

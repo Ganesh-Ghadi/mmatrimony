@@ -93,13 +93,13 @@ return [
         'vegetarian' => 'Vegetarian',
         'vegan' => 'Vegan',
         'non-vegetarian' => 'Non-Vegetarian',
-        'eggeterian' => 'Eggeterian',
+        'eggiterian' => 'Eggiterian',
     ],
     'partner_eating_habbit' => [
         'vegetarian' => 'Vegetarian',
         'vegan' => 'Vegan',
         'non-vegetarian' => 'Non-Vegetarian',
-        'eggeterian' => 'Eggeterian',
+        'eggiterian' => 'Eggiterian',
     ],
     'drinking_habits' => [
         'non-alcoholic' => 'Non-Alcoholic',
