@@ -19,19 +19,24 @@
             display: block; /* Make it a block element for centering */
             border-radius: 8px; /* Optional: add rounded corners */
         }
-
         .no-profile-photo {
-            width: 80%; /* Match the width of the profile image */
-            height: 150px; /* Set a fixed height */
-            background-color: #f0f0f0; /* Light gray background */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888; /* Gray color for text */
-            font-weight: bold;
-            margin: 10px auto; /* Center the placeholder */
-            border-radius: 8px; /* Optional: add rounded corners */
-        }
+    width: 80%; /* Match the width of the profile image */
+    height: 387px; /* Set a fixed height for the placeholder */
+    background-color: #f0f0f0; /* Light gray background */
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    justify-content: center; /* Horizontally center the content */
+    color: #888; /* Gray color for text */
+    font-weight: bold;
+    margin: 10px auto; /* Center the placeholder */
+    border-radius: 8px; /* Optional: add rounded corners */
+    text-align: center; /* Ensure text is centered inside the div */
+    line-height: 1.5; /* Control the line height for better text visibility */
+}
+
+
+
+
 
         .view-profile {
             color: #007bff; /* Bootstrap primary color */
