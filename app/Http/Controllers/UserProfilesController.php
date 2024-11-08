@@ -270,6 +270,8 @@ class UserProfilesController extends Controller
 
     public function basic_details_store(Request $request)
     {
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+
         $profile_pics = auth()->user()->profile->img_1;
         $rules = [
             'first_name' => 'required|string|max:100',
@@ -308,6 +310,9 @@ class UserProfilesController extends Controller
         // dd($data);
         // Check if 'img_1' is uploaded and process
         if ($request->hasFile('img_1')) {
+            if (!empty($profile->img_1) && Storage::exists('public/images/' . $profile->img_1)) {
+                Storage::delete('public/images/' . $profile->img_1);
+            }
             // Get the uploaded image file details
             $img_1FileNameWithExtention = $request->file('img_1')->getClientOriginalName();
             $img_1Filename = pathinfo($img_1FileNameWithExtention, PATHINFO_FILENAME);
@@ -377,6 +382,9 @@ class UserProfilesController extends Controller
 
         // Check if 'img_2' is uploaded and process
         if ($request->hasFile('img_2')) {
+            if (!empty($profile->img_2) && Storage::exists('public/images/' . $profile->img_2)) {
+                Storage::delete('public/images/' . $profile->img_2);
+            }
             // Get the uploaded image file details
             $img_2FileNameWithExtention = $request->file('img_2')->getClientOriginalName();
             $img_2Filename = pathinfo($img_2FileNameWithExtention, PATHINFO_FILENAME);
@@ -445,6 +453,9 @@ class UserProfilesController extends Controller
 
         // Check if 'img_3' is uploaded and process
         if ($request->hasFile('img_3')) {
+            if (!empty($profile->img_3) && Storage::exists('public/images/' . $profile->img_3)) {
+                Storage::delete('public/images/' . $profile->img_3);
+            }
             // Get the uploaded image file details
             $img_3FileNameWithExtention = $request->file('img_3')->getClientOriginalName();
             $img_3Filename = pathinfo($img_3FileNameWithExtention, PATHINFO_FILENAME);
@@ -523,7 +534,6 @@ class UserProfilesController extends Controller
             $data['img_3'] = $img_3FileNameToStore;
         }
 
-        $profile = Profile::where('user_id', auth()->user()->id)->first();
         if ($profile) {
             $profile->update($data);
         } else {
@@ -634,6 +644,9 @@ class UserProfilesController extends Controller
         $data = $validated;
 
         if ($request->hasFile('img_patrika')) {
+            if (!empty($profile->img_patrika) && Storage::exists('public/images/' . $profile->img_patrika)) {
+                Storage::delete('public/images/' . $profile->img_patrika);
+            }
             // Get the uploaded image file details
             $img_patrikaFileNameWithExtention = $request->file('img_patrika')->getClientOriginalName();
             $img_patrikaFilename = pathinfo($img_patrikaFileNameWithExtention, PATHINFO_FILENAME);
@@ -795,6 +808,8 @@ class UserProfilesController extends Controller
 
     public function store(UpdateProfileRequest $request)
     {
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+
         if ($request->hasFile('img_1')) {
             $img_1FileNameWithExtention = $request->file('img_1')->getClientOriginalName();
             $img_1Filename = pathinfo($img_1FileNameWithExtention, PATHINFO_FILENAME);
@@ -844,7 +859,6 @@ class UserProfilesController extends Controller
         $data['lens'] = $request->has('lens');
         $data['spectacles'] = $request->has('spectacles');
 
-        $profile = Profile::where('user_id', auth()->user()->id)->first();
         if ($profile) {
             $profile->update($data);  // update() handles mass assignment based on fillable fields
         } else {
