@@ -423,7 +423,10 @@
                 @if($user->img_1)
                 <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_1 }}')">
                     <template x-if="imageUrl">
-                        <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                        <!-- Wrap the image in an anchor tag to open it in a new tab -->
+                        <a :href="imageUrl" target="_blank">
+                            <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                        </a>
                     </template>
                     <template x-if="!imageUrl">
                         {{-- <p>Loading image...</p> --}}
@@ -432,13 +435,18 @@
                 {{-- <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" style="max-width: 100px;"> --}}
                 @endif
             </div>
+            
 
             <div class="form-group">
                 @if($user->img_2)
                 <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_2 }}')">
-                    <template x-if="imageUrl">
-                        <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                     <template x-if="imageUrl">
+                        <!-- Wrap the image in an anchor tag to open it in a new tab -->
+                        <a :href="imageUrl" target="_blank">
+                            <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                        </a>
                     </template>
+                  
                     <template x-if="!imageUrl">
                         {{-- <p>Loading image...</p> --}}
                     </template>
@@ -450,7 +458,10 @@
                 @if($user->img_3)
                 <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_3 }}')">
                     <template x-if="imageUrl">
-                        <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                        <!-- Wrap the image in an anchor tag to open it in a new tab -->
+                        <a :href="imageUrl" target="_blank">
+                            <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                        </a>
                     </template>
                     <template x-if="!imageUrl">
                         {{-- <p>Loading image...</p> --}}

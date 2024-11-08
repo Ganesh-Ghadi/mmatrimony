@@ -306,28 +306,209 @@ class UserProfilesController extends Controller
         $validated = $request->validate($rules);
         $data = $validated;
         // dd($data);
+        // Check if 'img_1' is uploaded and process
         if ($request->hasFile('img_1')) {
+            // Get the uploaded image file details
             $img_1FileNameWithExtention = $request->file('img_1')->getClientOriginalName();
             $img_1Filename = pathinfo($img_1FileNameWithExtention, PATHINFO_FILENAME);
             $img_1Extention = $request->file('img_1')->getClientOriginalExtension();
             $img_1FileNameToStore = $img_1Filename . '_' . time() . '.' . $img_1Extention;
+
+            // Store the image in the 'public/images' directory
             $img_1Path = $request->file('img_1')->storeAs('public/images', $img_1FileNameToStore);
+
+            // GD library to add text to the image
+            $imagePath = storage_path('app/public/images/' . $img_1FileNameToStore);
+
+            // Open the image file
+            $image = imagecreatefromjpeg($imagePath);
+
+            if ($image === false) {
+                // Handle image opening failure
+                return redirect()->back()->with('error', 'Failed to open image.');
+            }
+
+            // Font and color for the text
+            $fontPath = public_path('fonts/font-1.ttf');  // Ensure this is the correct path to your TTF font
+
+            // Colors for text and shadow (faded shadow effect)
+            $shadowColor = imagecolorallocatealpha($image, 0, 0, 0, 50);  // Black color with alpha 50 (faded shadow)
+            $textColor = imagecolorallocatealpha($image, 255, 0, 0, 100);  // Red color with alpha 100 (faded text)
+
+            // Text to overlay
+            $text = 'Maratha Vivah Mandal';
+
+            // Get the image dimensions
+            $imageWidth = imagesx($image);
+            $imageHeight = imagesy($image);
+
+            // Dynamically adjust the font size based on image dimensions
+            $fontSize = min($imageWidth, $imageHeight) / 10;  // Scale font size based on image size
+
+            // Get the text dimensions
+            $textBoundingBox = imagettfbbox($fontSize, 0, $fontPath, $text);
+            $textWidth = $textBoundingBox[2] - $textBoundingBox[0];
+            $textHeight = $textBoundingBox[1] - $textBoundingBox[7];
+
+            // Calculate the position to center the text
+            $x = ($imageWidth - $textWidth) / 2;  // Center the text horizontally
+            $y = ($imageHeight - $textHeight) / 2 + $textHeight;  // Center the text vertically
+
+            // Add shadow layer to simulate 3D effect (slightly offset shadow)
+            $shadowOffsetX = 3;  // Horizontal offset of shadow
+            $shadowOffsetY = 3;  // Vertical offset of shadow
+
+            // First, draw the shadow layer (text slightly offset)
+            imagettftext($image, $fontSize, 0, $x + $shadowOffsetX, $y + $shadowOffsetY, $shadowColor, $fontPath, $text);
+
+            // Then, draw the main text on top of the shadow
+            imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontPath, $text);
+
+            // Save the modified image
+            imagejpeg($image, $imagePath);
+            // Free up memory after modifying the image
+            imagedestroy($image);
+
+            // Assign the image name to the data array
+            $data['img_1'] = $img_1FileNameToStore;
         }
 
+        // Repeat similar process for 'img_2' and 'img_3'
+
+        // Check if 'img_2' is uploaded and process
         if ($request->hasFile('img_2')) {
+            // Get the uploaded image file details
             $img_2FileNameWithExtention = $request->file('img_2')->getClientOriginalName();
             $img_2Filename = pathinfo($img_2FileNameWithExtention, PATHINFO_FILENAME);
             $img_2Extention = $request->file('img_2')->getClientOriginalExtension();
             $img_2FileNameToStore = $img_2Filename . '_' . time() . '.' . $img_2Extention;
+
+            // Store the image in the 'public/images' directory
             $img_2Path = $request->file('img_2')->storeAs('public/images', $img_2FileNameToStore);
+
+            // GD library to add text to the image
+            $imagePath = storage_path('app/public/images/' . $img_2FileNameToStore);
+
+            // Open the image file
+            $image = imagecreatefromjpeg($imagePath);
+
+            if ($image === false) {
+                // Handle image opening failure
+                return redirect()->back()->with('error', 'Failed to open image.');
+            }
+
+            // Font and color for the text
+            $fontPath = public_path('fonts/font-1.ttf');  // Ensure this is the correct path to your TTF font
+
+            // Colors for text and shadow (faded shadow effect)
+            $shadowColor = imagecolorallocatealpha($image, 0, 0, 0, 50);  // Black color with alpha 50 (faded shadow)
+            $textColor = imagecolorallocatealpha($image, 255, 0, 0, 100);  // Red color with alpha 100 (faded text)
+
+            // Text to overlay
+            $text = 'Maratha Vivah Mandal';
+
+            // Get the image dimensions
+            $imageWidth = imagesx($image);
+            $imageHeight = imagesy($image);
+
+            // Dynamically adjust the font size based on the image size
+            $fontSize = min($imageWidth, $imageHeight) / 10;  // Scale font size based on image size
+
+            // Get the text dimensions
+            $textBoundingBox = imagettfbbox($fontSize, 0, $fontPath, $text);
+            $textWidth = $textBoundingBox[2] - $textBoundingBox[0];
+            $textHeight = $textBoundingBox[1] - $textBoundingBox[7];
+
+            // Calculate the position to center the text
+            $x = ($imageWidth - $textWidth) / 2;  // Center the text horizontally
+            $y = ($imageHeight - $textHeight) / 2 + $textHeight;  // Center the text vertically
+
+            // Add shadow layer to simulate 3D effect (slightly offset shadow)
+            $shadowOffsetX = 3;  // Horizontal offset of shadow
+            $shadowOffsetY = 3;  // Vertical offset of shadow
+
+            // First, draw the shadow layer (text slightly offset)
+            imagettftext($image, $fontSize, 0, $x + $shadowOffsetX, $y + $shadowOffsetY, $shadowColor, $fontPath, $text);
+
+            // Then, draw the main text on top of the shadow
+            imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontPath, $text);
+
+            // Save the modified image (overwrites the original file)
+            imagejpeg($image, $imagePath);
+
+            // Free up memory after modifying the image
+            imagedestroy($image);
+
+            // Assign the image name to the data array
+            $data['img_2'] = $img_2FileNameToStore;
         }
 
+        // Check if 'img_3' is uploaded and process
         if ($request->hasFile('img_3')) {
+            // Get the uploaded image file details
             $img_3FileNameWithExtention = $request->file('img_3')->getClientOriginalName();
             $img_3Filename = pathinfo($img_3FileNameWithExtention, PATHINFO_FILENAME);
             $img_3Extention = $request->file('img_3')->getClientOriginalExtension();
             $img_3FileNameToStore = $img_3Filename . '_' . time() . '.' . $img_3Extention;
+
+            // Store the image in the 'public/images' directory
             $img_3Path = $request->file('img_3')->storeAs('public/images', $img_3FileNameToStore);
+
+            // GD library to add text to the image
+            $imagePath = storage_path('app/public/images/' . $img_3FileNameToStore);
+
+            // Open the image file
+            $image = imagecreatefromjpeg($imagePath);
+
+            if ($image === false) {
+                // Handle image opening failure
+                return redirect()->back()->with('error', 'Failed to open image.');
+            }
+
+            // Font and color for the text
+            $fontPath = public_path('fonts/font-1.ttf');  // Ensure this is the correct path to your TTF font
+
+            // Colors for text and shadow (faded shadow effect)
+            $shadowColor = imagecolorallocatealpha($image, 0, 0, 0, 50);  // Black color with alpha 50 (faded shadow)
+            $textColor = imagecolorallocatealpha($image, 255, 0, 0, 100);  // Red color with alpha 100 (faded text)
+
+            // Text to overlay
+            $text = 'Maratha Vivah Mandal';
+
+            // Get the image dimensions
+            $imageWidth = imagesx($image);
+            $imageHeight = imagesy($image);
+
+            // Dynamically adjust the font size based on the image size (for better scaling)
+            $fontSize = min($imageWidth, $imageHeight) / 10;  // Font size based on the image's smallest dimension (adjust /10 to suit)
+
+            // Get the text dimensions
+            $textBoundingBox = imagettfbbox($fontSize, 0, $fontPath, $text);
+            $textWidth = $textBoundingBox[2] - $textBoundingBox[0];
+            $textHeight = $textBoundingBox[1] - $textBoundingBox[7];
+
+            // Calculate the position to center the text
+            $x = ($imageWidth - $textWidth) / 2;  // Center the text horizontally
+            $y = ($imageHeight - $textHeight) / 2 + $textHeight;  // Center the text vertically
+
+            // Add shadow layer to simulate 3D effect (slightly offset shadow)
+            $shadowOffsetX = 3;  // Horizontal offset of shadow
+            $shadowOffsetY = 3;  // Vertical offset of shadow
+
+            // First, draw the shadow layer (text slightly offset)
+            imagettftext($image, $fontSize, 0, $x + $shadowOffsetX, $y + $shadowOffsetY, $shadowColor, $fontPath, $text);
+
+            // Then, draw the main text on top of the shadow
+            imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontPath, $text);
+
+            // Save the modified image (overwrites the original file)
+            imagejpeg($image, $imagePath);
+
+            // Free up memory after modifying the image
+            imagedestroy($image);
+
+            // Assign the image name to the data array
+            $data['img_3'] = $img_3FileNameToStore;
         }
 
         if ($request->hasFile('img_1')) {
@@ -475,7 +656,10 @@ class UserProfilesController extends Controller
 
             // Font and color for the text
             $fontPath = public_path('fonts/font-1.ttf');  // Ensure this is the correct path to your TTF font
-            $textColor = imagecolorallocatealpha($image, 255, 0, 0, 100);  // Red color with alpha 100 (faded effect)
+
+            // Colors for text and shadow (faded shadow effect)
+            $shadowColor = imagecolorallocatealpha($image, 0, 0, 0, 50);  // Black color with alpha 50 (faded shadow)
+            $textColor = imagecolorallocatealpha($image, 255, 0, 0, 100);  // Red color with alpha 100 (faded text)
             $fontSize = 40;  // Font size (adjust to fit the image size)
 
             // Text to overlay
@@ -494,10 +678,17 @@ class UserProfilesController extends Controller
             $x = ($imageWidth - $textWidth) / 2;  // Center the text horizontally
             $y = ($imageHeight - $textHeight) / 2 + $textHeight;  // Center the text vertically
 
-            // Add the watermark text to the image
+            // Add shadow layer to simulate 3D effect (slightly offset shadow)
+            $shadowOffsetX = 3;  // Horizontal offset of shadow
+            $shadowOffsetY = 3;  // Vertical offset of shadow
+
+            // First, draw the shadow layer (text slightly offset)
+            imagettftext($image, $fontSize, 0, $x + $shadowOffsetX, $y + $shadowOffsetY, $shadowColor, $fontPath, $text);
+
+            // Then, draw the main text on top of the shadow
             imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontPath, $text);
-            // add text to image
-            imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontPath, $text);
+
+            // Optionally, you can add multiple shadow layers with different offsets to give even more depth.
             // JPEG format use imagepng or imagegif for PNG or GIF imagejpeg
             imagejpeg($image, $imagePath);
             // delete the image

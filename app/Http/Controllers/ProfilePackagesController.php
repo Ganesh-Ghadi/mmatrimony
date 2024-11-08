@@ -23,7 +23,7 @@ class ProfilePackagesController extends Controller
         $tokenToUse = 500;
         // $this->useTokens($tokenToUse);
         if (!$this->useTokens($tokenToUse)) {
-            dd('not enought token');
+            // dd('not enought token');
             return redirect()->back()->with('error', 'Not enough tokens to add to interests');
         }
 
