@@ -433,7 +433,6 @@ class UserProfilesController extends Controller
 
     public function astronomy_details_store(Request $request)
     {
-        // dd($request);
         // Validate input data
         $validated = $request->validate([
             'birth_place' => 'nullable|string|max:100',
@@ -454,16 +453,60 @@ class UserProfilesController extends Controller
         $data = $validated;
 
         if ($request->hasFile('img_patrika')) {
+            // Get the uploaded image file details
             $img_patrikaFileNameWithExtention = $request->file('img_patrika')->getClientOriginalName();
             $img_patrikaFilename = pathinfo($img_patrikaFileNameWithExtention, PATHINFO_FILENAME);
             $img_patrikaExtention = $request->file('img_patrika')->getClientOriginalExtension();
             $img_patrikaFileNameToStore = $img_patrikaFilename . '_' . time() . '.' . $img_patrikaExtention;
+
+            // Store the image in the 'public/images' directory
             $img_patrikaPath = $request->file('img_patrika')->storeAs('public/images', $img_patrikaFileNameToStore);
-        }
-        if ($request->hasFile('img_patrika')) {
+
+            //  GD library to add text to the image
+            $imagePath = storage_path('app/public/images/' . $img_patrikaFileNameToStore);
+
+            // Open the image file
+            $image = imagecreatefromjpeg($imagePath);
+
+            if ($image === false) {
+                // Handle image opening failure
+                return redirect()->back()->with('error', 'Failed to open image.');
+            }
+
+            // Font and color for the text
+            $fontPath = public_path('fonts/font-1.ttf');  // Ensure this is the correct path to your TTF font
+            $textColor = imagecolorallocatealpha($image, 255, 0, 0, 100);  // Red color with alpha 100 (faded effect)
+            $fontSize = 40;  // Font size (adjust to fit the image size)
+
+            // Text to overlay
+            $text = 'Maratha Vivah Mandal';
+
+            // Get the image dimensions
+            $imageWidth = imagesx($image);
+            $imageHeight = imagesy($image);
+
+            // Get the text dimensions
+            $textBoundingBox = imagettfbbox($fontSize, 0, $fontPath, $text);
+            $textWidth = $textBoundingBox[2] - $textBoundingBox[0];
+            $textHeight = $textBoundingBox[1] - $textBoundingBox[7];
+
+            // Calculate the position to center the text
+            $x = ($imageWidth - $textWidth) / 2;  // Center the text horizontally
+            $y = ($imageHeight - $textHeight) / 2 + $textHeight;  // Center the text vertically
+
+            // Add the watermark text to the image
+            imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontPath, $text);
+            // add text to image
+            imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontPath, $text);
+            // JPEG format use imagepng or imagegif for PNG or GIF imagejpeg
+            imagejpeg($image, $imagePath);
+            // delete the image
+            imagedestroy($image);
+            // Assign the image name to the data array
             $data['img_patrika'] = $img_patrikaFileNameToStore;
         }
 
+        // Update or create profile data
         $profile = Profile::where('user_id', auth()->user()->id)->first();
         if ($profile) {
             $profile->update($data);
