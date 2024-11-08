@@ -16,11 +16,11 @@
                     <h5 class="font-semibold text-lg dark:text-white-light">Add Package</h5>
                 </div>               
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
-                    <x-text-input name="name" value="{{ old('name') }}" :label="__('package Name')" :require="true" :messages="$errors->get('name')"/>                       
-                    <x-text-input name="description" value="{{ old('description') }}" :label="__('package description')" :require="true" :messages="$errors->get('description')"/>     
-                    <x-text-input name="price" value="{{ old('price') }}" :label="__('package price')" :require="true" :messages="$errors->get('price')"/>            
-                    <x-text-input type="number" name="tokens" value="{{ old('tokens') }}" :label="__('tokens')" :require="true" :messages="$errors->get('tokens')"/>                           
-                    <x-text-input type="number" name="validity" value="{{ old('validity') }}" :label="__('validity')" :require="true" :messages="$errors->get('validity')"/>                           
+                    <x-text-input name="name" value="{{ old('name') }}" :label="__('Package Name')" :require="true" :messages="$errors->get('name')"/>                       
+                    <x-text-input name="description" value="{{ old('description') }}" :label="__('Package description')" :require="true" :messages="$errors->get('description')"/>     
+                    <x-text-input name="price" value="{{ old('price') }}" :label="__('Package price(INR)')" :require="true" :messages="$errors->get('price')"/>            
+                    <x-text-input type="number" name="tokens" value="{{ old('tokens') }}" :label="__('Tokens')" :require="true" :messages="$errors->get('tokens')"/>                           
+                    <x-text-input type="number" name="validity" value="{{ old('validity') }}" :label="__('Validity (Days)')" :require="true" :messages="$errors->get('validity')"/>                           
                     </div>
                 <div class="flex justify-end mt-4">
                     <x-success-button>
