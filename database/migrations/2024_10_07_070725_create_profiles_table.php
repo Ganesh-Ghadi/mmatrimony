@@ -73,6 +73,7 @@ return new class extends Migration {
             $table->string('birth_place', 100)->nullable();
             // educational Information
             $table->string('highest_education', 100)->nullable();
+            $table->string('other_education', 255)->nullable();
             $table->text('education_in_detail')->nullable();
             $table->string('additional_degree', 100)->nullable();
             // occupational Information

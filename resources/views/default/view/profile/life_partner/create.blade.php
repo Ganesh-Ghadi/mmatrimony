@@ -190,7 +190,7 @@
         <div class="container mt-3" id="dropdowns">
             <div class="row mt-3">
                 <div class="form-group">
-                    <label for="partner_income">Partner Income</label>
+                    <label for="partner_income">Partner Income (in INR)</label>
                     <input type="text" name="partner_income"  value="{{ $user->partner_income }}" id="partner_income" placeholder="Enter Native Place" >
                     @if ($errors->has('partner_income'))
                     <span class="text-danger small">{{ $errors->first('partner_income') }}</span>

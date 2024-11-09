@@ -65,6 +65,7 @@ class Profile extends Model
         'birth_time',
         'birth_place',
         'highest_education',
+        'other_education',
         'education_in_detail',
         'additional_degree',
         'occupation',

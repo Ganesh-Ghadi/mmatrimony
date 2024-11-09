@@ -17,12 +17,12 @@
                     <table class="table-hover">
                         <thead>
                             <tr>
-                                <th>id</th>
+                                <th>Id</th>
                                 <th style="text-align:right;">Name</th>
-                                <th style="text-align:right;">description</th>
-                                <th style="text-align:right;">price</th>
-                                <th style="text-align:right;">tokens</th>
-                                <th style="text-align:right;">validity</th>
+                                <th style="text-align:right;">Description</th>
+                                <th style="text-align:right;">Price (INR)</th>
+                                <th style="text-align:right;">Tokens</th>
+                                <th style="text-align:right;">Validity (days)</th>
                                 <th style="text-align:right;">Action</th>
                             </tr>
                         </thead>

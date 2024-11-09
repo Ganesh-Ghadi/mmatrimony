@@ -215,6 +215,8 @@ button.btn {
                             <p><strong>Mother's Occupation:</strong> {{ $user->mother_occupation }}</p>
                             <p><strong>Mother's Job Type:</strong> {{ $user->mother_job_type }}</p>
                             <p><strong>Mother's Organization:</strong> {{ $user->mother_organization }}</p>
+                            <p><strong>Mother's Native Place:</strong> {{ $user->mother_native_place }}</p>
+                            <p><strong>Mother's Name Before Marriage:</strong> {{ $user->mother_name_before_marriage }}</p>
                         </div>
                     </div>
                     <!-- Brother Details -->

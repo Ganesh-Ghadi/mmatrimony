@@ -3,7 +3,6 @@ return [
     'gender' => [
         'male' => 'Male',
         'female' => 'Female',
-        'other' => 'Other',
     ],
     'mother_tongues' => [
         'bengali' => 'Bengali',

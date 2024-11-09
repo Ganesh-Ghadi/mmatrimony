@@ -1,20 +1,22 @@
 <?php
-use App\Http\Controllers\admin\CastesController;
-use App\Http\Controllers\admin\CitiesController;
-use App\Http\Controllers\admin\PackagesController;
-use App\Http\Controllers\admin\PermissionsController;
-use App\Http\Controllers\admin\ProfilesController;
-use App\Http\Controllers\admin\RolesController;
-use App\Http\Controllers\admin\StatesController;
-use App\Http\Controllers\admin\subCastesController;
-use App\Http\Controllers\admin\UsersController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProfilePackagesController;
-use App\Http\Controllers\UserProfilesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\admin\CastesController;
+use App\Http\Controllers\admin\CitiesController;
+use App\Http\Controllers\admin\StatesController;
+use App\Http\Controllers\UserProfilesController;
+use App\Http\Controllers\admin\PackagesController;
+use App\Http\Controllers\admin\ProfilesController;
+use App\Http\Controllers\admin\subCastesController;
+use App\Http\Controllers\ProfilePackagesController;
+use App\Http\Controllers\admin\PermissionsController;
+use App\Http\Controllers\admin\AdminDashboardController;
+use App\Http\Controllers\admin\DashboardController as Enter;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
  * |--------------------------------------------------------------------------
@@ -90,9 +92,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('roles', RolesController::class);
         Route::resource('permissions', PermissionsController::class);
 
-        Route::get('/admin/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+        Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+        //     return view('admin.dashboard');
+        // })->name('admin.dashboard');
     });
 
     Route::group(['middleware' => ['auth']], function () {

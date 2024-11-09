@@ -127,32 +127,40 @@
         <h2>Religious Details</h2>
         <div class="form-row">
             <div class="form-group">
-                <label>Religion</label>
-                <select class="form-input" name="religion"  id="religion">
-                    <option value="" selected>select an option</option>
-                    <option value="hindu" {{ ($user->religion === 'hindu') ? 'selected' : ''}} >Hindu</option>
-                </select> 
+                <label for="religion">Religion</label>
+                <select class="form-input" name="religion" id="religion" disabled>
+                    <option value="hindu" selected>Hindu</option>
+                </select>
+                
+                <!-- Hidden input to ensure 'religion' is sent with the form -->
+                <input type="hidden" name="religion" value="hindu">
+        
                 @if ($errors->has('religion'))
-                <span class="text-danger small">{{ $errors->first('religion') }}</span>
-                @endif                  
-
+                    <span class="text-danger small">{{ $errors->first('religion') }}</span>
+                @endif
             </div>
         </div>
+        
+        
 
         
         <div class="form-row hidden" id="habitsRow">
             <div class="form-group">
-                <label>Castes</label>
-                <select class="form-input" name="caste" id="caste">
-                    <option value="" selected>select an option</option>
+                <label for="caste">Caste</label>
+                <select class="form-input" name="caste" id="caste" disabled>
                     @foreach($castes as $caste)
-                    <option value="{{$caste->id}}" {{ ($user->caste === $caste->id ) ? 'selected' : ''}}>{{$caste->name}}</option>
+                        @if($caste->name === 'Maratha')
+                            <option value="{{ $caste->id }}" selected>Maratha</option> <!-- Always selected 'Maratha' -->
+                        @else
+                            <option value="{{ $caste->id }}" hidden>{{ $caste->name }}</option> <!-- Hide other castes -->
+                        @endif
                     @endforeach
                 </select> 
-                @if ($errors->has('castes'))
-                <span class="text-danger small">{{ $errors->first('castes') }}</span>
+                @if ($errors->has('caste'))
+                    <span class="text-danger small">{{ $errors->first('caste') }}</span>
                 @endif   
-             </div>   
+            </div>
+              
 
             <div class="form-group">
                 <label>Subcastes</label>

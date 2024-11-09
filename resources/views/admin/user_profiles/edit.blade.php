@@ -16,9 +16,9 @@
                         <h5 class="font-semibold text-lg dark:text-white-light">Personal Information</h5>
                     </div>               
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
-                        <x-text-input name="first_name" class="bg-gray-200" value="{{ $profile->first_name }}" :label="__('first Name')" :require="true" :disabled="true" :messages="$errors->get('first_name')"/>   
-                        <x-text-input name="middle_name" class="bg-gray-200" value="{{ $profile->middle_name }}" :label="__('middle Name')" :require="true" :disabled="true" :messages="$errors->get('middle_name')"/>                       
-                        <x-text-input name="last_name" class="bg-gray-200" value="{{ $profile->last_name }}" :label="__('last Name')" :require="true" :disabled="true" :messages="$errors->get('last_name')"/>                                           
+                        <x-text-input name="first_name" class="bg-gray-200" value="{{ $profile->first_name }}" :label="__('First Name')" :require="true" :disabled="true" :messages="$errors->get('first_name')"/>   
+                        <x-text-input name="middle_name" class="bg-gray-200" value="{{ $profile->middle_name }}" :label="__('Middle Name')" :require="true" :disabled="true" :messages="$errors->get('middle_name')"/>                       
+                        <x-text-input name="last_name" class="bg-gray-200" value="{{ $profile->last_name }}" :label="__('Last Name')" :require="true" :disabled="true" :messages="$errors->get('last_name')"/>                                           
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
                             <div>
@@ -196,41 +196,84 @@
                         <div class="flex items-center justify-between mb-5">
                             <h5 class="font-semibold text-lg dark:text-white-light">Upload Photo</h5>
                         </div>               
-                        <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
-                            <div>
-                                <label for="file-upload" class="block text-sm font-medium text-gray-700">
-                                    Upload File:
-                                </label>
-                            
-                                <input 
-                                    type="file" 
-                                    id="file-upload" 
-                                    class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" 
-                                >
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="photo1">Photo 1</label>
+                                <input type="file" name="img_1" id="photo1" value="{{ $profile->img_1 }}">
+                                 @if ($errors->has('img_1'))
+                                <span class="text-danger small">{{ $errors->first('img_1') }}</span>
+                                @endif  
                             </div>
-                            <div>
-                                <label for="file-upload" class="block text-sm font-medium text-gray-700">
-                                    Upload File:
-                                </label>
-                            
-                                <input 
-                                    type="file" 
-                                    id="file-upload" 
-                                    class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" 
-                                >
+                
+                            <div class="form-group">
+                                <label for="photo2">Photo 2</label>
+                                <input type="file" name="img_2"  id="photo2">
+                                @if ($errors->has('img_2'))
+                                <span class="text-danger small">{{ $errors->first('img_2') }}</span>
+                                @endif  
                             </div>
-                            <div>
-                                <label for="file-upload" class="block text-sm font-medium text-gray-700">
-                                    Upload File:
-                                </label>
-                            
-                                <input 
-                                    type="file" 
-                                    id="file-upload" 
-                                    class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" 
-                                >
+                            <div class="form-group">
+                                <label for="photo3">Photo 3</label>
+                                <input type="file" name="img_3" id="photo3">
+                                @if ($errors->has('img_3'))
+                                <span class="text-danger small">{{ $errors->first('img_3') }}</span>
+                                @endif  
                             </div>
-                        </div>    
+                            <div class="form-row">
+                                <div class="form-group">
+                                    @if($profile->img_1)
+                                    <div x-data="imageLoader()" x-init="fetchImage('{{ $profile->img_1 }}')">
+                                        <template x-if="imageUrl">
+                                            <!-- Wrap the image in an anchor tag to open it in a new tab -->
+                                            <a :href="imageUrl" target="_blank">
+                                                <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                                            </a>
+                                        </template>
+                                        <template x-if="!imageUrl">
+                                            {{-- <p>Loading image...</p> --}}
+                                        </template>
+                                    </div>
+                                    {{-- <img src="{{ asset('storage/images/' . $profile->img_1) }}" alt="Uploaded Image" style="max-width: 100px;"> --}}
+                                    @endif
+                                </div>
+                                
+                    
+                                <div class="form-group">
+                                    @if($profile->img_2)
+                                    <div x-data="imageLoader()" x-init="fetchImage('{{ $profile->img_2 }}')">
+                                         <template x-if="imageUrl">
+                                            <!-- Wrap the image in an anchor tag to open it in a new tab -->
+                                            <a :href="imageUrl" target="_blank">
+                                                <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                                            </a>
+                                        </template>
+                                      
+                                        <template x-if="!imageUrl">
+                                            {{-- <p>Loading image...</p> --}}
+                                        </template>
+                                    </div>
+                                    {{-- <img src="{{ asset('storage/images/' . $profile->img_2) }}" alt="Uploaded Image" style="max-width: 100px;"> --}}
+                                      @endif
+                                </div>
+                                <div class="form-group">
+                                    @if($profile->img_3)
+                                    <div x-data="imageLoader()" x-init="fetchImage('{{ $profile->img_3 }}')">
+                                        <template x-if="imageUrl">
+                                            <!-- Wrap the image in an anchor tag to open it in a new tab -->
+                                            <a :href="imageUrl" target="_blank">
+                                                <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                                            </a>
+                                        </template>
+                                        <template x-if="!imageUrl">
+                                            {{-- <p>Loading image...</p> --}}
+                                        </template>
+                                    </div>
+                                        {{-- <img src="{{ asset('storage/images/' . $user->img_3) }}" alt="Uploaded Image" style="max-width: 100px;"> --}}
+                                    @endif
+                    
+                                </div>
+                            </div>
+                        </div>
                      </div>
                       
                     </div>  
@@ -242,25 +285,22 @@
                             <div class="grid grid-cols-2 gap-4 mb-4 md:grid-cols-3">  
                                 <div>
                                     <label>Religion</label>
-                                    <select class="form-input" name="religion"  id="religion">
-                                        <option value="" selected>select an option</option>
-                                        <option value="hindu" {{ ($profile->religion === 'hindu') ? 'selected' : ''}} >Hindu</option>
+                                    <select class="form-input" name="religion" id="religion" disabled>
+                                        <option value="hindu" selected>Hindu</option>
                                     </select> 
                                     <x-input-error :messages="$errors->get('religion')" class="mt-2" /> 
-                                </div> 
+                                </div>
                                 
                                 
                                 {{-- <template x-if="religion === 'hindu'"> --}}
+                                     
                                     <div>
-                                        <label>Castes</label>
-                                        <select class="form-input" name="castes" id="castes">
-                                            <option value="" selected>select an option</option>
-                                            @foreach($castes as $caste)
-                                            <option value="{{$caste->id}}" {{ ($profile->caste === $caste->id ) ? 'selected' : ''}}>{{$caste->name}}</option>
-                                            @endforeach
+                                        <label>Religion</label>
+                                        <select class="form-input" name="castes" id="castes" disabled>
+                                            <option value="Maratha" selected>Maratha</option>
                                         </select> 
                                         <x-input-error :messages="$errors->get('castes')" class="mt-2" /> 
-                                    </div>    
+                                    </div>
                                 {{-- </template> --}}
                     
                                 {{-- <template x-if="religion === 'hindu'"> --}}
@@ -274,6 +314,7 @@
                                         </select> 
                                         <x-input-error :messages="$errors->get('subcastes')" class="mt-2" /> 
                                     </div>
+                                    
                                 {{-- </template> --}}
                     
                                 {{-- <template x-if="religion === 'hindu'"> --}}
@@ -322,14 +363,16 @@
                     
                                 {{-- <template x-if="father_is_alive === 'yes'"> --}}
                                     <div>
-                                        <label>Job Type</label>
+                                        <label for="father_job_type">Job Type</label>
                                         <select class="form-input" name="father_job_type" id="father_job_type">
-                                            <option value="" selected>select an option</option>
-                                            <option value="government" {{ ($profile->father_job_type === 'government') ? 'selected' : '' }}>Government</option>
-                                            <option value="semiGovernment" {{ ($profile->father_job_type === 'semiGovernment') ? 'selected' : '' }}>Semi Government</option>
-                                            <option value="private" {{ ($profile->father_job_type === 'private') ? 'selected' : '' }}>Private</option>
-                                         </select> 
-                                        <x-input-error :messages="$errors->get('father_job_type')" class="mt-2" /> 
+                                            <option value="" selected>Select an option</option>
+                                            @foreach (config('data.job_type') as $value => $name)
+                                                <option value="{{$value}}" {{ ($profile->father_job_type === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('father_job_type'))
+                                            <span class="text-danger small">{{ $errors->first('father_job_type') }}</span>
+                                        @endif   
                                     </div>
                                 {{-- </template> --}}
                     
@@ -359,32 +402,38 @@
                                 
                                 {{-- <template x-if="isAlive === 'yes'"> --}}
                                     <div>
-                                        <label>Occupation</label>
+                                        <label for="mother_occupation">Occupation</label>
                                         <select class="form-input" name="mother_occupation" id="mother_occupation">
-                                            <option value="" selected>select an option</option>
+                                            <option value="" selected>Select an option</option>
                                             @foreach (config('data.occupation') as $value => $name)
-                                                <option value="{{$value}}" {{ ($profile->mother_occupation === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                                <option value="{{$value}}" {{ ($profile->mother_occupation === $value) ? 'selected' : '' }}>{{ $name }}</option>
                                             @endforeach
-                                        </select> 
-                                        <x-input-error :messages="$errors->get('mother_occupation')" class="mt-2" /> 
+                                        </select>
+                                        @if ($errors->has('mother_occupation'))
+                                            <span class="text-danger small">{{ $errors->first('mother_occupation') }}</span>
+                                        @endif    
                                     </div>    
                                 {{-- </template> --}}
                     
                                 {{-- <template x-if="isAlive === 'yes'"> --}}
                                     <div>
-                                        <label>Job Type</label>
-                                        <select class="form-input" name="mother_job_type" id="mother_job_type">
-                                            <option value="" selected>select an option</option>
-                                            <option value="government" {{ ($profile->mother_job_type === 'government') ? 'selected' : '' }}>Government</option>
-                                            <option value="semiGovernment" {{ ($profile->mother_job_type === 'semiGovernment') ? 'selected' : '' }}>Semi Government</option>
-                                            <option value="private" {{ ($profile->mother_job_type === 'private') ? 'selected' : '' }}>Private</option>
-                                         </select> 
-                                        <x-input-error :messages="$errors->get('mother_job_type')" class="mt-2" /> 
+                                        <label for="mother_job_type">Job Type</label>
+                    <select class="form-input" name="mother_job_type" id="mother_job_type">
+                        <option value="" selected>Select an option</option>
+                        @foreach (config('data.job_type') as $value => $name)
+                            <option value="{{$value}}" {{ ($profile->mother_job_type === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('mother_job_type'))
+                        <span class="text-danger small">{{ $errors->first('mother_job_type') }}</span>
+                    @endif   
                                     </div>
                                 {{-- </template> --}}
                     
                                 {{-- <template x-if="isAlive === 'yes'"> --}}
                                     <x-text-input name="mother_organization" value="{{ $profile->mother_organization }}" :label="__('Organization Name')" :require="false" :messages="$errors->get('mother_organization')"/>                       
+                                    <x-text-input name="mother_native_place" value="{{ $profile->mother_native_place }}" :label="__('Mother Native Place')" :require="false" :messages="$errors->get('mother_native_place')"/>                       
+                                    <x-text-input name="mother_name_before_marriage" value="{{ $profile->mother_name_before_marriage }}" :label="__('Mother Name Before Marriage')" :require="false" :messages="$errors->get('mother_name_before_marriage')"/>                       
                                 {{-- </template> --}}
                             </div>  
                             </div>  
@@ -395,44 +444,40 @@
                             </div>
                             <div class="grid grid-cols-2 gap-4 mb-4 md:grid-cols-2">  
                                 {{-- <x-text-input name="residentPlace" value="{{ old('residentPlace') }}" :label="__('Resident Place')" :require="false" :messages="$errors->get('residentPlace')"/>                        --}}
-                                    <div>
-                                        <label>Married</label>
-                                        <select class="form-input" name="married" x-model="married" id="married">
-                                            <option value="" selected>select an option</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                         </select> 
-                                        <x-input-error :messages="$errors->get('married')" class="mt-2" /> 
+                                    <div class="form-group">
+                                        <label for="number_of_brothers_married">Brother Married</label>
+                                        <select name="number_of_brothers_married" id="number_of_brothers_married" class="form-input">
+                                            <option value="" selected>Select an option</option>
+                                            @for ($i = 1; $i <= 10; $i++)
+                                                <option value="{{ $i }}" {{ ($profile->number_of_brothers_married == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Brothers' : 'Brother' }}</option>
+                                            @endfor
+                                        </select>
+                                        @if ($errors->has('number_of_brothers_married'))
+                                        <span class="text-danger small">{{ $errors->first('number_of_brothers_married') }}</span>
+                                        @endif   
                                     </div>
-                                    <div>
-                                        <label>UnMarried</label>
-                                        <select class="form-input" name="unmarried" x-model="unmarried" id="unmarried">
-                                            <option value="" selected>select an option</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                         </select> 
-                                        <x-input-error :messages="$errors->get('unmarried')" class="mt-2" /> 
+                                    <div class="form-group">
+                                        <label for="number_of_brothers_unmarried">Brother UnMarried</label>
+                                        <select name="number_of_brothers_unmarried" id="number_of_brothers_unmarried" class="form-input">
+                                            <option value="" selected>Select an option</option>
+                                            @for ($i = 1; $i <= 10; $i++)
+                                                <option value="{{ $i }}" {{ ($profile->number_of_brothers_unmarried == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Brothers' : 'Brother' }}</option>
+                                            @endfor
+                                        </select>
+                                        @if ($errors->has('number_of_brothers_unmarried'))
+                                        <span class="text-danger small">{{ $errors->first('number_of_brothers_unmarried') }}</span>
+                                        @endif   
                                     </div>
                                     </div>
                                     <div class="pt-5">        
                                                      
-                                            <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1">  
-                                               
-                                                <div>
-                                                    <label for="resident">Resident:</label>
-                                                    <textarea 
-                                                        id="description" 
-                                                        class="mt-1 block w-full h-32 p-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                                                    ></textarea>
-                                                    <x-input-error :messages="$errors->get('resident')" class="mt-2" /> 
-                                                </div> 
-                                            </div>    
+                                        <div class="form-group">
+                                            <label for="brother_resident_place">Resident Place</label>
+                                            <input type="text" class="form-input" name="brother_resident_place"  value="{{ $profile->brother_resident_place }}" id="brother_resident_place" placeholder="Enter Resident Place" >
+                                            @if ($errors->has('brother_resident_place'))
+                                            <span class="text-danger small">{{ $errors->first('brother_resident_place') }}</span>
+                                            @endif             
+                                        </div>
                                         
                                         </div> 
                                         </div> 
@@ -444,43 +489,42 @@
                             </div>
                             <div class="grid grid-cols-2 gap-4 mb-4 md:grid-cols-2">  
                                 {{-- <x-text-input name="residentPlace" value="{{ old('residentPlace') }}" :label="__('Resident Place')" :require="false" :messages="$errors->get('residentPlace')"/>                        --}}
-                                    <div>
-                                        <label>Married</label>
-                                        <select class="form-input" name="married" x-model="married" id="married">
-                                            <option value="" selected>select an option</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                         </select> 
-                                        <x-input-error :messages="$errors->get('married')" class="mt-2" /> 
+                                    <div class="form-group">
+                                        <label for="number_of_sisters_married">Sister Married</label>
+                                        <select name="number_of_sisters_married" id="number_of_sisters_married" class="form-input">
+                                            <option value="" selected>Select an option</option>
+                                            @for ($i = 1; $i <= 10; $i++)
+                                                <option value="{{ $i }}" {{ ($profile->number_of_sisters_married == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Sisters' : 'Sister' }}</option>
+                                            @endfor
+                                        </select>
+                                        @if ($errors->has('number_of_sisters_married'))
+                                        <span class="text-danger small">{{ $errors->first('number_of_sisters_married') }}</span>
+                                        @endif   
                                     </div>
-                                    <div>
-                                        <label>UnMarried</label>
-                                        <select class="form-input" name="unmarried" x-model="unmarried" id="unmarried">
-                                            <option value="" selected>select an option</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                         </select> 
-                                        <x-input-error :messages="$errors->get('unmarried')" class="mt-2" /> 
+                                    <div class="form-group">
+                                        <label for="number_of_sisters_unmarried">Sister UnMarried</label>
+                                        <select name="number_of_sisters_unmarried" id="number_of_sisters_unmarried" class="form-input">
+                                            <option value="" selected>Select an option</option>
+                                            @for ($i = 1; $i <= 10; $i++)
+                                                <option value="{{ $i }}" {{ ($profile->number_of_sisters_unmarried == $i) ? 'selected' : '' }}>{{ $i }} {{ $i > 1 ? 'Sisters' : 'Sister' }}</option>
+                                            @endfor
+                                        </select>
+                                        @if ($errors->has('number_of_sisters_unmarried'))
+                                        <span class="text-danger small">{{ $errors->first('number_of_sisters_unmarried') }}</span>
+                                        @endif   
                                     </div>
                                     </div>
                                     <div class="pt-5">        
                                                    
                                             <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-1">  
                                                
-                                                <div>
-                                                    <label for="resident">Resident:</label>
-                                                    <textarea 
-                                                        id="description" 
-                                                        class="mt-1 block w-full h-32 p-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                                                    ></textarea>
-                                                    <x-input-error :messages="$errors->get('resident')" class="mt-2" /> 
-                                                </div> 
+                                                <div class="form-group">
+                                                    <label for="sister_resident_place">Resident Place</label>
+                                                    <input class="form-input" name="sister_resident_place"  value="{{ $profile->sister_resident_place }}" id="sister_resident_place" placeholder="Enter Resident Place" >
+                                                    @if ($errors->has('sister_resident_place'))
+                                                    <span class="text-danger small">{{ $errors->first('sister_resident_place') }}</span>
+                                                    @endif   
+                                                 </div>
                                          </div>
                                         </div> 
                                         </div> 
@@ -492,14 +536,13 @@
                                                     <h5 class="font-semibold text-lg dark:text-white-light">About Parents</h5>
                                                 </div>               
                                                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
-                                                    <div>
-                                                        <label for="about_parents">About Parents:</label>
-                                                        <textarea 
-                                                            id="description" 
-                                                            class="mt-1 block w-full h-32 p-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                                                        ></textarea>
-                                                        <x-input-error :messages="$errors->get('about_parents')" class="mt-2" /> 
-                                                    </div> 
+                                                    <div class="form-group">
+                                                        <label for="about_parents">About Yourself</label>
+                                                        <textarea name="about_parents" id="about_parents" class="form-input" placeholder="Tell us about yourself..." >{{ old('about_parents', $profile->about_parents) }}</textarea>
+                                                        @if ($errors->has('about_parents'))
+                                                        <span class="text-danger small">{{ $errors->first('about_parents') }}</span>
+                                                        @endif   
+                                                    </div>
                                                 </div>    
                                              </div>
                                             </div>
@@ -518,21 +561,23 @@
             
             <div>
                 <label for="birth_place">Birth Place</label>
-                <input type="text" id="birth_place" name="birth_place" class="form-input" value="{{ old('birth_place') }}">
+                <input type="text" id="birth_place" name="birth_place" class="form-input" value="{{ $profile->birth_place }}">
                 <x-input-error :messages="$errors->get('birth_place')" class="mt-2" />
             </div>
+           
 
           
             <div>
                 <label for="birth_date">Birth Date</label>
-                <input type="date" id="birth_date" name="birth_date" class="form-input" value="{{ old('birth_date') }}">
+                <input type="date" id="birth_date" name="birth_date" class="form-input" value="{{ $profile->date_of_birth }}">
                 <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
             </div>
+             
 
             
             <div>
                 <label for="birth_time">Birth Time</label>
-                <input type="time" id="birth_time" name="birth_time" class="form-input" value="{{ old('birth_time') }}">
+                <input type="time" id="birth_time" name="birth_time" class="form-input" value="{{ $profile->birth_time }}">
                 <x-input-error :messages="$errors->get('birth_time')" class="mt-2" />
             </div>
         </div>
@@ -546,12 +591,18 @@
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Astronomy Information</h5>
                     
-                    <div class="col-span-2 md:col-span-3">
-                        <label class="flex items-center">
-                            <input type="checkbox" name="agree" class="form-checkbox" id="agree" x-model="agree">
-                            <span class="ml-2">Will show when meet.</span>
+                    <div>
+                        <!-- Hidden input to ensure 0 is sent when checkbox is unchecked -->
+                        <input type="hidden" name="when_meet" value="0" />
+                        
+                        <!-- Checkbox input -->
+                        <input name="when_meet" type="checkbox" value="1"
+                               {{ $profile->when_meet ? 'checked' : '' }} 
+                               id="toggleDropdowns" />
+                        
+                        <label class="text-black" for="toggleDropdowns" style="color: black;">
+                            भेटल्यावर बोलूया
                         </label>
-                        <x-input-error :messages="$errors->get('agree')" class="mt-2" />
                     </div>
                 </div>
         
@@ -559,54 +610,88 @@
                 <template x-if="!agree">
                     <div class="grid grid-cols-2 gap-4 mb-4 md:grid-cols-3">
                         <div>
-                            <label for="raashee">raashee</label>
-                            <select id="raashee" name="raashee" class="form-input">
-                                <option value="" selected>Select an option</option>
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                            </select>
+                             <label for="rashee">राशी</label>
+                        <select class="form-input" name="rashee" id="rashee">
+                            <option value="" selected>Select an option</option>
+                            @foreach (config('data.rashee', []) as $value => $name)
+                                <option value="{{ $value }}" {{ ($profile->rashee === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                            @endforeach
+                            
+                        </select>
+                        @if ($errors->has('rashee'))
+                        <span class="text-danger small">{{ $errors->first('rashee') }}</span>
+                        @endif    
                         </div>
         
-                        <div>
-                            <label for="nakshatra">nakshatra</label>
-                            <select id="nakshatra" name="nakshatra" class="form-input">
-                                <option value="" selected>Select an option</option>
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                            </select>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nakshatra">नक्षत्र</label>
+                                <select class="form-input" name="nakshatra" id="nakshatra">
+                                    <option value="" selected>Select an option</option>
+                                    @foreach (config('data.nakshatra', []) as $value => $name)
+                                        <option value="{{ $value }}" {{ ($profile->nakshatra === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                                    @endforeach
+                                    
+                                </select>
+                                @if ($errors->has('nakshatra'))
+                                <span class="text-danger small">{{ $errors->first('nakshatra') }}</span>
+                                @endif     
+                            </div>
                         </div>
         
-                        <div>
-                            <label for="mangala">Mangala</label>
-                            <select id="mangala" name="mangala" class="form-input">
-                                <option value="" selected>Select an option</option>
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                            </select>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="mangal">मंगळ</label>
+                                <select class="form-input" name="mangal" id="mangal">
+                                    <option value="" selected>Select an option</option>
+                                    @foreach (config('data.mangal', []) as $value => $name)
+                                        <option value="{{ $value }}" {{ ($profile->mangal === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                                    @endforeach
+                                    
+                                </select>
+                                @if ($errors->has('mangal'))
+                                <span class="text-danger small">{{ $errors->first('mangal') }}</span>
+                                @endif     
+                            </div>
                         </div>
-                        <div>
-                            <label for="caraṇa">Caraṇa</label>
-                            <select id="caraṇa" name="caraṇa" class="form-input">
+                        <div class="form-group">
+                            <label for="charan">चरण</label>
+                            <select class="form-input" name="charan" id="charan">
                                 <option value="" selected>Select an option</option>
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
+                                @foreach (config('data.charan', []) as $value => $name)
+                                    <option value="{{ $value }}" {{ ($profile->charan === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                                @endforeach
+                                
                             </select>
+                            @if ($errors->has('charan'))
+                            <span class="text-danger small">{{ $errors->first('charan') }}</span>
+                            @endif     
                         </div>
-                        <div>
-                            <label for="gan">Gan</label>
-                            <select id="gan" name="gan" class="form-input">
+                        <div class="form-group">
+                            <label for="gana">गण</label>
+                            <select class="form-input" name="gana" id="gana">
                                 <option value="" selected>Select an option</option>
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
+                                @foreach (config('data.gana', []) as $value => $name)
+                                    <option value="{{ $value }}" {{ ($profile->gana === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                                @endforeach
+                                
                             </select>
+                            @if ($errors->has('gana'))
+                            <span class="text-danger small">{{ $errors->first('gana') }}</span>
+                            @endif     
                         </div>
-                        <div>
-                            <label for="nadi">Nadi</label>
-                            <select id="nadi" name="nadi" class="form-input">
+                        <div class="form-group">
+                            <label for="nadi">नाडी</label>
+                            <select class="form-input" name="nadi" id="nadi">
                                 <option value="" selected>Select an option</option>
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
+                                @foreach (config('data.nadi', []) as $value => $name)
+                                    <option value="{{ $value }}" {{ ($profile->nadi === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                                @endforeach
+                                
                             </select>
+                            @if ($errors->has('nadi'))
+                            <span class="text-danger small">{{ $errors->first('nadi') }}</span>
+                            @endif     
                         </div>
                     </div>
                 </template>
@@ -621,28 +706,75 @@
                     <h5 class="font-semibold text-lg dark:text-white-light">Educational Information</h5>
                 </div>               
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
-                    <div>
-                        <label>Highest Education</label>
-                        <select class="form-input" name="highest_education" x-model="highest_education" id="highest_education">
+                    <div class="form-group">
+                        <label for="highest_education">Highest Education</label>
+                        <select name="highest_education" class="form-input" id="highest_education">
                             <option value="" selected>Select an option</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('eating_habits')" class="mt-2" /> 
-                    </div> 
+                            @foreach (config('data.highest_education', []) as $category => $options)
+                                <optgroup label="{{ ucwords(str_replace('_', ' ', $category)) }}">
+                                    @foreach ($options as $value => $name)
+                                        @if(is_array($name))
+                                            @foreach ($name as $subValue => $subName)
+                                                <option value="{{ $subValue }}" {{ (old('highest_education', $profile->highest_education) === $subValue) ? 'selected' : '' }}>
+                                                    {{ $subName }}
+                                                </option>
+                                            @endforeach
+                                        @else
+                                            <option value="{{ $value }}" {{ (old('highest_education', $profile->highest_education) === $value) ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
+                            <option value="other" {{ (old('highest_education', $profile->highest_education) === 'other') ? 'selected' : '' }}>Other</option>
+                        </select>
+                    
+                        <!-- Other input box appears only if 'Other' is selected -->
+                        <div id="other-education" style="display: {{ (old('highest_education', $profile->highest_education) === 'other') ? 'block' : 'none' }};">
+                            <label for="other_education">Please specify</label>
+                            <input type="text" name="other_education" id="other_education" class="form-input" value="{{ old('other_education', $profile->other_education) }}">
+                        </div>
+                    
+                        @if ($errors->has('highest_education'))
+                            <span class="text-danger small">{{ $errors->first('highest_education') }}</span>
+                        @endif
+                    </div>
+                    
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const highestEducationSelect = document.getElementById('highest_education');
+                            const otherEducationDiv = document.getElementById('other-education');
+                    
+                            // Show or hide the input field based on 'Other' selection
+                            if (highestEducationSelect.value === 'other') {
+                                otherEducationDiv.style.display = 'block';
+                            }
+                    
+                            highestEducationSelect.addEventListener('change', function () {
+                                if (this.value === 'other') {
+                                    otherEducationDiv.style.display = 'block';
+                                } else {
+                                    otherEducationDiv.style.display = 'none';
+                                }
+                            });
+                        });
+                    </script>
+                    
+                    
                     <div>
-                        <label for="education_in_detail">Education in Detail </label>
-                        <input type="text" id="education_in_detail" name="education_in_detail" class="form-input" value="{{ old('education_in_detail') }}">
-                        <x-input-error :messages="$errors->get('education_in_detail')" class="mt-2" />
+                        <label for="education_in_detail">Education in Detail</label> 
+                        <input class="form-input" type="text" name="education_in_detail" value="{{$profile->education_in_detail}}" id="education_in_detail" placeholder="Enter education in detail" >
+                        @if ($errors->has('education_in_detail'))
+                        <span class="text-danger small">{{ $errors->first('education_in_detail') }}</span>
+                        @endif  
                     </div>  
                     <div>
-                        <label>Education in Detail</label>
-                        <select class="form-input" name="education_in_details" x-model="education_in_details" id="education_in_details">
-                            <option value="" selected>Select an option</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('education_in_details')" class="mt-2" /> 
+                        <label for="additional_degree">Additional Degree</label> 
+                        <input class="form-input" type="text" name="additional_degree" value="{{$profile->additional_degree}}" id="additional_degree" placeholder="Enter education in detail" >
+                        @if ($errors->has('additional_degree'))
+                        <span class="text-danger small">{{ $errors->first('additional_degree') }}</span>
+                        @endif  
                     </div> 
                      
                     
@@ -655,33 +787,37 @@
                     <h5 class="font-semibold text-lg dark:text-white-light">Occupational Information</h5>
                 </div>               
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
-                    <div>
-                        <label>Occupation</label>
-                        <select class="form-input" name="highest_education" x-model="highest_education" id="highest_education">
+                    <div class="form-group">
+                        <label for="occupation">Occupation</label>
+                        <select class="form-input" name="occupation" id="occupation">
                             <option value="" selected>Select an option</option>
-                            <option value="government">Government</option>
-                            <option value="semi-government">Semi-Government</option>
-                            <option value="private">Private</option>
-                            <option value="inSearch">In Search</option>
-                            <option value="business">Business</option>
-                            <option value="businessAndServices">Business and Services</option>
-                            
-                        </select> 
-                        <x-input-error :messages="$errors->get('eating_habits')" class="mt-2" /> 
-                    </div> 
-                    <div>
-                        <label for="organisation">Organization</label>
-                        <input type="text" id="organisation" name="organisation" class="form-input" value="{{ old('organisation') }}">
-                        <x-input-error :messages="$errors->get('organisation')" class="mt-2" />
-                    </div>  
-                    <div>
-                        <label for="designation">Designation</label>
-                        <input type="text" id="designation" name="designation" class="form-input" value="{{ old('designation') }}">
-                        <x-input-error :messages="$errors->get('designation')" class="mt-2" />
-                    </div>  
+                            @foreach (config('data.occupation', []) as $value => $name)
+                                <option value="{{$value}}" {{ ($profile->occupation === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('occupation'))
+                        <span class="text-danger small">{{ $errors->first('occupation') }}</span>
+                        @endif  
+                    </div>
+                    <div class="form-group">
+                        <label for="organization">Organisation</label>
+                        <input type="text" name="organization" value="{{$profile->organization}}" id="organization" class="form-input" placeholder="Enter Organization">
+                        @if ($errors->has('organization'))
+                        <span class="text-danger small">{{ $errors->first('organization') }}</span>
+                        @endif  
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="designation">Designation</label>
+                            <input type="text" name="designation" value="{{$profile->designation}}" id="designation" class="form-input" placeholder="Enter designation">
+                            @if ($errors->has('designation'))
+                            <span class="text-danger small">{{ $errors->first('designation') }}</span>
+                            @endif  
+                        </div>
+                    </div>
                     <div>
                         <label for="job_location">Job Location</label>
-                        <input type="text" id="job_location" name="job_location" class="form-input" value="{{ old('job_location') }}">
+                        <input type="text" id="job_location" name="job_location" class="form-input" value="{{ $profile->job_location }}">
                         <x-input-error :messages="$errors->get('job_location')" class="mt-2" />
                     </div>  
                      
@@ -692,7 +828,7 @@
                     <h5 class="font-semibold text-lg dark:text-white-light">Experience / Income Information</h5>
                 </div>               
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
-                    <div>
+                    {{-- <div>
                         <label>Currency</label>
                         <select class="form-input" name="currency" x-model="currency" id="currency">
                             <option value="" selected>Select an option</option>
@@ -701,15 +837,15 @@
                             <option value="aed">AED</option>
                         </select> 
                         <x-input-error :messages="$errors->get('eating_habits')" class="mt-2" /> 
-                    </div> 
+                    </div>  --}}
                     <div>
                         <label for="job_experience">Job Experience</label>
-                        <input type="text" id="job_experience" name="job_experience" class="form-input" value="{{ old('job_experience') }}">
+                        <input type="text" id="job_experience" name="job_experience" class="form-input" value="{{ $profile->job_experience }}">
                          <x-input-error :messages="$errors->get('job_experience')" class="mt-2" />
                     </div>  
                     <div>
-                        <label for="income">Income</label>
-                        <input type="text" id="income" name="income" class="form-input" value="{{ old('income') }}">
+                        <label for="income">Income (in INR)</label>
+                        <input type="text" id="income" name="income" class="form-input" value="{{ $profile->income }}">
                         <x-input-error :messages="$errors->get('income')" class="mt-2" />
                     </div>  
                 </div>    
@@ -723,32 +859,35 @@
                     <h5 class="font-semibold text-lg dark:text-white-light">Location Information</h5>
                 </div>               
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
-                    <div>
-                        <label>Country</label>
-                        <select class="form-input" name="country" x-model="country" id="country">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select class="form-input" name="country" id="country">
                             <option value="" selected>Select an option</option>
-                            <option value="india">India</option>
-                            <option value="option">Option</option> 
-                        </select> 
-                        <x-input-error :messages="$errors->get('eating_habits')" class="mt-2" /> 
-                    </div> 
-                    <div>
-                        <label>State</label>
-                        <select class="form-input" name="state" x-model="state" id="state">
+                            @foreach (config('data.country', []) as $value => $name)
+                                <option value="{{ $value }}" {{ ($profile->country === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('country'))
+                            <span class="text-danger small">{{ $errors->first('country') }}</span>
+                        @endif  
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <select class="form-input" name="state" id="state">
                             <option value="" selected>Select an option</option>
-                            <option value="maharashtra">Maharashtra</option>
-                            <option value="option">Option</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('eating_habits')" class="mt-2" /> 
-                    </div> 
+                            @foreach (config('data.state', []) as $value => $name)
+                                <option value="{{ $value }}" {{ ($profile->state === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('state'))
+                            <span class="text-danger small">{{ $errors->first('state') }}</span>
+                        @endif  
+                    </div>
+                    
                     <div>
-                        <label>City</label>
-                        <select class="form-input" name="city" x-model="city" id="city">
-                            <option value="" selected>Select an option</option>
-                            <option value="mumbai">Mumbai</option>
-                            <option value="option">Option</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('eating_habits')" class="mt-2" /> 
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" class="form-input" value="{{ $profile->city }}">
+                         <x-input-error :messages="$errors->get('city')" class="mt-2" />
                     </div> 
                      
                 </div>    
@@ -759,30 +898,30 @@
                     
                     <div>
                         <label for="address_line_1">Address Line 1</label>
-                        <input type="text" id="address_line_1" name="address_line_1" class="form-input" value="{{ old('address_line_1') }}">
+                        <input type="text" id="address_line_1" name="address_line_1" class="form-input" value="{{ $profile->address_line_1 }}">
                          <x-input-error :messages="$errors->get('address_line_1')" class="mt-2" />
                     </div>  
                     <div>
                         <label for="address_line_2">Address Line 2</label>
-                        <input type="text" id="address_line_2" name="address_line_2" class="form-input" value="{{ old('address_line_2') }}">
+                        <input type="text" id="address_line_2" name="address_line_2" class="form-input" value="{{ $profile->address_line_2 }}">
                          <x-input-error :messages="$errors->get('address_line_2')" class="mt-2" />
                     </div>  
                     <div>
                         <label for="landmark">Landmark</label>
-                        <input type="text" id="landmark" name="landmark" class="form-input" value="{{ old('landmark') }}">
+                        <input type="text" id="landmark" name="landmark" class="form-input" value="{{ $profile->landmark }}">
                          <x-input-error :messages="$errors->get('landmark')" class="mt-2" />
                     </div>  
                     <div>
                         <label for="pincode">Pincode</label>
-                        <input type="text" id="pincode" name="pincode" class="form-input" value="{{ old('pincode') }}">
+                        <input type="text" id="pincode" name="pincode" class="form-input" value="{{ $profile->pincode }}">
                          <x-input-error :messages="$errors->get('pincode')" class="mt-2" />
                     </div>  
                     <div>
                         <label for="mobile">Mobile</label>
                         <div class="flex items-center">
                             <span class="mr-2">+91</span>
-                            <input type="text" id="mobile" name="mobile" class="form-input" value="{{ old('mobile', '+91') }}" 
-                                   placeholder="Enter mobile number" pattern="^\+91[0-9]{10}$" 
+                            <input type="text" id="mobile" name="mobile" class="form-input" value="{{ $profile->mobile }}"
+                                   placeholder="Enter mobile number" pattern="^\[0-9]{10}$" 
                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
                                    required>
                         </div>
@@ -795,7 +934,7 @@
                     </div>  
                     <div>
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-input" value="{{ old('email') }}" required>
+                        <input type="email" id="email" name="email" class="form-input" value="{{ $profile->email }}" required>
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
                     
@@ -811,42 +950,86 @@
                     <h5 class="font-semibold text-lg dark:text-white-light">Age / Height Information</h5>
                 </div>               
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-4">  
-                    <div>
-                        <label>Min Age</label>
-                        <select class="form-input" name="min_age" x-model="min_age" id="min_age">
-                            <option value="" selected>Select an option</option>
-                            <option value="option">Option</option>
-                            <option value="option">Option</option> 
-                        </select> 
-                        <x-input-error :messages="$errors->get('min_age')" class="mt-2" /> 
-                    </div> 
-                    <div>
-                        <label>Max Age</label>
-                        <select class="form-input" name="max_age" x-model="max_age" id="max_age">
-                            <option value="" selected>Select an option</option>
-                            <option value="option">Option</option>
-                            <option value="option">Option</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('max_age')" class="mt-2" /> 
-                    </div> 
-                    <div>
-                        <label>Min Height</label>
-                        <select class="form-input" name="min_height" x-model="min_height" id="min_height">
-                            <option value="" selected>Select an option</option>
-                            <option value="option">Option</option>
-                            <option value="option">Option</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('min_height')" class="mt-2" /> 
-                    </div> 
-                    <div>
-                        <label>Max Height</label>
-                        <select class="form-input" name="max_height" x-model="max_height" id="max_height">
-                            <option value="" selected>Select an option</option>
-                            <option value="option">Option</option>
-                            <option value="option">Option</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('max_height')" class="mt-2" /> 
-                    </div> 
+                    <div class="col">
+                        @if($profile->role === 'bride')
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="partner_min_age">Min Age</label>
+                            <select name="partner_min_age" id="partner_min_age" class="form-input">
+                                <option value="" selected>select an option</option>
+                                @if (config('data.partner_min_age'))
+                                    @foreach (config('data.partner_min_age') as $value => $name)
+                                        <option value="{{$value}}" {{ ($profile->partner_min_age === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            @if ($errors->has('partner_min_age'))
+                            <span class="text-danger small">{{ $errors->first('partner_min_age') }}</span>
+                            @endif  
+                        </div>
+                    </div>
+                    @else 
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="partner_min_age">Min Age</label>
+                            <select name="partner_min_age" id="partner_min_age" class="form-input">
+                                <option value="" selected>select an option</option>
+                                @if (config('data.bride_min_age'))
+                                    @foreach (config('data.bride_min_age') as $value => $name)
+                                        <option value="{{$value}}" {{ ($profile->partner_min_age === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            @if ($errors->has('partner_min_age'))
+                            <span class="text-danger small">{{ $errors->first('partner_min_age') }}</span>
+                            @endif  
+                        </div>
+                    </div>
+                    @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="partner_max_age">Max Age</label>
+                        <select name="partner_max_age" id="partner_max_age" class="form-input">
+                            <option value="" selected>select an option</option>
+                            @if (config('data.partner_max_age'))
+                                @foreach (config('data.partner_max_age') as $value => $name)
+                                    <option value="{{$value}}" {{ ($profile->partner_max_age === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @if ($errors->has('partner_max_age'))
+                        <span class="text-danger small">{{ $errors->first('partner_max_age') }}</span>
+                        @endif  
+                    </div>
+                    <div class="form-group">
+                        <label for="partner_min_height">Min Height</label>
+                        <select name="partner_min_height" id="partner_min_height" class="form-input">
+                            <option value="" selected>select an option</option>
+                            @if (config('data.partner_min_height'))
+                                @foreach (config('data.partner_min_height') as $value => $name)
+                                    <option value="{{$value}}" {{ ($profile->partner_min_height === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @if ($errors->has('partner_min_height'))
+                        <span class="text-danger small">{{ $errors->first('partner_min_height') }}</span>
+                        @endif 
+                    </div>
+                    <div class="form-group">
+                        <label for="partner_max_height">Max Height</label>
+                        <select name="partner_max_height" id="partner_max_height" class="form-input">
+                            <option value="" selected>select an option</option>
+                            @if (config('data.partner_max_height'))
+                                @foreach (config('data.partner_max_height') as $value => $name)
+                                    <option value="{{$value}}" {{ ($profile->partner_max_height === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                                @endforeach
+                            @endif
+                            
+                        </select>
+                        @if ($errors->has('partner_max_height'))
+                        <span class="text-danger small">{{ $errors->first('partner_max_height') }}</span>
+                        @endif 
+                    </div>
                      
                 </div>   
                  
@@ -856,88 +1039,114 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
                     
                     <div>
-                        <label for="income">Income</label>
-                        <input type="text" id="income" name="income" class="form-input" value="{{ old('income') }}">
+                        <label for="income">Income (in INR)</label>
+                        <input type="text" id="income" name="income" class="form-input" value="{{ $profile->income }}">
                          <x-input-error :messages="$errors->get('income')" class="mt-2" />
                     </div>  
-                    <div>
-                        <label for="city_preference">City Preference</label>
-                        <input type="text" id="city_preference" name="city_preference" class="form-input" value="{{ old('city_preference') }}">
-                         <x-input-error :messages="$errors->get('city_preference')" class="mt-2" />
-                    </div>  
-                    <div>
-                        <label for="education_specialisation">Education Specialisation</label>
-                        <input type="text" id="education_specialisation" name="education_specialisation" class="form-input" value="{{ old('education_specialisation') }}">
-                         <x-input-error :messages="$errors->get('education_specialisation')" class="mt-2" />
-                    </div>  
-                    <div>
-                        <label>Currency</label>
-                        <select class="form-input" name="currency" x-model="currency" id="currency">
-                            <option value="" selected>Select an option</option>
-                            <option value="inr">INR</option> 
-                            <option value="usd">USD</option>
-                            <option value="aed">AED</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('eating_habits')" class="mt-2" /> 
-                    </div> 
-                    <div>
-                        <label>Want To See Patrika</label>
-                        <select class="form-input" name="patrika" x-model="patrika" id="patrika">
-                            <option value="" selected>Select an option</option>
-                            <option value="yes">Yes</option> 
-                            <option value="no">No</option>
-                         </select> 
-                        <x-input-error :messages="$errors->get('eating_habits')" class="mt-2" /> 
-                    </div> 
-                    <div>
-                        <label>Subcastes</label>
-                        <select class="form-input" name="subcastes" x-model="subcastes" id="subcastes">
-                            <option value="" selected>select an option</option>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('subcastes')" class="mt-2" /> 
-                    </div>
-                    <div>
-                        <label>Education in Detail</label>
-                        <select class="form-input" name="education_in_details" x-model="education_in_details" id="education_in_details">
-                            <option value="" selected>Select an option</option>
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('education_in_details')" class="mt-2" /> 
-                    </div> 
-                    <div>
-                        <label>Job</label>
-                        <select class="form-input" name="job" x-model="job" id="job">
-                            <option value="" selected>Select an option</option>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                            <option value="other">Other</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('job')" class="mt-2" /> 
-                    </div> 
-                    <div>
-                        <label>Business</label>
-                        <select class="form-input" name="business" x-model="business" id="business">
-                            <option value="" selected>Select an option</option>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                            <option value="other">Other</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('business')" class="mt-2" /> 
-                    </div> 
-                    <div>
-                        <label>Foreign Residents</label>
-                        <select class="form-input" name="foreign_resident" x-model="business" id="business">
-                            <option value="" selected>Select an option</option>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                            <option value="other">Other</option>
-                        </select> 
-                        <x-input-error :messages="$errors->get('business')" class="mt-2" /> 
-                    </div> 
+                    <div class="form-group">
+                        <label for="partner_city_preference">City Preference</label>
+                        <input class="form-input" type="text" name="partner_city_preference"  value="{{ $profile->partner_city_preference }}" id="partner_city_preference" placeholder="Enter City Preference" >
+                        @if ($errors->has('partner_city_preference'))
+                        <span class="text-danger small">{{ $errors->first('partner_city_preference') }}</span>
+                        @endif  
+                </div>
                      
+                <div class="form-group">
+                    <label for="partner_currency">Currency</label>
+                    <select name="partner_currency" id="partner_currency" class="form-input">
+                        <option value="" selected>select an option</option>
+                        @if (config('data.partner_currency'))
+                            @foreach (config('data.partner_currency') as $value => $name)
+                                <option value="{{$value}}" {{ ($profile->partner_currency === $value) ? 'selected' : ''}} >{{ $name }}</option>
+                            @endforeach
+                        @endif
+                        
+                    </select>
+                    @if ($errors->has('partner_currency'))
+                <span class="text-danger small">{{ $errors->first('partner_currency') }}</span>
+                @endif 
+                </div>
+                    <div class="form-group">
+                        <label for="want_to_see_patrika">Want to see Patrika</label>
+                        <select class="form-input" name="want_to_see_patrika" id="want_to_see_patrika">
+                            <option value="" selected>Select an option</option>
+                            <!-- Correct string comparison for 'yes' and 'no' -->
+                            <option value="yes" {{ $profile->want_to_see_patrika === 'yes' ? 'selected' : '' }}>Yes</option>
+                            <option value="no" {{ $profile->want_to_see_patrika === 'no' ? 'selected' : '' }}>No</option>
+                        </select>
+                        @if ($errors->has('want_to_see_patrika'))
+                        <span class="text-danger small">{{ $errors->first('want_to_see_patrika') }}</span>
+                        @endif 
+                    </div>
+                    <div class="form-group">
+                        <label for="partner_sub_cast">SubCast</label>
+                        <select class="form-input" name="partner_sub_cast" id="partner_sub_cast">
+                            <option value="" selected>Select an option</option>
+                            <!-- Correct string comparison for 'yes' and 'no' -->
+                            <option value="yes" {{ $profile->partner_sub_cast === 'yes' ? 'selected' : '' }}>Yes</option>
+                            <option value="no" {{ $profile->partner_sub_cast === 'no' ? 'selected' : '' }}>No</option>
+                        </select>
+                        @if ($errors->has('partner_sub_cast'))
+                        <span class="text-danger small">{{ $errors->first('partner_sub_cast') }}</span>
+                        @endif         
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="partner_education">Education</label>
+                            <input class="form-input" type="text" name="partner_education"  value="{{ $profile->partner_education }}" id="partner_education" placeholder="Enter Education" >
+                            @if ($errors->has('partner_education'))
+                            <span class="text-danger small">{{ $errors->first('partner_education') }}</span>
+                            @endif  
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="partner_job">Job</label>
+                        <select class="form-input" name="partner_job" id="partner_job">
+                            <option value="" selected>Select an option</option>
+                            <!-- Correct string comparison for 'yes' and 'no' -->
+                            <option value="yes" {{ $profile->partner_job === 'yes' ? 'selected' : '' }}>Yes</option>
+                            <option value="no" {{ $profile->partner_job === 'no' ? 'selected' : '' }}>No</option>
+                        </select>
+                        @if ($errors->has('partner_job'))
+                        <span class="text-danger small">{{ $errors->first('partner_job') }}</span>
+                        @endif  
+                    </div>
+                    <div class="form-group">
+                        <label for="partner_business">Business</label>
+                        <select class="form-input" name="partner_business" id="partner_business">
+                            <option value="" selected>Select an option</option>
+                            <!-- Correct string comparison for 'yes' and 'no' -->
+                            <option value="yes" {{ $profile->partner_business === 'yes' ? 'selected' : '' }}>Yes</option>
+                            <option value="no" {{ $profile->partner_business === 'no' ? 'selected' : '' }}>No</option>
+                        </select>
+                        @if ($errors->has('partner_business'))
+                        <span class="text-danger small">{{ $errors->first('partner_business') }}</span>
+                        @endif  
+                    </div>
+                    <div class="form-group">
+                        <label for="partner_foreign_resident">Foreign resident</label>
+                        <select class="form-input" name="partner_foreign_resident" id="partner_foreign_resident">
+                            <option value="" selected>Select an option</option>
+                            <!-- Correct string comparison for 'yes' and 'no' -->
+                            <option value="yes" {{ $profile->partner_foreign_resident === 'yes' ? 'selected' : '' }}>Yes</option>
+                            <option value="no" {{ $profile->partner_foreign_resident === 'no' ? 'selected' : '' }}>No</option>
+                        </select>
+                        @if ($errors->has('partner_foreign_resident'))
+                        <span class="text-danger small">{{ $errors->first('partner_foreign_resident') }}</span>
+                        @endif            
+                  </div>
+                  <div class="form-group">
+                    <label for="partner_eating_habbit">Eating Habbits</label>
+                    <select class="form-input" name="partner_eating_habbit" id="partner_eating_habbit">
+                        <option value="" selected>Select an option</option>
+                        @foreach (config('data.partner_eating_habbit', []) as $value => $name)
+                            <option value="{{ $value }}" {{ ($profile->partner_eating_habbit === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('partner_eating_habbit'))
+                    <span class="text-danger small">{{ $errors->first('partner_eating_habbit') }}</span>
+                    @endif    
+                </div>
                     
                     
                     

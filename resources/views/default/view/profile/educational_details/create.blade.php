@@ -114,11 +114,51 @@
                                     @endforeach
                                 </optgroup>
                             @endforeach
+                            <option value="other" {{ ($user->highest_education === 'other') ? 'selected' : '' }}>Other</option> <!-- Add 'Other' option -->
                         </select>
-                        @if ($errors->has('highest_education'))
-                        <span class="text-danger small">{{ $errors->first('highest_education') }}</span>
-                        @endif  
-                    </div>
+                        
+                        <!-- Input box for "Other" option -->
+                       
+                        
+                        <!-- This div will be shown or hidden based on the selection -->
+                        <div id="other-education" class="form-group" style="display: none;">
+                            <label for="other_education">Other Education</label>
+                            <input type="text" name="other_education" value="{{ old('other_education', $user->other_education) }}" id="other_education" placeholder="Enter education in detail">
+                            @if ($errors->has('other_education'))
+                                <span class="text-danger small">{{ $errors->first('other_education') }}</span>
+                            @endif
+                        </div>
+                        
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const highestEducationSelect = document.getElementById('highest_education');
+                                const otherEducationDiv = document.getElementById('other-education');
+                                const otherEducationInput = document.getElementById('other_education'); // The actual input field
+                        
+                                // Function to toggle the display of the "Other Education" input and reset its value
+                                function toggleOtherEducationInput() {
+                                    if (highestEducationSelect.value === 'other') {
+                                        otherEducationDiv.style.display = 'block'; // Show the input
+                                    } else {
+                                        otherEducationDiv.style.display = 'none'; // Hide the input
+                                        otherEducationInput.value = ''; // Clear the input value
+                                    }
+                                }
+                        
+                                // Initial call to set the correct state on page load
+                                toggleOtherEducationInput();
+                        
+                                // Add event listener to show or hide based on the dropdown selection
+                                highestEducationSelect.addEventListener('change', function () {
+                                    toggleOtherEducationInput();
+                                });
+                            });
+                        </script>
+                        
+                    
+                    
+                    
+                </div>
                 </div>
                 <div class="col">
                     <div class="form-group">

@@ -277,14 +277,14 @@ class UserProfilesController extends Controller
             'first_name' => 'required|string|max:100',
             'middle_name' => 'required|string|max:100',
             'last_name' => 'required|string|max:100',
-            'mother_tongue' => 'nullable|string|max:100',
-            'native_place' => 'nullable|string|max:100',
+            'mother_tongue' => 'required|string|max:100',
+            'native_place' => 'required|string|max:100',
             'gender' => 'required|string|max:50',
             'marital_status' => 'required|string|max:50',
             'living_with' => 'required|string|max:100',
             'blood_group' => 'required|string|max:10',
             'height' => 'required|string|max:10',
-            'weight' => 'nullable|string|max:10',
+            'weight' => 'required|string|max:10',
             'body_type' => 'required|string|max:50',
             'complexion' => 'required|string|max:50',
             'physical_abnormality' => 'required|boolean',
@@ -612,8 +612,8 @@ class UserProfilesController extends Controller
     public function religious_details_store(Request $request)
     {
         $validated = $request->validate([
-            'religion' => 'required|string|max:100',
-            'caste' => 'required|integer',
+            'religion' => 'nullable|string|max:100',
+            'caste' => 'nullable|integer',
             'sub_caste' => 'required|integer',
             'gotra' => 'nullable|string|max:100',
         ]);
@@ -789,6 +789,8 @@ class UserProfilesController extends Controller
     {
         $validated = $request->validate([
             'highest_education' => 'required|string|max:100',  // Fixed typo here: 'required' instead of 'requried'
+            'other_education' => 'nullable|string|max:255',
+            // 'other_education' => 'required_if:highest_education,other|string|max:255',
             'education_in_detail' => 'nullable|string',
             'additional_degree' => 'nullable|string|max:100',
         ]);

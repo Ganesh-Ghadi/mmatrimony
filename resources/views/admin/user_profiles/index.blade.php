@@ -24,7 +24,7 @@
                                 <th style="text-align:right;">Full Name</th>
                                 <th style="text-align:right;">Gender</th>
                                 <th style="text-align:right;">Marital Status</th>
-                                <th style="text-align:right;">email</th>
+                                <th style="text-align:right;">Email</th>
 
                                 <th style="text-align:right;">Action</th>
                             </tr>
