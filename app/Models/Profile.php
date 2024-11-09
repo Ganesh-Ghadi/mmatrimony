@@ -112,6 +112,17 @@ class Profile extends Model
         'chart',
         'more_about_patrika',
         'celestial_bodies',
+        'celestial_bodies_2',
+        'celestial_bodies_3',
+        'celestial_bodies_4',
+        'celestial_bodies_5',
+        'celestial_bodies_6',
+        'celestial_bodies_7',
+        'celestial_bodies_8',
+        'celestial_bodies_9',
+        'celestial_bodies_10',
+        'celestial_bodies_11',
+        'celestial_bodies_12',
         'img_patrika'
     ];
 

@@ -371,8 +371,14 @@
             <button id="dropdownButton2" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -67px; left: 13px;">Select</button>
             <div  id="dropdownMenu2" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -48px; left: 13px;">
                 @foreach (config('data.celestial_bodies', []) as $value => $name)
+                    {{-- <label style="display: block;">
+                        <input type="checkbox" class="checkbox-option" name="celestial_bodies[]" value="{{$value}}" > {{ $name }}
+                    </label> --}}
+
                     <label style="display: block;">
-                        <input type="checkbox" class="checkbox-option" name="celestial_bodies" value="{{$value}}" > {{ $name }}
+                        <input type="checkbox" class="checkbox-option" name="celestial_bodies[]" value="{{ $value }}"
+                            @if (in_array($value, $storedCelestialBodies)) checked @endif> 
+                        {{ $name }}
                     </label>
                    
                 @endforeach
@@ -385,10 +391,12 @@
             <input id="imageDropdown2" class="transparent-input" style="position: absolute; top: -104px; left: -168px;" disabled placeholder="Select 2">
             <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -103px; left: -148px;">Select</button>
             <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -83px; left: -148px;">
-                @foreach (config('data.celestial_bodies', []) as $value => $name)
-                    <label style="display: block;">
-                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                    </label>
+                @foreach (config('data.celestial_bodies') as $value => $name)
+                <label style="display: block;">
+                    <input type="checkbox" class="checkbox-option" name="celestial_bodies_2[]" value="{{ $value }}"
+                        @if (in_array($value, $storedCelestialBodies2)) checked @endif> 
+                    {{ $name }}
+                </label>
                 @endforeach
             </div>
         </div>
@@ -398,9 +406,11 @@
             <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -56px; left: -248px;">Select</button>
             <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -37px; left: -248px;">
                 @foreach (config('data.celestial_bodies', []) as $value => $name)
-                    <label style="display: block;">
-                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                    </label>
+                <label style="display: block;">
+                    <input type="checkbox" class="checkbox-option" name="celestial_bodies_3[]" value="{{ $value }}"
+                        @if (in_array($value, $storedCelestialBodies3)) checked @endif> 
+                    {{ $name }}
+                </label>
                 @endforeach
             </div>
         </div>
@@ -410,9 +420,11 @@
             <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 26px; left: -160px;">Select</button>
             <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 46px; left: -160px;">
                 @foreach (config('data.celestial_bodies', []) as $value => $name)
-                    <label style="display: block;">
-                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                    </label>
+                <label style="display: block;">
+                    <input type="checkbox" class="checkbox-option" name="celestial_bodies_4[]" value="{{ $value }}"
+                        @if (in_array($value, $storedCelestialBodies4)) checked @endif> 
+                    {{ $name }}
+                </label>
                 @endforeach
             </div>
         </div>
@@ -422,9 +434,11 @@
             <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 112px; left: -256px;">Select</button>
             <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 131px; left: -256px;">
                 @foreach (config('data.celestial_bodies', []) as $value => $name)
-                    <label style="display: block;">
-                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                    </label>
+                <label style="display: block;">
+                    <input type="checkbox" class="checkbox-option" name="celestial_bodies_5[]" value="{{ $value }}"
+                        @if (in_array($value, $storedCelestialBodies5)) checked @endif> 
+                    {{ $name }}
+                </label>
                 @endforeach
             </div>
         </div>
@@ -434,9 +448,11 @@
                 <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 158px; left: -168px;">Select</button>
                 <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 158px; left: -256px;">
                     @foreach (config('data.celestial_bodies', []) as $value => $name)
-                        <label style="display: block;">
-                            <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                        </label>
+                    <label style="display: block;">
+                        <input type="checkbox" class="checkbox-option" name="celestial_bodies_6[]" value="{{ $value }}"
+                            @if (in_array($value, $storedCelestialBodies6)) checked @endif> 
+                        {{ $name }}
+                    </label>
                     @endforeach
                 </div>
             </div>
@@ -446,9 +462,11 @@
                     <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 111px; left: -13px;">Select</button>
                     <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 130px; left: -13px;">
                         @foreach (config('data.celestial_bodies', []) as $value => $name)
-                            <label style="display: block;">
-                                <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                            </label>
+                        <label style="display: block;">
+                            <input type="checkbox" class="checkbox-option" name="celestial_bodies_7[]" value="{{ $value }}"
+                                @if (in_array($value, $storedCelestialBodies7)) checked @endif> 
+                            {{ $name }}
+                        </label>
                         @endforeach
                     </div>
                 </div>
@@ -458,9 +476,11 @@
                         <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 158px; left: 147px;">Select</button>
                         <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 177px; left: 147px;">
                             @foreach (config('data.celestial_bodies', []) as $value => $name)
-                                <label style="display: block;">
-                                    <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                                </label>
+                            <label style="display: block;">
+                                <input type="checkbox" class="checkbox-option" name="celestial_bodies_8[]" value="{{ $value }}"
+                                    @if (in_array($value, $storedCelestialBodies8)) checked @endif> 
+                                {{ $name }}
+                            </label>
                             @endforeach
                         </div>
                     </div>
@@ -470,9 +490,11 @@
                             <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 109px; left: 233px;">Select</button>
                             <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 129px; left: 123px;">
                                 @foreach (config('data.celestial_bodies', []) as $value => $name)
-                                    <label style="display: block;">
-                                        <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                                    </label>
+                                <label style="display: block;">
+                                    <input type="checkbox" class="checkbox-option" name="celestial_bodies_9[]" value="{{ $value }}"
+                                        @if (in_array($value, $storedCelestialBodies9)) checked @endif> 
+                                    {{ $name }}
+                                </label>
                                 @endforeach
                             </div>
                         </div>
@@ -482,9 +504,11 @@
                                 <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: 25px; left: 140px; ">Select</button>
                                 <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: 44px; left: 153px;">
                                     @foreach (config('data.celestial_bodies', []) as $value => $name)
-                                        <label style="display: block;">
-                                            <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                                        </label>
+                                    <label style="display: block;">
+                                        <input type="checkbox" class="checkbox-option" name="celestial_bodies_10[]" value="{{ $value }}"
+                                            @if (in_array($value, $storedCelestialBodies10)) checked @endif> 
+                                        {{ $name }}
+                                    </label>
                                     @endforeach
                                 </div>
                             </div>
@@ -494,9 +518,11 @@
                                     <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -55px; left: 240px; ">Select</button>
                                     <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -36px; left: 130px;">
                                         @foreach (config('data.celestial_bodies', []) as $value => $name)
-                                            <label style="display: block;">
-                                                <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                                            </label>
+                                        <label style="display: block;">
+                                            <input type="checkbox" class="checkbox-option" name="celestial_bodies_11[]" value="{{ $value }}"
+                                                @if (in_array($value, $storedCelestialBodies11)) checked @endif> 
+                                            {{ $name }}
+                                        </label>
                                         @endforeach
                                     </div>
                                 </div>
@@ -506,9 +532,11 @@
                                         <button id="dropdownButton1" class="dropdown-button" style="width: 50px; padding: 5px; font-size: 12px; color: black; position: absolute; top: -105px; left: 140px; ">Select</button>
                                         <div id="dropdownMenu1" class="dropdown-menu" style="display: none; position: absolute; background-color: white; border: 1px solid #ccc; z-index: 100; top: -85px; left: 140px;">
                                             @foreach (config('data.celestial_bodies', []) as $value => $name)
-                                                <label style="display: block;">
-                                                    <input type="checkbox" value="{{ $value }}" class="checkbox-option"> {{ $name }}
-                                                </label>
+                                            <label style="display: block;">
+                                                <input type="checkbox" class="checkbox-option" name="celestial_bodies_12[]" value="{{ $value }}"
+                                                    @if (in_array($value, $storedCelestialBodies12)) checked @endif> 
+                                                {{ $name }}
+                                            </label>
                                             @endforeach
                                         </div>
                                     </div>
@@ -597,9 +625,9 @@
                 });
             });
         }
+        updateSelectedValues();
     });
 });
-
         </script>
         <div class="panel">
             <!-- More About Patrika Section -->
