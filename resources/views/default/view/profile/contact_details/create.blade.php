@@ -1,4 +1,4 @@
-<x-layout.user>
+<x-layout.user_banner>
     <style>
         .panel {
             border: 1px solid #ddd;
@@ -239,4 +239,4 @@
             countryDropdown.addEventListener('change', toggleStateCity);
         });
     </script>
-</x-layout.user>
+</x-layout.user_banner>

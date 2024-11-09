@@ -1,4 +1,4 @@
-<x-layout.user>
+<x-layout.user_banner>
     <style>   .card-container {
         display: flex;
         flex-direction: column;
@@ -374,4 +374,4 @@
 <div class="sidebar">
     <x-common.usersidebar />
 </div>
-</x-layout.user>
+</x-layout.user_banner>

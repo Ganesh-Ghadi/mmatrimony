@@ -1,4 +1,4 @@
-<x-layout.user>
+<x-layout.user_banner>
 
     <style>
     .card-container {
@@ -368,4 +368,4 @@ button.btn {
     
     
     
-</x-layout.user>
+</x-layout.user_banner>

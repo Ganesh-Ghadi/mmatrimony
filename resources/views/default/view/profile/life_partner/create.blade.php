@@ -1,4 +1,4 @@
-<x-layout.user>
+<x-layout.user_banner>
    
  
          <style>
@@ -338,4 +338,4 @@
     </body>
     </html>
 {{-- end --}}
-</x-layout.user>
+</x-layout.user_banner>

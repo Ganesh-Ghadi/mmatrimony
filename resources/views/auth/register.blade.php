@@ -1,4 +1,4 @@
-<x-layout.user>
+<x-layout.user_banner>
     <style>
          a.btn {
         background-color: #ff0000; /* Rose Red color */
@@ -141,4 +141,4 @@
     
     
 
-</x-layout.user>
+</x-layout.user_banner>

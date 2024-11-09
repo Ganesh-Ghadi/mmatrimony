@@ -1,4 +1,4 @@
-<x-layout.user>
+<x-layout.user_banner>
     <style>
         /* Sidebar style */
         #sidebar {
@@ -199,4 +199,4 @@
             }
         }
     </script>
-</x-layout.user>
+</x-layout.user_banner>

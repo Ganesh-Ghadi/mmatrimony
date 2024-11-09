@@ -1,4 +1,4 @@
-<x-layout.user>
+<x-layout.user_banner>
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -108,4 +108,4 @@
         </div>
     </body>
     </html>
-</x-layout.user>
+</x-layout.user_banner>

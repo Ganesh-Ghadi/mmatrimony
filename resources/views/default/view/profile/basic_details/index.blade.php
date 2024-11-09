@@ -1,4 +1,4 @@
-<x-layout.user>
+<x-layout.user_banner>
     
     
         <style>
@@ -537,4 +537,4 @@ textareaContainer.appendChild(formGroupDiv);
         </script>
 
 {{-- end --}}
- </x-layout.user>
+ </x-layout.user_banner>
