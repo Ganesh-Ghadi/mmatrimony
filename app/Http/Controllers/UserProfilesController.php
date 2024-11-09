@@ -603,10 +603,11 @@ class UserProfilesController extends Controller
     public function religious_details()
     {
         $user = auth()->user()->profile()->first();
+        $title = 'Religious Details';
         $castes = Caste::all();
         $subCastes = SubCaste::all();
         $profileCompletion = $this->calculateProfileCompletion($user);
-        return view('default.view.profile.religious_details.create', ['user' => $user, 'castes' => $castes, 'subCastes' => $subCastes, 'profileCompletion' => $profileCompletion]);
+        return view('default.view.profile.religious_details.create', ['user' => $user, 'castes' => $castes, 'subCastes' => $subCastes, 'profileCompletion' => $profileCompletion, 'title' => $title]);
     }
 
     public function religious_details_store(Request $request)

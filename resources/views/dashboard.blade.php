@@ -1,4 +1,4 @@
-<x-layout.user_banner>
+<x-layout.user>
     {{-- <link href="{{ asset('assets/user/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
     {{-- <link href="{{ asset('assets/user/css/styles.css') }}" rel="stylesheet"> <!-- Optional custom styles --> --}}
 
@@ -137,4 +137,4 @@
                 };
             }
             </script>
-</x-layout.user_banner>
+</x-layout.user>

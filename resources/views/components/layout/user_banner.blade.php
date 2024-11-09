@@ -112,8 +112,38 @@
 
         <!-- Carousel Start -->
         
-                        <img src="{{asset('assets/images/mvm banner 03.jpeg')}}" class="img-fluid" alt="Image" style="height: 400px;">
-                        
+       
+        <style>
+
+        .breadcrumb-container {
+            position: relative;
+            width: 100%;
+        }
+        
+        .breadcrumb-overlay {
+            position: absolute;
+            top: 50%; /* Adjust the vertical position */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the breadcrumb */
+            color: white; /* Text color */
+            z-index: 10; /* Ensure breadcrumb is above the image */
+        }
+        
+        .breadcrumb {
+            background-color: transparent; /* Make breadcrumb background transparent */
+            margin-bottom: 0; /* Remove bottom margin */
+            font-size: 14px; /* Adjust font size */
+        }
+        
+        .breadcrumb a {
+            color: white; /* Link color */
+        }
+        
+        .breadcrumb .active {
+            color: white; /* Active breadcrumb color */
+        }
+    </style>
+            <img src="{{asset('assets/images/mvm banner 04.jpeg')}}" class="img-fluid" alt="Image" style="height: 50px; width: 100%;">
 
         <div class="container">
            <div class="d-flex justify-content-evenly">
