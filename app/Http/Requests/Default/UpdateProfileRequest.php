@@ -88,7 +88,7 @@ class UpdateProfileRequest extends FormRequest
             'pincode' => 'nullable|string|max:20',
             'mobile' => 'nullable|string|max:20',
             'landline' => 'nullable|string|max:15',
-            'email' => 'nullable|email|max:100|unique:profiles,email,' . $id,
+            // 'email' => 'nullable|email|max:100|unique:profiles,email,' . $id,
             'partner_min_age' => 'nullable|integer|min:0',
             'partner_max_age' => 'nullable|integer|min:0',
             'partner_min_height' => 'nullable|string|max:50',

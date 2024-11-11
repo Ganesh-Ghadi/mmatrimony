@@ -52,7 +52,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::group(['namespace' => 'admin'], function () {
             Route::get('/user_profiles', 'ProfilesController@index')->name('user_profiles.index');
             Route::get('/user_profiles/{id}/edit', 'ProfilesController@edit')->name('user_profiles.edit');
-            Route::delete('/user_profiles/{id}', 'ProfilesController@edit')->name('user_profiles.destroy');
+            Route::delete('/user_profiles/{id}', 'ProfilesController@destroy')->name('user_profiles.destroy');
+            Route::put('/user_profiles/{id}', 'ProfilesController@update')->name('user_profiles.update');
         });
 
         Route::get('/user/profile/{id}', [UserProfilesController::class, 'show'])->name('user.profile');

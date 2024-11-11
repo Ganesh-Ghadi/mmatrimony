@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Caste;
 use App\Models\Profile;
 use App\Models\SubCaste;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Default\UpdateProfileRequest;
 
 class ProfilesController extends Controller
 {
@@ -24,9 +25,74 @@ class ProfilesController extends Controller
         return view('admin.user_profiles.edit', ['profile' => $profile, 'castes' => $castes, 'subCastes' => $subCastes]);
     }
 
-    public function user_profiles()
+    // public function user_profiles()
+    // {
+    //     $user = auth()->user()->profile()->first();
+    //     return view('admin.user_profiles.create', ['user' => $user]);
+    // }
+
+
+    public function update(Request $request, string $id)
     {
-        $user = auth()->user()->profile()->first();
-        return view('admin.user_profiles.create', ['user' => $user]);
+        // dd($request->all());
+        $profile = Profile::where('user_id', $id)->first();
+        if ($request->hasFile('img_1')) {
+            $img_1FileNameWithExtention = $request->file('img_1')->getClientOriginalName();
+            $img_1Filename = pathinfo($img_1FileNameWithExtention, PATHINFO_FILENAME);
+            $img_1Extention = $request->file('img_1')->getClientOriginalExtension();
+            $img_1FileNameToStore = $img_1Filename . '_' . time() . '.' . $img_1Extention;
+            $img_1Path = $request->file('img_1')->storeAs('public/images', $img_1FileNameToStore);
+        }
+        if ($request->hasFile('img_patrika')) {
+            $img_patrikaFileNameWithExtention = $request->file('img_patrika')->getClientOriginalName();
+            $img_patrikaFilename = pathinfo($img_patrikaFileNameWithExtention, PATHINFO_FILENAME);
+            $img_patrikaExtention = $request->file('img_patrika')->getClientOriginalExtension();
+            $img_patrikaFileNameToStore = $img_patrikaFilename . '_' . time() . '.' . $img_patrikaExtention;
+            $img_patrikaPath = $request->file('img_patrika')->storeAs('public/images', $img_patrikaFileNameToStore);
+        }
+
+        if ($request->hasFile('img_2')) {
+            $img_2FileNameWithExtention = $request->file('img_2')->getClientOriginalName();
+            $img_2Filename = pathinfo($img_2FileNameWithExtention, PATHINFO_FILENAME);
+            $img_2Extention = $request->file('img_2')->getClientOriginalExtension();
+            $img_2FileNameToStore = $img_2Filename . '_' . time() . '.' . $img_2Extention;
+            $img_2Path = $request->file('img_2')->storeAs('public/images', $img_2FileNameToStore);
+        }
+
+        if ($request->hasFile('img_3')) {
+            $img_3FileNameWithExtention = $request->file('img_3')->getClientOriginalName();
+            $img_3Filename = pathinfo($img_3FileNameWithExtention, PATHINFO_FILENAME);
+            $img_3Extention = $request->file('img_3')->getClientOriginalExtension();
+            $img_3FileNameToStore = $img_3Filename . '_' . time() . '.' . $img_3Extention;
+            $img_3Path = $request->file('img_3')->storeAs('public/images', $img_3FileNameToStore);
+        }
+
+        $data = $request->all();
+        if ($request->hasFile('img_1')) {
+            $data['img_1'] = $img_1FileNameToStore;
+        }
+        if ($request->hasFile('img_patrika')) {
+            $data['img_patrika'] = $img_patrikaFileNameToStore;
+        }
+
+        if ($request->hasFile('img_2')) {
+            $data['img_2'] = $img_2FileNameToStore;
+        }
+
+        if ($request->hasFile('img_3')) {
+            $data['img_3'] = $img_3FileNameToStore;
+        }
+        $data['lens'] = $request->has('lens');
+        $data['spectacles'] = $request->has('spectacles');
+
+        if ($profile) {
+            $profile->update($data);  // update() handles mass assignment based on fillable fields
+        } else {
+            return redirect()->back()->with('error', 'Profile not found.');
+        }
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
+    
+
 }

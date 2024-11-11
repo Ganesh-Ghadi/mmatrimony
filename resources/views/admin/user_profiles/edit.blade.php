@@ -9,8 +9,9 @@
             </li>
         </ul>
         <div class="pt-5">        
-            <form class="space-y-5" action="{{ route('castes.store') }}" method="POST">
+            <form class="space-y-5" action="{{ route('user_profiles.update', ['id'=>$profile->id]) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="panel">
                     <div class="flex items-center justify-between mb-5">
                         <h5 class="font-semibold text-lg dark:text-white-light">Personal Information</h5>
@@ -87,7 +88,7 @@
                             </select> 
                             <x-input-error :messages="$errors->get('height')" class="mt-2" /> 
                         </div>    
-                        <x-text-input name="weight" value="{{ $profile->weight}}kg" :label="__('Weight')" :require="false"  :messages="$errors->get('weight')"/>   
+                        <x-text-input name="weight" value="{{ $profile->weight}}" :label="__('Weight in kg')" :require="false"  :messages="$errors->get('weight')"/>   
                     </div>
                     <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">     
                             <div>
@@ -182,6 +183,7 @@
                         <div>
                             <label for="about_self">About Myself:</label>
                             <textarea 
+                            name="about_self"
                                 id="description" 
                                 class="mt-1 block w-full h-32 p-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                             >{{$profile->about_self}}</textarea>
@@ -306,7 +308,7 @@
                                 {{-- <template x-if="religion === 'hindu'"> --}}
                                     <div>
                                         <label>Subcastes</label>
-                                        <select class="form-input" name="subcastes" id="subcastes">
+                                        <select name="sub_caste" class="form-input" name="subcastes" id="subcastes">
                                             <option value="" selected>select an option</option>
                                             @foreach($subCastes as $subCaste)
                                             <option value="{{$subCaste->id}}" {{ ($profile->sub_caste === $subCaste->id ) ? 'selected' : ''}}>{{$subCaste->name}}</option>
@@ -569,7 +571,7 @@
           
             <div>
                 <label for="birth_date">Birth Date</label>
-                <input type="date" id="birth_date" name="birth_date" class="form-input" value="{{ $profile->date_of_birth }}">
+                <input type="date" id="birth_date" name="date_of_birth" class="form-input" value="{{ $profile->date_of_birth }}">
                 <x-input-error :messages="$errors->get('birth_date')" class="mt-2" />
             </div>
              
@@ -586,7 +588,7 @@
         {{-- info --}}
 
 
-        <div class="pt-5" x-data="{ agree: false }">     
+        <div class="pt-5" >     
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
                     <h5 class="font-semibold text-lg dark:text-white-light">Astronomy Information</h5>
@@ -607,13 +609,13 @@
                 </div>
         
                 
-                <template x-if="!agree">
+             
                     <div class="grid grid-cols-2 gap-4 mb-4 md:grid-cols-3">
                         <div>
                              <label for="rashee">राशी</label>
                         <select class="form-input" name="rashee" id="rashee">
                             <option value="" selected>Select an option</option>
-                            @foreach (config('data.rashee', []) as $value => $name)
+                            @foreach (config('data.rashee') as $value => $name)
                                 <option value="{{ $value }}" {{ ($profile->rashee === $value) ? 'selected' : '' }}>{{ $name }}</option>
                             @endforeach
                             
@@ -694,7 +696,6 @@
                             @endif     
                         </div>
                     </div>
-                </template>
             </div> 
         </div>
         </div>
@@ -845,7 +846,7 @@
                     </div>  
                     <div>
                         <label for="income">Income (in INR)</label>
-                        <input type="text" id="income" name="income" class="form-input" value="{{ $profile->income }}">
+                        <input type="number" name="income" class="form-input" value="{{ old('income', $profile->income) }}">
                         <x-input-error :messages="$errors->get('income')" class="mt-2" />
                     </div>  
                 </div>    
@@ -929,7 +930,7 @@
                     </div>
                     <div>
                         <label for="landline">Landline</label>
-                        <input type="text" id="landline" name="landline" class="form-input" value="{{ old('landline') }}">
+                        <input type="text" id="landline" name="landline" class="form-input" value="{{ $profile->landline }}">
                          <x-input-error :messages="$errors->get('landline')" class="mt-2" />
                     </div>  
                     <div>
@@ -1039,9 +1040,9 @@
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">  
                     
                     <div>
-                        <label for="income">Income (in INR)</label>
-                        <input type="text" id="income" name="income" class="form-input" value="{{ $profile->income }}">
-                         <x-input-error :messages="$errors->get('income')" class="mt-2" />
+                        <label for="partner_income">Income (in INR)</label>
+                        <input type="text" id="partner_income" name="partner_income" class="form-input" value="{{ $profile->partner_income }}">
+                         <x-input-error :messages="$errors->get('partner_income')" class="mt-2" />
                     </div>  
                     <div class="form-group">
                         <label for="partner_city_preference">City Preference</label>
