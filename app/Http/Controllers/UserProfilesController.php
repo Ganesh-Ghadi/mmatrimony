@@ -639,7 +639,6 @@ class UserProfilesController extends Controller
 
     public function family_details_store(Request $request)
     {
-        // dd($request->input('mother_native_place'));
         $validated = $request->validate([
             'father_is_alive' => 'required|boolean',
             'father_name' => 'nullable|string|max:100',

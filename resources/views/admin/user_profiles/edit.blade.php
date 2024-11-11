@@ -5,9 +5,10 @@
                 <a href="{{ route('user_profiles.index') }}" class="text-primary hover:underline">Profile Details</a>
             </li>
             <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
-                <span>Add</span>
+                <span>edit</span>
             </li>
         </ul>
+
         <div class="pt-5">        
             <form class="space-y-5" action="{{ route('user_profiles.update', ['id'=>$profile->id]) }}" method="POST">
                 @csrf

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Excel;
+use Throwable;
 use App\Models\Package;
+use Illuminate\Http\Request;
+use App\Imports\ImportPackages;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PackageRequest;
 
 class PackagesController extends Controller
@@ -58,5 +61,26 @@ class PackagesController extends Controller
  
         return view('admin.packages.index', ['packages'=>$packages]);
     }
+
+    // Route::get('/import/user_profiles/', [PackagesController::class, 'import'])->name('packages.import');
+    // Route::post('/import_user_profiles', [PackagesController::class, 'importPackagesExcel'])->name('packages.importPackagesExcel');
+
+    public function import()
+    {
+        return view('admin.packages.import');
+    }
+
+
+    public function importPackagesExcel(Request $request)
+    {
+        try {
+            Excel::import(new ImportPackages, $request->file);
+            $request->session()->flash('success', 'Excel imported successfully!');
+            return redirect()->route('packages.index');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+    
 
 }

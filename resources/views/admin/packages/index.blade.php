@@ -1,5 +1,9 @@
 <x-layout.admin>
     <x-add-button :link="route('packages.create')" />
+    @role(['admin'])
+    {{-- <x-excel-button :link="route('sub_castes.import')" /> --}}
+    <x-excel-button :link="route('packages.import')" />
+@endrole    
     <br><br>
     <div x-data="form"> 
         <div class="panel">

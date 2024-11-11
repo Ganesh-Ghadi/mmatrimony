@@ -54,6 +54,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/user_profiles/{id}/edit', 'ProfilesController@edit')->name('user_profiles.edit');
             Route::delete('/user_profiles/{id}', 'ProfilesController@destroy')->name('user_profiles.destroy');
             Route::put('/user_profiles/{id}', 'ProfilesController@update')->name('user_profiles.update');
+            Route::get('/import/user_profiles/', 'ProfilesController@import')->name('user_profiles.import');
+            Route::post('import_user_profiles','ProfilesController@importUserProfilesExcel')->name('user_profiles.importUserProfilesExcel');
         });
 
         Route::get('/user/profile/{id}', [UserProfilesController::class, 'show'])->name('user.profile');
@@ -74,6 +76,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('castes', CastesController::class);
         Route::resource('sub_castes', subCastesController::class);
         Route::resource('packages', PackagesController::class);
+        Route::get('/import/packages/', [PackagesController::class, 'import'])->name('packages.import');
+        Route::post('/import_packages', [PackagesController::class, 'importPackagesExcel'])->name('packages.importPackagesExcel');
+
         Route::resource('states', StatesController::class);
         Route::resource('cities', CitiesController::class);
         Route::post('/save-profile', [UserProfilesController::class, 'store'])->name('profiles.store');

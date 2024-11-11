@@ -2,6 +2,7 @@
     {{-- <x-add-button :link="route('sub_castes.create')" /> --}}
     @role(['admin'])
         {{-- <x-excel-button :link="route('sub_castes.import')" /> --}}
+        <x-excel-button :link="route('user_profiles.import')" />
     @endrole    
     <br><br>
     <div x-data="form"> 

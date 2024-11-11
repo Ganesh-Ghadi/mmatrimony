@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
+use Excel;
+use Throwable;
 use App\Models\Caste;
 use App\Models\Profile;
 use App\Models\SubCaste;
 use Illuminate\Http\Request;
+use App\Imports\ImportUserProfiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Default\UpdateProfileRequest;
 
@@ -92,6 +95,24 @@ class ProfilesController extends Controller
         }
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
+    }
+    
+
+    public function import()
+    {
+        return view('admin.user_profiles.import');
+    }
+
+
+    public function importUserProfilesExcel(Request $request)
+    {
+        try {
+            Excel::import(new ImportUserProfiles, $request->file);
+            $request->session()->flash('success', 'Excel imported successfully!');
+            return redirect()->route('user_profiles.index');
+        } catch (Throwable $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
     
 
