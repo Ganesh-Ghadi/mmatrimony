@@ -143,7 +143,95 @@
             color: white; /* Active breadcrumb color */
         }
     </style>
-            <img src="{{asset('assets/images/mvm banner 04.jpeg')}}" class="img-fluid" alt="Image" style="height: 50px; width: 100%;">
+
+<div class="image-container" style="position: relative; display: inline-block; width: 100%;">
+    <img src="{{asset('assets/images/mvm banner 04.jpeg')}}" class="img-fluid" alt="Image" style="height: 50px; width: 100%; object-fit: cover;">
+    <div class="url-overlay" id="urlOverlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; align-items: center; padding: 10px; background-color: rgba(0, 0, 0, 0.5); color: white; font-size: 14px; font-weight: bold;">
+        <!-- URL will be dynamically injected here -->
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the current page's URL
+    const currentUrl = window.location.href;
+
+    // Extract the path and check if there are query parameters
+    const urlPath = currentUrl.split('?')[0];  // Split by '?' to ignore query parameters
+
+    // Extract the path segments
+    const segments = urlPath.split('/');
+    const lastSegment = segments[segments.length - 1];
+
+    // Check for the specific case of '/user/profile/9'
+    if (segments.length === 4 && segments[2] === 'profile' && !isNaN(lastSegment)) {
+        // If the URL is specifically '/user/profile/ID', only show 'Profile'
+        document.getElementById('urlOverlay').innerText = 'Profile';
+    } else {
+        // Capitalize and display the full path, like 'Profile / Basic Details'
+        const capitalizedFirstSegment = segments[segments.length - 2].charAt(0).toUpperCase() + segments[segments.length - 2].slice(1);
+
+        // If the last segment has underscores, format it (e.g., "basic_details" -> "Basic Details")
+        const formattedText = lastSegment
+            .split('_')                // Split by underscores
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))  // Capitalize each word
+            .join(' ');                // Join with spaces
+
+        // If the URL has multiple path segments, display the first segment followed by the last formatted segment
+        const formattedPath = capitalizedFirstSegment + ' / ' + formattedText;
+        document.getElementById('urlOverlay').innerText = formattedPath;
+    }
+});
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the current page's URL
+    const currentUrl = window.location.href;
+
+    // Extract the path and check if there are query parameters
+    const urlPath = currentUrl.split('?')[0];  // Split by '?' to ignore query parameters
+
+    // Extract the path segments
+    const segments = urlPath.split('/');
+    const lastSegment = segments[segments.length - 1];
+
+    // Check for specific cases: /login and /register
+    if (lastSegment === 'login') {
+        document.getElementById('urlOverlay').innerText = 'Login';
+    } else if (lastSegment === 'register') {
+        document.getElementById('urlOverlay').innerText = 'Register';
+    } else {
+        // Check for the specific case of '/user/profile/9'
+        if (segments.length === 4 && segments[2] === 'profile' && !isNaN(lastSegment)) {
+            // If the URL is specifically '/user/profile/ID', only show 'Profile'
+            document.getElementById('urlOverlay').innerText = 'Profile';
+        } else {
+            // Capitalize and display the full path, like 'Profile / Basic Details'
+            const capitalizedFirstSegment = segments[segments.length - 2].charAt(0).toUpperCase() + segments[segments.length - 2].slice(1);
+
+            // If the last segment has underscores, format it (e.g., "basic_details" -> "Basic Details")
+            const formattedText = lastSegment
+                .split('_')                // Split by underscores
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))  // Capitalize each word
+                .join(' ');                // Join with spaces
+
+            // If the URL has multiple path segments, display the first segment followed by the last formatted segment
+            const formattedPath = capitalizedFirstSegment + ' / ' + formattedText;
+            document.getElementById('urlOverlay').innerText = formattedPath;
+        }
+    }
+});
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
 
         <div class="container">
            <div class="d-flex justify-content-evenly">
