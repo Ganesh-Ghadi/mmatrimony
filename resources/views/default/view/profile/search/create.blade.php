@@ -512,7 +512,17 @@
                     <div class="card">
                         <div class="form-group" style="position: relative;"> <!-- Added relative positioning -->
                             @if ($user->img_1)
-                                <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
+                            <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_3 }}')">
+                                <template x-if="imageUrl">
+                                    <!-- Wrap the image in an anchor tag to open it in a new tab -->
+                                    <a :href="imageUrl" target="_blank">
+                                        <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                                    </a>
+                                </template>
+                                <template x-if="!imageUrl">
+                                    {{-- <p>Loading image...</p> --}}
+                                </template>
+                            </div>
                             @else
                                 <div class="no-profile-photo">No Profile Photo Displayed</div>
                             @endif
@@ -612,4 +622,30 @@
             }
         }
     </script>
+
+
+ {{-- image display --}}
+ <script>
+    function imageLoader() {
+        return {
+            imageUrl: null,
+    
+            async fetchImage(filename) {
+                try {
+                    const response = await fetch(`/api/images/${filename}`);
+                    if (!response.ok) throw new Error('Image not found');
+                    
+                    // Create a blob URL for the image
+                    const blob = await response.blob();
+                    this.imageUrl = URL.createObjectURL(blob);
+                } catch (error) {
+                    console.error('Error fetching image:', error);
+                    this.imageUrl = null; // Handle error case
+                }
+            }
+        };
+    }
+    </script>
+
+{{-- end --}}
 </x-layout.user_banner>    
