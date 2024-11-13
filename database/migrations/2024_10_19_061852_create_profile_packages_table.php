@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('profile_packages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('profile_id')->constrained()->nullable();  // Assuming you have a users table
-            $table->foreignId('package_id')->constrained()->nullable();  // Link to packages
+            $table->foreignId('profile_id')->constrained()->onDelete('cascade');  // Assuming you have a users table
+            $table->foreignId('package_id')->constrained()->onDelete('cascade');  // Link to packages
             $table->integer('tokens_received')->default(0);
             $table->integer('tokens_used')->default(0);
             $table->timestamp('starts_at')->nullable();  // When the package was bought

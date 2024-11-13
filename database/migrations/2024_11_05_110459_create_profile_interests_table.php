@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('profile_interests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('profile_id')->constrained()->nullable();
-            $table->foreignId('interest_profile_id')->constrained('profiles')->nullable();
+            $table->foreignId('profile_id')->constrained()->onDelete('cascade');
+            $table->foreignId('interest_profile_id')->constrained('profiles')->onDelete('cascade');
             $table->timestamps();
         });
     }

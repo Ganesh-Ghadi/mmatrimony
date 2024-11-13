@@ -46,6 +46,11 @@
     
     
     }
+    .profile-details{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
      .sidebar {
         width: 300px; /* Fixed width for the sidebar */
         position: sticky;
@@ -82,10 +87,21 @@
     <h1>{{ $user->first_name }} {{ $user->last_name }}'s Profile</h1>
 
     <div class="profile-details">
-        @if($user->img_1)
-            <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Profile Image" class="profile-image">
+        @if ($user->img_1)
+        <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_1 }}')">
+            <template x-if="imageUrl">
+                <!-- Wrap the image in an anchor tag to open it in a new tab -->
+                <a :href="imageUrl" target="_blank">
+                    <img style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                </a>
+            </template>
+            <template x-if="!imageUrl">
+                {{-- <p>Loading image...</p> --}}
+                <div class="no-profile-photo">No Profile Photo Displayed</div>
+            </template>
+        </div>
         @else
-            <p>No photo available</p> <!-- Or use an image tag for a placeholder image -->
+        <div class="no-profile-photo">No Profile Photo Displayed</div>
         @endif
     </div>
     <div class="panel">
@@ -374,4 +390,29 @@
 <div class="sidebar">
     <x-common.usersidebar />
 </div>
+
+  {{-- image display --}}
+ <script>
+    function imageLoader() {
+        return {
+            imageUrl: null,
+    
+            async fetchImage(filename) {
+                try {
+                    const response = await fetch(`/api/images/${filename}`);
+                    if (!response.ok) throw new Error('Image not found');
+                    
+                    // Create a blob URL for the image
+                    const blob = await response.blob();
+                    this.imageUrl = URL.createObjectURL(blob);
+                } catch (error) {
+                    console.error('Error fetching image:', error);
+                    this.imageUrl = null; // Handle error case
+                }
+            }
+        };
+    }
+    </script>
+
+{{-- end --}}
 </x-layout.user_banner>

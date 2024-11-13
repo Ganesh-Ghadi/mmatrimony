@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use Excel;
 use Throwable;
+use App\Models\User;
 use App\Models\Caste;
 use App\Models\Profile;
 use App\Models\SubCaste;
@@ -37,8 +38,9 @@ class ProfilesController extends Controller
 
     public function update(Request $request, string $id)
     {
+        // dd($id);
         // dd($request->all());
-        $profile = Profile::where('user_id', $id)->first();
+        $profile = Profile::find($id);
         if ($request->hasFile('img_1')) {
             $img_1FileNameWithExtention = $request->file('img_1')->getClientOriginalName();
             $img_1Filename = pathinfo($img_1FileNameWithExtention, PATHINFO_FILENAME);
@@ -101,6 +103,35 @@ class ProfilesController extends Controller
     public function import()
     {
         return view('admin.user_profiles.import');
+    }
+
+    public function destroy(string $id)
+    {
+        // Find the profile by ID
+        $profile = Profile::find($id);
+    
+        // Check if profile exists
+        if (!$profile) {
+            return redirect()->back()->with('error', 'Profile not found');
+        }
+    
+        // Find the user associated with this profile
+        $user = User::find($profile->user_id);
+    
+        // Check if user exists
+        if ($user) {
+            // Optional: Delete the profile if you want to delete the related profile as well
+            // $profile->delete();
+    
+            // Delete the user
+            $user->delete();
+    
+            // Redirect with success message
+            return redirect('/user_profiles')->with('success', 'Profile deleted successfully');
+        } else {
+            // Handle case where user is not found
+            return redirect()->back()->with('error', 'User associated with the profile not found');
+        }
     }
 
 

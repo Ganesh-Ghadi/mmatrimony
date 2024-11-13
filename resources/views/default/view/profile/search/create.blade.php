@@ -512,7 +512,7 @@
                     <div class="card">
                         <div class="form-group" style="position: relative;"> <!-- Added relative positioning -->
                             @if ($user->img_1)
-                            <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_3 }}')">
+                            <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_1 }}')">
                                 <template x-if="imageUrl">
                                     <!-- Wrap the image in an anchor tag to open it in a new tab -->
                                     <a :href="imageUrl" target="_blank">
@@ -521,10 +521,11 @@
                                 </template>
                                 <template x-if="!imageUrl">
                                     {{-- <p>Loading image...</p> --}}
+                                    <div class="no-profile-photo">No Profile Photo Displayed</div>
                                 </template>
                             </div>
                             @else
-                                <div class="no-profile-photo">No Profile Photo Displayed</div>
+                            <div class="no-profile-photo">No Profile Photo Displayed</div>
                             @endif
             
                             <!-- Heart Icon for Favorite -->

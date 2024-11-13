@@ -67,10 +67,9 @@
                         <div class="input-group">
                             <!-- Country Code Dropdown -->
                             <select class="form-select" name="country_code" id="country_code" style="max-width: 100px; color: black;" required>
-                                <option value="+91">+91 (India)</option>
-                                <option value="+1">+1 (USA)</option>
-                                <option value="+44">+44 (UK)</option>
-                                <option value="+61">+61 (Australia)</option>
+                                @foreach (config('data.countryCodes') as $value => $name)
+                                <option value="{{$value}}">{{ $value. " ".$name }}</option>
+                            @endforeach
                             </select>
                             
                              <input id="mobile" name="mobile" type="tel" class="form-control @error('mobile') is-invalid @enderror"

@@ -80,9 +80,20 @@
                     <div class="col-md-4 mx-3">
                         <div class="card my-2" style="width: 18rem;">
                             @if ($user->img_1)
-                                <img src="{{ asset('storage/images/' . $user->img_1) }}" alt="Uploaded Image" class="profile-image">
+                            <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_1 }}')">
+                                <template x-if="imageUrl">
+                                    <!-- Wrap the image in an anchor tag to open it in a new tab -->
+                                    <a :href="imageUrl" target="_blank">
+                                        <img class="profile-image" style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                                    </a>
+                                </template>
+                                <template x-if="!imageUrl">
+                                    {{-- <p>Loading image...</p> --}}
+                                    <div class="no-profile-photo">No Profile Photo Displayed</div>
+                                </template>
+                            </div>
                             @else
-                                <div class="no-profile-photo">No Profile Photo Displayed</div>
+                            <div class="no-profile-photo">No Profile Photo Displayed</div>
                             @endif
                             <div class="card-body">
                                 <h5 class="card-title">{{ $user->first_name }} {{ $user->last_name }}</h5>
@@ -108,4 +119,30 @@
         </div>
     </body>
     </html>
+
+
+    {{-- image display --}}
+ <script>
+    function imageLoader() {
+        return {
+            imageUrl: null,
+    
+            async fetchImage(filename) {
+                try {
+                    const response = await fetch(`/api/images/${filename}`);
+                    if (!response.ok) throw new Error('Image not found');
+                    
+                    // Create a blob URL for the image
+                    const blob = await response.blob();
+                    this.imageUrl = URL.createObjectURL(blob);
+                } catch (error) {
+                    console.error('Error fetching image:', error);
+                    this.imageUrl = null; // Handle error case
+                }
+            }
+        };
+    }
+    </script>
+
+{{-- end --}}
 </x-layout.user_banner>

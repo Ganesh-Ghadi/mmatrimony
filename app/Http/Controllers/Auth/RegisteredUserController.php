@@ -42,20 +42,20 @@ class RegisteredUserController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'regex:/^[\w\.\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,6}$/', 'max:255', 'unique:users'],
             'mobile' => ['required', 'digits:10'],
             'date_of_birth' => ['required', 'date'],    
             //  'password' => ['required', 'confirmed', Rules\Password::defaults()],
              'role'=>  ['required'],
         ]);
         // dd($request);`
-
+        $number = $request->input('country_code') .$request->input('mobile'); 
         $fullName = trim($request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name);
         $ranToken = Str::random(60); // Generate a random token
         $user = User::create([
             'name' => $fullName,
             'email' => $request->email,
-            'mobile' => $request->mobile,
+            'mobile' => $number,
              'date_of_birth' => $request->date_of_birth,
             //  'password' => Hash::make($request->password),
         ]);
@@ -83,7 +83,7 @@ class RegisteredUserController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'date_of_birth' => $request->date_of_birth,
-             'mobile' => $request->mobile,
+             'mobile' => $number,
              'role' => $userRole,
         ]);
 
