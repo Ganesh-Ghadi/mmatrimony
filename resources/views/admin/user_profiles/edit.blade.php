@@ -10,7 +10,7 @@
         </ul>
 
         <div class="pt-5">        
-            <form class="space-y-5" action="{{ route('user_profiles.update', ['id'=>$profile->id]) }}" method="POST">
+            <form class="space-y-5" enctype="multipart/form-data" action="{{ route('user_profiles.update', ['id'=>$profile->id]) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="panel">
@@ -202,7 +202,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="photo1">Photo 1</label>
-                                <input type="file" name="img_1" id="photo1" value="{{ $profile->img_1 }}">
+                                <input type="file" name="img_1" id="photo1" value="">
                                  @if ($errors->has('img_1'))
                                 <span class="text-danger small">{{ $errors->first('img_1') }}</span>
                                 @endif  
@@ -1176,5 +1176,40 @@
        </div>
     </div> 
     </div> 
+
+    <script>
+        // img
+        function imageLoader() {
+            return {
+                imageUrl: null,
+    
+                async fetchImage(filename) {
+                    try {
+                        const response = await fetch(`/api/images/${filename}`);
+                        if (!response.ok) throw new Error('Image not found');
+                        
+                        // Create a blob URL for the image
+                        const blob = await response.blob();
+                        this.imageUrl = URL.createObjectURL(blob);
+                    } catch (error) {
+                        console.error('Error fetching image:', error);
+                        this.imageUrl = null; // Handle error case
+                    }
+                }
+            };
+        }
+    </script>
+    <script>
+        document.getElementById('toggleDropdowns').addEventListener('change', function() {
+        const dropdowns = document.getElementById('dropdowns');
+    
+        if (this.checked) {
+            dropdowns.style.display = 'none'; // Hide dropdowns
+        } else {
+            dropdowns.style.display = 'block'; // Show dropdowns
+        }
+    });
+    
+     </script> 
     </x-layout.admin>
     

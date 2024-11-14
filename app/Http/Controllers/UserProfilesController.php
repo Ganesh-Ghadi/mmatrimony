@@ -310,8 +310,8 @@ class UserProfilesController extends Controller
         // dd($data);
         // Check if 'img_1' is uploaded and process
         if ($request->hasFile('img_1')) {
-            if (!empty($profile->img_1) && Storage::exists('public/images/' . $profile->img_1)) {
-                Storage::delete('public/images/' . $profile->img_1);
+            if (!empty($profile->img_1) && Storage::exists('public/images/'.$profile->img_1)) {
+                Storage::delete('public/images/'.$profile->img_1);
             }
 
             // Get the uploaded image file details
@@ -781,6 +781,8 @@ class UserProfilesController extends Controller
 
     public function astronomy_details_store(Request $request)
     {
+        $profile = Profile::where('user_id', auth()->user()->id)->first();
+
         // Validate input data
         $validated = $request->validate([
             'birth_place' => 'nullable|string|max:100',
@@ -836,8 +838,9 @@ class UserProfilesController extends Controller
         $data['celestial_bodies_12'] = $celestial_bodies12;
         
         if ($request->hasFile('img_patrika')) {
+            
             if (!empty($profile->img_patrika) && Storage::exists('public/images/' . $profile->img_patrika)) {
-                Storage::delete('public/images/' . $profile->img_patrika);
+                Storage::delete('public/images/'.$profile->img_patrika);
             }
             // Get the uploaded image file details
             $img_patrikaFileNameWithExtention = $request->file('img_patrika')->getClientOriginalName();
@@ -903,7 +906,6 @@ class UserProfilesController extends Controller
         }
 
         // Update or create profile data
-        $profile = Profile::where('user_id', auth()->user()->id)->first();
         if ($profile) {
             $profile->update($data);
         } else {
@@ -1005,11 +1007,129 @@ class UserProfilesController extends Controller
         $profile = Profile::where('user_id', auth()->user()->id)->first();
 
         if ($request->hasFile('img_1')) {
+            if (!empty($profile->img_1) && Storage::exists('public/images/'.$profile->img_1)) {
+                Storage::delete('public/images/'.$profile->img_1);
+            }
+
+            // Get the uploaded image file details
             $img_1FileNameWithExtention = $request->file('img_1')->getClientOriginalName();
             $img_1Filename = pathinfo($img_1FileNameWithExtention, PATHINFO_FILENAME);
             $img_1Extention = $request->file('img_1')->getClientOriginalExtension();
             $img_1FileNameToStore = $img_1Filename . '_' . time() . '.' . $img_1Extention;
+
+            // Store the image temporarily
             $img_1Path = $request->file('img_1')->storeAs('public/images', $img_1FileNameToStore);
+
+            // Get the path to the uploaded image
+            $imagePath = storage_path('app/public/images/' . $img_1FileNameToStore);
+
+            // Open the uploaded image
+            $image = imagecreatefromjpeg($imagePath);
+            if ($image === false) {
+                return redirect()->back()->with('error', 'Failed to open image.');
+            }
+
+            // Get the current image dimensions
+            $imageWidth = imagesx($image);
+            $imageHeight = imagesy($image);
+
+            // Define the desired 5:7 aspect ratio
+            $desiredAspectRatio = 5 / 7;
+
+            // Resize logic for 5:7 ratio
+            if ($imageWidth / $imageHeight > $desiredAspectRatio) {
+                // If width is too large for the 5:7 ratio, crop width
+                $newWidth = $imageHeight * $desiredAspectRatio;
+                $newHeight = $imageHeight;
+            } else {
+                // If height is too large for the 5:7 ratio, crop height
+                $newWidth = $imageWidth;
+                $newHeight = $imageWidth / $desiredAspectRatio;
+            }
+
+            // Crop the image to maintain the 5:7 ratio
+            $resizedImage = imagecreatetruecolor($newWidth, $newHeight);
+            imagecopyresampled($resizedImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $imageWidth, $imageHeight);
+
+            // Save the resized image
+            imagejpeg($resizedImage, $imagePath);
+
+            // Free up memory
+            imagedestroy($image);
+            imagedestroy($resizedImage);
+
+            // Font and color for the text
+            $fontPath = public_path('fonts/font-1.ttf');  // Ensure this is the correct path to your TTF font
+
+            // Colors for text and shadow
+            $shadowColor = imagecolorallocatealpha($image, 0, 0, 0, 50);  // Faded shadow
+            $textColor = imagecolorallocatealpha($image, 255, 0, 0, 100);  // Faded text
+
+            // Text to overlay
+            $text = 'Maratha Vivah Mandal';
+
+            // Get the image dimensions again after resizing
+            $imageWidth = imagesx($resizedImage);
+            $imageHeight = imagesy($resizedImage);
+
+            // Dynamically adjust the font size based on image dimensions
+            $maxFontSize = 0;
+            $fontSize = 1;  // Start with the smallest font size and increase it
+            while ($fontSize < 100) {  // Maximum font size limit (adjust as needed)
+                // Get the bounding box for the current font size
+                $textBoundingBox = imagettfbbox($fontSize, 0, $fontPath, $text);
+                $textWidth = $textBoundingBox[2] - $textBoundingBox[0];
+                $textHeight = $textBoundingBox[1] - $textBoundingBox[7];
+
+                // Check if the text fits within the image width and height
+                if ($textWidth <= $imageWidth && $textHeight <= $imageHeight) {
+                    $maxFontSize = $fontSize;  // Store the last valid font size
+                } else {
+                    break;  // Exit the loop if the text doesn't fit
+                }
+
+                $fontSize++;
+            }
+
+            // Calculate the text position (center it on the image)
+            $textBoundingBox = imagettfbbox($maxFontSize, 0, $fontPath, $text);
+            $textWidth = $textBoundingBox[2] - $textBoundingBox[0];
+            $textHeight = $textBoundingBox[1] - $textBoundingBox[7];
+
+            $x = ($imageWidth - $textWidth) / 2;  // Center the text horizontally
+            $y = ($imageHeight - $textHeight) / 2 + $textHeight;  // Center the text vertically
+
+            // Ensure text is inside the image (if the calculated position is too close to the edge)
+            if ($x < 0) {
+                $x = 0;
+            } elseif ($x + $textWidth > $imageWidth) {
+                $x = $imageWidth - $textWidth;
+            }
+
+            if ($y < $textHeight) {
+                $y = $textHeight;
+            } elseif ($y + $textHeight > $imageHeight) {
+                $y = $imageHeight - $textHeight;
+            }
+
+            // Add shadow layer
+            $shadowOffsetX = 3;
+            $shadowOffsetY = 3;
+
+            // First, draw the shadow layer (text slightly offset)
+            imagettftext($resizedImage, $maxFontSize, 0, $x + $shadowOffsetX, $y + $shadowOffsetY, $shadowColor, $fontPath, $text);
+
+            // Then, draw the main text on top of the shadow
+            imagettftext($resizedImage, $maxFontSize, 0, $x, $y, $textColor, $fontPath, $text);
+
+            // Save the modified image
+            imagejpeg($resizedImage, $imagePath);
+
+            // Free up memory
+            imagedestroy($resizedImage);
+
+            // Assign the image name to the data array
+            $data['img_1'] = $img_1FileNameToStore;
         }
         if ($request->hasFile('img_patrika')) {
             $img_patrikaFileNameWithExtention = $request->file('img_patrika')->getClientOriginalName();
