@@ -148,11 +148,13 @@ class ImportUserProfiles implements ToModel,WithHeadingRow,WithValidation, WithB
             // exit;
         // }else{
              // Create a new User record in the `users` table
+             $active = 1;
         $user = User::create([
             'name' => $row['first_name'],
             'email' => $row['email'],
             'mobile' => $row['mobile'],
             'password' => Hash::make($row['password']),
+            'active' => $active,
         ]);
         
 
@@ -453,7 +455,53 @@ class ImportUserProfiles implements ToModel,WithHeadingRow,WithValidation, WithB
 
             // Create Profile for the user
             $profile = Profile::create($profileData);
-          
+            //  Auth::login($user);
+            // assign package to profile
+            $package = Package::find(1);
+            if (!$package) {
+                return redirect()->back()->with('error', 'package not found');
+            }
+              
+            $latestUserPackage = $user
+                ->profile
+                ->profilePackages()
+                ->withPivot('tokens_received', 'tokens_used', 'starts_at', 'expires_at')
+                ->orderBy('expires_at', 'desc')
+                ->first();
+            if ($latestUserPackage && $latestUserPackage->pivot->expires_at > now()) {
+                $startsAt = $latestUserPackage->pivot->expires_at;
+            } else {
+                $startsAt = now();
+            }
+            $startsAt = Carbon::parse($startsAt);
+    
+            $profilePackages = new ProfilePackage();
+            $profilePackages->profile_id = $user->profile->id;
+            $profilePackages->package_id = $package->id;
+            $profilePackages->tokens_received = $package->tokens;
+            $profilePackages->tokens_used = 0;
+            $profilePackages->starts_at = $startsAt;
+            $profilePackages->expires_at = $startsAt->copy()->addDays($package->validity);
+            $profilePackages->save();
+
+            //updateTotalTokens
+            $totalTokens = ProfilePackage::where('profile_id', $profile->id)
+            ->where('expires_at', '>', now())
+            ->get()
+            ->sum(function($package){
+                return $package->tokens_received - $package->tokens_used;
+            });
+    
+             $user->profile->update(['available_tokens'=> $totalTokens]);
+             if($user->profile->available_tokens === 0){
+                $val = 0;
+                    $user->update(['active'=> $val]);
+                }else{
+                    $val = 1;
+                    $user->update(['active'=> $val]);
+                }
+           
+            // package code end
         }
 
         return null; // Return null as we don’t need to return anything here

@@ -10,7 +10,7 @@
         <div class="card" style="width: 480px;">
             <div class="card-body">
                 <h2 class="font-weight-bold mb-3">Sign In</h2>
-                <p class="mb-4">Enter your email and password to login</p>
+                <p class="mb-4">Enter your Email or Mobile Number to login</p>
                 {{-- <x-auth-session-status class="mb-4" :status="session('status')" /> --}}
                 @if(Session::has('status'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -20,8 +20,8 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="mb-3">
-                        <label for="email" class="form-label" style="color: black;">Email</label>
-                        <input id="email" name="email" type="email" class="form-control" value="{{ old('email') }}" placeholder="Enter Email" required autofocus autocomplete="username" />
+                        <label for="email" class="form-label" style="color: black;">Email/Mobile</label>
+                        <input id="email" name="email" type="text" class="form-control" value="{{ old('email') }}" placeholder="Enter email or mobile number" required autofocus autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2 small text-danger " />
                     </div>
                     <div class="mb-3">

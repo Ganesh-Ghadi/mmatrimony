@@ -40,7 +40,7 @@
                         <div>
                             <label>Marital Status <span class="text-red-500">*</span></label>
                             <select class="form-input" name="marital_status" id="marital_status">
-                               <option value="" selected>select an option</option>
+                               <option value="" >select an option</option>
                                 @foreach (config('data.marital_status') as $value => $name)
                                     <option value="{{$value}}" {{ ($profile->marital_status === $value) ? 'selected' : ''}} >{{ $name }}</option>
                                 @endforeach

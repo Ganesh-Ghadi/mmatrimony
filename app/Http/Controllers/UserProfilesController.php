@@ -1003,7 +1003,7 @@ class UserProfilesController extends Controller
     }
 
     public function store(UpdateProfileRequest $request)
-    {
+    {   
         $profile = Profile::where('user_id', auth()->user()->id)->first();
 
         if ($request->hasFile('img_1')) {

@@ -20,6 +20,13 @@ class UpdateTotalTokens
         });
 
          auth()->user()->profile->update(['available_tokens'=> $totalTokens]);
+         if(auth()->user()->profile->available_tokens === 0){
+            $val = 0;
+                auth()->user()->update(['active'=> $val]);
+            }else{
+                $val = 1;
+                auth()->user()->update(['active'=> $val]);
+            }
     }
     
     /**

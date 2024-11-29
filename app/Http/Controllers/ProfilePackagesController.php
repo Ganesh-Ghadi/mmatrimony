@@ -20,7 +20,7 @@ class ProfilePackagesController extends Controller
         }
 
         $profile = auth()->user()->profile;
-        $tokenToUse = 500;
+        $tokenToUse = 1;
         // $this->useTokens($tokenToUse);
         if (!$this->useTokens($tokenToUse)) {
             // dd('not enought token');
@@ -69,7 +69,7 @@ class ProfilePackagesController extends Controller
         $profilePackages->save();
 
         $this->updateTotalTokens(auth()->user()->profile->id);
-
+         
         return redirect()->back();
     }
 

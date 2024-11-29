@@ -21,6 +21,7 @@ class CreateAdminUserSeeder extends Seeder
             ['email' => 'admin@matrimonial.com'],  // Search for user by email
             [
                 'name' => 'Admin MiddleName LastName',
+                'mobile' => '4444555566',
                 'password' => Hash::make('abcd123')  // Hash the password
             ]
         );

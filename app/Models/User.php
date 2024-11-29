@@ -28,7 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'active'
+        'active',
+        'mobile'
     ];
 
       //hasOne relationship

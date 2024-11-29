@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('first_name', 100)->nullable();
             $table->string('middle_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
@@ -47,12 +47,12 @@ return new class extends Migration {
             $table->integer('sub_caste')->nullable();
             $table->string('gotra', 100)->nullable();
             // family details
-            $table->boolean('father_is_alive')->default(0);
+            $table->boolean('father_is_alive')->nullable();
             $table->string('father_name', 100)->nullable();
             $table->string('father_occupation', 100)->nullable();
             $table->string('father_organization', 100)->nullable();
             $table->string('father_job_type', 100)->nullable();
-            $table->boolean('mother_is_alive')->default(0);
+            $table->boolean('mother_is_alive')->nullable();
             $table->string('mother_name', 100)->nullable();
             $table->string('mother_occupation', 100)->nullable();
             $table->string('mother_organization', 100)->nullable();

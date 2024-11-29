@@ -141,7 +141,7 @@
                 <label for="father_occupation">Occupation</label>
                 <select class="form-input" name="father_occupation" id="father_occupation">
                     <option value="" selected>Select an option</option>
-                    @foreach (config('data.occupation') as $value => $name)
+                    @foreach (config('data.father_occupation') as $value => $name)
                         <option value="{{$value}}" {{ ($user->father_occupation === $value) ? 'selected' : ''}}>{{ $name }}</option>
                     @endforeach
                 </select>
@@ -253,7 +253,7 @@
                     <label for="mother_occupation">Occupation</label>
                     <select class="form-input" name="mother_occupation" id="mother_occupation">
                         <option value="" selected>Select an option</option>
-                        @foreach (config('data.occupation') as $value => $name)
+                        @foreach (config('data.mother_occupation') as $value => $name)
                             <option value="{{$value}}" {{ ($user->mother_occupation === $value) ? 'selected' : '' }}>{{ $name }}</option>
                         @endforeach
                     </select>
