@@ -286,6 +286,11 @@
         <div class="col-12 col-md-9">
     
     <div class="card">
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error</strong> {{ session('error') }}
+        </div>
+        @endif
         <h1 class="text-center">User Search</h1>
 
         <!-- Search Form -->
@@ -566,7 +571,7 @@
             
      
             {{-- end --}}
-            <span class="view-profile" onclick="location.href='{{ route('user.profile', $user->id) }}'">View Profile</span>
+            <span class="view-profile" onclick="location.href='{{ route('user.show_profile', $user->id) }}'">View Profile</span>
         </div>
                 @endforeach
             </div>

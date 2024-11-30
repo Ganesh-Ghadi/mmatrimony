@@ -143,6 +143,11 @@ class Profile extends Model
         return $this->belongsToMany(Profile::class, 'profile_favorites', 'profile_id', 'favorite_profile_id');
     }
 
+    public function viewProfiles()
+    {
+        return $this->belongsToMany(Profile::class, 'profile_views', 'profile_id', 'view_profile_id');
+    }
+
     public function interestProfiles()
     {
         return $this->belongsToMany(Profile::class, 'profile_interests', 'profile_id', 'interest_profile_id');

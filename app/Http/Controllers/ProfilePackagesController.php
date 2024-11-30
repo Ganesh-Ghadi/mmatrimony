@@ -34,6 +34,53 @@ class ProfilePackagesController extends Controller
         return redirect()->back()->with('success', $message);
     }
 
+    public function showProfile($id)
+    {
+        // Find the user by ID
+        $user = Profile::findOrFail($id);
+        $profile = auth()->user()->profile;
+        $showButton = true;
+        // $users = auth()->user()->profile->interestProfiles()->get();      
+          $interestedUsers = auth()->user()->profile->interestProfiles()->get();
+          $viewdProfiles = auth()->user()->profile->viewProfiles()->get();
+           foreach($interestedUsers as $intUsers){
+            if($intUsers->id === $user->id){
+                $showButton = false;
+                
+                foreach($viewdProfiles as $viewedProfile){
+                    if($viewedProfile->id === $user->id){ 
+                        return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton]);
+                    }
+                }
+                
+                       $tokenToUse = 1;
+                        if (!$this->useTokens($tokenToUse)) {
+                            return redirect()->back()->with('error', 'Not enough tokens to view Profile');
+                        }
+                        $profile->viewProfiles()->attach($user->id);
+                $message = 'Tokens Available ' . $profile->available_tokens;
+                session()->flash('success', $message);
+                return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton])->with('success', $message);
+            } 
+        } 
+        
+        foreach($viewdProfiles as $viewedProfile){
+            if($viewedProfile->id === $user->id){ 
+                return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton]);
+            }
+        }
+        
+        $tokenToUse = 1;
+        if (!$this->useTokens($tokenToUse)) {
+            return redirect()->back()->with('error', 'Not enough tokens to view Profile');
+        }
+        $profile->viewProfiles()->attach($user->id);
+        // Return a view with the user's data
+        $message = 'Tokens Available ' . $profile->available_tokens;
+        session()->flash('success', $message);
+        return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton])->with('success', $message);
+    }
+
     public function purchasePackage(Request $request)
     {
         $validated = $request->validate([
@@ -140,6 +187,15 @@ class ProfilePackagesController extends Controller
         }
         return false;
     }
+
+    public function view_interested()
+    {
+        $users = auth()->user()->profile->interestProfiles()->get();
+
+        return view('default.view.profile.view_interested.index', ['users' => $users]);
+    }
+   
+   
 
     // public function useTokens(string $tokenToUse)
     // {

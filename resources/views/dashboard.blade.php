@@ -110,7 +110,7 @@
                                     <p class="card-text">{{ \Carbon\Carbon::parse($user->date_of_birth)->age }} years</p>
                                     <p class="card-text">{{ @$user->subCaste->name }}</p>
                                     <p class="card-text">{{ $user->bio }}</p>
-                                    <span class="view-profile" onclick="location.href='{{ route('user.profile', $user->id) }}'">View Profile</span>
+                                    <span class="view-profile" onclick="location.href='{{ route('user.show_profile', $user->id) }}'">View Profile</span>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                                     <p class="card-text">{{ \Carbon\Carbon::parse($user->date_of_birth)->age }} years</p>
                                     <p class="card-text">{{ @$user->subCaste->name }}</p>
                                     <p class="card-text">{{ $user->bio }}</p>
-                                    <span class="view-profile" onclick="location.href='{{ route('user.profile', $user->id) }}'">View Profile</span>
+                                    <span class="view-profile" onclick="location.href='{{ route('user.show_profile', $user->id) }}'">View Profile</span>
                                 </div>
                             </div>
                         </div>

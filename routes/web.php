@@ -59,6 +59,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         });
 
         Route::get('/user/profile/{id}', [UserProfilesController::class, 'show'])->name('user.profile');
+        Route::get('/user/showProfile/{id}', [ProfilePackagesController::class, 'showProfile'])->name('user.show_profile');
 
         Route::get('profile/search', [UserProfilesController::class, 'search'])->name('search.create');
         // Route::post('/search', [SearchController::class, 'search']);
@@ -90,6 +91,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/add-favorites', [UserProfilesController::class, 'add_favorite'])->name('profiles.add_favorite');
         Route::post('/remove-favorites', [UserProfilesController::class, 'remove_favorite'])->name('profiles.remove_favorite');
         Route::get('profile/view_favorites', [UserProfilesController::class, 'view_favorite'])->name('profiles.view_favorite');
+       Route::get('profile/view_interested', [ProfilePackagesController::class, 'view_interested'])->name('profiles.view_interested');
         Route::post('/show_interest', [ProfilePackagesController::class, 'show_interest'])->name('profiles.show_interest');
         Route::post('/remove-interest', [UserProfilesController::class, 'remove_interest'])->name('profiles.remove_interest');
 

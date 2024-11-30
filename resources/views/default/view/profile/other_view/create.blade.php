@@ -105,13 +105,12 @@
         @endif
     </div>
     <div class="panel">
-
          @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Success!</strong> {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-             
+            
         @elseif(session('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Error</strong> {{ session('error') }}
@@ -122,17 +121,19 @@
         <div class="card">
             <h3 class="text-center">Basic Profile</h3>
             <div  x-data="interestToggle({{ $user->id }}, {{ $user->is_interest ? 'true' : 'false' }})" >
-
-            <form action="{{ route('profiles.show_interest') }}" method="POST">
-                @csrf
+          
+                @if($showButton)
+                <form action="{{ route('profiles.show_interest') }}" method="POST">
+                    @csrf
                     <input type="hidden" name="interest_id" value="{{$user->id}}">
                     
-                    <button  type="submit" title="Toggle interest">
-                        show interest
-                     </button>
-
+                    <button type="submit" title="Toggle interest">
+                        Show interest
+                    </button>
                 </form>
-                
+        
+                @endif
+                   
                 
                
             </div>
@@ -294,6 +295,7 @@
     </div>
 
     <!-- Address / Contact Information Section -->
+    @if(!$showButton)
     <div>
         <h4 class="text-center"  style="border-top: 1px solid #ccc; padding-top: 10px;">Address / Contact Information</h4>
         <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
@@ -305,6 +307,7 @@
             <p><strong>Email:</strong> {{ $user->email }}</p>
         </div>
     </div>
+    @endif
 </div>
 
 <div class="card">

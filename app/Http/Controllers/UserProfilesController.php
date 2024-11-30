@@ -997,9 +997,18 @@ class UserProfilesController extends Controller
     {
         // Find the user by ID
         $user = Profile::findOrFail($id);
-
+        $showButton = true;
+        // $users = auth()->user()->profile->interestProfiles()->get();      
+          $interestedUsers = auth()->user()->profile->interestProfiles()->get();
+           foreach($interestedUsers as $intUsers){
+            if($intUsers->id === $user->id){
+                $showButton = false;
+                return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton]);
+            }
+        } 
+          
         // Return a view with the user's data
-        return view('default.view.profile.other_view.create', ['user' => $user]);
+        return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton]);
     }
 
     public function store(UpdateProfileRequest $request)
