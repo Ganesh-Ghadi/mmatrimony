@@ -6,9 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Personal Information Panel</title>
         <style>
-            /* Existing styles */
-
-            /* Card styling for 3D effect */
             .card {
                 border: 1px solid #ddd;
                 border-radius: 8px;
@@ -30,9 +27,9 @@
                 font-weight: bold;
                 cursor: pointer;
                 display: inline-block;
-             }
+            }
 
-            /* Additional styles */
+            /* Sidebar */
             .sidebar {
                 width: 300px;
                 position: sticky;
@@ -59,41 +56,42 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color: #888;
+                 color: #888;
                 font-weight: bold;
                 margin: 10px auto;
                 border-radius: 8px;
+                text-align: center;
             }
+
+
             button.btn {
-    background-color: #ff0000; /* Rose Red color */
-    color: white !important; /* Ensure text color is white */
-    border: none; /* Optional: remove border */
-}
+                background-color: #ff0000; /* Rose Red color */
+                color: white !important; /* Ensure text color is white */
+                border: none; /* Optional: remove border */
+            }
         </style>
     </head>
     <body>
         <div class="container-fluid">
             <h2 class="text-center">Interested IN</h2>
 
-            <div class="panel">
+            <div class="row">
                 @foreach($users as $user)
-                    <div class="col-md-4 mx-3">
-                        <div class="card my-2" style="width: 18rem;">
+                    <div class="col-md-4 mb-4">
+                        <div class="card my-2" style="max-width: 16rem;">  <!-- Decrease the width here -->
                             @if ($user->img_1)
-                            <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_1 }}')">
-                                <template x-if="imageUrl">
-                                    <!-- Wrap the image in an anchor tag to open it in a new tab -->
-                                    <a :href="imageUrl" target="_blank">
-                                        <img class="profile-image" style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
-                                    </a>
-                                </template>
-                                <template x-if="!imageUrl">
-                                    {{-- <p>Loading image...</p> --}}
-                                    <div class="no-profile-photo">No Profile Photo Displayed</div>
-                                </template>
-                            </div>
+                                <div x-data="imageLoader()" x-init="fetchImage('{{ $user->img_1 }}')">
+                                    <template x-if="imageUrl">
+                                        <a :href="imageUrl" target="_blank">
+                                            <img class="profile-image" style="max-width: 100px;" :src="imageUrl" alt="Uploaded Image" />
+                                        </a>
+                                    </template>
+                                    <template x-if="!imageUrl">
+                                        <div class="no-profile-photo">No Profile Photo Displayed</div>
+                                    </template>
+                                </div>
                             @else
-                            <div class="no-profile-photo">No Profile Photo Displayed</div>
+                                <div class="no-profile-photo">No Profile Photo Displayed</div>
                             @endif
                             <div class="card-body">
                                 <h5 class="card-title">{{ $user->first_name }} {{ $user->last_name }}</h5>
@@ -101,12 +99,6 @@
                                 <p class="card-text">{{ @$user->subCaste->name }}</p>
                                 <p class="card-text">{{ $user->bio }}</p>
                                 <span class="view-profile" onclick="location.href='{{ route('user.profile', $user->id) }}'">View Profile</span>
-                                {{-- <form action="{{ route('profiles.remove_favorite') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="favorite_id" value="{{ $user->id }}">
-                                    <input type="hidden" name="fav_page" value="fav_page">
-                                    <button class="btn text-white btn-primary" type="submit">Remove from Interested</button>
-                                </form> --}}
                             </div>
                         </div>
                     </div>
@@ -120,29 +112,26 @@
     </body>
     </html>
 
-
-    {{-- image display --}}
- <script>
-    function imageLoader() {
-        return {
-            imageUrl: null,
-    
-            async fetchImage(filename) {
-                try {
-                    const response = await fetch(`/api/images/${filename}`);
-                    if (!response.ok) throw new Error('Image not found');
-                    
-                    // Create a blob URL for the image
-                    const blob = await response.blob();
-                    this.imageUrl = URL.createObjectURL(blob);
-                } catch (error) {
-                    console.error('Error fetching image:', error);
-                    this.imageUrl = null; // Handle error case
+    {{-- Image display --}}
+    <script>
+        function imageLoader() {
+            return {
+                imageUrl: null,
+        
+                async fetchImage(filename) {
+                    try {
+                        const response = await fetch(`/api/images/${filename}`);
+                        if (!response.ok) throw new Error('Image not found');
+                        
+                        // Create a blob URL for the image
+                        const blob = await response.blob();
+                        this.imageUrl = URL.createObjectURL(blob);
+                    } catch (error) {
+                        console.error('Error fetching image:', error);
+                        this.imageUrl = null; // Handle error case
+                    }
                 }
-            }
-        };
-    }
+            };
+        }
     </script>
-
-{{-- end --}}
 </x-layout.user_banner>
