@@ -79,6 +79,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('packages', PackagesController::class);
         Route::get('/import/packages/', [PackagesController::class, 'import'])->name('packages.import');
         Route::post('/import_packages', [PackagesController::class, 'importPackagesExcel'])->name('packages.importPackagesExcel');
+        Route::get('refresh_status', [UsersController::class, 'refresh_status'])->name('refresh_status.refresh');
 
         Route::resource('states', StatesController::class);
         Route::resource('cities', CitiesController::class);
@@ -91,7 +92,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/add-favorites', [UserProfilesController::class, 'add_favorite'])->name('profiles.add_favorite');
         Route::post('/remove-favorites', [UserProfilesController::class, 'remove_favorite'])->name('profiles.remove_favorite');
         Route::get('profile/view_favorites', [UserProfilesController::class, 'view_favorite'])->name('profiles.view_favorite');
-       Route::get('profile/view_interested', [ProfilePackagesController::class, 'view_interested'])->name('profiles.view_interested');
+        Route::get('profile/view_interested', [ProfilePackagesController::class, 'view_interested'])->name('profiles.view_interested');
         Route::post('/show_interest', [ProfilePackagesController::class, 'show_interest'])->name('profiles.show_interest');
         Route::post('/remove-interest', [UserProfilesController::class, 'remove_interest'])->name('profiles.remove_interest');
 

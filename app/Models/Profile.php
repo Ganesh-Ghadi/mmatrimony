@@ -135,7 +135,7 @@ class Profile extends Model
     {
         return $this
             ->belongsToMany(Package::class, 'profile_packages')
-            ->withPivot('tokens_received', 'tokens_used', 'starts_at', 'expires_at');
+            ->withPivot('id', 'tokens_received', 'tokens_used', 'starts_at', 'expires_at');
     }
 
     public function favoriteProfiles()

@@ -25,7 +25,7 @@
                         <select class="form-input" name="role">
                             <option selected disabled>Select Role</option>                           
                                 @foreach($roles as $role)
-                                    <option value="{{ $role->id }}" {{ in_array($role->name, $userRole) ? 'selected' : '' }}>{{ $role->name }}</option>
+                                    <option value="{{ $role->name }}" {{ in_array($role->name, $userRole) ? 'selected' : '' }}>{{ $role->name }}</option>
                                 @endforeach
                         </select>
                     </div>   

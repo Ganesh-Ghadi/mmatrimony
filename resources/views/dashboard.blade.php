@@ -84,6 +84,11 @@
     </style>
 
     <div class="container my-4">
+        @if(session('error'))
+        <div class="alert mt-2 alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error</strong> {{ session('error') }}
+        </div>
+        @endif
         <h2 class="text-center">Bride Profiles</h2>
         <div class="profile-wrapper">
             <!-- Left Arrow -->

@@ -60,6 +60,11 @@ return [
         'individual' => 'Individual',
         'other' => 'Other',
     ],
+
+    'tokens' => [
+        'show_interest' => 200,
+        'view_profile' => 200,
+    ],
     // Health Information
     'blood_group' => [
         'a+' => 'A+',

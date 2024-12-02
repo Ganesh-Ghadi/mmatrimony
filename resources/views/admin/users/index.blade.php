@@ -1,6 +1,10 @@
 <x-layout.admin>
-    <x-add-button :link="route('users.create')" />
+    {{-- <x-add-button :link="route('users.create')" /> --}}
     {{-- <x-excel-button :link="route('users.import')" /> --}}
+    <div class="w-[15%] mt-2">
+        <a class="btn btn-primary" href="{{route('refresh_status.refresh')}}">Refresh Status</a>
+
+    </div>
     <br><br>
     <div x-data="form">      
         <div class="panel">

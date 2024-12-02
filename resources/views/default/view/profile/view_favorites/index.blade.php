@@ -73,6 +73,11 @@
     </head>
     <body>
         <div class="container-fluid">
+            @if(session('error'))
+            <div class="alert mt-2 alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error</strong> {{ session('error') }}
+            </div>
+            @endif
             <h2 class="text-center">Favorites</h2>
 
             <div class="panel">
@@ -100,7 +105,7 @@
                                 <p class="card-text">{{ \Carbon\Carbon::parse($user->date_of_birth)->age }} years</p>
                                 <p class="card-text">{{ @$user->subCaste->name }}</p>
                                 <p class="card-text">{{ $user->bio }}</p>
-                                <span class="view-profile" onclick="location.href='{{ route('user.profile', $user->id) }}'">View Profile</span>
+                                <span class="view-profile" onclick="location.href='{{ route('user.show_profile', $user->id) }}'">View Profile</span>
                                 <form action="{{ route('profiles.remove_favorite') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="favorite_id" value="{{ $user->id }}">

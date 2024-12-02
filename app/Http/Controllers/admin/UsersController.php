@@ -1,14 +1,16 @@
 <?php
 namespace App\Http\Controllers\admin;
 use Excel;
-use App\Http\Controllers\Controller;
-use App\Imports\ImportUsers;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use App\Http\Requests\UserRequest;
+use App\Models\Profile;
 use App\Http\Controllers\DB;
+use App\Imports\ImportUsers;
+use Illuminate\Http\Request;
+use App\Models\ProfilePackage;
+use App\Http\Requests\UserRequest;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 
 class UsersController extends Controller
@@ -86,4 +88,55 @@ class UsersController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+  public function refresh_status(){
+     
+    $profiles = Profile::all();
+    
+   foreach($profiles as $profile){
+
+    $totalTokens = ProfilePackage::where('profile_id', $profile->id)
+    ->where('expires_at', '>', now())
+    ->get()
+    ->sum(function($package){
+        return $package->tokens_received - $package->tokens_used;
+    });
+    $r = 198;
+    // if($profile->id === $r){
+        
+    //     dd($profile->available_tokens, $totalTokens);
+    // }
+    
+    
+     $profile->update(['available_tokens'=> $totalTokens]);
+      $user = User::find($profile->user_id);
+    //   $r = 198;
+    //   if($profile->id ===$r ){
+    //     dd($user);
+
+    //   }
+     if($profile->available_tokens === 0){
+        $val = 0;
+        if($user){
+            $user->active = $val;
+            $user->save();
+            
+        }
+      
+      
+        }else{
+            $val = 1;
+            if($user){
+                $user->active = $val;
+                $user->save();
+                       
+            }
+            
+        }
+   }
+
+   return redirect()->back()->with("success","Users Status Refreshed Successfully");
+  }
+
+    
 }

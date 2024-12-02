@@ -22,7 +22,7 @@ class ProfilePackagesController extends Controller
         }
 
         $profile = auth()->user()->profile;
-        $tokenToUse = 1;
+        $tokenToUse = config('data.tokens.show_interest');
         // $this->useTokens($tokenToUse);
         if (!$this->useTokens($tokenToUse)) {
             // dd('not enought token');
@@ -39,6 +39,7 @@ class ProfilePackagesController extends Controller
     public function showProfile($id)
     {
         // Find the user by ID
+        $tokenToUse = config('data.tokens.view_profile');
         $user = Profile::findOrFail($id);
         $profile = auth()->user()->profile;
         $showButton = true;
@@ -63,7 +64,6 @@ class ProfilePackagesController extends Controller
                     }
                 }
                 
-                       $tokenToUse = 1;
                         if (!$this->useTokens($tokenToUse)) {
                             return redirect()->back()->with('error', 'Not enough tokens to view Profile');
                         }
@@ -82,7 +82,6 @@ class ProfilePackagesController extends Controller
             }
         }
         
-        $tokenToUse = 1;
         if (!$this->useTokens($tokenToUse)) {
             return redirect()->back()->with('error', 'Not enough tokens to view Profile');
         }
@@ -148,57 +147,58 @@ class ProfilePackagesController extends Controller
     //     //later
     // }
 
-    public function useTokens(string $tokenToUse)
-    {
-        $userPackages = auth()
-            ->user()
-            ->profile
-            ->profilePackages()
-            ->where('expires_at', '>', now())
-            ->orderBy('expires_at')
-            ->get();
+     //original
+    // public function useTokens(string $tokenToUse)
+    // {
+    //     $userPackages = auth()
+    //         ->user()
+    //         ->profile
+    //         ->profilePackages()
+    //         ->where('expires_at', '>', now())
+    //         ->orderBy('expires_at')
+    //         ->get();
 
-        $tokensAvailable = 0;
-        $tokensAvail = 0;
-        //  start
-        foreach ($userPackages as $userPackage) {
-            $availTokens = $userPackage->pivot->tokens_received - $userPackage->pivot->tokens_used;
-            $tokensAvail += $availTokens;
-        }
+    //     $tokensAvailable = 0;
+    //     $tokensAvail = 0;
+    //     //  start
+    //     foreach ($userPackages as $userPackage) {
+    //         $availTokens = $userPackage->pivot->tokens_received - $userPackage->pivot->tokens_used;
+    //         $tokensAvail += $availTokens;
+    //     }
 
-        // If the total available tokens are less than what the user requested, return false
-        if ($tokensAvail < $tokenToUse) {
-            return false;  // Not enough tokens
-        }
-        // end
+    //     // If the total available tokens are less than what the user requested, return false
+    //     if ($tokensAvail < $tokenToUse) {
+    //         return false;  // Not enough tokens
+    //     }
+    //     // end
 
-        foreach ($userPackages as $userPackage) {
-            $availableTokens = $userPackage->pivot->tokens_received - $userPackage->pivot->tokens_used;
-            $tokensAvailable += $availableTokens;
+    //     foreach ($userPackages as $userPackage) {
+    //         $availableTokens = $userPackage->pivot->tokens_received - $userPackage->pivot->tokens_used;
+    //         $tokensAvailable += $availableTokens;
 
-            if ($tokensAvailable >= $tokenToUse) {
-                $userPackage->pivot->tokens_used += $tokenToUse;
+    //         if ($tokensAvailable >= $tokenToUse) {
+    //             $userPackage->pivot->tokens_used += $tokenToUse;
 
-                $userPackage->pivot->save();  // issue
-                // dd($userPackage->pivot->package_id);
-                //  $userPackage->profile()->profilePackages->updateExistingPivot($userPackage->pivot->package_id, [
-                //     'tokens_used' => $tt
-                // ]);
-                //   $p = ProfilePackage::find($userPackage->pivot->package_id);
-                //   $p->tokens_used = $tt;
-                //   $p->save();
+    //             $userPackage->pivot->save();  // issue
+    //             // dd($userPackage->pivot->package_id);
+    //             //  $userPackage->profile()->profilePackages->updateExistingPivot($userPackage->pivot->package_id, [
+    //             //     'tokens_used' => $tt
+    //             // ]);
+    //             //   $p = ProfilePackage::find($userPackage->pivot->package_id);
+    //             //   $p->tokens_used = $tt;
+    //             //   $p->save();
 
-                $this->updateTotalTokens(auth()->user()->profile->id);
+    //             $this->updateTotalTokens(auth()->user()->profile->id);
 
-                return true;
-            } else {
-                $tokenToUse -= $availableTokens;
-                $userPackage->pivot->tokens_used = $userPackage->pivot->tokens_received;
-                $userPackage->pivot->save();
-            }
-        }
-        return false;
-    }
+    //             return true;
+    //         } else {
+    //             $tokenToUse -= $availableTokens;
+    //             $userPackage->pivot->tokens_used = $userPackage->pivot->tokens_received;
+    //             $userPackage->pivot->save();
+    //         }
+    //     }
+    //     return false;
+    // }
 
     public function view_interested()
     {
@@ -254,4 +254,68 @@ class ProfilePackagesController extends Controller
     //     // If we exit the loop, it means there are still remaining tokens to be used but no more packages available
     //     return false;  // Not enough tokens
     // }
+
+
+     public function useTokens(string $tokenToUse)
+    {
+        $userPackages = auth()
+            ->user()
+            ->profile
+            ->profilePackages()
+            ->where('expires_at', '>', now())
+            ->orderBy('expires_at')
+            ->get();
+
+        $tokensAvailable = 0;
+        $tokensAvail = 0;
+        $tokensAvailablePerPackage = [];
+        //  start
+        foreach ($userPackages as $userPackage) {
+            $availTokens = $userPackage->pivot->tokens_received - $userPackage->pivot->tokens_used;
+            $tokensAvail += $availTokens;
+
+            $tokensAvailablePerPackage[] = [
+                'pivot_id' => $userPackage->pivot->id,  // Track by pivot id (primary key of the pivot table)
+                'userPackage' => $userPackage,
+                'availableTokens' => $availTokens
+            ];
+        }
+
+        // If the total available tokens are less than what the user requested, return false
+        if ($tokensAvail < $tokenToUse) {
+            return false;  // Not enough tokens
+        }
+        // end
+
+        foreach ($tokensAvailablePerPackage as $packageData) {
+            $userPackage = $packageData['userPackage'];
+            $availableTokens = $packageData['availableTokens'];
+            $pivotId = $packageData['pivot_id'];  // Unique pivot_id for this instance
+        //   dd($pivotId);
+            // Ensure you're dealing with a single Profile instance
+            $profile = auth()->user()->profile;  // This should give you the Profile model, not a collection
+    
+            // Find the specific pivot row using the pivot id
+            $pivot = $profile->profilePackages()
+                ->where('profile_packages.id', $pivotId)  // Find by pivot id (primary key of the pivot table)
+                ->first()->pivot;        // Access the pivot record
+    
+            if ($availableTokens >= $tokenToUse) {
+                // If the current package has enough tokens to fulfill the request
+                $pivot->tokens_used += $tokenToUse;  // Deduct the requested tokens
+                $pivot->save();  // Save the updated pivot record
+                $this->updateTotalTokens(auth()->user()->profile->id);  // Update the total tokens
+                return true;  // Successfully deducted tokens, return true
+            } else {
+                // If the current package doesn't have enough tokens, use all available tokens from this package
+                $tokenToUse -= $availableTokens;
+                $pivot->tokens_used += $availableTokens;  // Use all available tokens
+                $pivot->save();  // Save the updated pivot record
+            }
+        }
+        return false;
+    }
+   
+    
+
 }
