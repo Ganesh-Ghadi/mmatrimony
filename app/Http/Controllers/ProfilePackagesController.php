@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Caste;
 use App\Models\Package;
 use App\Models\Profile;
-use App\Models\ProfilePackage;
-use Carbon\Carbon;
+use App\Models\SubCaste;
 use Illuminate\Http\Request;
+use App\Models\ProfilePackage;
 
 class ProfilePackagesController extends Controller
 {
@@ -40,7 +42,15 @@ class ProfilePackagesController extends Controller
         $user = Profile::findOrFail($id);
         $profile = auth()->user()->profile;
         $showButton = true;
-        // $users = auth()->user()->profile->interestProfiles()->get();      
+ 
+        $castes = Caste::find($user->caste)->name;
+   
+        $subCastes = SubCaste::find($user->sub_caste);
+
+        if ($subCastes){
+            $subCastes = $subCastes->name; 
+        };
+        $users = auth()->user()->profile->interestProfiles()->get();      
           $interestedUsers = auth()->user()->profile->interestProfiles()->get();
           $viewdProfiles = auth()->user()->profile->viewProfiles()->get();
            foreach($interestedUsers as $intUsers){
@@ -49,7 +59,7 @@ class ProfilePackagesController extends Controller
                 
                 foreach($viewdProfiles as $viewedProfile){
                     if($viewedProfile->id === $user->id){ 
-                        return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton]);
+                        return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton, 'castes' => $castes, 'subCastes' => $subCastes]);
                     }
                 }
                 
@@ -60,13 +70,15 @@ class ProfilePackagesController extends Controller
                         $profile->viewProfiles()->attach($user->id);
                 $message = 'Tokens Available ' . $profile->available_tokens;
                 session()->flash('success', $message);
-                return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton])->with('success', $message);
+                
+
+                return view('default.view.profile.other_view.create', ['castes' => $castes, 'subCastes' => $subCastes, 'user' => $user, 'showButton'=>$showButton])->with('success', $message);
             } 
         } 
         
         foreach($viewdProfiles as $viewedProfile){
             if($viewedProfile->id === $user->id){ 
-                return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton]);
+                return view('default.view.profile.other_view.create', ['castes' => $castes, 'subCastes' => $subCastes, 'user' => $user, 'showButton'=>$showButton]);
             }
         }
         
@@ -78,7 +90,7 @@ class ProfilePackagesController extends Controller
         // Return a view with the user's data
         $message = 'Tokens Available ' . $profile->available_tokens;
         session()->flash('success', $message);
-        return view('default.view.profile.other_view.create', ['user' => $user, 'showButton'=>$showButton])->with('success', $message);
+        return view('default.view.profile.other_view.create', [ 'castes' => $castes, 'subCastes' => $subCastes, 'user' => $user, 'showButton'=>$showButton])->with('success', $message);
     }
 
     public function purchasePackage(Request $request)
