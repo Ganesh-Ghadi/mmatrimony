@@ -152,50 +152,51 @@ button.btn {
                     <p><strong>User ID:</strong> {{ $user->user_id }}</p>
                     <p><strong>Full Name:</strong> {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</p>
                     <p><strong>Mother Tongue:</strong> {{ ucfirst($user->mother_tongue) }}</p>
-                    <p><strong>Native Place:</strong> {{ $user->native_place }}</p>
+                    <p><strong>Native Place:</strong> {{ ucfirst($user->native_place) }}</p>
                     <p><strong>Gender:</strong> {{ ucfirst($user->gender) }}</p>
-                    <p><strong>Marital Status:</strong> {{  $user->marital_status }}</p>
+                    <p><strong>Marital Status:</strong> {{  ucfirst($user->marital_status) }}</p>
                     <p><strong>Living With:</strong> {{ ucfirst($user->living_with) }}</p>
 
                 </div>
                 <!-- Third Row: Personal Details -->
                 <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Health Information</h4>
                 <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                    <p><strong>Blood Group:</strong> {{ $user->blood_group }}</p>
-                    <p><strong>Height:</strong> {{ $user->height }}</p>
-                    <p><strong>Weight:</strong> {{ $user->weight }}</p>
-                    <p><strong>Body Type:</strong> {{ $user->body_type }}</p>
-                    <p><strong>Complexion:</strong> {{ $user->complexion }}</p>
-                    <p><strong>Physical Abnormality:</strong> {{ $user->physical_abnormality ? 'Yes' : 'No' }}</p>
-                    <p><strong>Spectacles:</strong> {{ $user->spectacles ? 'Yes' : 'No' }}</p>
-                    <p><strong>Lens:</strong> {{ $user->lens ? 'Yes' : 'No' }}</p>
-                </div>
+                    <p><strong>Blood Group:</strong> {{ ucfirst($user->blood_group) }}</p>
+                    <p><strong>Height:</strong> {{ ucfirst($user->height) }}</p>
+                    <p><strong>Weight:</strong> {{ ucfirst($user->weight) }}</p>
+                    <p><strong>Body Type:</strong> {{ ucfirst($user->body_type) }}</p>
+                    <p><strong>Complexion:</strong> {{ ucfirst($user->complexion) }}</p>
+                    <p><strong>Physical Abnormality:</strong> {{ ucfirst($user->physical_abnormality) ? 'Yes' : 'No' }}</p>
+                    <p><strong>Spectacles:</strong> {{ ucfirst($user->spectacles) ? 'Yes' : 'No' }}</p>
+                    <p><strong>Lens:</strong> {{ ucfirst($user->lens) ? 'Yes' : 'No' }}</p>
+                 </div>
                 <!-- Fifth Row: Other Habits -->
                 <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Food Habits</h4>
                 <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                    <p><strong>Eating Habits:</strong> {{ $user->eating_habits }}</p>
-                    <p><strong>Drinking Habits:</strong> {{ $user->drinking_habits }}</p>
-                    <p><strong>Smoking Habits:</strong> {{ $user->smoking_habits }}</p>
+                    <p><strong>Eating Habits:</strong> {{ ucfirst($user->eating_habits) }}</p>
+                    <p><strong>Drinking Habits:</strong> {{ ucfirst($user->drinking_habits) }}</p>
+                    <p><strong>Smoking Habits:</strong> {{ ucfirst($user->smoking_habits) }}</p>
+                    
                 </div>
                 <!-- Sixth Row: About Self -->
                 <div class="card-row" style="border-top: 1px solid #ccc; padding-top: 10px;">
-                    <p><strong>About Self:</strong> {{ $user->about_self }}</p>
+                    <p><strong>About Self:</strong> {{ ucfirst($user->about_self) }}</p>
                 </div>
             </div>
             <div class="card">
                 <h3 class="text-center">Religious Profile</h3></br>
                 <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
-                        <p><strong>Religion:</strong>{{ $user->religion }}</p>
+                        <p><strong>Religion:</strong>{{ ucfirst($user->religion) }}</p>
                     </div>
                     <div>
-                        <p><strong>Caste:</strong>{{ $castes }}</p>
+                        <p><strong>Caste:</strong>{{ ucfirst($castes) }}</p>
                     </div>
                     <div>
-                        <p><strong>Sub-Caste:</strong>{{ $subCastes }}</p>
+                        <p><strong>Sub-Caste:</strong>{{ ucfirst($subCastes) }}</p>
                     </div>
                     <div>
-                        <p><strong>Gotra:</strong>{{ $user->gotra }}</p>
+                        <p><strong>Gotra:</strong>{{ ucfirst($user->gotra) }}</p>
                     </div>
                 </div>
             </div>
@@ -205,25 +206,42 @@ button.btn {
                     <div>
                         <h4 class="text-center">Family Profile</h4>
                         <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <p><strong>Father's Alive:</strong> {{ $user->father_is_alive ? 'Yes' : 'No' }}</p>
-                            <p><strong>Father's Name:</strong> {{ $user->father_name }}</p>
-                            <p><strong>Father's Occupation:</strong> {{ $user->father_occupation }}</p>
-                            <p><strong>Father's Job Type:</strong> {{ $user->father_job_type }}</p>
-                            <p><strong>Father's Organization:</strong> {{ $user->father_organization }}</p>
-                            <p><strong>Mother's Alive:</strong> {{ $user->mother_is_alive ? 'Yes' : 'No' }}</p>
-                            <p><strong>Mother's Name:</strong> {{ $user->mother_name }}</p>
-                            <p><strong>Mother's Occupation:</strong> {{ $user->mother_occupation }}</p>
-                            <p><strong>Mother's Job Type:</strong> {{ $user->mother_job_type }}</p>
-                            <p><strong>Mother's Organization:</strong> {{ $user->mother_organization }}</p>
-                            <p><strong>Mother's Native Place:</strong> {{ $user->mother_native_place }}</p>
-                            <p><strong>Mother's Name Before Marriage:</strong> {{ $user->mother_name_before_marriage }}</p>
+                            <p><strong>Father's Alive:</strong>
+                                @if($user->father_is_alive)
+                                    <span >Yes</span>
+                                @else
+                                    <span >No</span>
+                                    
+                                @endif
+                            </p>
+                             <p><strong>Father's Name:</strong> {{ ucfirst($user->father_name) }}</p>
+                            <p><strong>Father's Occupation:</strong> {{ ucfirst($user->father_occupation) }}</p>
+                            <p><strong>Father's Job Type:</strong> {{ ucfirst($user->father_job_type) }}</p>
+                             <p><strong>Father's Organization:</strong> {{ ucfirst($user->father_organization) }}</p>
+                            <p><strong>Mother's Alive:</strong> 
+                                @if($user->mother_is_alive === null)
+                                    <span></span> 
+                                @elseif($user->mother_is_alive)
+                                    <span>Yes</span>
+                                @else
+                                    <span>No</span>
+                                @endif
+                            </p>
+                            
+                            <p><strong>Mother's Name:</strong> {{ ucfirst($user->mother_name) }}</p>
+                            <p><strong>Mother's Occupation:</strong> {{ ucfirst($user->mother_occupation) }}</p>
+                            <p><strong>Mother's Job Type:</strong> {{ ucfirst($user->mother_job_type) }}</p>
+                            <p><strong>Mother's Organization:</strong> {{ ucfirst($user->mother_organization) }}</p>
+                            <p><strong>Mother's Native Place:</strong> {{ ucfirst($user->mother_native_place) }}</p>
+                            <p><strong>Mother's Name Before Marriage:</strong> {{ ucfirst($user->mother_name_before_marriage) }}</p>
+                             
                         </div>
                     </div>
                     <!-- Brother Details -->
                     <div>
                         <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Brother Details</h4>
                         <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <p><strong>Resident Place:</strong> {{ $user->brother_resident_place }}</p>
+                            <p><strong>Resident Place:</strong> {{  ucfirst($user->brother_resident_place) }}</p>
                             <p><strong>Married:</strong> {{ $user->brother_is_alive ?? 0 }} {{ ($user->brother_is_alive ?? 0) == 1 ? 'brother' : 'brothers' }}</p>
                             <p><strong>Unmarried:</strong> {{ $user->brother_is_alive ?? 0 }} {{ ($user->brother_is_alive ?? 0) == 1 ? 'brother' : 'brothers' }}</p>
                                 </div>
@@ -232,7 +250,7 @@ button.btn {
                     <div>
                         <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Sister Details</h4>
                         <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <p><strong>Resident Place:</strong> {{ $user->sister_resident_place }}</p>
+                            <p><strong>Resident Place:</strong> {{ ucfirst($user->sister_resident_place) }}</p>
                             <p><strong>Married:</strong> {{ $user->number_of_sisters_married ?? 0 }} {{ ($user->number_of_sisters_married ?? 0) == 1 ? 'sister' : 'sisters' }}</p>
                             <p><strong>Unmarried:</strong> {{ $user->number_of_sisters_unmarried ?? 0 }} {{ ($user->number_of_sisters_unmarried ?? 0) == 1 ? 'sister' : 'sisters' }}</p>
                             
@@ -243,7 +261,7 @@ button.btn {
                     <!-- About Parents -->
                     <div>
                         <div class="card-row" style="border-top: 1px solid #ccc; padding-top: 10px;">
-                            <p><strong>About Parents:</strong> {{ $user->about_parents }}</p>
+                            <p><strong>About Parents:</strong> {{ ucfirst($user->about_parents) }}</p>
                         </div>
                     </div>
                 </div>
@@ -253,9 +271,11 @@ button.btn {
         <div class="card">   
             <h3 center class="text-center">Educational Profile</h3> 
           <div class="card-row">
-                <p><strong>Highest Education:</strong> {{ $user->highest_education }}</p>
-                <p><strong>Education in Detail:</strong> {{ $user->education_in_detail }}</p>
-                <p><strong>Additional Degree:</strong> {{ $user->additional_degree }}</p>
+                <p><strong>Highest Education:</strong> {{ ucfirst($user->highest_education) }}</p>
+                <p><strong>Other Education:</strong> {{ ucfirst($user->other_education) }}</p>
+                <p><strong>Education in Detail:</strong> {{ ucfirst($user->education_in_detail) }}</p>
+                <p><strong>Additional Degree:</strong> {{ ucfirst($user->additional_degree) }}</p>
+                 
         </div>
     </div>
     <div class="card">
@@ -263,10 +283,11 @@ button.btn {
         <div>
             <h4 class="text-center">Organisation Information</h4>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                <p><strong>Occupation:</strong> {{ $user->occupation }}</p>
-                <p><strong>Organization:</strong> {{ $user->organization }}</p>
-                <p><strong>Designation:</strong> {{ $user->designation }}</p>
-                <p><strong>Job Location:</strong> {{ $user->job_location }}</p>
+                <p><strong>Occupation:</strong> {{ ucfirst($user->occupation) }}</p>
+                <p><strong>Organization:</strong> {{ ucfirst($user->organization) }}</p>
+                <p><strong>Designation:</strong> {{ ucfirst($user->designation) }}</p>
+                <p><strong>Job Location:</strong> {{ ucfirst($user->job_location) }}</p>
+              
             </div>
         </div>
     
@@ -274,9 +295,9 @@ button.btn {
         <div>
             <h4 class="text-center"  style="border-top: 1px solid #ccc; padding-top: 10px;">Experience/Income</h4>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                <p><strong>Job Experience:</strong> {{ $user->job_experience }}</p>
-                <p><strong>Income:</strong> {{ $user->income }} {{ $user->currency }}</p>
-            </div>
+                <p><strong>Job Experience:</strong> {{ ucfirst($user->job_experience) }}</p>
+                <p><strong>Income:</strong> {{ ucfirst($user->income) }} {{ ucfirst($user->currency) }}</p>
+             </div>
         </div> 
     </div>
     
@@ -285,9 +306,10 @@ button.btn {
         <div>
             <h4 class="text-center">Location Information</h4>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                <p><strong>Country:</strong> {{ $user->country }}</p>
-                <p><strong>State:</strong> {{ $user->state }}</p>
-                <p><strong>City:</strong> {{ $user->city }}</p>
+                <p><strong>Country:</strong> {{ ucfirst($user->country) }}</p>
+                <p><strong>State:</strong> {{ ucfirst($user->state) }}</p>
+                <p><strong>City:</strong> {{ ucfirst($user->city) }}</p>
+                
             </div>
         </div>
     
@@ -295,12 +317,13 @@ button.btn {
         <div>
             <h4 class="text-center"  style="border-top: 1px solid #ccc; padding-top: 10px;">Address / Contact Information</h4>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                <p><strong>Address:</strong> {{ $user->address_line_1 }}, {{ $user->address_line_2 }}</p>
-                <p><strong>Landmark:</strong> {{ $user->landmark }}</p>
-                <p><strong>Pincode:</strong> {{ $user->pincode }}</p>
-                <p><strong>Mobile:</strong> {{ $user->mobile }}</p>
-                <p><strong>Landline:</strong> {{ $user->landline }}</p>
-                <p><strong>Email:</strong> {{ $user->email }}</p>
+                <p><strong>Address:</strong> {{ ucfirst($user->address_line_1) }}, {{ ucfirst($user->address_line_2) }}</p>
+                <p><strong>Landmark:</strong> {{ ucfirst($user->landmark) }}</p>
+                <p><strong>Pincode:</strong> {{ ucfirst($user->pincode) }}</p>
+                <p><strong>Mobile:</strong> {{ ucfirst($user->mobile) }}</p>
+                <p><strong>Landline:</strong> {{ ucfirst($user->landline) }}</p>
+                <p><strong>Email:</strong> {{ ucfirst($user->email) }}</p>
+                
             </div>
         </div>
     </div>
@@ -321,16 +344,17 @@ button.btn {
         <div>
             <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Expected Information About Partners</h4>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                <p><strong>Partner Income:</strong> {{ $user->partner_income }} {{ $user->partner_currency }}</p>
-                <p><strong>Partner Currency:</strong> {{ $user->partner_currency }}</p>
-                <p><strong>Want to See Patrika:</strong> {{ $user->want_to_see_patrika ? 'Yes' : 'No' }}</p>
-                <p><strong>Partner Sub-Cast:</strong> {{ $user->partner_sub_cast }}</p>
-                <p><strong>Partner Eating Habit:</strong> {{ $user->partner_eating_habbit }}</p>
-                <p><strong>Partner City Preference:</strong> {{ $user->partner_city_preference }}</p>
-                <p><strong>Partner Education:</strong> {{ $user->partner_education }}</p>
-                <p><strong>Partner Job:</strong> {{ $user->partner_job }}</p>
-                <p><strong>Partner Business:</strong> {{ $user->partner_business }}</p>
-                <p><strong>Partner Foreign Resident:</strong> {{ $user->partner_foreign_resident ? 'Yes' : 'No' }}</p>
+                <p><strong>Partner Income:</strong> {{ ucfirst($user->partner_income) }} {{ ucfirst($user->partner_currency) }}</p>
+                <p><strong>Partner Currency:</strong> {{ ucfirst($user->partner_currency) }}</p>
+                <p><strong>Want to See Patrika:</strong> {{ ucfirst($user->want_to_see_patrika) ? 'Yes' : 'No' }}</p>
+                <p><strong>Partner Sub-Cast:</strong> {{ ucfirst($user->partner_sub_cast) }}</p>
+                <p><strong>Partner Eating Habit:</strong> {{ ucfirst($user->partner_eating_habbit) }}</p>
+                <p><strong>Partner City Preference:</strong> {{ ucfirst($user->partner_city_preference) }}</p>
+                <p><strong>Partner Education:</strong> {{ ucfirst($user->partner_education) }}</p>
+                <p><strong>Partner Job:</strong> {{ ucfirst($user->partner_job) }}</p>
+                <p><strong>Partner Business:</strong> {{ ucfirst($user->partner_business) }}</p>
+                <p><strong>Partner Foreign Resident:</strong> {{ ucfirst($user->partner_foreign_resident) ? 'Yes' : 'No' }}</p>
+               
             </div>
         </div>
     </div>     
