@@ -153,9 +153,9 @@ button.btn {
                     <p><strong>Full Name:</strong> {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</p>
                     <p><strong>Mother Tongue:</strong> {{ ucfirst($user->mother_tongue) }}</p>
                     <p><strong>Native Place:</strong> {{ $user->native_place }}</p>
-                    <p><strong>Gender:</strong> {{ $user->gender }}</p>
-                    <p><strong>Marital Status:</strong> {{ $user->marital_status }}</p>
-                    <p><strong>Living With:</strong> {{ $user->living_with }}</p>
+                    <p><strong>Gender:</strong> {{ ucfirst($user->gender) }}</p>
+                    <p><strong>Marital Status:</strong> {{  $user->marital_status }}</p>
+                    <p><strong>Living With:</strong> {{ ucfirst($user->living_with) }}</p>
 
                 </div>
                 <!-- Third Row: Personal Details -->
@@ -189,10 +189,10 @@ button.btn {
                         <p><strong>Religion:</strong>{{ $user->religion }}</p>
                     </div>
                     <div>
-                        <p><strong>Caste:</strong>{{ $user->caste }}</p>
+                        <p><strong>Caste:</strong>{{ $castes }}</p>
                     </div>
                     <div>
-                        <p><strong>Sub-Caste:</strong>{{ $user->sub_caste }}</p>
+                        <p><strong>Sub-Caste:</strong>{{ $subCastes }}</p>
                     </div>
                     <div>
                         <p><strong>Gotra:</strong>{{ $user->gotra }}</p>

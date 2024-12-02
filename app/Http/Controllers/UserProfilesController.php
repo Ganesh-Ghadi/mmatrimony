@@ -258,7 +258,10 @@ class UserProfilesController extends Controller
         $profiles = Profile::all();
         $user = auth()->user()->profile()->first();
         $profileCompletion = $this->calculateProfileCompletion($user);
-        return view('default.view.profile.view_profile.create', ['user' => $user, 'profiles' => $profiles, 'profileCompletion' => $profileCompletion]);
+        $castes = Caste::find( $user->caste)->pluck('name')->first();
+        $subCastes = SubCaste::find( $user->sub_caste)->pluck('name')->first();
+       
+        return view('default.view.profile.view_profile.create', ['subCastes' => $subCastes, 'castes' => $castes, 'user' => $user, 'profiles' => $profiles, 'profileCompletion' => $profileCompletion]);
     }
 
     public function basic_details(Request $request)
