@@ -36,7 +36,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/admin', function () {
             return view('auth.admin_login');
         });
+        Route::get('/about', function () {
+            return view('default.view.pages.about');
+        });
     });
+    
+    
+    
 
     Route::group(['middleware' => ['auth', 'permission']], function () {
         Route::group(['prefix' => 'users', 'namespace' => 'admin'], function () {

@@ -81,9 +81,55 @@
         .scroll-right {
             right: 10px; /* Position right arrow to the right of the container */
         }
+
+        .hands {
+    max-width: 100%;
+    height: auto;
+    position: relative;
+
+  }
     </style>
 
-    <div class="container my-4">
+     
+        {{-- about start --}}
+        <div class="container-fluid position-relative " id="weddingAbout">
+            {{-- <div class="position-absolute" style="top: -35px; right: 0;">
+                <img src="{{asset('assets/images/tamp-bg-1.png')}}" alt="Maratha Vivah Mandal, Dombivili" class="hands">
+             </div> --}}
+            {{-- <div class="position-absolute" style="top: -10px; left: 0; transform: rotate(150deg);">
+                <img src="{{asset('assets/images/tamp-bg-1.png')}}" alt="Maratha Vivah Mandal, Dombivili" class="hands">
+            </div> --}}
+            <div class="container position-relative py-5">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row g-4 align-items-center">
+                            <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.3s">
+                                <div class="mx-auto  mb-3 wow fadeInUp" data-wow-delay="0.1s" >
+                                    <h2 class="display-1 text-primary mb-0">About Us</h2>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="my-auto">
+                                       <p class="text-justify">Welcome to Maratha Vivah Mandal Dombivli !!!
+
+                                        Maratha Vivah Mandal Dombivli is a community-driven organization dedicated to facilitating successful matrimonial alliances within the Maratha community. Established with the vision to preserve cultural heritage and strengthen bonds, we aim to provide a reliable and respectful platform for individuals and families looking for compatible life partners.
+                                       </p>
+                                      
+                                        </div>
+                                </div>
+                                <a class="btn btn-primary btn-primary-outline-0 py-3 px-5 mt-4" href="/about">Know More</a>
+                            </div>
+                            <div class="col-lg-5 wow fadeInUp order-first order-md-last" data-wow-delay="0.3s">
+                                <img src="{{asset('assets/images/about.jpg')}}" alt="Maratha Vivah Mandal, Dombivili" class="about-image">
+
+                             </div>
+                           
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+        {{-- about end --}}
         @if(session('error'))
         <div class="alert mt-2 alert-danger alert-dismissible fade show" role="alert">
             <strong>Error</strong> {{ session('error') }}

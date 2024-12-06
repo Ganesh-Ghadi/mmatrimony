@@ -54,7 +54,7 @@
                         <div class="collapse navbar-collapse py-3" id="navbarCollapse">
                             <div class="navbar-nav mx-auto border-top">
                                 <a href="#" class="nav-item nav-link active">Hasdasome</a>
-                                <a href="#" class="nav-item nav-link">About Us</a>
+                                <a href="#" class="nav-item nav-link">asd</a>
                                 <a href="#" class="nav-item nav-link">Success Stories</a>
                                 <a href="#" class="nav-item nav-link">Contact Us</a>
                                 
