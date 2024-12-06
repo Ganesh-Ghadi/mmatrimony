@@ -82,23 +82,18 @@
             right: 10px; /* Position right arrow to the right of the container */
         }
 
-        .hands {
-    max-width: 100%;
-    height: auto;
-    position: relative;
-
-  }
+       
     </style>
 
      
         {{-- about start --}}
         <div class="container-fluid position-relative " id="weddingAbout">
-            {{-- <div class="position-absolute" style="top: -35px; right: 0;">
-                <img src="{{asset('assets/images/tamp-bg-1.png')}}" alt="Maratha Vivah Mandal, Dombivili" class="hands">
-             </div> --}}
-            {{-- <div class="position-absolute" style="top: -10px; left: 0; transform: rotate(150deg);">
-                <img src="{{asset('assets/images/tamp-bg-1.png')}}" alt="Maratha Vivah Mandal, Dombivili" class="hands">
-            </div> --}}
+            <div class="position-absolute" style="top: -35px; right: 0;">
+                {{-- <img src="{{asset('assets/images/tamp-bg-1.png')}}" alt="Maratha Vivah Mandal, Dombivili" class="hands"> --}}
+             </div>
+            <div class="position-absolute" style="top: -10px; left: 0; transform: rotate(150deg);">
+                {{-- <img src="{{asset('assets/images/tamp-bg-1.png')}}" alt="Maratha Vivah Mandal, Dombivili" class="hands"> --}}
+            </div>
             <div class="container position-relative py-5">
                 <div class="row">
                     <div class="col-lg-12">
