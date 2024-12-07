@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
 
         return [
             'name' => 'required',
-            'email' => 'required|unique:users,email,'.($this->user ? $this->user->id : ''),
+            'email' => 'required|regex:/^[\w\.\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,6}$/|unique:users,email,'.($this->user ? $this->user->id : ''),
             'password' => 'required',
         ];
     }

@@ -44,12 +44,14 @@ class ProfilePackagesController extends Controller
         $profile = auth()->user()->profile;
         $showButton = true;
  
-        $castes = Caste::find($user->caste)->name;
-   
+        $castes = Caste::find($user->caste);
         $subCastes = SubCaste::find($user->sub_caste);
-
         if ($subCastes){
             $subCastes = $subCastes->name; 
+        };
+
+        if ($castes){
+            $castes = $castes->name; 
         };
         $users = auth()->user()->profile->interestProfiles()->get();      
           $interestedUsers = auth()->user()->profile->interestProfiles()->get();

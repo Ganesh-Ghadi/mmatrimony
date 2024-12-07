@@ -315,18 +315,19 @@
       </div>
   
       <!-- Address / Contact Information Section -->
+      @if(!$showButton)
       <div>
           <h4 class="text-center"  style="border-top: 1px solid #ccc; padding-top: 10px;">Address / Contact Information</h4>
           <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-              <p><strong>Address:</strong> {{ ucfirst($user->address_line_1) }}, {{ ucfirst($user->address_line_2) }}</p>
-              <p><strong>Landmark:</strong> {{ ucfirst($user->landmark) }}</p>
-              <p><strong>Pincode:</strong> {{ ucfirst($user->pincode) }}</p>
-              <p><strong>Mobile:</strong> {{ ucfirst($user->mobile) }}</p>
-              <p><strong>Landline:</strong> {{ ucfirst($user->landline) }}</p>
-              <p><strong>Email:</strong> {{ ucfirst($user->email) }}</p>
-              
+              <p><strong>Address:</strong> {{ $user->address_line_1 }}, {{ $user->address_line_2 }}</p>
+              <p><strong>Landmark:</strong> {{ $user->landmark }}</p>
+              <p><strong>Pincode:</strong> {{ $user->pincode }}</p>
+              <p><strong>Mobile:</strong> {{ $user->mobile }}</p>
+              <p><strong>Landline:</strong> {{ $user->landline }}</p>
+              <p><strong>Email:</strong> {{ $user->email }}</p>
           </div>
       </div>
+      @endif
   </div>
   
   <div class="card">

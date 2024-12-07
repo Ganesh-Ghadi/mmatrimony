@@ -62,8 +62,8 @@ return [
     ],
 
     'tokens' => [
-        'show_interest' => 200,
-        'view_profile' => 200,
+        'show_interest' => 1,
+        'view_profile' => 1,
     ],
     // Health Information
     'blood_group' => [

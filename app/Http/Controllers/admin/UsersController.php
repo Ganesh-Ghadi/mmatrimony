@@ -60,7 +60,12 @@ class UsersController extends Controller
 
     public function update(User $user, UserRequest $request) 
     {
+        
         $user->update($request->all());
+        $profile = Profile::find($user->id);
+        $profile->email = $request->input("email");
+        $profile->first_name = $request->input('name');
+        $profile->save();
         $user->syncRoles($request->get('role'));
         $request->session()->flash('success', 'User updated successfully!');
         return redirect()->route('users.index');

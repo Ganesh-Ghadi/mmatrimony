@@ -258,8 +258,15 @@ class UserProfilesController extends Controller
         $profiles = Profile::all();
         $user = auth()->user()->profile()->first();
         $profileCompletion = $this->calculateProfileCompletion($user);
-        $castes = Caste::find( $user->caste)->pluck('name')->first();
-        $subCastes = SubCaste::find( $user->sub_caste)->pluck('name')->first();
+        $castes = Caste::find($user->caste);
+        $subCastes = SubCaste::find($user->sub_caste);
+        if ($subCastes){
+            $subCastes = $subCastes->name; 
+        };
+
+        if ($castes){
+            $castes = $castes->name; 
+        };
        
         return view('default.view.profile.view_profile.create', ['subCastes' => $subCastes, 'castes' => $castes, 'user' => $user, 'profiles' => $profiles, 'profileCompletion' => $profileCompletion]);
     }
@@ -1003,10 +1010,17 @@ class UserProfilesController extends Controller
         $showButton = true;
          
 
-        $castes = Caste::find($user->caste)->name;
-        $subCastes = SubCaste::find($user->sub_caste)->name;
-        
+        $castes = Caste::find($user->caste);
+        $subCastes = SubCaste::find($user->sub_caste);
+        if ($subCastes){
+            $subCastes = $subCastes->name; 
+        };
 
+        if ($castes){
+            $castes = $castes->name; 
+        };
+
+        
         // $users = auth()->user()->profile->interestProfiles()->get();      
           $interestedUsers = auth()->user()->profile->interestProfiles()->get();
            foreach($interestedUsers as $intUsers){
