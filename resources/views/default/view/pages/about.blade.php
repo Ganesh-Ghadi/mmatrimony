@@ -35,6 +35,7 @@
                        
                        
                     </div>
+                    {!! $about1->description !!}
                 </div>
             </div>
         </div>

@@ -1,22 +1,27 @@
 <?php
-use App\Http\Controllers\admin\AdminDashboardController;
-use App\Http\Controllers\admin\CastesController;
-use App\Http\Controllers\admin\CitiesController;
-use App\Http\Controllers\admin\DashboardController as Enter;
-use App\Http\Controllers\admin\PackagesController;
-use App\Http\Controllers\admin\PermissionsController;
-use App\Http\Controllers\admin\ProfilesController;
-use App\Http\Controllers\admin\RolesController;
-use App\Http\Controllers\admin\StatesController;
-use App\Http\Controllers\admin\subCastesController;
-use App\Http\Controllers\admin\UsersController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProfilePackagesController;
-use App\Http\Controllers\UserProfilesController;
+use App\Models\Pages;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\admin\BlocksController;
+use App\Http\Controllers\admin\PagesController As AdminPagesController;
+use App\Http\Controllers\admin\CastesController;
+use App\Http\Controllers\admin\CitiesController;
+use App\Http\Controllers\admin\StatesController;
+use App\Http\Controllers\UserProfilesController;
+use App\Http\Controllers\admin\PackagesController;
+use App\Http\Controllers\admin\ProfilesController;
+use App\Http\Controllers\admin\subCastesController;
+use App\Http\Controllers\ProfilePackagesController;
+use App\Http\Controllers\admin\PermissionsController;
+use App\Http\Controllers\admin\AdminDashboardController;
+use App\Http\Controllers\admin\DashboardController as Enter;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 
 /*
  * |--------------------------------------------------------------------------
@@ -36,9 +41,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/admin', function () {
             return view('auth.admin_login');
         });
-        Route::get('/about', function () {
-            return view('default.view.pages.about');
-        });
+
+        /*
+            $pages = get all records
+            foreach($pages as $page) {
+                Route::get($page->slug, function() {
+                    return app('App\Http\Controllers\PagesController')->view($page->id);
+                });
+            }
+        */
+    
     });
     
     
@@ -83,6 +95,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('castes', CastesController::class);
         Route::resource('sub_castes', subCastesController::class);
         Route::resource('packages', PackagesController::class);
+        Route::resource('blocks', BlocksController::class);
+        Route::resource('pages', AdminPagesController::class);
         Route::get('/import/packages/', [PackagesController::class, 'import'])->name('packages.import');
         Route::post('/import_packages', [PackagesController::class, 'importPackagesExcel'])->name('packages.importPackagesExcel');
         Route::get('refresh_status', [UsersController::class, 'refresh_status'])->name('refresh_status.refresh');
