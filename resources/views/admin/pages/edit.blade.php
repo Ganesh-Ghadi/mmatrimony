@@ -18,7 +18,16 @@
                 </div>
                 <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-3">               
                     <x-text-input name="title" value="{{ old('title', $page->title) }}" :label="__('Page title')" :require="true" :messages="$errors->get('title')"/>              
-                 
+                        <div>
+                            <label>Layouts</label>
+                            <select class="form-input" name="layout"   id="layout">
+                                <option value="" selected>select an option</option>
+                                <option value="about_us" {{$page->layout === 'about_us' ? 'selected' : ""}} >About us</option>
+                                <option value="contact_us" {{$page->layout === 'contact_us' ? 'selected' : ""}}>Contact us</option>
+                                <option value="success_stories" {{$page->layout === 'success_stories' ? 'selected' : ""}}>Success Stories</option>
+                            </select> 
+                            <x-input-error :messages="$errors->get('layout')" class="mt-2" /> 
+                        </div> 
                 </div>
                 <textarea name="description" id="description" class="description form-control" cols="45" rows="10">{{ old('description', $page->description) }}</textarea>
 

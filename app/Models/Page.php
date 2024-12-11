@@ -13,6 +13,7 @@ class Page extends Model
         'slug',
         'title',
         'description',
+        'layout',
     ];
     
 }

@@ -22,6 +22,12 @@ class PagesController extends Controller
 
     public function store(Request $request) 
     {
+        $request->validate([
+            'title' => 'required|string|unique:pages,title',
+            'layout' => 'required',
+
+        ]);
+        
         $input = $request->all();   
         $title = $input['title'];
         $slug = Str::slug($title, '-'); 
@@ -43,6 +49,7 @@ class PagesController extends Controller
 
     public function update(Page $page, Request $request) 
     {
+        
         $input = $request->all();   
         $title = $input['title'];
         $slug = Str::slug($title, '-'); 

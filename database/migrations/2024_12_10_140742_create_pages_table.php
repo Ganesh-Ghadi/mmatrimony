@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("slug")->nullable();
             $table->string("title")->nullable();
             $table->text("description")->nullable();
+            $table->string("layout")->nullable();
             $table->timestamps();
         });
     }

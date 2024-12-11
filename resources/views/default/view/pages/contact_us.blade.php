@@ -1,5 +1,7 @@
 <x-layout.user_banner>
     {{-- about start --}}
+    {{!! $page->description!!}}    
+
     <div>
     <div class="" id="weddingAbout">
         <div class="position-absolute" style="top: px; right: 0;">
@@ -35,7 +37,7 @@
                        
                        
                     </div>
-                    {!! $about1->description !!}
+                    {{-- {!! @@$about1->description !!} --}}
                 </div>
             </div>
         </div>

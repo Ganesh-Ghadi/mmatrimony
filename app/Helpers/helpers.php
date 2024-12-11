@@ -14,10 +14,10 @@ if (! function_exists('block')) {
     }
 }
 
-if (! function_exists('block')) {
-    function block($title)
+if (! function_exists('page')) {
+    function page($title)
     {
         $page = Page::where("title", $title)->first();
-        return $block->description;
+        return $page->description;
     }
 }

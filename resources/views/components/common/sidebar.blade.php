@@ -147,7 +147,7 @@
                                     fill="currentColor" />
                             </svg>
                             <span
-                                class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">profile Details  </span>
+                                class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Profile Details  </span>
                         </div>
                         <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'profile' }">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -158,7 +158,7 @@
                         </div>
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'profile'" x-collapse class="sub-menu text-gray-500">
-                        <li><a href="/user_profiles">View Profile</a></li>
+                        <li><a href="/user_profiles">Profiles</a></li>
                     </ul>
                 </li>
                 @endrole

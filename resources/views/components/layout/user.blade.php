@@ -63,7 +63,7 @@
                         <div class="collapse navbar-collapse py-2" id="navbarCollapse">
                             <div class="navbar-nav mx-auto border-top">
                                 <a href="/" class="nav-item nav-link active">Home</a>
-                                <a href="/about" class="nav-item nav-link">About</a>
+                                <a href="/about-us" class="nav-item nav-link">About</a>
                                 <a href="{{ route('basic_details.index') }}" class="nav-item nav-link">Profile</a>
                                 <a href="#" class="nav-item nav-link">Success Stories</a>
                                 <a href="#" class="nav-item nav-link">Contact Us</a>
@@ -167,14 +167,15 @@
 
                 <div class="row g-5 justify-content-center">
                     <div class="col-lg-3 text-start">
-                        {!! block("footer 2") !!}
+                        {!! @block("footer-1") !!}
                     </div>
                     <div class="col-lg-6 text-center">
                         <div class="footer-item">
+                            {!! @block("footer-2") !!}
                         </div>
                     </div>
                     <div class="col-lg-3 text-end">
-
+                        {!! @block("footer-3") !!}
                     </div>
                 </div>
             </div>

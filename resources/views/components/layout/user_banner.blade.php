@@ -63,7 +63,7 @@
                         <div class="collapse navbar-collapse py-2" id="navbarCollapse">
                             <div class="navbar-nav mx-auto border-top">
                                 <a href="/" class="nav-item nav-link active">Home</a>
-                                <a href="/about" class="nav-item nav-link">About Us</a>
+                                <a href="/about-us" class="nav-item nav-link">About Us</a>
                                 <a href="{{ route('basic_details.index') }}" class="nav-item nav-link">Profile</a>
                                 <a href="#" class="nav-item nav-link">Success Stories</a>
                                 <a href="#" class="nav-item nav-link">Contact Us</a>
@@ -244,27 +244,22 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- Footer Start -->
         <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container py-5">                            
-
-                <div class="row g-5 justify-content-center">
-                    <div class="col-lg-3 text-start">
-                         
-                        {!! $footer1->description !!}
-                    </div>
-                    <div class="col-lg-6 text-center">
-                        <div class="footer-item">
-                            {{-- <h4 class="mb-4 text-white">Marath Vivah Mandal, Dombivli</h4> --}}
-                            {{-- <p class="text-white">Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here 
-                            </p> --}}
-                             <p>{!! $footer2->description !!}</p>
+    
+                    <div class="row g-5 justify-content-center">
+                        <div class="col-lg-3 text-start">
+                            {!! @block("footer-1") !!}
                         </div>
-                    </div>
-                    <div class="col-lg-3 text-end">
-                        {!! $footer3->description !!}
-
+                        <div class="col-lg-6 text-center">
+                            <div class="footer-item">
+                                {!! @block("footer-2") !!}
+                            </div>
+                        </div>
+                        <div class="col-lg-3 text-end">
+                            {!! @block("footer-3") !!}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         <!-- Footer End -->
         
 

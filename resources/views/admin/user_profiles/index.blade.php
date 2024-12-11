@@ -21,11 +21,11 @@
                     <table class="table-hover">
                         <thead>
                             <tr>
-                                <th>id</th>
-                                <th style="text-align:right;">Full Name</th>
-                                <th style="text-align:right;">Gender</th>
-                                <th style="text-align:right;">Marital Status</th>
-                                <th style="text-align:right;">Email</th>
+                                {{-- <th>id</th> --}}
+                                <th>Full Name</th>
+                                <th>Gender</th>
+                                <th>Marital Status</th>
+                                <th>Email</th>
 
                                 <th style="text-align:right;">Action</th>
                             </tr>
@@ -33,11 +33,11 @@
                         <tbody>
                             @foreach ($profiles as $profile)
                             <tr>                    
-                                <td>{{ $profile->id }}</td>
-                                <td style="text-align:right;"> {{$profile->first_name. " ". $profile->middle_name. " ".$profile->last_name }}</td>
-                                <td style="text-align:right;"> {{$profile->gender }}</td>
-                                <td style="text-align:right;"> {{ucfirst($profile->marital_status) }}</td>
-                                <td style="text-align:right;"> {{$profile->email}}</td>
+                                {{-- <td>{{ $profile->id }}</td> --}}
+                                <td> {{$profile->first_name. " ". $profile->middle_name. " ".$profile->last_name }}</td>
+                                <td > {{$profile->gender }}</td>
+                                <td > {{ucfirst($profile->marital_status) }}</td>
+                                <td > {{$profile->email}}</td>
                                 <td class="float-right">
                                     <ul class="flex items-center gap-2" >
                                         <li style="display: inline-block;vertical-align:top;">

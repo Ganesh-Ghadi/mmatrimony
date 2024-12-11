@@ -7,7 +7,7 @@
     <br><br>
     <div x-data="form"> 
         <div class="panel">
-            <div class="flex items-center justify-between mb-5">
+            {{-- <div class="flex items-center justify-between mb-5">
                 <h5 class="font-semibold text-lg dark:text-white-light">Pages</h5>
                 <div class="flex items-center">
                     <form action="" method="get" class="flex items-center">
@@ -15,13 +15,14 @@
                         <button class="btn btn-primary px-4 py-2" type="submit">Submit</button>
                     </form>
                 </div>
-            </div>
+            </div> --}}
             <div class="mt-6">
                 <div class="table-responsive">
                     <table class="table-hover">
                         <thead>
                             <tr>
                                 <th>Page</th>
+                                <th>Slug</th>
                                 <th style="text-align:right;">Action</th>
                             </tr>
                         </thead>
@@ -29,6 +30,8 @@
                             @foreach ($pages as $page)
                             <tr>                    
                                 <td> {{ $page->title }}</td>
+                                <td> {{ $page->slug }}</td>
+
                                 <td class="float-right">
                                     <ul class="flex items-center gap-2" >
                                         <li style="display: inline-block;vertical-align:top;">
