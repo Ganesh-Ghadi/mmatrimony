@@ -6,6 +6,7 @@ use App\Models\Page;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
 
 class PagesController extends Controller
 {
@@ -34,7 +35,9 @@ class PagesController extends Controller
         $input['slug'] = $slug;
         $page = Page::create($input); 
         $request->session()->flash('success', 'Data saved successfully!');
-        return redirect()->route('pages.index'); 
+        Artisan::call("optimize");
+        // return view('admin.pages.index');
+        return redirect()->back();
     }
   
     public function show(Page $page)
@@ -49,6 +52,11 @@ class PagesController extends Controller
 
     public function update(Page $page, Request $request) 
     {
+        $request->validate([
+            'title' => 'required|string|unique:pages,title,'. $page->id,
+            'layout' => 'required',
+
+        ]);
         
         $input = $request->all();   
         $title = $input['title'];
@@ -56,7 +64,11 @@ class PagesController extends Controller
         $input['slug'] = $slug;
         $page->update($input);
         $request->session()->flash('success', 'Data updated successfully!');
-        return redirect()->route('pages.index');
+        Artisan::call("optimize");
+        // return view('admin.pages.index');
+        return redirect()->back();
+
+        // return redirect()->route('pages.index');
     }
   
     public function destroy(Request $request, Page $page)

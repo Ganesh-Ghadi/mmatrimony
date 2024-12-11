@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Default\UpdateProfileRequest;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Caste;
 use App\Models\Package;
 use App\Models\Profile;
-use App\Models\ProfilePackage;
 use App\Models\SubCaste;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\ProfilePackage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Default\UpdateProfileRequest;
 
 class UserProfilesController extends Controller
 {
@@ -1037,6 +1038,12 @@ class UserProfilesController extends Controller
     public function store(UpdateProfileRequest $request)
     {   
         $profile = Profile::where('user_id', auth()->user()->id)->first();
+        $user = User::find($profile->user_id);
+  
+        if($request->has("email")){
+            $user->email = $request->input("email");
+            $user->save();
+        }
 
         if ($request->hasFile('img_1')) {
             if (!empty($profile->img_1) && Storage::exists('public/images/'.$profile->img_1)) {

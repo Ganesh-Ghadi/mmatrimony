@@ -48,8 +48,13 @@ class RegisteredUserController extends Controller
             //  'password' => ['required', 'confirmed', Rules\Password::defaults()],
              'role'=>  ['required'],
         ]);
-        // dd($request);`
+        
         $number = $request->input('country_code') .$request->input('mobile'); 
+        $exists = \DB::table('users')->where('mobile', $number)->exists();
+
+        if ($exists) {
+            return back()->withErrors(['mobile' => 'The mobile number is already registered.']);
+        }
         $fullName = trim($request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name);
         $ranToken = Str::random(60); // Generate a random token
         $user = User::create([
