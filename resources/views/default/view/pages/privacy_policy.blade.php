@@ -16,11 +16,25 @@
                         </p>
         
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
-            Further, the management of Marath Vivah Mandal does not guarantee the accuracy of any person’s background gained membership in Marathavivahmandaldombivli.com
-                </p>
+            Information users submit.
+                        </p>
         
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
-            The website Marathavivahmandaldombivli.com makes no warranty or representation regarding any content or products advertised on this website. We expressly disclaim any and all warranties, express or implied, including any warranty as to the availability, accuracy, completeness, or content of information, products, or services, which are part of other parties.
+            Information not directly submitted.
+        </p>
+
+        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">Members</h2>
+
+
+        <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
+            There are two types of user-submitted information we collect: Public and Private. We define Public information as personal information that may be displayed on the site at the behest of the member, such as gender, age, height, telephone number, photograph, etc. Private information is defined as any information that allows others to contact a user other than through panigrahan.net or allows the collection of information about the user other than what is displayed on the site.
+                </p>
+                <h5 style="color: #d9534f; font-size: 20px; font-weight: bold; text-align: center; width: 80%;">Public</h5>
+
+        <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
+            To order to make the services of advertising to the relevant targeted members, we gather personal information, which may or may not include: customer-specified PANIGRAHAN.NETusername, gender, age, religion, income range, profession, telephone number, preference/lifestyle information, general geographic location, photograph and horoscope.        </p>
+        <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
+            Marathavivahmandaldombivli.com also disclaims any or all warranties or fitness for a particular purpose, merchantability or against infringement. In no event will Marathavivahmandaldombivli.com or its employees, be liable for any damages or losses, including without, limitation, indirect, consequential, special, incidental or punitive damages resulting from or caused by the Marathavivahmandaldombivli.com’s website, its contents or any errors or omissions in its contents, even if advised of the possibilities of such damages.
         </p>
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             Marathavivahmandaldombivli.com also disclaims any or all warranties or fitness for a particular purpose, merchantability or against infringement. In no event will Marathavivahmandaldombivli.com or its employees, be liable for any damages or losses, including without, limitation, indirect, consequential, special, incidental or punitive damages resulting from or caused by the Marathavivahmandaldombivli.com’s website, its contents or any errors or omissions in its contents, even if advised of the possibilities of such damages.
