@@ -15,8 +15,6 @@
                         {{-- <span class="bg-blue-100 text-blue-800 text-sm font-medium py-1 px-3 rounded-full">
                             {{ $registeredUsers }} Users
                         </span> --}}
-
- < 
                     </div>
                     <div class="mt-4 text-gray-600">
                         <p class="text-lg">The total number of registered users on your platform. You can track growth and engagement through this number.</p>

@@ -24,6 +24,9 @@
                                         <option value="about_us">About us</option>
                                         <option value="contact_us">Contact us</option>
                                         <option value="success_stories">Success Stories</option>
+                                        <option value="terms_and_conditions">Terms and Conditions</option>
+                                        <option value="privacy_policy">Privacy Policy</option>
+                                        <option value="disclaimer">Disclaimer</option>
                                     </select> 
                                     <x-input-error :messages="$errors->get('layout')" class="mt-2" /> 
                                 </div> 

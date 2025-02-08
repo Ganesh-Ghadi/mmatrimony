@@ -25,6 +25,9 @@
                                 <option value="about_us" {{$page->layout === 'about_us' ? 'selected' : ""}} >About us</option>
                                 <option value="contact_us" {{$page->layout === 'contact_us' ? 'selected' : ""}}>Contact us</option>
                                 <option value="success_stories" {{$page->layout === 'success_stories' ? 'selected' : ""}}>Success Stories</option>
+                                <option value="terms_and_conditions" {{$page->layout === 'terms_and_conditions' ? 'selected' : ""}}>Terms and Conditions</option>
+                                <option value="privacy_policy" {{$page->layout === 'privacy_policy' ? 'selected' : ""}}>Privacy Policy</option>
+                                <option value="disclaimer" {{$page->layout === 'disclaimer' ? 'selected' : ""}}>Disclaimer</option>
                             </select> 
                             <x-input-error :messages="$errors->get('layout')" class="mt-2" /> 
                         </div> 
