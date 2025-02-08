@@ -355,7 +355,7 @@
                     @endif   
                 </div>
                 
-                 <div class="form-group">
+                 {{-- <div class="form-group">
                     <label for="Subcastes">SubCastes</label>
                     <select class="form-input" name="Subcastes" id="Subcastes">
                         <option value="" selected>Select an option</option>
@@ -369,7 +369,7 @@
                     @if ($errors->has('Subcastes'))
                         <span class="text-danger small">{{ $errors->first('Subcastes') }}</span>
                     @endif   
-                </div>
+                </div> --}}
                 
             </div>
             

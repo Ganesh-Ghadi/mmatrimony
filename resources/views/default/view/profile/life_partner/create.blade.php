@@ -232,7 +232,7 @@
                 
             </div>
             <div class="col">
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="partner_sub_cast">SubCast</label>
                     <select class="form-input" name="partner_sub_cast" id="partner_sub_cast">
                         <option value="" selected>Select an option</option>
@@ -243,7 +243,7 @@
                     @if ($errors->has('partner_sub_cast'))
                     <span class="text-danger small">{{ $errors->first('partner_sub_cast') }}</span>
                     @endif         
-                </div>
+                </div> --}}
                 </div> 
             <div class="row mt-3">
                 <div class="col">

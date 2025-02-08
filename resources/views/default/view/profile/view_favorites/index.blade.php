@@ -103,7 +103,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $user->first_name }} {{ $user->last_name }}</h5>
                                 <p class="card-text">{{ \Carbon\Carbon::parse($user->date_of_birth)->age }} years</p>
-                                <p class="card-text">{{ @$user->subCaste->name }}</p>
+                                {{-- <p class="card-text">{{ @$user->subCaste->name }}</p> --}}
                                 <p class="card-text">{{ $user->bio }}</p>
                                 <span class="view-profile" onclick="location.href='{{ route('user.show_profile', $user->id) }}'">View Profile</span>
                                 <form action="{{ route('profiles.remove_favorite') }}" method="POST">

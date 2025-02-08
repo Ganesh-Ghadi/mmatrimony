@@ -193,7 +193,7 @@ button.btn {
                         <p><strong>Caste:</strong>{{ ucfirst($castes) }}</p>
                     </div>
                     <div>
-                        <p><strong>Sub-Caste:</strong>{{ ucfirst($subCastes) }}</p>
+                        {{-- <p><strong>Sub-Caste:</strong>{{ ucfirst($subCastes) }}</p> --}}
                     </div>
                     <div>
                         <p><strong>Gotra:</strong>{{ ucfirst($user->gotra) }}</p>
@@ -347,7 +347,7 @@ button.btn {
                 <p><strong>Partner Income:</strong> {{ ucfirst($user->partner_income) }} {{ ucfirst($user->partner_currency) }}</p>
                 <p><strong>Partner Currency:</strong> {{ ucfirst($user->partner_currency) }}</p>
                 <p><strong>Want to See Patrika:</strong> {{ ucfirst($user->want_to_see_patrika) ? 'Yes' : 'No' }}</p>
-                <p><strong>Partner Sub-Cast:</strong> {{ ucfirst($user->partner_sub_cast) }}</p>
+                {{-- <p><strong>Partner Sub-Cast:</strong> {{ ucfirst($user->partner_sub_cast) }}</p> --}}
                 <p><strong>Partner Eating Habit:</strong> {{ ucfirst($user->partner_eating_habbit) }}</p>
                 <p><strong>Partner City Preference:</strong> {{ ucfirst($user->partner_city_preference) }}</p>
                 <p><strong>Partner Education:</strong> {{ ucfirst($user->partner_education) }}</p>

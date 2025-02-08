@@ -162,7 +162,7 @@
             </div>
               
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label>Subcastes</label>
                 <select class="form-input" name="sub_caste" id="sub_caste">
                     <option value="" selected>select an option</option>
@@ -174,7 +174,7 @@
                 <span class="text-danger small">{{ $errors->first('sub_caste') }}</span>
                 @endif   
                   
-           </div>
+           </div> --}}
           
             <div class="form-group">
                 <label for="gotra">Gotra</label>
