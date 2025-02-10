@@ -63,7 +63,7 @@
                         <div class="collapse navbar-collapse py-2" id="navbarCollapse">
                             <div class="navbar-nav mx-auto border-top">
                                 <a href="/" class="nav-item nav-link active">Home</a>
-                                <a href="/about-us" class="nav-item nav-link">About</a>
+                                <a href="/about" class="nav-item nav-link">About Us</a>
                                 <a href="{{ route('basic_details.index') }}" class="nav-item nav-link">Profile</a>
                                 <a href="#" class="nav-item nav-link">Success Stories</a>
                                 <a href="#" class="nav-item nav-link">Contact Us</a>
@@ -111,47 +111,140 @@
 
 
         <!-- Carousel Start -->
-        <div class="container-fluid carousel-header px-0 myslider">
-            <div id="carouselId" class="carousel slide myslider" data-bs-ride="carousel">
-                <div class="carousel-inner myslider" role="listbox">
-                    <div class="carousel-item active">
-                        <img src="{{asset('assets/images/mvm banner01.jpeg')}}" class="img-fluid" alt="Image">
-                        <div class="carousel-caption myslider">
-                            <div class="p-3 mx-auto animated zoomIn" style="max-width: 900px;">
-                                <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">
-                                    <p class="myp h4 text-white fw-bold mb-0" style="letter-spacing: 3px;">Maratha Vivah Mandal </p>
-                                </div>
-                                <h1 class="display-1 text-capitalize text-white mb-3">Welcome </h1>
-                                <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">
-                                    <p class="myp h4 text-white  fw-bold mb-0" style="letter-spacing: 3px;">Maratha Vivah Mandal</p>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item myslider">
-                        <img src="{{asset('assets/images/mvm banner02.jpeg')}}" class="img-fluid" alt="Image">
-                        <div class="carousel-caption myslider">
-                            <div class="p-3 mx-auto animated zoomIn" style="max-width: 900px;">
-                                <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">
-                                    <p class="myp h4 text-white fw-bold mb-0" style="letter-spacing: 3px;">Welcome to </p>
-                                </div>
-                                <h2 class="display-1 text-capitalize text-white mb-3">Maratha Vivah Mandal</h2>
-                                <div class="d-inline-block border-end-0 border-start-0 border-secondary p-2 mb-3" style="border-style: double;">
-                                    <p class="myp h4 text-white fw-bold mb-0" style="letter-spacing: 3px;">Dombivli </p>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    
+        
+       
+        <style>
 
-                  
-                    
-                </div>
-                
-            </div>
-        </div>
+        .breadcrumb-container {
+            position: relative;
+            width: 100%;
+        }
+        
+        .breadcrumb-overlay {
+            position: absolute;
+            top: 50%; /* Adjust the vertical position */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the breadcrumb */
+            color: white; /* Text color */
+            z-index: 10; /* Ensure breadcrumb is above the image */
+        }
+        
+        .breadcrumb {
+            background-color: transparent; /* Make breadcrumb background transparent */
+            margin-bottom: 0; /* Remove bottom margin */
+            font-size: 14px; /* Adjust font size */
+        }
+        
+        .breadcrumb a {
+            color: white; /* Link color */
+        }
+        
+        .breadcrumb .active {
+            color: white; /* Active breadcrumb color */
+        }
+
+        .booking-link {
+  color: white; /* Set the default text color to white */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Optional: make text bold for a stronger impact */
+  font-size: 16px; /* Adjust font size as needed */
+  transition: color 0.3s ease, text-shadow 0.3s ease; /* Smooth transition for color and text-shadow */
+}
+
+.booking-link:hover {
+  color: #f24e4e; /* Love red color on hover */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4), -2px -2px 8px rgba(0, 0, 0, 0.4); /* Create 3D shadow effect */
+}
+    </style>
+
+<div class="image-container" style="position: relative; display: inline-block; width: 100%;">
+    <img src="{{asset('assets/images/mvm banner 04.jpeg')}}" class="img-fluid" alt="Image" style="height: 50px; width: 100%; object-fit: cover;">
+    <div class="url-overlay" id="urlOverlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; align-items: center; padding: 10px; background-color: rgba(0, 0, 0, 0.5); color: white; font-size: 14px; font-weight: bold;">
+        <!-- URL will be dynamically injected here -->
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the current page's URL
+    const currentUrl = window.location.href;
+
+    // Extract the path and check if there are query parameters
+    const urlPath = currentUrl.split('?')[0];  // Split by '?' to ignore query parameters
+
+    // Extract the path segments
+    const segments = urlPath.split('/');
+    const lastSegment = segments[segments.length - 1];
+
+    // Check for the specific case of '/user/profile/9'
+    if (segments.length === 4 && segments[2] === 'profile' && !isNaN(lastSegment)) {
+        // If the URL is specifically '/user/profile/ID', only show 'Profile'
+        document.getElementById('urlOverlay').innerText = 'Profile';
+    } else {
+        // Capitalize and display the full path, like 'Profile / Basic Details'
+        const capitalizedFirstSegment = segments[segments.length - 2].charAt(0).toUpperCase() + segments[segments.length - 2].slice(1);
+
+        // If the last segment has underscores, format it (e.g., "basic_details" -> "Basic Details")
+        const formattedText = lastSegment
+            .split('_')                // Split by underscores
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))  // Capitalize each word
+            .join(' ');                // Join with spaces
+
+        // If the URL has multiple path segments, display the first segment followed by the last formatted segment
+        const formattedPath = capitalizedFirstSegment + ' / ' + formattedText;
+        document.getElementById('urlOverlay').innerText = formattedPath;
+    }
+});
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the current page's URL
+    const currentUrl = window.location.href;
+
+    // Extract the path and check if there are query parameters
+    const urlPath = currentUrl.split('?')[0];  // Split by '?' to ignore query parameters
+
+    // Extract the path segments
+    const segments = urlPath.split('/');
+    const lastSegment = segments[segments.length - 1];
+
+    // Check for specific cases: /login and /register
+    if (lastSegment === 'login') {
+        document.getElementById('urlOverlay').innerText = 'Login';
+    } else if (lastSegment === 'register') {
+        document.getElementById('urlOverlay').innerText = 'Register';
+    } else {
+        // Check for the specific case of '/user/profile/9'
+        if (segments.length === 4 && segments[2] === 'profile' && !isNaN(lastSegment)) {
+            // If the URL is specifically '/user/profile/ID', only show 'Profile'
+            document.getElementById('urlOverlay').innerText = 'Profile';
+        } else {
+            // Capitalize and display the full path, like 'Profile / Basic Details'
+            const capitalizedFirstSegment = segments[segments.length - 2].charAt(0).toUpperCase() + segments[segments.length - 2].slice(1);
+
+            // If the last segment has underscores, format it (e.g., "basic_details" -> "Basic Details")
+            const formattedText = lastSegment
+                .split('_')                // Split by underscores
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))  // Capitalize each word
+                .join(' ');                // Join with spaces
+
+            // If the URL has multiple path segments, display the first segment followed by the last formatted segment
+            const formattedPath = capitalizedFirstSegment + ' / ' + formattedText;
+            document.getElementById('urlOverlay').innerText = formattedPath;
+        }
+    }
+});
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
 
         <div class="container">
            <div class="d-flex justify-content-evenly">
@@ -162,20 +255,73 @@
   
 
         <!-- Footer Start -->
-        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-5">                            
+        
+        {{-- <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">                            
 
                 <div class="row g-5 justify-content-center">
                     <div class="col-lg-3 text-start">
-                        {!! @block("footer-1") !!}
+                         
+                        {!! $footer1->description !!}
                     </div>
                     <div class="col-lg-6 text-center">
                         <div class="footer-item">
-                            {!! @block("footer-2") !!}
+                            <h4 class="mb-4 text-white">Marath Vivah Mandal, Dombivli</h4>
+                            <p class="text-white">Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here 
+                            </p>
+                             <p>{!! $footer2->description !!}</p>
                         </div>
                     </div>
                     <div class="col-lg-3 text-end">
-                        {!! @block("footer-3") !!}
+                        {!! $footer3->description !!}
+
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+       
+
+        <!-- Footer End -->
+
+          <!-- Footer Start -->
+          <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5 justify-content-center">
+                    <div class="col-lg-3 text-start">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Quick Links</h4>
+                            <a href="/" class="btn-link">Home</a>
+                            <a href="/terms-and-conditions" class="btn-link">Terms and Conditions</a>
+                            <a href="/privacy-policy" class="btn-link">Privacy Policy</a>
+                            <a href="/disclaimer" class="btn-link">Disclaimer</a>
+                           
+                            {{-- <a href="#" class="btn-link"> Link Name</a>
+                            <a href="#" class="btn-link"> Link Name</a> --}}
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <div class="footer-item">
+                            <h4 class="mb-4 text-white">Marath Vivah Mandal, Dombivli</h4>
+                            <p class="text-white">Maratha Vivah Mandal Dombivli is a community-driven platform dedicated to facilitating matrimonial alliances within the Maratha community, focusing on cultural heritage and tradition. We offer a personalized, respectful approach to matchmaking, helping individuals and families find compatible life partners.
+                            </p>
+                            {{-- <div class="btn-link d-flex justify-content-center">
+                                <a href="#" class="btn  btn-light btn-light-outline-0 me-2">  Register</a>
+                                <a href="#" class="btn  btn-light btn-light-outline-0 me-2">  Login</a>
+                            </div> --}}
+                        </div>
+                    </div>
+                    <div class="col-lg-3 text-end">
+                        <div class="footer-item d-flex flex-column">
+
+                            <h4 class="my-4 text-white">Contact Us</h4>
+                            <a href="#" class="booking-link">
+                                <em>&nbsp;</em>Admin & Hall Booking Office
+                                Maratha Hitwardhak Mandal, Dombivli
+                              </a>
+                            <a href="#" class="btn-link"><em class="fas fa-phone text-secondary me-2">&nbsp;</em>+91 9619441953</a>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7535.085350194379!2d73.088027!3d19.215167!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be795343fdce99b%3A0x7c9cf3dae60032a6!2sSaraswati%20Castle%20Housing%20Society!5e0!3m2!1sen!2sde!4v1733830672007!5m2!1sen!2sde" width="270" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                        </div>
                     </div>
                 </div>
             </div>

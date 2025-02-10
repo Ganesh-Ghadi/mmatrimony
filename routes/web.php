@@ -35,12 +35,11 @@ use App\Http\Controllers\admin\PagesController As AdminPagesController;
  * |
  */
 
- $pages =  Page::all();
- foreach($pages as $page) {
-     Route::get($page->slug, function() use($page) {
-         return app('App\Http\Controllers\PagesController')->view($page->id);
-     });
- }
+//  foreach($pages as $page) {
+//      Route::get($page->slug, function() use($page) {
+//          return app('App\Http\Controllers\PagesController')->view($page->id);
+//      });
+//  }
  
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -50,7 +49,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             return view('auth.admin_login');
         });
     });
-    
+
+    Route::get('/terms-and-conditions', function () {
+        return view('default.view.pages.terms_and_conditions');
+    })->name('terms_and_conditions');
+    Route::get('/disclaimer', function () {
+        return view('default.view.pages.disclaimer');
+    })->name('disclaimer');
+    Route::get('/privacy-policy', function () {
+        return view('default.view.pages.privacy_policy');
+    })->name('privacy_policy');
+    Route::get('/about', function () {
+        return view('default.view.pages.about_us');
+    })->name('about_us');
     
     
 

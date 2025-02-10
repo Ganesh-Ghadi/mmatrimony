@@ -1,7 +1,7 @@
 <x-layout.user_banner>
   
     <div style="display: flex; flex-direction: column; align-items: center;">
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">Dear User, </br>Welcome to Marathavivahmandaldombivli.com.</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: center; width: 80%;">Dear User, </br>Welcome to Marathavivahmandaldombivli.com.</p>
         
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             Please Read These Terms And Conditions Before Registration.  By registering on marathavivahmandaldombivli.com and with Marath Vivah Mandal you clearly understand and agree that :
@@ -16,16 +16,16 @@
             Your use of this Site represents and warrants that you have the right, authority, and capacity to enter into this Agreement and to abide by all of the terms and conditions of this Agreement.
         </p>
 
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">CONDITIONS OF USE :-</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: start; width: 80%;">CONDITIONS OF USE :-</p>
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             If you visit our facility or sign up at marathavivahmandaldombivli.com, you accept these terms and conditions. Please read them carefully. In addition, when you use any services of marathavivahmandaldombivli.com or visit our facility or Web site, you also will be subject to the guidelines and conditions applicable to such service or business.
         </p>
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">YOUR ACCOUNT / PROFILE :-</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: start; width: 80%;">YOUR ACCOUNT / PROFILE :-</p>
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             If you use our website marathavivahmandaldombivli.com, you are responsible for maintaining the confidentiality of your accounts login and password information and you agree to accept responsibility for all activities that occur under your account or password. Maratha Vivah Mandal reserves right to refuse service, terminate accounts, remove or edit content, or cancel subscription in their sole discretion.
                 </p>
 
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">YOUR PRIVACY :-</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: start; width: 80%;">YOUR PRIVACY :-</p>
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             Please review our Privacy Policy, which also governs your visit to marathavivahmandaldombivli.com, to understand our practices. Members agree that their profile(s) may be crawled and indexed by search engines, for such activities Marath Vivah Mandal does not have any control over the search engines behaviour.
         </p>
@@ -36,7 +36,7 @@
             Any unauthorised use terminates the permission granted by marathavivahmandaldombivli.com You may not use marathavivahmandaldombivli.com's logo or other proprietary graphics or trademark.
         </p>
 
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">REGISTRATION & MEMBERSHIP :-</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: start; width: 80%;">REGISTRATION & MEMBERSHIP :-</p>
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             By registering your profile on marathavivahmandaldombivli.com or by the payment of registration charges / renewal of membership,  you become a member of Marath Vivah Mandal's family.
         </p>
@@ -70,7 +70,7 @@
             Vivahyog predictions, GrahMilan Yog, Santati Yog these are services from marathavivahmandaldombivli.com and does not holds any guarantee about the predictions.
              </p>
 
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">CONDITIONS OF USE :-</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: start; width: 80%;">CONDITIONS OF USE :-</p>
 
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
         All members are responsible for the content, information [including profile, photographs or any other information uploaded] posted by them. Content or information should not be consists of any details or particulars of any of  our competitors, including the contact details of competitors. Members will not use either their online or offline membership as a platform for any kind of promotional campaign, solicitation, advertising or dealing in any products or services or transmit any chain letters or junk mails.
@@ -101,7 +101,7 @@
             Your membership in the Marathavivahmandaldombivli.com service is for your sole, personal use. You may not authorise others to use your membership and you may not assign or transfer your account to any other person or entity.
                         </p>
 
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">ROLE OF Marathavivahmandaldombivli.com :-</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: start; width: 80%;">ROLE OF Marathavivahmandaldombivli.com :-</p>
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
          Marathavivahmandaldombivli.com acts as a platform for all its members to interchange information that would promote their common matrimonial objectives.</br>
           It is to be distinctly understood that Marathavivahmandaldombivli.com will only provide contact between and among members within its service framework and not the direct contact details of any of its members.</br>
@@ -121,26 +121,26 @@
             This could include exciting offers, information, as well as promotions. Marathavivahmandaldombivli.com can use your email address and/or telephone number for this purpose
         </p>
         {{-- //Marath Vivah Mandal's POLICY TO ASSIST STATUTORY INVESTIGATION AGENCY --}}
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">ROLE OF Marathavivahmandaldombivli.com :-</h2>
+        <p style="color: #d9534f; font-size: 19px; font-weight: bold; text-align: start; width: 80%;">POLICY TO ASSIST STATUTORY INVESTIGATION AGENCY</p>
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             Marathavivahmandaldombivli.com will make an effort to provide all possible support to the Police (Cyber Crime Investigation Cell) or any other statutory investigation agency to engage in fraudulent members of Marathavivahmandaldombivli.com, On being explicitly informed by the said authorities for all fraudulent online activities.
            </p>
 
 
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">DIGITAL COMMUNICATIONS :-</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: start; width: 80%;">DIGITAL COMMUNICATIONS :-</p>
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             When you visit Marath Vivah Mandal's website i.e Marathavivahmandaldombivli.com or send e-mails to us, you are communicating electronically. We will communicate with you by e-mail or by posting updates on our website. You agree that all agreements, notices, updates, disclosures and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.
         </p>
 
 
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">NON-COMMERCIAL USE BY MEMBERS :-</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: start; width: 80%;">NON-COMMERCIAL USE BY MEMBERS :-</p>
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             Marathavivahmandaldombivli.com grants you a limited authorisation to access online and make personal use of our website and not to download any portion of it. </br>
             This authorisation does not include any commercial use of this website or its contents; any collection and use of our services, descriptions, or prices; any imitative use of this website or its contents; gathering account information for the benefit of another merchant; or any use of data, or similar data gathering and extraction of data from Marathavivahmandaldombivli.com 
         </p>
 
 
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">TERMINATION OF MEMBERSHIP :-</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: start; width: 80%;">TERMINATION OF MEMBERSHIP :-</p>
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             The membership may be terminated by either party by serving a written notice on the other. Marathavivahmandaldombivli.com reserves the right to terminate the membership, to suspend a profile or to disable access in respect of any member in breach of any of the terms. In no case will the Membership fees be refundable.
         </p>

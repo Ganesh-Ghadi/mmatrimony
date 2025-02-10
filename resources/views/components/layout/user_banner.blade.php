@@ -63,7 +63,7 @@
                         <div class="collapse navbar-collapse py-2" id="navbarCollapse">
                             <div class="navbar-nav mx-auto border-top">
                                 <a href="/" class="nav-item nav-link active">Home</a>
-                                <a href="/about-us" class="nav-item nav-link">About Us</a>
+                                <a href="/about" class="nav-item nav-link">About Us</a>
                                 <a href="{{ route('basic_details.index') }}" class="nav-item nav-link">Profile</a>
                                 <a href="#" class="nav-item nav-link">Success Stories</a>
                                 <a href="#" class="nav-item nav-link">Contact Us</a>
@@ -142,6 +142,19 @@
         .breadcrumb .active {
             color: white; /* Active breadcrumb color */
         }
+
+        .booking-link {
+  color: white; /* Set the default text color to white */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Optional: make text bold for a stronger impact */
+  font-size: 16px; /* Adjust font size as needed */
+  transition: color 0.3s ease, text-shadow 0.3s ease; /* Smooth transition for color and text-shadow */
+}
+
+.booking-link:hover {
+  color: #f24e4e; /* Love red color on hover */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4), -2px -2px 8px rgba(0, 0, 0, 0.4); /* Create 3D shadow effect */
+}
     </style>
 
 <div class="image-container" style="position: relative; display: inline-block; width: 100%;">
@@ -242,24 +255,76 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
         <!-- Footer Start -->
-        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s">
+        
+        {{-- <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container py-5">                            
-    
-                    <div class="row g-5 justify-content-center">
-                        <div class="col-lg-3 text-start">
-                            {!! @block("footer-1") !!}
+
+                <div class="row g-5 justify-content-center">
+                    <div class="col-lg-3 text-start">
+                         
+                        {!! $footer1->description !!}
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <div class="footer-item">
+                            <h4 class="mb-4 text-white">Marath Vivah Mandal, Dombivli</h4>
+                            <p class="text-white">Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here Text will come here 
+                            </p>
+                             <p>{!! $footer2->description !!}</p>
                         </div>
-                        <div class="col-lg-6 text-center">
-                            <div class="footer-item">
-                                {!! @block("footer-2") !!}
-                            </div>
+                    </div>
+                    <div class="col-lg-3 text-end">
+                        {!! $footer3->description !!}
+
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+       
+
+        <!-- Footer End -->
+
+          <!-- Footer Start -->
+          <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5 justify-content-center">
+                    <div class="col-lg-3 text-start">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Quick Links</h4>
+                            <a href="/" class="btn-link">Home</a>
+                            <a href="/terms-and-conditions" class="btn-link">Terms and Conditions</a>
+                            <a href="/privacy-policy" class="btn-link">Privacy Policy</a>
+                            <a href="/disclaimer" class="btn-link">Disclaimer</a>
+                            {{-- <a href="#" class="btn-link"> Link Name</a>
+                            <a href="#" class="btn-link"> Link Name</a> --}}
                         </div>
-                        <div class="col-lg-3 text-end">
-                            {!! @block("footer-3") !!}
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <div class="footer-item">
+                            <h4 class="mb-4 text-white">Marath Vivah Mandal, Dombivli</h4>
+                            <p class="text-white">Maratha Vivah Mandal Dombivli is a community-driven platform dedicated to facilitating matrimonial alliances within the Maratha community, focusing on cultural heritage and tradition. We offer a personalized, respectful approach to matchmaking, helping individuals and families find compatible life partners.
+                            </p>
+                            {{-- <div class="btn-link d-flex justify-content-center">
+                                <a href="#" class="btn  btn-light btn-light-outline-0 me-2">  Register</a>
+                                <a href="#" class="btn  btn-light btn-light-outline-0 me-2">  Login</a>
+                            </div> --}}
+                        </div>
+                    </div>
+                    <div class="col-lg-3 text-end">
+                        <div class="footer-item d-flex flex-column">
+
+                            <h4 class="my-4 text-white">Contact Us</h4>
+                            <a href="#" class="booking-link">
+                                <em>&nbsp;</em>Admin & Hall Booking Office
+                                Maratha Hitwardhak Mandal, Dombivli
+                              </a>
+                            <a href="#" class="btn-link"><em class="fas fa-phone text-secondary me-2">&nbsp;</em>+91 9619441953</a>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7535.085350194379!2d73.088027!3d19.215167!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be795343fdce99b%3A0x7c9cf3dae60032a6!2sSaraswati%20Castle%20Housing%20Society!5e0!3m2!1sen!2sde!4v1733830672007!5m2!1sen!2sde" width="270" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         <!-- Footer End -->
         
 

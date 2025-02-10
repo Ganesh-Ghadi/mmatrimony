@@ -1,7 +1,7 @@
 <x-layout.user_banner>
   
     <div style="display: flex; flex-direction: column; align-items: center;">
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">Disclaimer</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: center; width: 80%;">Disclaimer</p>
         
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             It must be clearly understood that each profile you find in this website is the resultant consequence of a process and procedure, which is expected to be adhered by our clients with due diligence.
@@ -26,7 +26,7 @@
             Marathavivahmandaldombivli.com also disclaims any or all warranties or fitness for a particular purpose, merchantability or against infringement. In no event will Marathavivahmandaldombivli.com or its employees, be liable for any damages or losses, including without, limitation, indirect, consequential, special, incidental or punitive damages resulting from or caused by the Marathavivahmandaldombivli.com’s website, its contents or any errors or omissions in its contents, even if advised of the possibilities of such damages.
         </p>
         
-        <h2 style="color: #d9534f; font-size: 24px; font-weight: bold; text-align: center; width: 80%;">Limitation of Liability</h2>
+        <p style="color: #d9534f; font-size: 21px; font-weight: bold; text-align: start; width: 80%;">Limitation of Liability</p>
         
         <p style="font-size: 16px; color: #333; line-height: 1.6; text-align: justify; width: 80%;">
             Under no circumstances and under no legal theory, tort, contract, or otherwise, shall Marathavivahmandaldombivli.com or its management be liable to the user or any other person for any indirect, special, incidental, or consequential damages of any character including, without limitation, damages resulting from the use of or the inability to use the Marathavivahmandaldombivli.com service or other damages for loss of goodwill, business profit, business stoppage, loss of data or business information, computer damage, or damages resulting from unauthorized access to or changes made to user's transmissions or data, or any and all other commercial damages or losses. It is understood that the materials provided are for your personal information only and do not construe to be any specific advice to you.
