@@ -19,11 +19,35 @@
             @endif
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="email" class="form-label" style="color: black;">Email/Mobile</label>
                         <input id="email" name="email" type="text" class="form-control" value="{{ old('email') }}" placeholder="Enter email or mobile number" required autofocus autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2 small text-danger " />
-                    </div>
+                    </div> --}}
+                    <div class="mb-3">
+                        <label for="email" class="form-label" style="color: black;">Email/Mobile</label>
+                        <input id="email" name="email" type="text" class="form-control" value="{{ old('email') }}"
+                               placeholder="Enter email or mobile number" required autofocus autocomplete="username" />
+                        <x-input-error :messages="$errors->get('email')" class="mt-2 small text-danger" />
+                      </div>
+                      
+                      <script>
+                        // Wait for the DOM to be fully loaded
+                        document.addEventListener("DOMContentLoaded", function() {
+                          const inputField = document.getElementById("email");
+                      
+                          inputField.addEventListener("blur", function() {
+                            let value = inputField.value.trim();
+                      
+                            // Check if the input starts with a digit and doesn't already have '+91'
+                            // Also, ensure it doesn't look like an email (i.e., no '@' symbol)
+                            if (value && /^[0-9]/.test(value) && !value.includes('@') && !value.startsWith('+91')) {
+                              inputField.value = '+91' + value;
+                            }
+                          });
+                        });
+                      </script>
+                      
                     <div class="mb-3">
                         <label for="password" class="form-label" style="color: black;">Password</label>
                         <input id="password" name="password" type="password" class="form-control" placeholder="Enter Password" required autocomplete="current-password" />

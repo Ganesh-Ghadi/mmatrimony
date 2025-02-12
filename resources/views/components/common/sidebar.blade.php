@@ -40,13 +40,7 @@
                             <span
                                 class="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">Dashboard</span>
                         </div>
-                        <div class="rtl:rotate-180" :class="{ '!rotate-90': activeDropdown === 'dashboard' }">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
+                        
                         
                     </button>
                     </a>
@@ -81,10 +75,11 @@
                     </button>
                     <ul x-cloak x-show="activeDropdown === 'master'" x-collapse class="sub-menu text-gray-500">
                         <li><a href="/castes">Castes</a></li>
-                        <li><a href="/sub_castes">Sub Castes</a></li>
                         <li><a href="/packages">Packages</a></li>
-                        <li><a href="/states">States</a></li>
+                        {{-- <li><a href="/states">States</a></li>
                         <li><a href="/cities">Cities</a></li>
+                        <li><a href="/sub_castes">Sub Castes</a></li> --}}
+
                         {{-- <li><a href="/blocks">Blocks</a></li> --}}
 
                     </ul>
@@ -92,7 +87,7 @@
                 @endrole
 
                 {{-- block s--}}
-                @role(['admin'])
+                {{-- @role(['admin'])
                 <li class="menu nav-item">
                     <button type="button" class="nav-link group" :class="{ 'active': activeDropdown === 'cms' }"
                         @click="activeDropdown === 'cms' ? activeDropdown = null : activeDropdown = 'cms'">
@@ -126,7 +121,7 @@
 
                     </ul>
                 </li>
-                @endrole
+                @endrole --}}
                 {{-- block end --}}
 
                 @role(['admin','member'])

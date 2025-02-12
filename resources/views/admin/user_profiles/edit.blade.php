@@ -921,13 +921,38 @@
                     <div>
                         <label for="mobile">Mobile</label>
                         <div class="flex items-center">
-                            <span class="mr-2">+91</span>
-                            <input type="text" id="mobile" name="mobile" class="form-input" value="{{ $profile->mobile }}"
+                             <input type="text" id="mobile" name="mobile" class="form-input" value="{{ $profile->mobile }}"
                                    placeholder="Enter mobile number" pattern="^\[0-9]{10}$" 
                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
                                    required>
                         </div>
                         <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                  const mobileInput = document.getElementById("mobile");
+                                
+                                  // Case 1: When the user types the first digit into an empty field,
+                                  // automatically insert "+91" before that digit.
+                                  mobileInput.addEventListener("keydown", function(e) {
+                                    // Only proceed if the field is empty and the key pressed is a single digit (0-9)
+                                    if (mobileInput.value === "" && /^[0-9]$/.test(e.key)) {
+                                      e.preventDefault();  // Prevent the digit from being added normally.
+                                      mobileInput.value = "+91" + e.key;
+                                      // Place the caret at the end of the input.
+                                      mobileInput.setSelectionRange(mobileInput.value.length, mobileInput.value.length);
+                                    }
+                                  });
+                                
+                                  // Case 2: In case the user pastes a number or edits the field manually,
+                                  // add "+91" if the value starts with a digit but doesn't already have the prefix.
+                                  mobileInput.addEventListener("blur", function() {
+                                    let value = mobileInput.value.trim();
+                                    if (value && /^[0-9]/.test(value) && !value.startsWith('+91')) {
+                                      mobileInput.value = "+91" + value;
+                                    }
+                                  });
+                                });
+                                </script>
                     </div>
                     <div>
                         <label for="landline">Landline</label>

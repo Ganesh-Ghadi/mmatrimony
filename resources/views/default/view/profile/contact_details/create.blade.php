@@ -169,16 +169,46 @@
                     </div>  
                     <div class="row mt-3">
                         <div class="col">
-                            <div class="form-group">
-                                <label for="mobile" class="form-label">Mobile</label>
-                                <input name="mobile" type="text" id="mobile" class="form-control" 
-                                       placeholder="1234567890"
-                                       value="{{ $user->mobile }}" 
-                                       title="Please enter a valid 10-digit mobile number">
-                                @if ($errors->has('mobile'))
+                            <div class="col">
+                                <div class="form-group">
+                                  <label for="mobile" class="form-label">Mobile</label>
+                                  <input name="mobile" type="text" id="mobile" class="form-control" 
+                                         placeholder="1234567890"
+                                         value="{{ $user->mobile }}" 
+                                         title="Please enter a valid 10-digit mobile number">
+                                  @if ($errors->has('mobile'))
                                     <span class="text-danger small">{{ $errors->first('mobile') }}</span>
-                                @endif  
-                            </div>
+                                  @endif  
+                                </div>
+                              </div>
+                              
+                              <script>
+                              document.addEventListener("DOMContentLoaded", function() {
+                                const mobileInput = document.getElementById("mobile");
+                              
+                                // Case 1: When the user types the first digit into an empty field,
+                                // automatically insert "+91" before that digit.
+                                mobileInput.addEventListener("keydown", function(e) {
+                                  // Only proceed if the field is empty and the key pressed is a single digit (0-9)
+                                  if (mobileInput.value === "" && /^[0-9]$/.test(e.key)) {
+                                    e.preventDefault();  // Prevent the digit from being added normally.
+                                    mobileInput.value = "+91" + e.key;
+                                    // Place the caret at the end of the input.
+                                    mobileInput.setSelectionRange(mobileInput.value.length, mobileInput.value.length);
+                                  }
+                                });
+                              
+                                // Case 2: In case the user pastes a number or edits the field manually,
+                                // add "+91" if the value starts with a digit but doesn't already have the prefix.
+                                mobileInput.addEventListener("blur", function() {
+                                  let value = mobileInput.value.trim();
+                                  if (value && /^[0-9]/.test(value) && !value.startsWith('+91')) {
+                                    mobileInput.value = "+91" + value;
+                                  }
+                                });
+                              });
+                              </script>
+                              
                         </div>
                         <div class="col">
                             <div class="form-group">
