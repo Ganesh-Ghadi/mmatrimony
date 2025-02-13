@@ -8,24 +8,29 @@
             <div class="flex items-center justify-between mb-5">
                 <h5 class="font-semibold text-lg dark:text-white-light">Users</h5>
                 <!-- Search & Filter Form -->
-                <form method="GET" action="{{ route('users.index') }}" class="flex items-center gap-2">
-                    <!-- Search Input -->
-                    <input type="text" name="search" placeholder="Search users..." value="{{ request('search') }}"
-                        class="border rounded p-2 w-60" />
-
-                    <!-- Status Filter -->
-                    <select name="status" class="border rounded p-2" onchange="this.form.submit()">
-                        <option value="">All</option>
-                        <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Active</option>
-                        <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Inactive</option>
-                    </select>
-
-                    <button type="submit" class="btn btn-primary">Search</button>
-
-                    @if(request()->has('search') || request()->has('status'))
-                        <a href="{{ route('users.index') }}" class="btn btn-secondary">Reset</a>
-                    @endif
+                <form method="GET" action="{{ route('users.index') }}" class="flex flex-col gap-2">
+                    <!-- Search Input and Button -->
+                    <div class="flex items-center gap-2">
+                        <input type="text" name="search" placeholder="Search users..." value="{{ request('search') }}"
+                            class="border rounded p-2 w-60" />
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                
+                    <!-- Status Filter & Reset Button -->
+                    <div class="flex items-center gap-2">
+                        <select name="status" class="border rounded p-2 w-60" onchange="this.form.submit()">
+                            <option value="">All</option>
+                            <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                
+                        @if(request()->has('search') || request()->has('status'))
+                            <a href="{{ route('users.index') }}" class="btn btn-secondary">Reset</a>
+                        @endif
+                    </div>
                 </form>
+                
+                
             </div>
 
             <div class="mt-6">
@@ -36,7 +41,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th>Status</th>
+                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -50,7 +55,7 @@
                                     <span class="badge whitespace-nowrap badge bg-info">{{ $role->name }}</span>
                                     @endforeach
                                 </td>
-                                <td>
+                                 <td>
                                     @if($user->active == '1')
                                     <span class="badge badge-outline-success">Active</span>
                                     @else

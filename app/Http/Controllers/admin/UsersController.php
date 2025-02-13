@@ -26,18 +26,19 @@ class UsersController extends Controller
         $search = $request->input('search');
         $status = $request->input('status'); // Get status filter input
     
-        $users = User::when($search, function ($query, $search) {
-            $query->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhereHas('roles', function ($query) use ($search) {
-                      $query->where('name', 'like', "%{$search}%");
-                  });
-        })
-        ->when(isset($status), function ($query) use ($status) {
-            $query->where('active', $status);
-        })
-        ->orderBy('id', 'desc')
-        ->paginate(12);
+        $users = User::with('profile') // Eager load the profile
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%")
+                      ->orWhere('email', 'like', "%{$search}%")
+                      ->orWhereHas('roles', function ($query) use ($search) {
+                          $query->where('name', 'like', "%{$search}%");
+                      });
+            })
+            ->when(isset($status), function ($query) use ($status) {
+                $query->where('active', $status);
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(12);
     
         return view('admin.users.index', ['users' => $users, 'search' => $search, 'status' => $status]);
     }
