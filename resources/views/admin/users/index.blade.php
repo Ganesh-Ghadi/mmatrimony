@@ -12,6 +12,10 @@
                     <input type="text" name="search" placeholder="Search users..." value="{{ request('search') }}"
                         class="border rounded p-2 w-60" />
                     <button type="submit" class="btn btn-primary">Search</button>
+
+                    @if(request()->has('search') && request('search') != '')
+                        <a href="{{ route('users.index') }}" class="btn btn-secondary">Reset</a>
+                    @endif
                 </form>
             </div>
 
