@@ -1,16 +1,20 @@
 <x-layout.admin>
-    {{-- <x-add-button :link="route('users.create')" /> --}}
-    {{-- <x-excel-button :link="route('users.import')" /> --}}
     <div class="w-[15%] mt-2">
-        <a class="btn btn-primary" href="{{route('refresh_status.refresh')}}">Refresh Status</a>
-
+        <a class="btn btn-primary" href="{{ route('refresh_status.refresh') }}">Refresh Status</a>
     </div>
     <br><br>
-    <div x-data="form">      
+    <div x-data="form">
         <div class="panel">
             <div class="flex items-center justify-between mb-5">
                 <h5 class="font-semibold text-lg dark:text-white-light">Users</h5>
+                <!-- Search Form (Now in the same row) -->
+                <form method="GET" action="{{ route('users.index') }}" class="flex items-center gap-2">
+                    <input type="text" name="search" placeholder="Search users..." value="{{ request('search') }}"
+                        class="border rounded p-2 w-60" />
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
             </div>
+
             <div class="mt-6">
                 <div class="table-responsive">
                     <table class="table-hover">
@@ -25,59 +29,38 @@
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
-                            <tr>                    
-                                <td>{{ ($user->name) }}</td>
+                            <tr>
+                                <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td> 
-                                    @if(!empty($user->roles))   
+                                <td>
                                     @foreach($user->roles as $role)                   
                                     <span class="badge whitespace-nowrap badge bg-info">{{ $role->name }}</span>
                                     @endforeach
+                                </td>
+                                <td>
+                                    @if($user->active == '1')
+                                    <span class="badge badge-outline-success">Active</span>
+                                    @else
+                                    <span class="badge badge-outline-danger">Inactive</span>
                                     @endif
                                 </td>
-                                @if($user->active == '1')
-                                <td><span class="badge badge-outline-success">Active</span></td>
-                                @else
-                                <td><span class="badge badge-outline-danger">Inactive</span></td>
-                                @endif
                                 <td class="float-right">
-                                    <ul class="flex items-center gap-2" >
-                                        <li style="display: inline-block;vertical-align:top;">
-                                            <x-edit-button :link=" route('users.edit', $user->id)" />                               
+                                    <ul class="flex items-center gap-2">
+                                        <li>
+                                            <x-edit-button :link=" route('users.edit', $user->id)" />
                                         </li>
-                                        <li style="display: inline-block;vertical-align:top;">
-                                            <x-delete-button :link=" route('users.destroy',$user->id)" />  
-                                        </li>   
+                                        <li>
+                                            <x-delete-button :link=" route('users.destroy', $user->id)" />
+                                        </li>
                                     </ul>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $users->links() }}
+                    {{ $users->appends(['search' => request('search')])->links() }}
                 </div>
             </div>
         </div>
     </div>
-<script>
-    document.addEventListener("alpine:init", () => {
-        Alpine.data("form", () => ({
-            // highlightjs
-            codeArr: [],
-            toggleCode(name) {
-                if (this.codeArr.includes(name)) {
-                    this.codeArr = this.codeArr.filter((d) => d != name);
-                } else {
-                    this.codeArr.push(name);
-
-                    setTimeout(() => {
-                        document.querySelectorAll('pre.code').forEach(el => {
-                            hljs.highlightElement(el);
-                        });
-                    });
-                }
-            }
-        }));
-    });
-</script>
 </x-layout.admin>
