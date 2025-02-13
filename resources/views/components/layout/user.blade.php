@@ -319,8 +319,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 Maratha Hitwardhak Mandal, Dombivli
                               </a>
                             <a href="#" class="btn-link"><em class="fas fa-phone text-secondary me-2">&nbsp;</em>+91 9619441953</a>
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7535.085350194379!2d73.088027!3d19.215167!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be795343fdce99b%3A0x7c9cf3dae60032a6!2sSaraswati%20Castle%20Housing%20Society!5e0!3m2!1sen!2sde!4v1733830672007!5m2!1sen!2sde" width="270" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3767.3576948151513!2d73.08635869999999!3d19.223236699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7be1e49e1cd0b%3A0x4665e488ad316e80!2sMaratha%20Mandir%20Hall!5e0!3m2!1sen!2sin!4v1739423879005!5m2!1sen!2sin" width="270" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
