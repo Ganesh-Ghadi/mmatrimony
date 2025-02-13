@@ -7,13 +7,22 @@
         <div class="panel">
             <div class="flex items-center justify-between mb-5">
                 <h5 class="font-semibold text-lg dark:text-white-light">Users</h5>
-                <!-- Search Form (Now in the same row) -->
+                <!-- Search & Filter Form -->
                 <form method="GET" action="{{ route('users.index') }}" class="flex items-center gap-2">
+                    <!-- Search Input -->
                     <input type="text" name="search" placeholder="Search users..." value="{{ request('search') }}"
                         class="border rounded p-2 w-60" />
+
+                    <!-- Status Filter -->
+                    <select name="status" class="border rounded p-2" onchange="this.form.submit()">
+                        <option value="">All</option>
+                        <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Active</option>
+                        <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Inactive</option>
+                    </select>
+
                     <button type="submit" class="btn btn-primary">Search</button>
 
-                    @if(request()->has('search') && request('search') != '')
+                    @if(request()->has('search') || request()->has('status'))
                         <a href="{{ route('users.index') }}" class="btn btn-secondary">Reset</a>
                     @endif
                 </form>
@@ -62,7 +71,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $users->appends(['search' => request('search')])->links() }}
+                    {{ $users->appends(['search' => request('search'), 'status' => request('status')])->links() }}
                 </div>
             </div>
         </div>
