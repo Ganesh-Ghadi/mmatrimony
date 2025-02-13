@@ -9,12 +9,19 @@
         <div class="panel">
             <div class="flex items-center justify-between mb-5">
                 <h5 class="font-semibold text-lg dark:text-white-light">Profiles</h5>
-                {{-- <div class="flex items-center">
-                    <form action="" method="get" class="flex items-center">
-                        <input type="text" name="search" placeholder="search profiles" class="mr-2 px-2 py-1 border border-gray-300 rounded-md">
-                        <button class="btn btn-primary px-4 py-2" type="submit">Submit</button>
+                <div class="flex items-center">
+                    <form action="{{ route('user_profiles.index') }}" method="GET" class="flex items-center">
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search profiles" 
+                            class="mr-2 px-2 py-1 border border-gray-300 rounded-md">
+                        <button class="btn btn-primary px-4 py-2 mr-2" type="submit">Search</button>
+                        
+                        @if(request('search'))
+                            <a href="{{ route('user_profiles.index') }}" class="btn btn-secondary px-4 py-2">Reset</a>
+                        @endif
                     </form>
-                </div> --}}
+                </div>
+                
+
             </div>
             <div class="mt-6">
                 <div class="table-responsive">
@@ -23,6 +30,7 @@
                             <tr>
                                 {{-- <th>id</th> --}}
                                 <th>Full Name</th>
+                                <th>Mobile</th>
                                 <th>Gender</th>
                                 <th>Marital Status</th>
                                 <th>Email</th>
@@ -35,6 +43,7 @@
                             <tr>                    
                                 {{-- <td>{{ $profile->id }}</td> --}}
                                 <td> {{$profile->first_name. " ". $profile->middle_name. " ".$profile->last_name }}</td>
+                                <td > {{$profile->mobile }}</td>
                                 <td > {{$profile->gender }}</td>
                                 <td > {{ucfirst($profile->marital_status) }}</td>
                                 <td > {{$profile->email}}</td>

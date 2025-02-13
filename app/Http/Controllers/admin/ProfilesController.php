@@ -16,11 +16,31 @@ use App\Http\Requests\Default\UpdateProfileRequest;
 
 class ProfilesController extends Controller
 {
-    public function index()
-    {
-        $profiles = Profile::paginate(12);
-        return view('admin.user_profiles.index', ['profiles' => $profiles]);
+    // public function index()
+    // {
+    //     $profiles = Profile::paginate(12);
+    //     return view('admin.user_profiles.index', ['profiles' => $profiles]);
+    // }
+
+    public function index(Request $request)
+{
+    $query = Profile::query();
+
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $query->where(function ($q) use ($search) {
+            $q->where('first_name', 'like', "%{$search}%")
+              ->orWhere('middle_name', 'like', "%{$search}%")
+              ->orWhere('last_name', 'like', "%{$search}%")
+              ->orWhere('email', 'like', "%{$search}%")
+              ->orWhere('mobile', 'like', "%{$search}%");
+         });
     }
+
+    $profiles = $query->paginate(12);
+    return view('admin.user_profiles.index', compact('profiles'));
+}
+
 
     public function edit(string $id)
     {
