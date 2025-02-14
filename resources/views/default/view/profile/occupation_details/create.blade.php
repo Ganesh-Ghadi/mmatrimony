@@ -91,8 +91,10 @@
                 </div>
             </div>
         </div>
+        <h3 class="text-center" style="color: #FF3846;  margin: 20px;">Occupation Details</h3>
+
     <div class="panel">
-        <h2>Organisation Information</h2>
+        <h4>Organisation Information</h4>
         <div class="container mt-3" id="dropdowns">
             <div class="row">
                 <div class="col">
@@ -143,7 +145,7 @@
     </div>  
 
     <div class="panel">
-        <h2>Experience / Income Information</h2>
+        <h4>Experience / Income Information</h2>
         <div class="container mt-3" id="dropdowns">
             <div class="row">
                 <div class="col">

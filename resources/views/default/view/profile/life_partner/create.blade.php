@@ -92,8 +92,10 @@
                             </div>
                         </div>
                     </div>
+                    <h3 class="text-center" style="color: #FF3846;  margin: 20px;">About Life Partner</h3>
+
         <div class="panel">
-            <h2>Age / Height Information</h2>
+            <h4>Age / Height Information</h4>
             <div class="container mt-3" id="dropdowns">
                 <div class="row">
                     @if($user->role === 'bride')
@@ -186,144 +188,111 @@
             </div>
         </div>  
     <div class="panel">
-        <h2>Expected Information About Partenrs</h2>
-        <div class="container mt-3" id="dropdowns">
-            <div class="row mt-3">
+        <h4>Expected Information About Partenrs</h4>
+        <div class="row mt-3">
+            <div class="col">
                 <div class="form-group">
-                    <label for="partner_income">Partner Income (in INR)</label>
-                    <input type="text" name="partner_income"  value="{{ $user->partner_income }}" id="partner_income" placeholder="Enter Native Place" >
+                    <label for="partner_income">Partner Income (INR-Anually)</label>
+                    <input type="text" name="partner_income" value="{{ $user->partner_income }}" id="partner_income" placeholder="Enter Native Place">
                     @if ($errors->has('partner_income'))
-                    <span class="text-danger small">{{ $errors->first('partner_income') }}</span>
-                    @endif 
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="partner_currency">Currency</label>
-                        <select name="partner_currency" id="partner_currency" class="form-input">
-                            <option value="" selected>select an option</option>
-                            @if (config('data.partner_currency'))
-                                @foreach (config('data.partner_currency') as $value => $name)
-                                    <option value="{{$value}}" {{ ($user->partner_currency === $value) ? 'selected' : ''}} >{{ $name }}</option>
-                                @endforeach
-                            @endif
-                            
-                        </select>
-                        @if ($errors->has('partner_currency'))
-                    <span class="text-danger small">{{ $errors->first('partner_currency') }}</span>
-                    @endif 
-                    </div>
+                        <span class="text-danger small">{{ $errors->first('partner_income') }}</span>
+                    @endif
                 </div>
             </div>
-        </div>
-        <div class="row mt-3">
             <div class="col">
                 <div class="form-group">
                     <label for="want_to_see_patrika">Want to see Patrika</label>
                     <select class="form-input" name="want_to_see_patrika" id="want_to_see_patrika">
                         <option value="" selected>Select an option</option>
-                        <!-- Correct string comparison for 'yes' and 'no' -->
                         <option value="yes" {{ $user->want_to_see_patrika === 'yes' ? 'selected' : '' }}>Yes</option>
                         <option value="no" {{ $user->want_to_see_patrika === 'no' ? 'selected' : '' }}>No</option>
                     </select>
                     @if ($errors->has('want_to_see_patrika'))
-                    <span class="text-danger small">{{ $errors->first('want_to_see_patrika') }}</span>
-                    @endif 
+                        <span class="text-danger small">{{ $errors->first('want_to_see_patrika') }}</span>
+                    @endif
                 </div>
-                
+            </div>
+        </div> <!-- Close the first row properly -->
+        
+        <!-- Start second row properly -->
+        <div class="row mt-3">
+            <div class="col">
+                <div class="form-group">
+                    <label for="partner_eating_habbit">Eating Habits</label>
+                    <select class="form-input" name="partner_eating_habbit" id="partner_eating_habbit">
+                        <option value="" selected>Select an option</option>
+                        @foreach (config('data.partner_eating_habbit', []) as $value => $name)
+                            <option value="{{ $value }}" {{ ($user->partner_eating_habbit === $value) ? 'selected' : '' }}>{{ $name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('partner_eating_habbit'))
+                        <span class="text-danger small">{{ $errors->first('partner_eating_habbit') }}</span>
+                    @endif
+                </div>
             </div>
             <div class="col">
-                {{-- <div class="form-group">
-                    <label for="partner_sub_cast">SubCast</label>
-                    <select class="form-input" name="partner_sub_cast" id="partner_sub_cast">
-                        <option value="" selected>Select an option</option>
-                        <!-- Correct string comparison for 'yes' and 'no' -->
-                        <option value="yes" {{ $user->partner_sub_cast === 'yes' ? 'selected' : '' }}>Yes</option>
-                        <option value="no" {{ $user->partner_sub_cast === 'no' ? 'selected' : '' }}>No</option>
-                    </select>
-                    @if ($errors->has('partner_sub_cast'))
-                    <span class="text-danger small">{{ $errors->first('partner_sub_cast') }}</span>
-                    @endif         
-                </div> --}}
-                </div> 
-            <div class="row mt-3">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="partner_eating_habbit">Eating Habbits</label>
-                        <select class="form-input" name="partner_eating_habbit" id="partner_eating_habbit">
-                            <option value="" selected>Select an option</option>
-                            @foreach (config('data.partner_eating_habbit', []) as $value => $name)
-                                <option value="{{ $value }}" {{ ($user->partner_eating_habbit === $value) ? 'selected' : '' }}>{{ $name }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('partner_eating_habbit'))
-                        <span class="text-danger small">{{ $errors->first('partner_eating_habbit') }}</span>
-                        @endif    
-                    </div>
-                    </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="partner_city_preference">City Preference</label>
-                        <input type="text" name="partner_city_preference"  value="{{ $user->partner_city_preference }}" id="partner_city_preference" placeholder="Enter City Preference" >
-                        @if ($errors->has('partner_city_preference'))
+                <div class="form-group">
+                    <label for="partner_city_preference">City Preference</label>
+                    <input type="text" name="partner_city_preference" value="{{ $user->partner_city_preference }}" id="partner_city_preference" placeholder="Enter City Preference">
+                    @if ($errors->has('partner_city_preference'))
                         <span class="text-danger small">{{ $errors->first('partner_city_preference') }}</span>
-                        @endif  
+                    @endif
                 </div>
-                </div>
-            </div>  
-            <div class="row mt-3">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="partner_education">Education</label>
-                        <input type="text" name="partner_education"  value="{{ $user->partner_education }}" id="partner_education" placeholder="Enter Education" >
-                        @if ($errors->has('partner_education'))
-                        <span class="text-danger small">{{ $errors->first('partner_education') }}</span>
-                        @endif  
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="partner_job">Job</label>
-                        <select class="form-input" name="partner_job" id="partner_job">
-                            <option value="" selected>Select an option</option>
-                            <!-- Correct string comparison for 'yes' and 'no' -->
-                            <option value="yes" {{ $user->partner_job === 'yes' ? 'selected' : '' }}>Yes</option>
-                            <option value="no" {{ $user->partner_job === 'no' ? 'selected' : '' }}>No</option>
-                        </select>
-                        @if ($errors->has('partner_job'))
-                        <span class="text-danger small">{{ $errors->first('partner_job') }}</span>
-                        @endif  
-                    </div>
-                    </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="partner_business">Business</label>
-                        <select class="form-input" name="partner_business" id="partner_business">
-                            <option value="" selected>Select an option</option>
-                            <!-- Correct string comparison for 'yes' and 'no' -->
-                            <option value="yes" {{ $user->partner_business === 'yes' ? 'selected' : '' }}>Yes</option>
-                            <option value="no" {{ $user->partner_business === 'no' ? 'selected' : '' }}>No</option>
-                        </select>
-                        @if ($errors->has('partner_business'))
-                        <span class="text-danger small">{{ $errors->first('partner_business') }}</span>
-                        @endif  
-                    </div>
-                    </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="partner_foreign_resident">Foreign resident</label>
-                        <select class="form-input" name="partner_foreign_resident" id="partner_foreign_resident">
-                            <option value="" selected>Select an option</option>
-                            <!-- Correct string comparison for 'yes' and 'no' -->
-                            <option value="yes" {{ $user->partner_foreign_resident === 'yes' ? 'selected' : '' }}>Yes</option>
-                            <option value="no" {{ $user->partner_foreign_resident === 'no' ? 'selected' : '' }}>No</option>
-                        </select>
-                        @if ($errors->has('partner_foreign_resident'))
-                        <span class="text-danger small">{{ $errors->first('partner_foreign_resident') }}</span>
-                        @endif            
-                  </div>
-                    </div>
-            </div>         
+            </div>
         </div>
+        
+        <!-- Third row -->
+        <div class="row mt-3">
+            <div class="col">
+                <div class="form-group">
+                    <label for="partner_education">Education</label>
+                    <input type="text" name="partner_education" value="{{ $user->partner_education }}" id="partner_education" placeholder="Enter Education">
+                    @if ($errors->has('partner_education'))
+                        <span class="text-danger small">{{ $errors->first('partner_education') }}</span>
+                    @endif
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="partner_job">Job</label>
+                    <select class="form-input" name="partner_job" id="partner_job">
+                        <option value="" selected>Select an option</option>
+                        <option value="yes" {{ $user->partner_job === 'yes' ? 'selected' : '' }}>Yes</option>
+                        <option value="no" {{ $user->partner_job === 'no' ? 'selected' : '' }}>No</option>
+                    </select>
+                    @if ($errors->has('partner_job'))
+                        <span class="text-danger small">{{ $errors->first('partner_job') }}</span>
+                    @endif
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="partner_business">Business</label>
+                    <select class="form-input" name="partner_business" id="partner_business">
+                        <option value="" selected>Select an option</option>
+                        <option value="yes" {{ $user->partner_business === 'yes' ? 'selected' : '' }}>Yes</option>
+                        <option value="no" {{ $user->partner_business === 'no' ? 'selected' : '' }}>No</option>
+                    </select>
+                    @if ($errors->has('partner_business'))
+                        <span class="text-danger small">{{ $errors->first('partner_business') }}</span>
+                    @endif
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="partner_foreign_resident">Foreign Resident</label>
+                    <select class="form-input" name="partner_foreign_resident" id="partner_foreign_resident">
+                        <option value="" selected>Select an option</option>
+                        <option value="yes" {{ $user->partner_foreign_resident === 'yes' ? 'selected' : '' }}>Yes</option>
+                        <option value="no" {{ $user->partner_foreign_resident === 'no' ? 'selected' : '' }}>No</option>
+                    </select>
+                    @if ($errors->has('partner_foreign_resident'))
+                        <span class="text-danger small">{{ $errors->first('partner_foreign_resident') }}</span>
+                    @endif
+                </div>
+            </div>
+        </div>
+        
     </div>  
     <div class="container text-end">
         <button type="submit" class="btn btn-primary btn-sm p-2">Save</button> 

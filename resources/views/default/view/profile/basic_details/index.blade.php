@@ -134,6 +134,8 @@
                     </div>
                 </div>
             </div>
+            <h3 class="text-center" style="color: #FF3846;  margin: 20px;">Basic Details</h3>
+
             
 
                   <div class="panel">

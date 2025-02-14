@@ -89,7 +89,8 @@
                 </div>
             </div>
 <div class="panel">
-    <h2>Educational Profile</h2>
+
+    <h2 style="color: #FF3846;">Educational Profile</h2>
         <div class="container mt-3" id="dropdowns">
             <div class="row">
                 <div class="col">

@@ -81,8 +81,10 @@
                     </div>
                 </div>
             </div>
+            <h3 class="text-center" style="color: #FF3846;  margin: 20px;">Contact Details</h3>
+
             <div class="panel">
-                <h2>Location Information</h2>
+                <h4>Location Information</h4>
                 <div class="container mt-3" id="dropdowns">
                     <div class="row">
                         <div class="col">
@@ -127,7 +129,7 @@
             </div>
 
             <div class="panel">
-                <h2>Address / Contact Information</h2>
+                <h4>Address / Contact Information</h4>
                 <div class="container mt-3">
                     <div class="col mt-3">
                         <div class="form-group">

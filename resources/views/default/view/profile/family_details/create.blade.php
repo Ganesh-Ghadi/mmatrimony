@@ -105,6 +105,7 @@
             </div>
         </div>
     </div>
+    <h3 class="text-center" style="color: #FF3846;  margin: 20px;">Family Background</h3>
     <div class="panel">
         <h2>Father Details</h2>
         {{-- @if(auth()->user() && auth()->user()->hasVerifiedEmail())
@@ -342,6 +343,14 @@
             }
         </style>
         <div class="form-row">
+              <!-- Mother Name Before Marriage Field -->
+              <div class="form-group">
+                <label for="mother_name_before_marriage">Mother Name Before Marriage</label>
+                <input type="text" name="mother_name_before_marriage" value="{{ $user->mother_name_before_marriage }}" id="mother_name_before_marriage" placeholder="Enter Mother Name Before Marriage" class="form-control">
+                @if ($errors->has('mother_name_before_marriage'))
+                    <span class="text-danger small">{{ $errors->first('mother_name_before_marriage') }}</span>
+                @endif
+            </div>
             <!-- Native Place Field -->
             <div class="form-group">
                 <label for="mother_native_place">Native Place</label>
@@ -351,14 +360,7 @@
                 @endif
             </div>
         
-            <!-- Mother Name Before Marriage Field -->
-            <div class="form-group">
-                <label for="mother_name_before_marriage">Mother Name Before Marriage</label>
-                <input type="text" name="mother_name_before_marriage" value="{{ $user->mother_name_before_marriage }}" id="mother_name_before_marriage" placeholder="Enter Mother Name Before Marriage" class="form-control">
-                @if ($errors->has('mother_name_before_marriage'))
-                    <span class="text-danger small">{{ $errors->first('mother_name_before_marriage') }}</span>
-                @endif
-            </div>
+          
         </div>
     </div>
     <div class="panel">
@@ -440,8 +442,8 @@
         <h2>About Parents</h2>
         <div class="panel">
             <div class="form-group">
-                <label for="about_parents">About Yourself</label>
-                <textarea name="about_parents" id="about_parents" class="form-input" placeholder="Tell us about yourself..." >{{ old('about_parents', $user->about_parents) }}</textarea>
+                <label for="about_parents">About Parents</label>
+                <textarea name="about_parents" id="about_parents" class="form-input" placeholder="Tell us About Parents..." >{{ old('about_parents', $user->about_parents) }}</textarea>
                 @if ($errors->has('about_parents'))
                 <span class="text-danger small">{{ $errors->first('about_parents') }}</span>
                 @endif   

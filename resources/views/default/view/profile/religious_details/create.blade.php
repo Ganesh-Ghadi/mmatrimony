@@ -124,7 +124,8 @@
                 </div>
             </div>
     <div class="panel">
-        <h2>Religious Details</h2>
+ 
+        <h2 style="color: #FF3846;">Religious Details</h2>
         <div class="form-row">
             <div class="form-group">
                 <label for="religion">Religion</label>
