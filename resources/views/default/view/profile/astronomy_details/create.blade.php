@@ -183,20 +183,29 @@
 
     <div class="panel">
         <h2>Personal Information</h2>
-        <div class="mb-2">
-            <label for="date_of_birth" class="form-label" style="color: black; margin: 10px 0;">Date of Birth</label>
-            <input id="date_of_birth" name="date_of_birth" type="date" class="form-control @error('date_of_birth') is-invalid @enderror"
-                   value="{{ $user->date_of_birth }}" placeholder="Enter Date of Birth" required
-                   max="{{ now()->subYears(18)->format('Y-m-d') }}" title="You must be at least 18 years old" />
-            <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2 text-danger small" />
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="birth_time">Birth Time (IST)</label>
-                <input type="time" id="birth_time" name="birth_time" value="{{ $user->birth_time }}" required>
-                <small style="color: red;">Format: HH:MM (Indian Standard Time)</small>
+        <div class="row mb-2">
+            <!-- Date of Birth -->
+            <div class="col-md-6">
+                <label for="date_of_birth" class="form-label" style="color: black;">Date of Birth</label>
+                <input id="date_of_birth" name="date_of_birth" type="date" 
+                       class="form-control @error('date_of_birth') is-invalid @enderror"
+                       value="{{ $user->date_of_birth }}" placeholder="Enter Date of Birth" required
+                       max="{{ now()->subYears(18)->format('Y-m-d') }}" 
+                       title="You must be at least 18 years old" />
+                <x-input-error :messages="$errors->get('date_of_birth')" class="text-danger small" />
+            </div>
+        
+            <!-- Birth Time -->
+            <div class="col-md-6">
+                <label for="birth_time" class="form-label">Birth Time (IST)</label>
+                <input type="time" id="birth_time" name="birth_time" class="form-control"
+                       value="{{ $user->birth_time }}" required>
+                <small style="color: red;">Format: HH:MM (IST)</small>
             </div>
         </div>
+        
+        
+        
         <div class="form-row">
             <div class="form-group">
                 <label for="birth_place">Birth Place</label>
