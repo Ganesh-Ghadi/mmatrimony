@@ -131,6 +131,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('permissions', PermissionsController::class);
 
         Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+        Route::get('/admin/expiring-packages', [AdminDashboardController::class, 'showExpiringPackages'])
+              ->name('admin.expiring-packages');
+
+              Route::get('/admin/birthdays', [AdminDashboardController::class, 'showBirthdays'])->name('admin.birthdays');
+
         //     return view('admin.dashboard');
         // })->name('admin.dashboard');
     });

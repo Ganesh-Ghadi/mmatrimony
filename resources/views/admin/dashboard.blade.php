@@ -47,7 +47,7 @@
             <div class="mt-8 bg-white shadow-lg rounded-lg p-6">
                 <h3 class="text-2xl font-semibold text-gray-800">🎂 Members with Birthdays This Month</h3>
                 <p class="text-lg text-gray-600 mt-2">Celebrate with these members!</p>
-
+            
                 @if($birthdayUsers->isEmpty())
                     <p class="text-gray-500 mt-4">No birthdays this month.</p>
                 @else
@@ -59,8 +59,71 @@
                             </li>
                         @endforeach
                     </ul>
+            
+                    @if(@$hasMoreBirthdays)
+                        <div class="mt-4 text-right">
+                            <a href="{{ route('admin.birthdays') }}" 
+                               class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                                Show More →
+                            </a>
+                        </div>
+                    @endif
                 @endif
             </div>
+            
+            <div class="mt-8 bg-yellow-100 shadow-lg rounded-lg p-6">
+                <h3 class="text-2xl font-semibold text-gray-800">⚠️ Packages Expiring This Month</h3>
+                <p class="text-lg text-gray-600 mt-2">List of users whose packages will expire this month.</p>
+            
+                @php
+                    $expiringThisMonth = $expiringPackages->filter(function($package) {
+                        return \Carbon\Carbon::parse($package->expires_at)->format('Y-m') === now()->format('Y-m');
+                    });
+            
+                    $displayedPackages = $expiringThisMonth->take(5); // Show only 5 initially
+                    $hasMore = $expiringThisMonth->count() > 5; // Check if there are more than 5
+                @endphp
+            
+                @if($expiringThisMonth->isEmpty())
+                    <p class="text-gray-500 mt-4">No packages expiring this month.</p>
+                @else
+                    <div class="overflow-x-auto mt-4">
+                        <table class="w-full table-auto border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="border border-gray-300 px-4 py-2 text-left">User Name</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left">Package Expiry Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($displayedPackages as $package)
+                                    @php $user = $package->profile->user ?? null; @endphp
+                                    <tr class="bg-white">
+                                        <td class="border border-gray-300 px-4 py-2">{{ $user->first_name ?? 'N/A' }}</td>
+                                        <td class="border border-gray-300 px-4 py-2">{{ $user->email ?? 'N/A' }}</td>
+                                        <td class="border border-gray-300 px-4 py-2">
+                                            {{ \Carbon\Carbon::parse($package->expires_at)->format('M d, Y') }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+            
+                    @if($hasMore)
+                        <div class="mt-4 text-right">
+                            <a href="{{ route('admin.expiring-packages') }}" 
+                               class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                                Show More →
+                            </a>
+                        </div>
+                    @endif
+                @endif
+            </div>
+            
+            
+
         </div>
     </div>
-</x-layout.admin>
+</x-layout.admin>   

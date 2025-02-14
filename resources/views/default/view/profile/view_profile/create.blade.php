@@ -144,7 +144,7 @@ button.btn {
     <div class="panel">
             <h3>Your Profile</h3>
             <div class="card">
-                <h3 class="text-center">Basic Profile</h3>
+                <h3 class="text-center" style="color: #FF3846;">Basic Profile</h3>
                 <br/>
                 <!-- First Row: User Info -->
                 <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Personal Information</h4>
@@ -184,27 +184,27 @@ button.btn {
                 </div>
             </div>
             <div class="card">
-                <h3 class="text-center">Religious Profile</h3></br>
-                <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <h3 class="text-center" style="color: #FF3846;">Religious Profile</h3></br>
+                <div class="card-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
                     <div>
-                        <p><strong>Religion:</strong>{{ ucfirst($user->religion) }}</p>
+                        <p><strong>Religion:</strong> {{ ucfirst($user->religion) }}</p>
                     </div>
                     <div>
-                        <p><strong>Caste:</strong>{{ ucfirst($castes) }}</p>
+                        <p><strong>Caste:</strong> {{ ucfirst($castes) }}</p>
                     </div>
                     <div>
-                        {{-- <p><strong>Sub-Caste:</strong>{{ ucfirst($subCastes) }}</p> --}}
-                    </div>
-                    <div>
-                        <p><strong>Gotra:</strong>{{ ucfirst($user->gotra) }}</p>
+                        <p><strong>Gotra:</strong> {{ ucfirst($user->gotra) }}</p>
                     </div>
                 </div>
+                
             </div>
             <div class="card">
                 <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
                     <!-- Family Profile -->
                     <div>
-                        <h4 class="text-center">Family Profile</h4>
+                        <h3 center class="text-center"   style="color: #FF3846;">Family Details</h3> 
+
+                        <h5 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Father and Mother Details</h5>
                         <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                             <p><strong>Father's Alive:</strong>
                                 @if($user->father_is_alive)
@@ -239,7 +239,7 @@ button.btn {
                     </div>
                     <!-- Brother Details -->
                     <div>
-                        <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Brother Details</h4>
+                        <h5 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Brother Details</h5>
                         <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                             <p><strong>Resident Place:</strong> {{  ucfirst($user->brother_resident_place) }}</p>
                             <p><strong>Married:</strong> {{ $user->brother_is_alive ?? 0 }} {{ ($user->brother_is_alive ?? 0) == 1 ? 'brother' : 'brothers' }}</p>
@@ -248,7 +248,7 @@ button.btn {
                     </div>
                     <!-- Sister Details -->
                     <div>
-                        <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Sister Details</h4>
+                        <h5 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Sister Details</h5>
                         <div class="card-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                             <p><strong>Resident Place:</strong> {{ ucfirst($user->sister_resident_place) }}</p>
                             <p><strong>Married:</strong> {{ $user->number_of_sisters_married ?? 0 }} {{ ($user->number_of_sisters_married ?? 0) == 1 ? 'sister' : 'sisters' }}</p>
@@ -269,8 +269,8 @@ button.btn {
             
 
         <div class="card">   
-            <h3 center class="text-center">Educational Profile</h3> 
-          <div class="card-row">
+            <h3 center class="text-center" style="color: #FF3846;">Educational Profile</h3> 
+          <div style="border-top: 1px solid #ccc; padding-top: 10px;" class="card-row">
                 <p><strong>Highest Education:</strong> {{ ucfirst($user->highest_education) }}</p>
                 <p><strong>Other Education:</strong> {{ ucfirst($user->other_education) }}</p>
                 <p><strong>Education in Detail:</strong> {{ ucfirst($user->education_in_detail) }}</p>
@@ -281,7 +281,9 @@ button.btn {
     <div class="card">
         <!-- Organisation Information Section -->
         <div>
-            <h4 class="text-center">Organisation Information</h4>
+            <h4 class="text-center" style="color: #FF3846;" >Occupation Details</h4>
+
+            <h5 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Organisation Information</h5>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                 <p><strong>Occupation:</strong> {{ ucfirst($user->occupation) }}</p>
                 <p><strong>Organization:</strong> {{ ucfirst($user->organization) }}</p>
@@ -293,7 +295,7 @@ button.btn {
     
         <!-- Experience/Income Section -->
         <div>
-            <h4 class="text-center"  style="border-top: 1px solid #ccc; padding-top: 10px;">Experience/Income</h4>
+            <h5 class="text-center"  style="border-top: 1px solid #ccc; padding-top: 10px;">Experience/Income</h5>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                 <p><strong>Job Experience:</strong> {{ ucfirst($user->job_experience) }}</p>
                 <p><strong>Income:</strong> {{ ucfirst($user->income) }} {{ ucfirst($user->currency) }}</p>
@@ -304,7 +306,9 @@ button.btn {
     <div class="card">
         <!-- Location Information Section -->
         <div>
-            <h4 class="text-center">Location Information</h4>
+            <h4 class="text-center" style="color: #FF3846;" >Contact Details</h4>
+
+            <h5 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Location Information</h5>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                 <p><strong>Country:</strong> {{ ucfirst($user->country) }}</p>
                 <p><strong>State:</strong> {{ ucfirst($user->state) }}</p>
@@ -315,7 +319,7 @@ button.btn {
     
         <!-- Address / Contact Information Section -->
         <div>
-            <h4 class="text-center"  style="border-top: 1px solid #ccc; padding-top: 10px;">Address / Contact Information</h4>
+            <h5 class="text-center"  style="border-top: 1px solid #ccc; padding-top: 10px;">Address / Contact Information</h5>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                 <p><strong>Address:</strong> {{ ucfirst($user->address_line_1) }}, {{ ucfirst($user->address_line_2) }}</p>
                 <p><strong>Landmark:</strong> {{ ucfirst($user->landmark) }}</p>
@@ -331,7 +335,8 @@ button.btn {
     <div class="card">
         <!-- About Life Partner Profile Section -->
         <div>
-            <h4 class="text-center">About Life Partner Profile</h4>
+            <h4 class="text-center" style="color: #FF3846;" >About Life Partner Profile</h4>
+            <h5 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Age / Height Information</h5>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                 <p><strong>Partner Min Age:</strong> {{ $user->partner_min_age }}</p>
                 <p><strong>Partner Max Age:</strong> {{ $user->partner_max_age }}</p>
@@ -345,8 +350,7 @@ button.btn {
             <h4 class="text-center" style="border-top: 1px solid #ccc; padding-top: 10px;">Expected Information About Partners</h4>
             <div class="card-row" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
                 <p><strong>Partner Income:</strong> {{ ucfirst($user->partner_income) }} {{ ucfirst($user->partner_currency) }}</p>
-                <p><strong>Partner Currency:</strong> {{ ucfirst($user->partner_currency) }}</p>
-                <p><strong>Want to See Patrika:</strong> {{ ucfirst($user->want_to_see_patrika) ? 'Yes' : 'No' }}</p>
+                 <p><strong>Want to See Patrika:</strong> {{ ucfirst($user->want_to_see_patrika) ? 'Yes' : 'No' }}</p>
                 {{-- <p><strong>Partner Sub-Cast:</strong> {{ ucfirst($user->partner_sub_cast) }}</p> --}}
                 <p><strong>Partner Eating Habit:</strong> {{ ucfirst($user->partner_eating_habbit) }}</p>
                 <p><strong>Partner City Preference:</strong> {{ ucfirst($user->partner_city_preference) }}</p>
