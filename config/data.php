@@ -784,7 +784,7 @@ return [
         'Revati' => 'रेवती',
     ],
     'mangal' => [
-        'aaho' => 'आहो',
+        'aahe' => 'आहे',
         'nahi' => 'नही',
         'nirdosh' => 'निर्दोष',
         'soumya' => 'सौम्य',

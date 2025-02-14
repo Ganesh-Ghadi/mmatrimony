@@ -626,7 +626,7 @@ class UserProfilesController extends Controller
         $validated = $request->validate([
             'religion' => 'nullable|string|max:100',
             'caste' => 'nullable|integer',
-            'sub_caste' => 'required|integer',
+            'sub_caste' => 'nullable|integer',
             'gotra' => 'nullable|string|max:100',
         ]);
         $data = $validated;

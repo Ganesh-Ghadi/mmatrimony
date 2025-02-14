@@ -336,43 +336,6 @@
                     @endif
                 </div>
             </div>
-            
-            {{-- caste&subcaste --}}
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="caste">Castes</label>
-                    <select class="form-input" name="caste" id="caste">
-                        <option value="" selected>Select an option</option>
-                        @foreach($Caste as $caste)
-                        <option value="{{ $caste->id }}" 
-                            {{ request()->input('caste') == $caste->id ? 'selected' : '' }}>
-                        {{ ucfirst($caste->name) }}
-                    </option>
-                        @endforeach
-                    </select> 
-                    @if ($errors->has('caste'))
-                        <span class="text-danger small">{{ $errors->first('caste') }}</span>
-                    @endif   
-                </div>
-                
-                 {{-- <div class="form-group">
-                    <label for="Subcastes">SubCastes</label>
-                    <select class="form-input" name="Subcastes" id="Subcastes">
-                        <option value="" selected>Select an option</option>
-                        @foreach ($SubCaste as $subCaste)
-                            <option value="{{ $subCaste->id }}" 
-                                {{ request()->input('Subcastes') == $subCaste->id ? 'selected' : '' }}>
-                                {{ $subCaste->name }}
-                            </option>
-                        @endforeach
-                    </select> 
-                    @if ($errors->has('Subcastes'))
-                        <span class="text-danger small">{{ $errors->first('Subcastes') }}</span>
-                    @endif   
-                </div> --}}
-                
-            </div>
-            
         </div>
         
             <!-- Marital Status Multi-select Checkboxes -->
@@ -384,11 +347,10 @@
                 <label><input type="checkbox" name="marital_status[]" value="Separated" {{ in_array('Separated', (array) request()->input('marital_status')) ? 'checked' : '' }}> Separated</label>
                 <label><input type="checkbox" name="marital_status[]" value="Widowed" {{ in_array('Widowed', (array) request()->input('marital_status')) ? 'checked' : '' }}> Widowed</label>
                 <label><input type="checkbox" name="marital_status[]" value="Annulled" {{ in_array('Annulled', (array) request()->input('marital_status')) ? 'checked' : '' }}> Annulled</label>
-            
-             <div>
-                <button type="button" id="settingsButton" class="btn btn-primary">Advance Search</button>
             </div>
-            </div>
+            <button type="button" id="settingsButton" class="btn btn-primary">Advance Search</button>
+
+
             
 
 

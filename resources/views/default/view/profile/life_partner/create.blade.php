@@ -192,7 +192,7 @@
         <div class="row mt-3">
             <div class="col">
                 <div class="form-group">
-                    <label for="partner_income">Partner Income (INR-Anually)</label>
+                    <label for="partner_income">Partner Income in INR(Anually)</label>
                     <input type="text" name="partner_income" value="{{ $user->partner_income }}" id="partner_income" placeholder="Enter Native Place">
                     @if ($errors->has('partner_income'))
                         <span class="text-danger small">{{ $errors->first('partner_income') }}</span>

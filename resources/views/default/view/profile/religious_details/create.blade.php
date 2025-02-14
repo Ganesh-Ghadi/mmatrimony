@@ -112,7 +112,7 @@
             @csrf
         <div class="l">
             <div class="profile-completion">
-                <h2>Profile Completion</h2>
+                <h3>Profile Completion</h3>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" 
                          style="width: {{ $profileCompletion }}%;" 
@@ -163,19 +163,7 @@
             </div>
               
 
-            {{-- <div class="form-group">
-                <label>Subcastes</label>
-                <select class="form-input" name="sub_caste" id="sub_caste">
-                    <option value="" selected>select an option</option>
-                    @foreach($subCastes as $subCaste)
-                    <option value="{{$subCaste->id}}" {{ ($user->sub_caste === $subCaste->id ) ? 'selected' : ''}}>{{$subCaste->name}}</option>
-                    @endforeach
-                </select> 
-                @if ($errors->has('sub_caste'))
-                <span class="text-danger small">{{ $errors->first('sub_caste') }}</span>
-                @endif   
-                  
-           </div> --}}
+           
           
             <div class="form-group">
                 <label for="gotra">Gotra</label>
