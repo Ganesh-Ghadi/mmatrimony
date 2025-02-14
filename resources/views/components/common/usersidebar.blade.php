@@ -79,6 +79,12 @@
             margin: 0 10px; /* Margin between boxes */
         }
 
+        .list-group-item.active {
+    background-color: red !important;
+    color: white !important;
+}
+
+
     </style>
     
  <div data-bs-spy="scroll" data-bs-target="#navBar" id="weddingHome">
@@ -90,22 +96,113 @@
     </div>
         <div class="offcanvas-body">
             <ul class="list-group">
-                <li class="list-group-item"><a href="{{ route('search.create') }}">Quick Search</a></li>
-                <li class="list-group-item"><a href="{{ route('view_profile.create') }}">View Profile</a></li>
-                <li class="list-group-item"><a href="{{ route('basic_details.index') }}">Basic Details</a></li>
-                <li class="list-group-item"><a href="{{ route('religious_details.create') }}">Religious Details</a></li>
-                <li class="list-group-item"><a href="{{ route('family_details.create') }}">Family Background</a></li>
-                <li class="list-group-item"><a href="{{ route('astronomy_details.create') }}">Astronomy Details</a></li>
-                <li class="list-group-item"><a href="{{ route('educational_details.create') }}">Educational Details</a></li>
-                <li class="list-group-item"><a href="{{ route('occupation_details.create') }}">Occupational Details</a></li>
-                <li class="list-group-item"><a href="{{ route('contact_details.create') }}">Contact Details</a></li>
-                 <li class="list-group-item"><a href="{{ route('life_partner.create') }}">About Life Partner</a></li>
-                 <li class="list-group-item"><a href="{{ route('user_packages.create') }}">Package</a></li>
-                 <li class="list-group-item"><a href="{{ route('profiles.view_interested') }}">Interested</a></li>
-                 <li class="list-group-item"><a href="{{ route('profiles.view_favorite') }}">Favorites</a></li>
+                <li class="list-group-item {{ request()->routeIs('search.create') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('search.create') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('search.create') }}" 
+                       style="{{ request()->routeIs('search.create') ? 'color: white !important;' : '' }}">
+                       Quick Search
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('view_profile.create') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('view_profile.create') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('view_profile.create') }}" 
+                       style="{{ request()->routeIs('view_profile.create') ? 'color: white !important;' : '' }}">
+                       View Profile
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('basic_details.index') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('basic_details.index') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('basic_details.index') }}" 
+                       style="{{ request()->routeIs('basic_details.index') ? 'color: white !important;' : '' }}">
+                       Basic Details
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('religious_details.create') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('religious_details.create') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('religious_details.create') }}" 
+                       style="{{ request()->routeIs('religious_details.create') ? 'color: white !important;' : '' }}">
+                       Religious Details
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('family_details.create') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('family_details.create') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('family_details.create') }}" 
+                       style="{{ request()->routeIs('family_details.create') ? 'color: white !important;' : '' }}">
+                       Family Background
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('astronomy_details.create') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('astronomy_details.create') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('astronomy_details.create') }}" 
+                       style="{{ request()->routeIs('astronomy_details.create') ? 'color: white !important;' : '' }}">
+                       Astronomy Details
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('educational_details.create') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('educational_details.create') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('educational_details.create') }}" 
+                       style="{{ request()->routeIs('educational_details.create') ? 'color: white !important;' : '' }}">
+                       Educational Details
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('occupation_details.create') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('occupation_details.create') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('occupation_details.create') }}" 
+                       style="{{ request()->routeIs('occupation_details.create') ? 'color: white !important;' : '' }}">
+                       Occupational Details
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('contact_details.create') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('contact_details.create') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('contact_details.create') }}" 
+                       style="{{ request()->routeIs('contact_details.create') ? 'color: white !important;' : '' }}">
+                       Contact Details
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('life_partner.create') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('life_partner.create') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('life_partner.create') }}" 
+                       style="{{ request()->routeIs('life_partner.create') ? 'color: white !important;' : '' }}">
+                       About Life Partner
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('user_packages.create') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('user_packages.create') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('user_packages.create') }}" 
+                       style="{{ request()->routeIs('user_packages.create') ? 'color: white !important;' : '' }}">
+                       Package
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('profiles.view_interested') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('profiles.view_interested') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('profiles.view_interested') }}" 
+                       style="{{ request()->routeIs('profiles.view_interested') ? 'color: white !important;' : '' }}">
+                       Interested
+                    </a>
+                </li>
+                
+                <li class="list-group-item {{ request()->routeIs('profiles.view_favorite') ? 'active' : '' }}" 
+                    style="{{ request()->routeIs('profiles.view_favorite') ? 'background-color: red !important;' : '' }}">
+                    <a href="{{ route('profiles.view_favorite') }}" 
+                       style="{{ request()->routeIs('profiles.view_favorite') ? 'color: white !important;' : '' }}">
+                       Favorites
+                    </a>
+                </li>
+                
+                
 
-                {{-- <li class="list-group-item"><a href="#">Pay Now</a></li>  --}}
-            </ul>
+             </ul>
         </div>
     </div>
 
