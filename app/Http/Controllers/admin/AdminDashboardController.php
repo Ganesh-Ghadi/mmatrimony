@@ -25,10 +25,17 @@ class AdminDashboardController extends Controller
         $activeUsers = User::where('active', 1)->count();
         $inactiveUsers = User::where('active', 0)->count();
     
-        $allBirthdayUsers = Profile::whereMonth('date_of_birth', now()->month)->get();
+        $activeMaleUsers = Profile::whereHas('user', function ($query) {
+            $query->where('active', 1);
+        })->where('gender', 'male')->count();
     
-        $birthdayUsers = $allBirthdayUsers->take(5); // Show only 5 on dashboard
-        $hasMoreBirthdays = $allBirthdayUsers->count() > 5; // Check if more than 5 exist
+        $activeFemaleUsers = Profile::whereHas('user', function ($query) {
+            $query->where('active', 1);
+        })->where('gender', 'female')->count();
+    
+        $allBirthdayUsers = Profile::whereMonth('date_of_birth', now()->month)->get();
+        $birthdayUsers = $allBirthdayUsers->take(5);
+        $hasMoreBirthdays = $allBirthdayUsers->count() > 5;
     
         $brideCount = Profile::where('role', 'bride')->count();
         $groomCount = Profile::where('role', 'groom')->count();
@@ -39,6 +46,8 @@ class AdminDashboardController extends Controller
             'totalUsers', 
             'activeUsers', 
             'inactiveUsers', 
+            'activeMaleUsers', 
+            'activeFemaleUsers',
             'birthdayUsers', 
             'hasMoreBirthdays', 
             'brideCount', 
@@ -46,6 +55,7 @@ class AdminDashboardController extends Controller
             'expiringPackages'
         ));
     }
+    
 
     public function showExpiringPackages()
     {

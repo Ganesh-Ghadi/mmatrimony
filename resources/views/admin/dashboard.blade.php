@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <!-- Total Registered Users -->
                 <div class="bg-white shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
                     <h3 class="text-sm font-semibold text-gray-800 text-center">Registered Users</h3>
@@ -16,11 +16,18 @@
                 </div>
             
                 <!-- Active Users -->
-                <div class="bg-green-100 shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
-                    <h3 class="text-sm font-semibold text-gray-800 text-center">Active Users</h3>
+                <div class="bg-blue-100 shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
+                    <h3 class="text-sm font-semibold text-gray-800 text-center">Active Groom Users</h3>
                     <p class="text-xs text-gray-600 text-center mt-1">Currently active</p>
-                    <p class="text-2xl font-bold text-green-500 mt-2">{{ $activeUsers }}</p>
+                    <p class="text-2xl font-bold text-blue-500 mt-2">{{ $activeMaleUsers }}</p>
                 </div>
+                
+                <div class="bg-pink-100 shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
+                    <h3 class="text-sm font-semibold text-gray-800 text-center">Active Bride Users</h3>
+                    <p class="text-xs text-gray-600 text-center mt-1">Currently active</p>
+                    <p class="text-2xl font-bold text-pink-500 mt-2">{{ $activeFemaleUsers }}</p>
+                </div>
+                
             
                 <!-- Inactive Users -->
                 <div class="bg-red-100 shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
@@ -29,19 +36,7 @@
                     <p class="text-2xl font-bold text-red-500 mt-2">{{ $inactiveUsers }}</p>
                 </div>
             
-                <!-- Total Brides -->
-                <div class="bg-pink-100 shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
-                    <h3 class="text-sm font-semibold text-gray-800 text-center">Total Brides</h3>
-                    <p class="text-xs text-gray-600 text-center mt-1">Registered brides</p>
-                    <p class="text-2xl font-bold text-pink-500 mt-2">{{ $brideCount }}</p>
-                </div>
             
-                <!-- Total Grooms -->
-                <div class="bg-blue-100 shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
-                    <h3 class="text-sm font-semibold text-gray-800 text-center">Total Grooms</h3>
-                    <p class="text-xs text-gray-600 text-center mt-1">Registered grooms</p>
-                    <p class="text-2xl font-bold text-blue-500 mt-2">{{ $groomCount }}</p>
-                </div>
             </div>
 
 
@@ -55,8 +50,8 @@
                         return \Carbon\Carbon::parse($package->expires_at)->format('Y-m') === now()->format('Y-m');
                     });
             
-                    $displayedPackages = $expiringThisMonth->take(2); // Show only 5 initially
-                    $hasMore = $expiringThisMonth->count() > 2; // Check if there are more than 5
+                    $displayedPackages = $expiringThisMonth->take(3); // Show only 5 initially
+                    $hasMore = $expiringThisMonth->count() > 3; // Check if there are more than 5
                 @endphp
             
                 @if($expiringThisMonth->isEmpty())
