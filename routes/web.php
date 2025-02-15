@@ -135,8 +135,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/admin/expiring-packages', [AdminDashboardController::class, 'showExpiringPackages'])
               ->name('admin.expiring-packages');
 
-              Route::get('/admin/birthdays', [AdminDashboardController::class, 'showBirthdays'])->name('admin.birthdays');
+              Route::get('/admin/birthdays', [AdminDashboardController::class, 'showBirthdays'])
+              ->name('admin.birthdays');
 
+              
+          
         //     return view('admin.dashboard');
         // })->name('admin.dashboard');
     });
