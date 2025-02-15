@@ -70,8 +70,7 @@
                             </div>
                             @auth
                             <div class="d-flex align-items-center flex-nowrap">
-                                <span class="me-3 text-dark">Welcome, {{ Auth::user()->first_name }}!</span> 
-
+ 
                                 <form action="{{ route('logout') }}" method="POST" id="logout-form">
                                     @csrf
                                     <button type="button" class="btn btn-sm btn-primary py-1 px-3 ms-3" onclick="confirmLogout()">Logout</button>

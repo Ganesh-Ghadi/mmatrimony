@@ -114,9 +114,10 @@
                                 <a class="btn btn-primary btn-primary-outline-0 py-3 px-5 mt-4" href="/about">Know More</a>
                             </div>
                             <div class="col-lg-5 wow fadeInUp order-first order-md-last" data-wow-delay="0.3s">
-                                <img src="{{asset('assets/images/about.jpg')}}" alt="Maratha Vivah Mandal, Dombivili" class="about-image">
-
-                             </div>
+                                <img src="{{ asset('assets/images/aboutbanner.jpg') }}" 
+                                alt="Maratha Vivah Mandal, Dombivili" 
+                                style="width: 400px; height: 400px; object-fit: cover;">
+                                                        </div>
                            
                            
                         </div>
