@@ -121,19 +121,36 @@
         </style>
    <form action="{{ route('profiles.basic_details_store') }}" enctype="multipart/form-data" method="POST">
     @csrf
-        <div class="l">3
-            <div class="profile-completion">
-                <h2>Profile Completion</h2>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" 
-                         style="width: {{ $profileCompletion }}%;" 
-                         aria-valuenow="{{ $profileCompletion }}" 
-                         aria-valuemin="0" 
-                         aria-valuemax="100">
-                        {{ $profileCompletion }}%
-                    </div>
-                </div>
-            </div>
+        <div class="l">
+
+
+
+            <div class="card border-0 rounded-4 mt-4 me-4 overflow-hidden" 
+            style="border-radius: 10px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);">
+           <div class="card-header text-white text-center py-3" 
+                style="background-color: #FF0000; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+               <h5 class="mb-0 text-white fw-bold">Welcome, {{ $user->first_name }}{{ $user->middle_name }}{{ $user->last_name }}</h5>
+           </div>
+       
+           <div class="card-body text-center p-4">
+               <h3 class="fw-bold text-secondary">Profile Completion</h3>
+               <div class="progress mt-3 rounded-pill" style="height: 10px;">
+                   <div class="progress-bar bg-success rounded-pill" role="progressbar"
+                       style="width: {{ $profileCompletion }}%;" 
+                       aria-valuenow="{{ $profileCompletion }}" 
+                       aria-valuemin="0" 
+                       aria-valuemax="100">
+                   </div>
+               </div>
+               <p class="mt-2 text-muted fw-semibold">{{ $profileCompletion }}% Completed</p>
+           </div>
+       </div>
+       
+            
+            
+            
+            
+            
             <h3 class="text-center" style="color: #FF3846;  margin: 20px;">Basic Details</h3>
 
             
