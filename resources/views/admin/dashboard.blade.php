@@ -7,70 +7,45 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <!-- Total Registered Users -->
-                <div class="bg-white shadow-lg rounded-lg p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Registered Users</h3>
-                    <p class="text-lg text-gray-600 mt-2">Total users on the platform.</p>
-                    <p class="text-4xl font-bold text-blue-500 mt-4">{{ $totalUsers }}</p>
+                <div class="bg-white shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
+                    <h3 class="text-sm font-semibold text-gray-800 text-center">Registered Users</h3>
+                    <p class="text-xs text-gray-600 text-center mt-1">Total users</p>
+                    <p class="text-2xl font-bold text-blue-500 mt-2">{{ $totalUsers }}</p>
                 </div>
-
+            
                 <!-- Active Users -->
-                <div class="bg-green-100 shadow-lg rounded-lg p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Active Users</h3>
-                    <p class="text-lg text-gray-600 mt-2">Users currently active.</p>
-                    <p class="text-4xl font-bold text-green-500 mt-4">{{ $activeUsers }}</p>
+                <div class="bg-green-100 shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
+                    <h3 class="text-sm font-semibold text-gray-800 text-center">Active Users</h3>
+                    <p class="text-xs text-gray-600 text-center mt-1">Currently active</p>
+                    <p class="text-2xl font-bold text-green-500 mt-2">{{ $activeUsers }}</p>
                 </div>
-
+            
                 <!-- Inactive Users -->
-                <div class="bg-red-100 shadow-lg rounded-lg p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Inactive Users</h3>
-                    <p class="text-lg text-gray-600 mt-2">Users not active.</p>
-                    <p class="text-4xl font-bold text-red-500 mt-4">{{ $inactiveUsers }}</p>
-                </div>
-
-                <div class="bg-pink-100 shadow-lg rounded-lg p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Total Brides</h3>
-                    <p class="text-lg text-gray-600 mt-2">Number of registered brides.</p>
-                    <p class="text-4xl font-bold text-pink-500 mt-4">{{ $brideCount }}</p>
+                <div class="bg-red-100 shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
+                    <h3 class="text-sm font-semibold text-gray-800 text-center">Inactive Users</h3>
+                    <p class="text-xs text-gray-600 text-center mt-1">Not active</p>
+                    <p class="text-2xl font-bold text-red-500 mt-2">{{ $inactiveUsers }}</p>
                 </div>
             
-                <!-- Groom Count -->
-                <div class="bg-blue-100 shadow-lg rounded-lg p-6">
-                    <h3 class="text-2xl font-semibold text-gray-800">Total Grooms</h3>
-                    <p class="text-lg text-gray-600 mt-2">Number of registered grooms.</p>
-                    <p class="text-4xl font-bold text-blue-500 mt-4">{{ $groomCount }}</p>
+                <!-- Total Brides -->
+                <div class="bg-pink-100 shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
+                    <h3 class="text-sm font-semibold text-gray-800 text-center">Total Brides</h3>
+                    <p class="text-xs text-gray-600 text-center mt-1">Registered brides</p>
+                    <p class="text-2xl font-bold text-pink-500 mt-2">{{ $brideCount }}</p>
+                </div>
+            
+                <!-- Total Grooms -->
+                <div class="bg-blue-100 shadow-lg rounded-lg p-4 w-32 h-32 flex flex-col justify-center items-center">
+                    <h3 class="text-sm font-semibold text-gray-800 text-center">Total Grooms</h3>
+                    <p class="text-xs text-gray-600 text-center mt-1">Registered grooms</p>
+                    <p class="text-2xl font-bold text-blue-500 mt-2">{{ $groomCount }}</p>
                 </div>
             </div>
 
-            <!-- Birthday Users -->
-            <div class="mt-8 bg-white shadow-lg rounded-lg p-6">
-                <h3 class="text-2xl font-semibold text-gray-800">🎂 Members with Birthdays This Month</h3>
-                <p class="text-lg text-gray-600 mt-2">Celebrate with these members!</p>
-            
-                @if($birthdayUsers->isEmpty())
-                    <p class="text-gray-500 mt-4">No birthdays this month.</p>
-                @else
-                    <ul class="mt-4 space-y-2">
-                        @foreach($birthdayUsers as $user)
-                            <li class="flex justify-between bg-gray-100 p-3 rounded-lg">
-                                <span class="font-semibold text-gray-800">{{ $user->first_name }}</span>
-                                <span class="text-gray-600">{{ \Carbon\Carbon::parse($user->date_of_birth)->format('M d') }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-            
-                    @if(@$hasMoreBirthdays)
-                        <div class="mt-4 text-right">
-                            <a href="{{ route('admin.birthdays') }}" 
-                               class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-                                Show More →
-                            </a>
-                        </div>
-                    @endif
-                @endif
-            </div>
-            
+
+
             <div class="mt-8 bg-yellow-100 shadow-lg rounded-lg p-6">
                 <h3 class="text-2xl font-semibold text-gray-800">⚠️ Packages Expiring This Month</h3>
                 <p class="text-lg text-gray-600 mt-2">List of users whose packages will expire this month.</p>
@@ -80,8 +55,8 @@
                         return \Carbon\Carbon::parse($package->expires_at)->format('Y-m') === now()->format('Y-m');
                     });
             
-                    $displayedPackages = $expiringThisMonth->take(5); // Show only 5 initially
-                    $hasMore = $expiringThisMonth->count() > 5; // Check if there are more than 5
+                    $displayedPackages = $expiringThisMonth->take(2); // Show only 5 initially
+                    $hasMore = $expiringThisMonth->count() > 2; // Check if there are more than 5
                 @endphp
             
                 @if($expiringThisMonth->isEmpty())
@@ -98,15 +73,21 @@
                             </thead>
                             <tbody>
                                 @foreach($displayedPackages as $package)
-                                    @php $user = $package->profile->user ?? null; @endphp
-                                    <tr class="bg-white">
-                                        <td class="border border-gray-300 px-4 py-2">{{ $user->first_name ?? 'N/A' }}</td>
-                                        <td class="border border-gray-300 px-4 py-2">{{ $user->email ?? 'N/A' }}</td>
-                                        <td class="border border-gray-300 px-4 py-2">
-                                            {{ \Carbon\Carbon::parse($package->expires_at)->format('M d, Y') }}
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                @php $user = $package->profile->user ?? null; @endphp
+                                <tr class="bg-white">
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        {{-- {{ $user ? $user->first_name ' ' . $user->last_name : 'N/A' }} --}}
+                                        {{ $user->name }}
+                                    </td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        {{ $user->email ?? 'N/A' }}
+                                    </td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        {{ \Carbon\Carbon::parse($package->expires_at)->format('M d, Y') }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            
                             </tbody>
                         </table>
                     </div>
@@ -121,6 +102,43 @@
                     @endif
                 @endif
             </div>
+            
+            
+
+           <!-- Birthday Users -->
+<div class="mt-8 bg-white shadow-lg rounded-lg p-6">
+    <h3 class="text-2xl font-semibold text-gray-800">🎂 Members with Birthdays This Month</h3>
+    <p class="text-lg text-gray-600 mt-2">Celebrate with these members!</p>
+
+    @if($birthdayUsers->isEmpty())
+        <p class="text-gray-500 mt-4">No birthdays this month.</p>
+    @else
+        <ul class="mt-4 space-y-4"> <!-- Added space-y-4 for spacing -->
+            @foreach($birthdayUsers as $user)
+                <li class="flex justify-between bg-gray-100 p-3 rounded-lg mb-2"> <!-- Added mb-2 for margin -->
+                    <span class="font-semibold text-gray-800">
+                        {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}
+                    </span>
+                    <span class="text-gray-600">
+                        {{ \Carbon\Carbon::parse($user->date_of_birth)->format('M d') }}
+                    </span>
+                </li>
+            @endforeach
+        </ul>
+
+        @if(@$hasMoreBirthdays)
+            <div class="mt-4 text-right">
+                <a href="{{ route('admin.birthdays') }}" 
+                   class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                    Show More →
+                </a>
+            </div>
+        @endif
+    @endif
+</div>
+
+            
+          
             
             
 

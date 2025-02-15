@@ -9,6 +9,13 @@ class ProfilePackage extends Model
 {
     use HasFactory;
 
+
+    public function profile()
+{
+    return $this->belongsTo(Profile::class);
+}
+
+
     // protected $table = 'profile_packages';
     // protected $primaryKey = 'id';
 

@@ -52,11 +52,36 @@ class AdminDashboardController extends Controller
         $expiringPackages = ProfilePackage::whereMonth('expires_at', now()->month)->get();
     
         return view('admin.expiring-packages', compact('expiringPackages'));
+
+        $expiringPackages = ProfilePackage::with('profile.user')
+    ->whereBetween('expires_at', [now(), now()->addDays(7)])
+    ->get();
+
     }
 
-    public function showBirthdays()
+
+
+public function showBirthdays(Request $request)
 {
-    $birthdayUsers = Profile::whereMonth('date_of_birth', now()->month)->get();
+    $query = Profile::whereMonth('date_of_birth', now()->month);
+
+    // Apply search filter if provided
+    if ($request->has('search') && !empty($request->search)) {
+        $search = $request->input('search');
+        $query->where(function ($q) use ($search) {
+            $q->where('first_name', 'LIKE', "%{$search}%")
+              ->orWhere('middle_name', 'LIKE', "%{$search}%")
+              ->orWhere('last_name', 'LIKE', "%{$search}%");
+        });
+    }
+
+    // Order by day of the month
+    $birthdayUsers = $query->orderByRaw('DAY(date_of_birth) ASC')->get();
+
     return view('admin.birthdays', compact('birthdayUsers'));
 }
+
+
+
+
 }

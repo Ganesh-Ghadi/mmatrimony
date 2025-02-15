@@ -19,20 +19,30 @@
                             <tr class="bg-gray-200">
                                 <th class="border border-gray-300 px-4 py-2 text-left">User Name</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">Mobile Number</th>
                                 <th class="border border-gray-300 px-4 py-2 text-left">Package Expiry Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($expiringPackages as $package)
                                 <tr class="bg-white">
-                                    <td class="border border-gray-300 px-4 py-2">{{ $user->first_name ?? 'N/A' }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $user->email ?? 'N/A' }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        {{ $package->profile->user->first_name ?? 'N/A' }}
+                                    </td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        {{ $package->profile->user->email ?? 'N/A' }}
+                                    </td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        {{ $package->profile->mobile ?? 'N/A' }}
+                                    </td>
                                     <td class="border border-gray-300 px-4 py-2">
                                         {{ \Carbon\Carbon::parse($package->expires_at)->format('M d, Y') }}
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
+                        
+                        
                     </table>
                 </div>
             @endif
