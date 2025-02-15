@@ -58,13 +58,17 @@ class UsersController extends Controller
             'role' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'active' => 'required|boolean',
+
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'active' =>true,
+            // 'active' =>true,
+            'active' => $request->active,
+
         ]);  
         $user->syncRoles($request->get('role'));
         $request->session()->flash('success', 'User saved successfully!');
@@ -86,6 +90,7 @@ class UsersController extends Controller
     {
         
         $user->update($request->all());
+        
         $profile = Profile::find($user->id);
         $profile->email = $request->input("email");
         $profile->first_name = $request->input('name');

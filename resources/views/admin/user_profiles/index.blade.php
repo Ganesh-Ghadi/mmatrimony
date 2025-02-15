@@ -34,6 +34,8 @@
                                 <th>Gender</th>
                                 <th>Marital Status</th>
                                 <th>Email</th>
+                                <th>Status</th>
+
 
                                 <th style="text-align:right;">Action</th>
                             </tr>
@@ -47,7 +49,14 @@
                                 <td > {{$profile->gender }}</td>
                                 <td > {{ucfirst($profile->marital_status) }}</td>
                                 <td > {{$profile->email}}</td>
-                                <td class="float-right">
+                                <td>
+                                    @if(optional($profile->user)->active)
+                                        <span class="text-green-600 font-bold">Active</span>
+                                    @else
+                                        <span class="text-red-600 font-bold">Inactive</span>
+                                    @endif
+                                </td>
+                                                                <td class="float-right">
                                     <ul class="flex items-center gap-2" >
                                         <li style="display: inline-block;vertical-align:top;">
                                             <x-edit-button :link=" route('user_profiles.edit', $profile->id)" />                               

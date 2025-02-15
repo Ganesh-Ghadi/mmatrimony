@@ -80,6 +80,7 @@ class ImportUserProfiles implements ToModel,WithHeadingRow,WithValidation, WithB
             'highest_education' => 'nullable|string|max:100',
             'education_in_detail' => 'nullable|string',
             'additional_degree' => 'nullable|string|max:100',
+            'other_education' => 'nullable|string|max:100',
             'occupation' => 'nullable|string|max:100',
             'organization' => 'nullable|string|max:100',
             'designation' => 'nullable|string|max:100',
