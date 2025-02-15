@@ -46,7 +46,7 @@
 function showAlert(event) {
     event.preventDefault(); // Prevent the default download action
 
-    let message = "Please ensure the following fields are mandatory:\n\n";
+    let message = "Please ensure the following fields are mandatory:\n (खालील फील्ड्स आवश्यक आहेत)\n";
     message += "- First Name\n";
     message += "- Middle Name\n";
     message += "- Last Name\n";
