@@ -28,19 +28,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {   
-    // old code start 
-        // $request->authenticate($request);
-
-        // $request->session()->regenerate();
-
-        // if (auth()->user()->roles->pluck('name')->first() === 'member') {
-        //     // dd('working');
-        //     // return redirect()->route('basic_details.index');
-        //     return redirect()->route('basic_details.index');
-        // }
-        // return redirect()->intended(RouteServiceProvider::HOME);
-        //  old code end
-
+  
         // Retrieve the input fields
         $credentials = $request->only('email', 'password');
 
@@ -57,6 +45,9 @@ class AuthenticatedSessionController extends Controller
         if ($user && Auth::attempt(['email' => $user->email, 'password' => $credentials['password']]) || 
             ($user && Auth::attempt(['mobile' => $user->mobile, 'password' => $credentials['password']]))) {
 
+            // dd(auth()->user()->roles);
+            // dd($request->post());
+    
             // Regenerate session to prevent session fixation
             $request->session()->regenerate();
 

@@ -15,6 +15,7 @@
                 <div>
                     <label for="password">Password</label>
                     <input id="password" name="password" type="password" class="form-input" placeholder="Enter Password" required autocomplete="current-password" />
+                    <input id="is_admin" name="is_admin" type="hidden" value="true" />
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
                 <div>
