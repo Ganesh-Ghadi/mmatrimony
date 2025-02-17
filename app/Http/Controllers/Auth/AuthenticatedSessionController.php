@@ -27,11 +27,10 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-    {   
-  
+    {
         // Retrieve the input fields
         $credentials = $request->only('email', 'password');
-
+    
         // Check if the input is an email or mobile number
         if (filter_var($credentials['email'], FILTER_VALIDATE_EMAIL)) {
             // It's an email, so authenticate with email
@@ -40,30 +39,49 @@ class AuthenticatedSessionController extends Controller
             // Otherwise, assume it's a mobile number and authenticate with mobile number
             $user = User::where('mobile', $credentials['email'])->first();
         }
-
+    
         // Check if the user exists and the password matches
-        if ($user && Auth::attempt(['email' => $user->email, 'password' => $credentials['password']]) || 
-            ($user && Auth::attempt(['mobile' => $user->mobile, 'password' => $credentials['password']]))) {
-
-            // dd(auth()->user()->roles);
-            // dd($request->post());
+        if ($user && (
+                Auth::attempt(['email' => $user->email, 'password' => $credentials['password']]) ||
+                Auth::attempt(['mobile' => $user->mobile, 'password' => $credentials['password']])
+            )) {
     
             // Regenerate session to prevent session fixation
             $request->session()->regenerate();
-
-            // Redirect user based on role or other conditions
-            if (auth()->user()->roles->pluck('name')->first() === 'member') {
-                return redirect()->route('basic_details.index');
+    
+            // Check if the login request is for admin login
+            $isAdminRequest = $request->input('is_admin'); // expected to be "true" or null
+    
+            if ($isAdminRequest == "true" || $isAdminRequest === true) {
+                // Admin login path: ensure the user has admin privileges
+                if (auth()->user()->roles->pluck('name')->first() === 'admin') {
+                    return redirect()->intended('/admin');
+                } else {
+                    Auth::logout();
+                    throw ValidationException::withMessages([
+                        'email' => ['You do not have admin privileges to log in as admin.'],
+                    ]);
+                }
+            } else {
+                // Regular login path: allow only members to log in
+                if (auth()->user()->roles->pluck('name')->first() === 'member') {
+                    return redirect()->route('basic_details.index');
+                } else {
+                    // If an admin user tries to log in via the regular login page, disallow login
+                    Auth::logout();
+                    throw ValidationException::withMessages([
+                        'email' => ['Invalid Email.'],
+                     ]);
+                }
             }
-
-            return redirect()->intended(RouteServiceProvider::HOME);
         }
-
-        // If authentication fails, redirect back with an error message
+    
+        // If authentication fails, throw an error
         throw ValidationException::withMessages([
             'password' => ['The provided credentials are incorrect.'],
         ]);
     }
+    
 
     /**
      * Destroy an authenticated session.
