@@ -29,11 +29,12 @@ class ProfilesController extends Controller
     if ($request->has('search')) {
         $search = $request->input('search');
         $query->where(function ($q) use ($search) {
-            $q->where('first_name', 'like', "%{$search}%")
+            $q->whereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", ["%{$search}%"])
+                ->orWhere('first_name', 'like', "%{$search}%")
               ->orWhere('middle_name', 'like', "%{$search}%")
-              ->orWhere('last_name', 'like', "%{$search}%")
+               ->orWhere('last_name', 'like', "%{$search}%")
               ->orWhere('email', 'like', "%{$search}%")
-              ->orWhere('mobile', 'like', "%{$search}%");
+               ->orWhere('mobile', 'like', "%{$search}%");
          });
     }
 

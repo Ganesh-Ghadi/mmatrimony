@@ -40,6 +40,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Mobile</th>
                                 <th>Role</th>
                                  <th>Status</th>
                                 <th>Action</th>
@@ -50,6 +51,7 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>{{ $user->mobile }}</td>
                                 <td>
                                     @foreach($user->roles as $role)                   
                                     <span class="badge whitespace-nowrap badge bg-info">{{ $role->name }}</span>

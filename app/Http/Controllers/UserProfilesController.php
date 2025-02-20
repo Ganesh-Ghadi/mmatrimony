@@ -141,7 +141,7 @@ class UserProfilesController extends Controller
             $users->where(function ($queryBuilder) use ($query) {
                 $queryBuilder
                     ->where('first_name', 'like', '%' . $query . '%')
-                    ->orWhere('last_name', 'like', '%' . $query . '%');
+                     ->orWhere('last_name', 'like', '%' . $query . '%');
             });
         }
 

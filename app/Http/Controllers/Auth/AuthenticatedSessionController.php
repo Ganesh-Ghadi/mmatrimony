@@ -31,26 +31,15 @@ class AuthenticatedSessionController extends Controller
         // Retrieve the input fields
         $credentials = $request->only('email', 'password');
     
-        // Check if the input is an email or mobile number
-        if (filter_var($credentials['email'], FILTER_VALIDATE_EMAIL)) {
-            // It's an email, so authenticate with email
-            $user = User::where('email', $credentials['email'])->first();
-        } else {
-            // Otherwise, assume it's a mobile number and authenticate with mobile number
-            $user = User::where('mobile', $credentials['email'])->first();
-        }
+        // Determine the login field (email or mobile) based on the input
+        $loginField = filter_var($credentials['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
     
-        // Check if the user exists and the password matches
-        if ($user && (
-                Auth::attempt(['email' => $user->email, 'password' => $credentials['password']]) ||
-                Auth::attempt(['mobile' => $user->mobile, 'password' => $credentials['password']])
-            )) {
-    
-            // Regenerate session to prevent session fixation
+        // Attempt authentication using the determined field
+        if (Auth::attempt([$loginField => $credentials['email'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
     
             // Check if the login request is for admin login
-            $isAdminRequest = $request->input('is_admin'); // expected to be "true" or null
+            $isAdminRequest = $request->input('is_admin');
     
             if ($isAdminRequest == "true" || $isAdminRequest === true) {
                 // Admin login path: ensure the user has admin privileges
@@ -67,11 +56,10 @@ class AuthenticatedSessionController extends Controller
                 if (auth()->user()->roles->pluck('name')->first() === 'member') {
                     return redirect()->route('basic_details.index');
                 } else {
-                    // If an admin user tries to log in via the regular login page, disallow login
                     Auth::logout();
                     throw ValidationException::withMessages([
                         'email' => ['Invalid Email.'],
-                     ]);
+                    ]);
                 }
             }
         }
@@ -81,6 +69,9 @@ class AuthenticatedSessionController extends Controller
             'password' => ['The provided credentials are incorrect.'],
         ]);
     }
+    
+    
+       
     
 
     /**

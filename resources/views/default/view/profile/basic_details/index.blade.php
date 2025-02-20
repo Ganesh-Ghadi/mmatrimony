@@ -129,7 +129,7 @@
             style="border-radius: 10px; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);">
            <div class="card-header text-white text-center py-3" 
                 style="background-color: #FF0000; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-               <h5 class="mb-0 text-white fw-bold">Welcome, {{ $user->first_name }}{{ $user->middle_name }}{{ $user->last_name }}</h5>
+               <h5 class="mb-0 text-white fw-bold">Welcome, {{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</h5>
            </div>
        
            <div class="card-body text-center p-4">

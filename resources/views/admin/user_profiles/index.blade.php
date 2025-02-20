@@ -28,8 +28,7 @@
                     <table class="table-hover">
                         <thead>
                             <tr>
-                                {{-- <th>id</th> --}}
-                                <th>Full Name</th>
+                                 <th>Full Name</th>
                                 <th>Mobile</th>
                                 <th>Gender</th>
                                 <th>Marital Status</th>
