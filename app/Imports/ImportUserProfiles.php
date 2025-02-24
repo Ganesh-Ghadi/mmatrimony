@@ -25,6 +25,7 @@ return [
 'first_name' => 'required|string|max:100',
 'middle_name' => 'nullable|string|max:100',
 'last_name' => 'nullable|string|max:100',
+'role' => 'required|string|max:100',
 // If email is not provided, mobile is required (and vice versa)
 'mobile'      => [
     'required_without:email',
@@ -51,6 +52,7 @@ public function customValidationMessages(): array
 {
 return [
 '*.first_name.required' => 'First Name is mandatory for every record.',
+'*.role.required' => 'Role is mandatory for every record.',
 '*.mobile.required_without' => 'Either Mobile or Email is required. If Email is not provided, Mobile is mandatory.',
 '*.email.required_without' => 'Either Email or Mobile is required. If Mobile is not provided, Email is mandatory.',
 '*.email.email' => 'Please provide a valid email address.',
@@ -93,6 +95,7 @@ $profileData = [
 'first_name' => $row['first_name'],
 'middle_name' => $row['middle_name'],
 'last_name' => $row['last_name'],
+'role' => $row['role'],
 'email' => $row['email'],
 'mobile' => $mobile,
 ];
