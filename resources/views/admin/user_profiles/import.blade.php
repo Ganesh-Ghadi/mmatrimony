@@ -50,6 +50,7 @@ function showAlert(event) {
     message += "- First Name\n";
     message += "- Middle Name\n";
     message += "- Last Name\n";
+    message += "- Role\n";
     message += "- Mobile\n";
     message += "- Email\n";
     message += "- Password\n";
