@@ -25,8 +25,9 @@ class ImportUserProfiles implements ToModel, WithHeadingRow, WithValidation, Wit
             'first_name'  => 'required|string|max:100',
             'middle_name' => 'nullable|string|max:100',
             'last_name'   => 'nullable|string|max:100',
-            'mobile'      => 'required|max:20',
-            'email'       => 'required|email|max:100|unique:users,email',
+            // If email is not provided, mobile is required (and vice versa)
+            'mobile'      => 'required_without:email|nullable|max:20',
+            'email'       => 'required_without:mobile|nullable|email|max:100|unique:users,email',
             'password'    => 'required|string|min:6',
         ];
     }
@@ -37,12 +38,12 @@ class ImportUserProfiles implements ToModel, WithHeadingRow, WithValidation, Wit
     public function customValidationMessages(): array
     {
         return [
-            '*.first_name.required'  => 'First Name is mandatory for every record.',
-             '*.mobile.required'      => 'Mobile number is mandatory for every record.',
-            '*.mobile.unique'         => 'Duplicate data found: This mobile number is already in use.',
-            '*.email.required'       => 'Email is mandatory for every record.',
-            '*.email.unique'         => 'Duplicate data found: This email address is already in use.',
-            '*.password.required'    => 'Password is mandatory for every record.',
+            '*.first_name.required'           => 'First Name is mandatory for every record.',
+            '*.mobile.required_without'       => 'Either Mobile or Email is required. If Email is not provided, Mobile is mandatory.',
+            '*.email.required_without'        => 'Either Email or Mobile is required. If Mobile is not provided, Email is mandatory.',
+            '*.email.email'                   => 'Please provide a valid email address.',
+            '*.email.unique'                  => 'Duplicate data found: This email address is already in use.',
+            '*.password.required'             => 'Password is mandatory for every record.',
         ];
     }
     
