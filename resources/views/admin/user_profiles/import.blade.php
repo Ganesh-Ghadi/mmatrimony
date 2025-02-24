@@ -50,11 +50,10 @@ function showAlert(event) {
     message += "- First Name\n";
     message += "- Middle Name\n";
     message += "- Last Name\n";
+    message += "- Mobile\n";
+    message += "- Email\n";
     message += "- Password\n";
-    message += "- Physical Abnormality (True/False)\n";
-    message += "- Spectacles (True/False)\n";
-    message += "- Lens (True/False)\n\n";
-    message += "Click OK to proceed with the download.";
+     message += "Click OK to proceed with the download.";
 
     if (confirm(message)) {
         window.location.href = event.target.href; // Proceed with the download

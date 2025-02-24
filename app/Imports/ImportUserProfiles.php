@@ -17,16 +17,32 @@ class ImportUserProfiles implements ToModel, WithHeadingRow, WithValidation, Wit
 {
     /**
      * Define the fields that you want to import.
+     * All fields are mandatory.
      */
     public function rules(): array
     {
         return [
             'first_name'  => 'required|string|max:100',
             'middle_name' => 'nullable|string|max:100',
-            'last_name'   => 'required|string|max:100',
-            'mobile'      => 'nullable|max:20',
+            'last_name'   => 'nullable|string|max:100',
+            'mobile'      => 'required|max:20',
             'email'       => 'required|email|max:100|unique:users,email',
             'password'    => 'required|string|min:6',
+        ];
+    }
+    
+    /**
+     * Set custom validation error messages, including for duplicate data.
+     */
+    public function customValidationMessages(): array
+    {
+        return [
+            '*.first_name.required'  => 'First Name is mandatory for every record.',
+             '*.mobile.required'      => 'Mobile number is mandatory for every record.',
+            '*.mobile.unique'         => 'Duplicate data found: This mobile number is already in use.',
+            '*.email.required'       => 'Email is mandatory for every record.',
+            '*.email.unique'         => 'Duplicate data found: This email address is already in use.',
+            '*.password.required'    => 'Password is mandatory for every record.',
         ];
     }
     
@@ -39,17 +55,17 @@ class ImportUserProfiles implements ToModel, WithHeadingRow, WithValidation, Wit
      */
     public function model(array $row)
     {
-        // Explicitly cast mobile to a string if present
-        $mobile = isset($row['mobile']) ? (string) $row['mobile'] : null;
+        // Explicitly cast mobile to a string
+        $mobile = (string) $row['mobile'];
         
         // Combine first_name, middle_name, and last_name to form the full name.
-        $fullName = trim($row['first_name'] . ' ' . ($row['middle_name'] ?? '') . ' ' . $row['last_name']);
+        $fullName = trim($row['first_name'] . ' ' . $row['middle_name'] . ' ' . $row['last_name']);
         
         // Create the user with active status set to 1.
         $user = new User([
             'name'        => $fullName,
             'first_name'  => $row['first_name'],
-            'middle_name' => $row['middle_name'] ?? null,
+            'middle_name' => $row['middle_name'],
             'last_name'   => $row['last_name'],
             'mobile'      => $mobile,
             'email'       => $row['email'],
@@ -63,7 +79,7 @@ class ImportUserProfiles implements ToModel, WithHeadingRow, WithValidation, Wit
         $profileData = [
             'user_id'     => $user->id,
             'first_name'  => $row['first_name'],
-            'middle_name' => $row['middle_name'] ?? null,
+            'middle_name' => $row['middle_name'],
             'last_name'   => $row['last_name'],
             'email'       => $row['email'],
             'mobile'      => $mobile,
@@ -90,7 +106,7 @@ class ImportUserProfiles implements ToModel, WithHeadingRow, WithValidation, Wit
             ]);
             
             // Update the profile's available_tokens by adding the tokens_received.
-            $profile->available_tokens = (($profile->available_tokens) ? $profile->available_tokens : 0) + $tokens_received;
+            $profile->available_tokens = ($profile->available_tokens ?? 0) + $tokens_received;
             $profile->save();
         }
         
